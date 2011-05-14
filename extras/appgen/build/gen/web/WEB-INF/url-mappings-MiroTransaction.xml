@@ -1,0 +1,5 @@
+<!--MiroTransaction-URL-START-->
+                <prop key="/miroTransactions.html">miroTransactionController</prop>
+                <prop key="/editMiroTransaction.html">miroTransactionFormController</prop>
+                <!--MiroTransaction-URL-END-->
+                <!-- Add additional URL mappings here -->

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MenuConfig>
+    <Displayers>
+        <Displayer name="Velocity" type="net.sf.navigator.displayer.VelocityMenuDisplayer"/>
+    </Displayers>
+    <Menus>
+    
+    
+        <Menu name="responses" title="menu.responses" page="/responses.html" roles="user,client,admin"/>
+        <Menu name="surveyAdmin" title="menu.surveyAdmin" page="/surveyAdmin.html" roles="admin"/>   
+        <Menu name="admin" title="menu.admin" page="/admin.html" roles="admin"/>
+         <Menu name="help" title="menu.help" page="/webPages.html?name=help" roles="user,admin"/>
+         <Menu name="myaccount" title="menu.myaccount" page="/myaccount.html" roles="user,admin"/>
+      
+      <Menu name="miroteampie" title="miroTeamPie.heading" page="/miroTeamPie.html" roles="user,admin"/>
+       <Menu name="miroteammap" title="miroTeamMap.heading" page="/miroTeamMap.html" roles="user,admin"/>
+      
+     
+      
+      
+      
+      <Menu name="checkout" title="menu.checkout" page="/checkout.html" roles="user,admin"/>
+     
+        <Menu name="myprofile" title="menu.myprofile" page="/editProfile.html" roles="user,admin"/>
+      
+        <Menu name="about" title="menu.about" page="/about.html" roles="user,admin"/>
+       
+       
+       	
+        <Menu name="New Survey" title="menu.surveyAdmin.newSuyrvey" page="/editNewSurvey.html" roles="admin"/>
+        <Menu name="All Surveys" title="menu.surveyAdmin.allSurveys" page="/surveyAdmin.html" roles="admin"/>
+        <Menu name="Import Survey" title="menu.surveyAdmin.uploadSurveys" page="/surveyUpload.html" roles="admin"/>
+        <Menu name="LookupDefs" title="lookupDefList.title" page="/lookupDefs.html"  roles="admin"/>
+        <Menu name="NewLookupDef" title="lookupDef.add" page="/editLookupDef.html"  roles="admin"/>
+              <Menu name="MobrizAlertMenu" title="mobrizAlertList.title" page="/mobrizAlerts.html"/>
+  
+        
+        
+        
+        <Menu name="All Responses" title="menu.responses.allResponses" page="/responses.html" roles="admin"/>
+        <Menu name="My Responses" title="menu.responses.myResponses" page="/myResponses.html" roles="user,admin"/>
+         <Menu name="MiroProjects" title="menu.miroprojects.myMiroProjects" page="/miroProjects.html" roles="user,admin"/>
+            <Menu name="AddCredits" title="menu.credits.addCredits" page="/addCredits.html" roles="user,admin"/>
+    
+    
+                   
+                   
+                
+           <Menu name="ViewUsers" title="menu.admin.users" page="/users.html" roles="admin"/>
+            <Menu name="SettingMenu" title="settingList.title" page="/settings.html" roles="admin"/>
+            <Menu name="ActiveUsers" title="mainMenu.activeUsers" page="/activeUsers.html" roles="admin"/>
+            <Menu name="ReloadContext" title="menu.admin.reload" page="/reload.html" roles="admin"/>
+            <Menu name="FlushCache" title="menu.flushCache" page="/flushCache.html" roles="admin"/>
+            <Menu name="Clickstream" title="menu.clickstream" page="/clickstreams.jsp" roles="admin"/>
+		    <Menu name="WebPageMenu" title="webPageList.title" page="/webPages.html" roles="admin"/>
+        
+            
+        <!--LookupDefItem-START-->
+        <Menu name="LookupDefItemMenu" title="lookupDefItemList.title" page="/lookupDefItems.html"/>
+        <!--LookupDefItem-END-->
+    </Menus>
+
+
+    
+
+
+
+</MenuConfig>

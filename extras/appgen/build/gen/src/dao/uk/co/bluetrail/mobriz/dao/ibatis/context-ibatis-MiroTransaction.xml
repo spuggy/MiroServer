@@ -1,0 +1,7 @@
+    <!--MiroTransaction-START-->
+    <bean id="miroTransactionDao" class="uk.co.bluetrail.mobriz.dao.ibatis.MiroTransactionDaoiBatis">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="sqlMapClient" ref="sqlMapClient"/>
+    </bean>
+    <!--MiroTransaction-END-->
+</beans>

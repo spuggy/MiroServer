@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping
+
+>
+
+ 	 
+
+
+    <class
+            name="uk.co.bluetrail.mobriz.model.MobrizAlert"
+            table="mr.mobrizalerts"
+    >
+
+    <id
+        name="id"
+            column="id"
+            unsaved-value="null"
+    >
+
+    <!-- The generator-class attribute of @hibernate.id is deprecated, use the @hibernate.generator tag instead -->
+    <generator class="increment">
+
+    </generator>
+
+    </id>
+
+        <property
+            name="emailAdress"
+                    column="emailAdress"
+        >
+
+        </property>
+
+        <property
+            name="checkPoint"
+                    column="checkPoint"
+        >
+
+        </property>
+
+        <property
+            name="createdBy_id"
+                    column="createdBy_id"
+        >
+
+        </property>
+
+        <property
+            name="created_on"
+                    column="created_on"
+        >
+
+        </property>
+
+        <property
+            name="lastUpdatedBy_id"
+                    column="lastUpdatedBy_id"
+        >
+
+        </property>
+
+        <property
+            name="updated_at"
+                    column="updated_at"
+        >
+
+        </property>
+
+        <property
+            name="version"
+                    column="version"
+        >
+
+        </property>
+
+        <property
+            name="deleted"
+                    column="deleted"
+        >
+
+        </property>
+
+        <property
+            name="account_id"
+                    column="account_id"
+        >
+
+        </property>
+
+        <property
+            name="alertRules"
+                    column="alertRules"
+        >
+
+        </property>
+
+        <property
+            name="alertTitle"
+                    column="alertTitle"
+                length="100"
+                not-null="true"
+        >
+
+        </property>
+
+        <property
+            name="enabled"
+                    column="enabled"
+        >
+
+        </property>
+
+        <property
+            name="executionOrder"
+                    column="executionOrder"
+        >
+
+        </property>
+
+        <property
+            name="stopProcessing"
+                    column="stopProcessing"
+        >
+
+        </property>
+        
+          <property
+            name="emailSubject"
+                    column="emailSubject"
+        >
+
+        </property>
+  <property
+            name="emailBody"
+                    column="emailBody"
+        >
+
+        </property>
+
+
+
+    </class>    
+    
+    <query name="mobrizAlert.getAllMobrizAlerts">
+ 		
+	<![CDATA[
+	    from MobrizAlert where account_id = ? and deleted = false order by executionOrder]]>
+	</query> 
+    
+    
+
+</hibernate-mapping>
+

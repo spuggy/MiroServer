@@ -1,0 +1,11 @@
+Dear ${user.firstName}
+
+${message}
+
+Assessment login details for ${user.fullName}
+
+Username: ${user.username}
+Password: ${user.PasswordHint}
+
+
+Login at: ${applicationURL}

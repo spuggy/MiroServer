@@ -1,0 +1,3 @@
+ServerTest01.backup=Oriinal fds database with loads of surveys in it
+ServerTest02.backup=simple db with 1 db for unit tests
+ServerTest03.backup=more data to support tests

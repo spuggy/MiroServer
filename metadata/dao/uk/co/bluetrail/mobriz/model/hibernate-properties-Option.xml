@@ -1,0 +1,9 @@
+ <many-to-one
+            name="question"
+            class="uk.co.bluetrail.mobriz.model.Question"
+            column="question_id"
+			lazy="false"
+			not-null="true"
+			insert="false"
+			update="false"
+        />

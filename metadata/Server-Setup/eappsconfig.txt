@@ -1,0 +1,6 @@
+JkMount /swift3* ajp13
+DirectoryIndex /swift3
+
+ 
+wget -O/dev/null http://localhost:8080/swift3/batchProcess.html
+

@@ -1,0 +1,33 @@
+/* NAV */
+	
+	ul#primary-nav {
+		float:left;
+		width:600px;
+		background: none;
+		list-style:none;
+		margin:0 0 0 10px;
+		padding:0;
+	}
+	ul#primary-nav li {
+		display:inline;
+		margin:0;
+		padding:0;
+	}
+	ul#primary-nav li a:link, ul#primary-nav li a:visited {
+		background:#F2D796;
+		padding:8px 5px;
+		line-height:30px;
+		color: #666;
+		text-decoration:none;
+		font-weight: bold ;
+	}
+	ul#primary-nav li a:hover {
+		background:#CCA87E;
+		color:#fff;
+	}
+	
+	ul#primary-nav a.current:link, ul#primary-nav a.current:visited, ul#primary-nav a.current:hover {
+		background:#fbf6e1;
+		color: #509ece;		
+	}
+	

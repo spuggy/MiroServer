@@ -1,0 +1,4 @@
+        <!--MiroTransaction-START-->
+        <Menu name="MiroTransactionMenu" title="miroTransactionList.title" page="/miroTransactions.html"/>
+        <!--MiroTransaction-END-->
+    </Menus>

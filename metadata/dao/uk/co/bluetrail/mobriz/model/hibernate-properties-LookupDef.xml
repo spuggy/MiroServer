@@ -1,0 +1,17 @@
+<set
+            name="lookupDefItems"
+            table="mr.lookupDefItems"
+            lazy="true"
+            cascade="none"            
+			inverse="true"
+        >
+
+            <key  column="lookupDef_id" not-null="true"
+            >
+            </key>
+
+            <one-to-many
+                  class="uk.co.bluetrail.mobriz.model.LookupDefItem"
+            />
+
+        </set>

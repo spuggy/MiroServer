@@ -1,0 +1,23 @@
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN"
+    "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<dwr>
+    <allow>
+
+	
+		<convert converter="hibernate" match="uk.co.bluetrail.mobriz.model.User"/>		
+		<convert converter="bean" match="uk.co.bluetrail.mobriz.webapp.form.*"/>		
+		<convert converter="bean" match="uk.co.bluetrail.mobriz.webapp.ajaxDTO.*"/>	
+	       
+       <create creator="spring" javascript="ajaxSurveyEditManager">
+        	<param name="beanName" value="ajaxSurveyEditManager"></param>  
+        </create>
+        
+          <create creator="spring" javascript="ajaxMiroProjectManager">
+        	<param name="beanName" value="ajaxMiroProjectManager"></param>  
+        </create>
+        
+        
+        
+    </allow>
+</dwr>

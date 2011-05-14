@@ -1,0 +1,10 @@
+div#header h1 {
+               margin-left: 20px;
+			   text-indent:-1000px;
+			   background: url(images/lindt-header-logo.jpg) no-repeat 2px 2px;
+			   background-color: #ffffff;
+			   width:230px;
+			   height:60px;
+			   padding-bottom:3px;
+			   border: 2px solid #000000;
+            }

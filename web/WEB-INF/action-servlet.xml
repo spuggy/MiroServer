@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">        
+                    dataAccessFailure
+                </prop>
+                 <prop key="uk.co.bluetrail.mobriz.webapp.util.NotFoundException">        
+                    404 
+                 </prop>
+            </props>
+        </property>
+    </bean>
+    
+    <bean id="userController" class="uk.co.bluetrail.mobriz.webapp.action.UserController">
+        <property name="userManager" ref="userManager"/>
+    </bean>
+
+    <bean id="passwordHintController" class="uk.co.bluetrail.mobriz.webapp.action.PasswordHintController">
+        <property name="userManager" ref="userManager"/>
+        <property name="messageSource" ref="messageSource"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+    </bean>
+
+    <bean id="reloadController" class="uk.co.bluetrail.mobriz.webapp.action.ReloadController"/>
+
+    <bean id="userFormController" class="uk.co.bluetrail.mobriz.webapp.action.UserFormController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="userForm"/>
+        <property name="successView" value="redirect:users.html"/>
+        <property name="cancelView" value="redirect:mainMenu.html"/>
+        <property name="userManager" ref="userManager"/>
+        <property name="settingManager" ref="settingManager"/>
+        <property name="roleManager" ref="roleManager"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="accountCreated.vm"/>
+    </bean>
+
+
+  <bean id="addCreditsFormController" class="uk.co.bluetrail.mobriz.webapp.action.AddCreditsFormController" autowire="byName">
+            <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="addCreditsForm"/>
+        <property name="successView" value="addCreditsConfirmForm"/>
+        <property name="vpsProtocol" value="2.22" />
+        <property name="txType" value="PAYMENT" />
+        <property name="vendor" value="Bluetrail" />
+		<property name="encrypPassword" value="xuMYM75JOs285rW4" />
+		<property name="vpsPostUrl" value=" https://ukvpstest.protx.com/VSPSimulator/VSPFormGateway.asp" />
+		
+		<property name="currency" value="GBP" />
+		<property name="successURL" value="/addCreditsSuccess.html" />
+		<property name="failureURL" value="/addCreditsFailure.html" />
+	
+		
+   </bean>
+   
+   <bean id="addCreditsSuccessController" class="uk.co.bluetrail.mobriz.webapp.action.AddCreditsSuccessController" autowire="byName">
+   	<property name="encrypPassword" value="xuMYM75JOs285rW4" />
+   		<property name="fromEmail" value="support@miro-assessment.com"/>
+   </bean>
+ 
+
+
+
+    <bean id="surveyUploadController" class="uk.co.bluetrail.mobriz.webapp.action.SurveyUploadController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="cancelView" value="admin.html"/>
+        <property name="formView" value="surveyUploadForm"/>
+        <property name="successView" value="surveyUploadDisplay"/>
+        <property name="surveyManager" ref="surveyManager"/>
+        <property name="maxImportLines" value="1000"/>
+         
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="2097152"/>
+    </bean>
+    
+    <bean id="signupController" class="uk.co.bluetrail.mobriz.webapp.action.SignupController">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="signup"/>
+        <property name="successView" value="redirect:mainMenu.html"/>
+        <property name="userManager" ref="userManager"/>
+        <property name="roleManager" ref="roleManager"/>
+        <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="accountCreated.vm"/>
+    </bean>
+    
+    
+    
+    <!--Account-BEAN-START-->
+    <bean id="accountController" class="uk.co.bluetrail.mobriz.webapp.action.AccountController" autowire="byName"/>
+
+
+    <bean id="accountFormController" class="uk.co.bluetrail.mobriz.webapp.action.AccountFormController" autowire="byName">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="accountForm"/>
+        <property name="successView" value="redirect:accounts.html"/>
+    </bean>
+    <!--Account-BEAN-END-->
+    <!--Setting-BEAN-START-->
+    <bean id="settingController" class="uk.co.bluetrail.mobriz.webapp.action.SettingController" autowire="byName"/>
+    
+    
+    <bean id="settingFormController" class="uk.co.bluetrail.mobriz.webapp.action.SettingFormController" autowire="byName">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="settingForm"/>
+        <property name="successView" value="redirect:settings.html"/>
+    </bean>
+
+	<bean id="surveyFormController" class="uk.co.bluetrail.mobriz.webapp.action.SurveyFormController" autowire="byName" >		
+        <property name="formView" value="surveyForm"/>
+    </bean>
+	
+	<bean id="surveyNewFormController" class="uk.co.bluetrail.mobriz.webapp.action.SurveyNewFormController" autowire="byName" >		
+        <property name="formView" value="surveyNewForm"/>
+    </bean>
+	
+    <bean id="myResponsesController" class="uk.co.bluetrail.mobriz.webapp.action.MyResponsesController" autowire="byName" />		
+	
+    <!--WebPage-BEAN-START-->
+    <bean id="webPageController" class="uk.co.bluetrail.mobriz.webapp.action.WebPageController" autowire="byName"/>
+
+    <bean id="webPageFormController" class="uk.co.bluetrail.mobriz.webapp.action.WebPageFormController" autowire="byName">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="webPageForm"/>
+        <property name="successView" value="redirect:webPages.html"/>
+    </bean>
+    <!--WebPage-BEAN-END-->
+    
+
+<!--MobrizAlert-BEAN-START-->
+    <bean id="mobrizAlertController" class="uk.co.bluetrail.mobriz.webapp.action.MobrizAlertController" autowire="byName"/>
+
+    <bean id="mobrizAlertFormController" class="uk.co.bluetrail.mobriz.webapp.action.MobrizAlertFormController" autowire="byName">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="mobrizAlertForm"/>
+        <property name="successView" value="redirect:mobrizAlerts.html"/>
+    </bean>
+    <!--MobrizAlert-BEAN-END-->
+
+    <bean id="smsFormController" class="uk.co.bluetrail.mobriz.webapp.action.SMSFormController" autowire="byName">
+    	<property name="validator" ref="beanValidator"/>    	
+        <property name="formView" value="smsForm"/>
+        <property name="successView" value="smsThanks"/>
+        <property name="message" ref="mailMessage"/>
+    </bean>
+
+   
+    <bean id="lookupItemsUploadFormController" class="uk.co.bluetrail.mobriz.webapp.action.LookupItemsUploadFormController" autowire="byName">
+    	<property name="validator" ref="beanValidator"/>    	
+        <property name="formView" value="lookupItemsUploadForm"/>        
+    </bean>
+    
+    
+    
+
+    
+    
+    <bean id="surveyWebServiceController" class="uk.co.bluetrail.mobriz.webapp.action.SurveyWebServiceController" autowire="byName"/>
+    <bean id="surveyResponseExportController" class="uk.co.bluetrail.mobriz.webapp.action.SurveyResponseExportController" autowire="byName"/>
+    <bean id="responsesForSurveyController" class="uk.co.bluetrail.mobriz.webapp.action.ResponsesForSurveyController" autowire="byName"/>
+    <bean id="showResponseController" class="uk.co.bluetrail.mobriz.webapp.action.ShowResponseController" autowire="byName"/>
+    <bean id="surveyAdminController" class="uk.co.bluetrail.mobriz.webapp.action.SurveyAdminController" autowire="byName"/>
+    <bean id="surveyDefExportController" class="uk.co.bluetrail.mobriz.webapp.action.SurveyDefExportController" autowire="byName"/>
+    <bean id="responsesPhotoController" class="uk.co.bluetrail.mobriz.webapp.action.ResponsesPhotoController" autowire="byName"/>
+   
+    <bean id="batchProcessController" class="uk.co.bluetrail.mobriz.webapp.action.BatchProcessController" autowire="byName">
+    	 <property name="miroDocLimit" value="10"/>
+    	 <property name="fromEmail" value="noreply@miro-assessment.com"/>
+    	<property name="reportCreatedTemplateName" value="reportCreated.vm"/>
+    	
+    	
+    </bean>
+    
+   
+   
+    <bean id="miroSurveyController" class="uk.co.bluetrail.mobriz.webapp.action.MiroSurveyController" autowire="byName"/>
+ 
+        
+        
+        
+    
+    
+    
+    
+    
+    <bean id="lookupDefController" class="uk.co.bluetrail.mobriz.webapp.action.LookupDefController" autowire="byName"/>
+
+    <bean id="lookupDefFormController" class="uk.co.bluetrail.mobriz.webapp.action.LookupDefFormController" autowire="byName">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="lookupDefForm"/>
+        <property name="successView" value="redirect:lookupDefs.html"/>
+    </bean>
+    <!--LookupDef-BEAN-END-->
+    <!--LookupDefItem-BEAN-START-->
+    <bean id="lookupDefItemController" class="uk.co.bluetrail.mobriz.webapp.action.LookupDefItemController" autowire="byName"/>
+
+    <bean id="lookupDefItemFormController" class="uk.co.bluetrail.mobriz.webapp.action.LookupDefItemFormController" autowire="byName">        
+        <property name="formView" value="lookupDefItemForm"/>
+        <property name="successView" value="redirect:lookupDefItems.html"/>
+    </bean>
+    
+    
+    <bean id="userConfirmFormController" class="uk.co.bluetrail.mobriz.webapp.action.UserConfirmFormController" autowire="byName">        
+        <property name="formView" value="userConfirmForm"/>
+    </bean>
+    
+    
+    
+    <!--LookupDefItem-BEAN-END-->
+    <!-- Add additional controller beans here -->
+
+
+	<bean id="responsesController" class="uk.co.bluetrail.mobriz.webapp.action.ResponsesController" autowire="byName"/>
+	
+	<bean id="wsHelpController" class="uk.co.bluetrail.mobriz.webapp.action.WsHelpController" autowire="byName"/>
+	
+	<bean id="homePageController" class="uk.co.bluetrail.mobriz.webapp.action.HomePageController" >
+		<property name="homePages">
+			<props>
+                <prop key="admin">redirect:miroProjects.html</prop>
+                <prop key="sysadmin">redirect:admin.html</prop>
+                <prop key="client">redirect:responses.html</prop>
+                <prop key="user">redirect:userConfirm.html</prop>
+            </props>
+       </property>
+	</bean>	
+
+ <bean id="miroProjectController" class="uk.co.bluetrail.mobriz.webapp.action.MiroProjectController" autowire="byName"/>
+<bean id="miroProjectShowController" class="uk.co.bluetrail.mobriz.webapp.action.MiroProjectShowController" autowire="byName"/>
+<bean id="miroTeamMapImageController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTeamMapImageController" autowire="byName"/>
+
+
+
+
+    <bean id="miroProjectFormController" class="uk.co.bluetrail.mobriz.webapp.action.MiroProjectFormController" autowire="byName">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="miroProjectForm"/>
+        <property name="successView" value="redirect:miroProjects.html"/>
+    </bean>
+    
+     <bean id="miroTeamPieFormController" class="uk.co.bluetrail.mobriz.webapp.action.MiroProjectSelectorFormController" autowire="byName">
+        <property name="formView" value="miroTeamPieSelectorForm"/>
+        <property name="successView" value="miroTeamPie"/>
+        <property name="maxProjects" value="10"/>
+        <property name="graphType" value="pie"/>
+        <property name="maxPies" value="12" />
+    </bean>
+
+ 	<bean id="miroTeamMapFormController" class="uk.co.bluetrail.mobriz.webapp.action.MiroProjectSelectorFormController" autowire="byName">
+        <property name="formView" value="miroTeamMapSelectorForm"/>
+        <property name="successView" value="miroTeamMap"/>
+         <property name="maxProjects" value="10"/>
+         <property name="graphType" value="map"/>
+    </bean>
+    
+    <bean id="miroTeamPieImageController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTeamPieImageController" autowire="byName"/>
+    
+    
+ 
+
+   
+
+
+
+    <!-- Load WEB-INF/classes/ApplicationResources.properties for i18n messages using JSTL's fmt tag -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="ApplicationResources"/>
+    </bean>
+
+
+<bean id="miroReportShowController" class="uk.co.bluetrail.mobriz.webapp.action.MiroReportShowController" autowire="byName"/>
+
+<bean id="purchasedReportsController" class="uk.co.bluetrail.mobriz.webapp.action.PurchasedReportsController" autowire="byName"/>
+
+
+
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>       
+                <prop key="/myResponses.html">myResponsesController</prop>
+                <prop key="/editNewSurvey.html">surveyNewFormController</prop>
+                <prop key="/editSurvey.html">surveyFormController</prop>
+                <prop key="/editProfile.html">userFormController</prop>
+                <prop key="/mainMenu.html">homePageController</prop>
+                <prop key="/editUser.html">userFormController</prop> 
+                <prop key="/passwordHint.html">passwordHintController</prop>              
+                <prop key="/ws.html">surveyWebServiceController</prop>
+                <prop key="/exportResponsesSurvey.html">surveyResponseExportController</prop>
+                <prop key="/notFound.html">filenameController</prop>
+                <prop key="/wshelp.html">wsHelpController</prop>
+                <prop key="/about.html">filenameController</prop>
+                <prop key="/help.html">filenameController</prop>
+                <prop key="/responsesForSurvey.html">responsesForSurveyController</prop>
+                <prop key="/showResponse.html">showResponseController</prop>
+                <prop key="/surveyAdmin.html">surveyAdminController</prop>
+                <prop key="/accounts.html">accountController</prop>
+                <prop key="/editAccount.html">accountFormController</prop>
+                <prop key="/settings.html">settingController</prop>
+                <prop key="/editSetting.html">settingFormController</prop>
+   				<prop key="/responses.html">responsesController</prop>
+   				<prop key="/admin.html">userController</prop>    
+   				<prop key="/surveyUpload.html">surveyUploadController</prop>
+   				<prop key="/surveyDefExport.html">surveyDefExportController</prop>
+   				<prop key="/sms.html">smsFormController</prop>
+   				<prop key="/surveyPhotos.html">responsesPhotoController</prop>
+   				<prop key="/batchProcess.html">batchProcessController</prop>
+   				<prop key="/lookupDefs.html">lookupDefController</prop>
+   				<prop key="/editLookupDef.html">lookupDefFormController</prop>
+   				<prop key="/lookupItemsUpload.html">lookupItemsUploadFormController</prop>
+   				<prop key="/editLookupDefItem.html">lookupDefItemFormController</prop>
+   				<prop key="/lookupDefItemExport.html">lookupDefItemController</prop>
+   				<prop key="/deleteLookupItem.html">lookupDefItemController</prop>
+   				<prop key="/miroSurvey.html">miroSurveyController</prop>
+   				 <prop key="/webPages.html">webPageController</prop>
+                <prop key="/editWebPage.html">webPageFormController</prop>
+   				
+   				    <prop key="/mobrizAlerts.html">mobrizAlertController</prop>
+                <prop key="/editMobrizAlert.html">mobrizAlertFormController</prop>
+    		    <prop key="/miroProjects.html">miroProjectController</prop>
+                <prop key="/editMiroProject.html">miroProjectFormController</prop>
+     			 <prop key="/showProject.html">miroProjectShowController</prop>
+          		    <prop key="/miroReportShow.html">miroReportShowController</prop>
+            	   <prop key="/addCredits.html">addCreditsFormController</prop>
+               <prop key="/addCreditsSuccess.html">addCreditsSuccessController</prop>
+               <prop key="/addCreditsFailure.html">addCreditsSuccessController</prop>
+               <prop key="/userConfirm.html">userConfirmFormController</prop>
+   				<prop key="/myaccount.html">purchasedReportsController</prop>
+   				
+   				<prop key="/miroTeamPie.html">miroTeamPieFormController</prop>
+   				<prop key="/miroTeamMap.html">miroTeamMapFormController</prop>
+   			   	<prop key="/teamImage/teamPieImage.jpg">miroTeamPieImageController</prop>
+   			   	<prop key="/teamImage/teamMapImageEngaged.jpg">miroTeamMapImageController</prop>
+   			   	<prop key="/teamImage/teamMapImageLeading.jpg">miroTeamMapImageController</prop>
+   			   			
+   				   		
+   				   			
+   				   				
+            </props>
+        </property>
+    </bean>
+
+    <bean id="adminUrlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="interceptors">
+            <list>
+                <ref bean="adminInterceptor"/>
+            </list>
+        </property>
+        <property name="mappings">
+            <props>
+                <prop key="/activeUsers.html">filenameController</prop>
+                <prop key="/users.html">userController</prop>
+                <prop key="/flushCache.html">filenameController</prop>                
+                <prop key="/reload.html">reloadController</prop>
+            </props>
+        </property>
+    </bean>
+  
+	<bean id="surveyWebServiceView" class="uk.co.bluetrail.mobriz.webapp.view.SurveyWebServiceView" autowire="byName" >
+	  <property name="mobrizVersion">
+	    <list>
+          <value>3.2.0</value>   
+          <value>3.1.0</value>        
+       </list>	   
+	   </property>
+	  <property name="fileDirectory" value="/photos"/>
+	  <property name="firstPhotoVersion" value="3.1.0"/>
+	  <property name="maxSearchLimit" value="20"/>
+	  <property name="maxSearchDownload" value="10"/>
+	  </bean>
+	
+	<bean id="surveyResponseExportView" class="uk.co.bluetrail.mobriz.webapp.view.SurveyResponseExportView" autowire="byName" />
+	
+	
+	<bean id="surveyDefExportView" class="uk.co.bluetrail.mobriz.webapp.view.SurveyDefExportView" autowire="byName" />
+	<bean id="lookupDefExportView" class="uk.co.bluetrail.mobriz.webapp.view.LookupDefExportView" autowire="byName" />
+	
+	
+	<bean id="filenameController"
+		class="org.springframework.web.servlet.mvc.UrlFilenameViewController" />
+	
+	
+    <bean id="adminInterceptor" class="org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor">
+        <property name="authorizedRoles" value="admin"/>
+    </bean>
+    
+  
+    <!-- View Resolver for JSPs -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="requestContextAttribute" value="rc"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+   
+    
+    <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+</beans>

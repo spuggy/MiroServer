@@ -1,0 +1,4 @@
+    <!--MiroTransaction-START-->
+    <bean id="miroTransactionDao" class="uk.co.bluetrail.mobriz.dao.hibernate.MiroTransactionDaoHibernate" autowire="byName"/>
+    <!--MiroTransaction-END-->
+</beans>

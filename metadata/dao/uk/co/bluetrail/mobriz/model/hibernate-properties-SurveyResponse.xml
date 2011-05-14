@@ -1,0 +1,23 @@
+<many-to-one
+            name="survey"
+            class="uk.co.bluetrail.mobriz.model.Survey"
+            cascade="none"
+            outer-join="auto"
+            update="false"
+            insert="false"
+            column="survey_id"
+			lazy="false"
+/>
+        
+<many-to-one
+            name="user"
+            class="uk.co.bluetrail.mobriz.model.User"
+            cascade="none"
+            outer-join="auto"
+            update="false"
+            insert="false"
+            column="createdBy_id"
+			lazy="false"
+/>
+        
+   

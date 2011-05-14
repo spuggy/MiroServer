@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+ 
+    <sql-query name="findSurveysWithResponseCount">
+ 		<return alias="survey" class="uk.co.bluetrail.mobriz.model.Survey"/>
+	<![CDATA[
+	    select s.*, count as responseCount from mr.surveys s, mr.responsecount r where s.id = r.id and s.account_id= :account_id]]>
+	</sql-query> 
+
+	
+
+
+
+</hibernate-mapping>
+

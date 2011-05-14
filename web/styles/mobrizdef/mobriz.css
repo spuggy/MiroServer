@@ -1,0 +1,9 @@
+    div#header h1 {
+               margin-left: 20px;
+			   text-indent:-1000px;
+			   background: url(images/gfk-header-logo.gif) no-repeat 2px 2px;
+			   width:150px;
+			   height:81px;
+			   padding:2px;
+			  
+            }

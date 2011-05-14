@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" 
+    "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="MiroTransactionSQL">
+    <typeAlias alias="miroTransaction" type="uk.co.bluetrail.mobriz.model.MiroTransaction"/>
+
+    <parameterMap id="addParam" class="miroTransaction">
+        <parameter property="credits" jdbcType="VARCHAR" javaType="int"/>
+        <parameter property="errorCode" jdbcType="VARCHAR" javaType="int"/>
+        <parameter property="paymentMethod" jdbcType="VARCHAR" javaType="int"/>
+        <parameter property="status" jdbcType="VARCHAR" javaType="int"/>
+        <parameter property="user_id" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <parameter property="deleted" jdbcType="VARCHAR" javaType="boolean"/>
+        <parameter property="checkPoint" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <parameter property="created_on" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <parameter property="createdBy_id" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <parameter property="lastUpdatedBy_id" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <parameter property="updated_at" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+    </parameterMap>
+
+    <parameterMap id="updateParam" class="miroTransaction">
+        <parameter property="credits" jdbcType="VARCHAR" javaType="int"/>
+        <parameter property="errorCode" jdbcType="VARCHAR" javaType="int"/>
+        <parameter property="id" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <parameter property="paymentMethod" jdbcType="VARCHAR" javaType="int"/>
+        <parameter property="status" jdbcType="VARCHAR" javaType="int"/>
+        <parameter property="user_id" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <parameter property="deleted" jdbcType="VARCHAR" javaType="boolean"/>
+        <parameter property="version" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        <parameter property="checkPoint" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <parameter property="created_on" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+        <parameter property="createdBy_id" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <parameter property="lastUpdatedBy_id" jdbcType="INTEGER" javaType="java.lang.Long"/>
+        <parameter property="updated_at" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+    </parameterMap>
+
+    <resultMap id="miroTransactionResult" class="miroTransaction">
+        <result property="credits" column=""/>
+        <result property="errorCode" column=""/>
+        <result property="id" column="id"/>
+        <result property="paymentMethod" column=""/>
+        <result property="status" column=""/>
+        <result property="user_id" column=""/>
+        <result property="deleted" column=""/>
+        <result property="version" column=""/>
+        <result property="checkPoint" column=""/>
+        <result property="created_on" column=""/>
+        <result property="createdBy_id" column=""/>
+        <result property="lastUpdatedBy_id" column=""/>
+        <result property="updated_at" column=""/>
+    </resultMap>
+
+    <select id="getMiroTransactions" resultMap="miroTransactionResult">
+    <![CDATA[
+        select * from mr.mirotransactions
+    ]]>
+    </select>
+
+    <select id="getMiroTransaction" resultMap="miroTransactionResult">
+    <![CDATA[
+        select * from mr.mirotransactions
+         where id = #value#
+    ]]>
+    </select>
+
+    <insert id="addMiroTransaction" parameterMap="addParam">
+        <!--selectKey resultClass="java.lang.Long" keyProperty="id" >
+            SELECT SEQ_id.NextVal AS id FROM DUAL
+        </selectKey-->
+        <selectKey resultClass="java.lang.Long" keyProperty="id">
+            SELECT LAST_INSERT_ID() AS id
+        </selectKey>
+        <![CDATA[
+            insert into mr.mirotransactions (,,,,,,,,,,)
+            values ( ?,?,?,?,?,?,?,?,?,?,? )
+        ]]>
+    </insert>
+
+    <update id="updateMiroTransaction" parameterMap="updateParam">
+    <![CDATA[
+        update mr.mirotransactions set
+                    = ?,
+                    = ?,
+                    = ?,
+                    = ?,
+                    = ?,
+                    = ?,
+                    = ?,
+                    = ?,
+                    = ?,
+                    = ?,
+                    = ?
+        where id = ?
+    ]]>
+    </update>
+
+    <delete id="deleteMiroTransaction">
+    <![CDATA[
+        delete from mr.mirotransactions
+         where id = #value#
+    ]]>
+    </delete>
+</sqlMap>

@@ -1,0 +1,10 @@
+alter table app_user drop constraint FK459C57299A76B56;
+alter table mr.setting drop constraint FK2A93B7079A76B56;
+alter table user_role drop constraint FK143BF46A6934AE9E;
+alter table user_role drop constraint FK143BF46AC409EABE;
+drop table app_user;
+drop table mr.account;
+drop table mr.setting;
+drop table role;
+drop table user_role;
+drop sequence hibernate_sequence;

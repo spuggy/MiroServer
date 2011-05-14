@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mappingResources">
+            <list>
+                <value>uk/co/bluetrail/mobriz/model/Role.hbm.xml</value>
+                <value>uk/co/bluetrail/mobriz/model/User.hbm.xml</value>
+                <value>uk/co/bluetrail/mobriz/model/Account.hbm.xml</value>
+                <value>uk/co/bluetrail/mobriz/model/Setting.hbm.xml</value>
+               	<value>uk/co/bluetrail/mobriz/model/Survey.hbm.xml</value>
+				<value>uk/co/bluetrail/mobriz/model/Option.hbm.xml</value>
+				<value>uk/co/bluetrail/mobriz/model/Question.hbm.xml</value>
+				<value>uk/co/bluetrail/mobriz/model/Constraint.hbm.xml</value>                				
+				<value>uk/co/bluetrail/mobriz/model/SurveyResponse.hbm.xml</value>
+				<value>uk/co/bluetrail/mobriz/model/LookupDef.hbm.xml</value>
+				<value>uk/co/bluetrail/mobriz/model/LookupDefItem.hbm.xml</value>
+				<value>uk/co/bluetrail/mobriz/model/Query.hbm.xml</value>   
+				<value>uk/co/bluetrail/mobriz/model/WebPage.hbm.xml</value>           
+				<value>uk/co/bluetrail/mobriz/model/MobrizAlert.hbm.xml</value>                  
+        	   	<value>uk/co/bluetrail/mobriz/model/MiroProject.hbm.xml</value>                      
+       			<value>uk/co/bluetrail/mobriz/model/MiroTransaction.hbm.xml</value>                      
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">@HIBERNATE-DIALECT@</prop>
+                <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
+                <!-- Create/update the database tables automatically when the JVM starts up
+                <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+                <!-- Turn batching off for better error messages under PostgreSQL 
+                <prop key="hibernate.jdbc.batch_size">0</prop> -->
+                <!--  <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> -->
+            </props>
+        </property>
+    </bean>
+
+    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Generic Dao - can be used when doing standard CRUD -->
+    <bean id="dao" class="uk.co.bluetrail.mobriz.dao.hibernate.BaseDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- LookupDao: Hibernate implementation -->
+    <bean id="lookupDao" class="uk.co.bluetrail.mobriz.dao.hibernate.LookupDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- UserDao: Hibernate implementation -->
+    <bean id="userDao" class="uk.co.bluetrail.mobriz.dao.hibernate.UserDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- RoleDao: Hibernate implementation -->
+    <bean id="roleDao" class="uk.co.bluetrail.mobriz.dao.hibernate.RoleDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Add new Daos here -->
+
+    
+    
+    <!--Account-START-->
+    <bean id="accountDao" class="uk.co.bluetrail.mobriz.dao.hibernate.AccountDaoHibernate" autowire="byName"/>
+    <!--Account-END-->
+    <!--Setting-START-->
+    <bean id="settingDao" class="uk.co.bluetrail.mobriz.dao.hibernate.SettingDaoHibernate" autowire="byName"/>
+    <!--Setting-END-->
+    
+       <!--Survey-START-->
+    <bean id="surveyDAO" class="uk.co.bluetrail.mobriz.dao.hibernate.SurveyDAOHibernate" autowire="byName"/>
+    <!--Survey-END-->
+    <!--Question-START-->
+    <bean id="questionDAO" class="uk.co.bluetrail.mobriz.dao.hibernate.QuestionDAOHibernate" autowire="byName"/>
+    <!--Question-END-->
+    <!--Option-START-->
+    <bean id="optionDAO" class="uk.co.bluetrail.mobriz.dao.hibernate.OptionDAOHibernate" autowire="byName"/>
+    <!--Option-END-->
+    <!--Constraint-START-->
+    <bean id="constraintDAO" class="uk.co.bluetrail.mobriz.dao.hibernate.ConstraintDAOHibernate" autowire="byName"/>
+    <!--Constraint-END-->
+    
+    <!--SurveyResponse-START-->
+    <bean id="surveyResponseDAO" class="uk.co.bluetrail.mobriz.dao.hibernate.SurveyResponseDAOHibernate" autowire="byName"/>
+    <!--SurveyResponse-END-->
+    
+    <!--LookupDef-START-->
+    <bean id="lookupDefDao" class="uk.co.bluetrail.mobriz.dao.hibernate.LookupDefDaoHibernate" autowire="byName"/>
+    <!--LookupDef-END-->
+    <!--LookupDefItem-START-->
+    <bean id="lookupDefItemDao" class="uk.co.bluetrail.mobriz.dao.hibernate.LookupDefItemDaoHibernate" autowire="byName"/>
+    <!--LookupDefItem-END-->
+    <!--WebPage-START-->
+  
+    <bean id="webPageDao" class="uk.co.bluetrail.mobriz.dao.hibernate.WebPageDaoHibernate" autowire="byName"/>
+    <!--WebPage-END-->
+    
+    <bean id="mobrizAlertDao" class="uk.co.bluetrail.mobriz.dao.hibernate.MobrizAlertDaoHibernate" autowire="byName"/>
+  
+ <!--MiroProject-START-->
+    <bean id="miroProjectDao" class="uk.co.bluetrail.mobriz.dao.hibernate.MiroProjectDaoHibernate" autowire="byName"/>
+    <!--MiroProject-END-->
+   <!--MiroTransaction-START-->
+    <bean id="miroTransactionDao" class="uk.co.bluetrail.mobriz.dao.hibernate.MiroTransactionDaoHibernate" autowire="byName"/>
+    <!--MiroTransaction-END-->
+</beans>
+
+
+
+
+
+
+

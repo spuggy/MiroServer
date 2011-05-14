@@ -1,0 +1,135 @@
+   <global>
+      <constant>
+        <constant-name>phone</constant-name>
+        <constant-value>^\(?(\d{3})\)?[-| ]?(\d{3})[-| ]?(\d{4})$</constant-value>
+      </constant>
+      <constant>
+        <constant-name>zip</constant-name>
+        <constant-value>^\d{5}\d*$</constant-value>
+      </constant>
+      <constant>
+        <constant-name>currency</constant-name>
+        <constant-value>^\d{1,3}(,?\d{1,3})*\.?(\d{1,2})?$</constant-value>
+      </constant> 
+   </global>
+   <formset> 
+   
+        <form name="smsMessageForm">
+                 <field property="phoneNumber" depends="required">
+                     <arg0 key="smsMessageForm.phoneNumber"/>
+                 </field>
+                 <field property="smsMessage" depends="required">
+                     <arg0 key="smsMessageForm.smsMessage"/>
+                 </field>
+      </form>
+      
+        <form name="surveyUploadForm">
+          
+            <!-- Client-side Javascript won't catch this in IE, but server-side will -->
+            <field property="file" depends="required">
+                <arg0 key="surveyUploadForm.file"/>
+            </field>
+        </form>   
+   
+   		<form name="lookupItemsUploadForm">
+          
+            <!-- Client-side Javascript won't catch this in IE, but server-side will -->
+            <field property="file" depends="required">
+                <arg0 key="lookupItemsUploadForm.file"/>
+            </field>
+        </form>   
+   
+   
+    <form name="constraintForm">
+              <field property="CType"
+                     depends="required">
+
+                  <arg0 key="constraintForm.CType"/>
+              </field>
+      </form>
+      <form name="surveyForm">
+              <field property="title"
+                     depends="required,maxlength">
+
+                  <arg0 key="surveyForm.title"/>
+                  <arg1
+                      name="maxlength"
+                    key="30"
+                      resource="false"
+                  />
+                  <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>30</var-value>
+                  </var>
+              </field>
+      </form>
+      <form name="questionForm">
+              <field property="branch_jquestion_id"
+                     depends="required">
+
+                  <arg0 key="questionForm.branch_jquestion_id"/>
+              </field>
+              <field property="shortname"
+                     depends="required,maxlength">
+
+                  <arg0 key="questionForm.shortname"/>
+                  <arg1
+                      name="maxlength"
+                    key="20"
+                      resource="false"
+                  />
+                  <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>20</var-value>
+                  </var>
+              </field>
+              <field property="JQuestion_id"
+                     depends="required">
+
+                  <arg0 key="questionForm.JQuestion_id"/>
+              </field>
+              <field property="QTxt"
+                     depends="required,maxlength">
+
+                  <arg0 key="questionForm.QTxt"/>
+                  <arg1
+                      name="maxlength"
+                    key="100"
+                      resource="false"
+                  />
+                  <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>100</var-value>
+                  </var>
+              </field>
+              <field property="QType"
+                     depends="required">
+
+                  <arg0 key="questionForm.QType"/>
+              </field>
+              <field property="survey_id"
+                     depends="required">
+
+                  <arg0 key="questionForm.survey_id"/>
+              </field>
+      </form>
+      <form name="optionForm">
+              <field property="OText"
+                     depends="required,maxlength">
+
+                  <arg0 key="optionForm.OText"/>
+                  <arg1
+                      name="maxlength"
+                    key="20"
+                      resource="false"
+                  />
+                  <var>
+                    <var-name>maxlength</var-name>
+                    <var-value>20</var-value>
+                  </var>
+              </field>
+      </form>
+    </formset> 
+    
+    
+    

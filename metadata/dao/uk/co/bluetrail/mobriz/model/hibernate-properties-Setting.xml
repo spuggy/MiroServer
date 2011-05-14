@@ -1,0 +1,2 @@
+<filter name="limtByAccount" condition=":account_id_param = account_id" /> 
+            

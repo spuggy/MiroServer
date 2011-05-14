@@ -1,0 +1,45 @@
+<XDtTagDef:tagDef namespace="Form" handler="org.example.antbook.xdoclet.FormTagsHandler"/><%@ include file="/common/taglibs.jsp"%>
+
+<title><fmt:message key="<XDtForm:classNameLower/>Detail.title"/></title>
+<content tag="heading"><fmt:message key="<XDtForm:classNameLower/>Detail.heading"/></content>
+
+<spring:bind path="<XDtForm:classNameLower/>.*">
+    <c:if test="${not empty status.errorMessages}">
+    <div class="error">    
+        <c:forEach var="error" items="${status.errorMessages}">
+            <img src="<c:url value="/images/iconWarning.gif"/>"
+                alt="<fmt:message key="icon.warning"/>" class="icon" />
+            <c:out value="${error}" escapeXml="false"/><br />
+        </c:forEach>
+    </div>
+    </c:if>
+</spring:bind>
+
+<form:form commandName="<XDtForm:classNameLower/>" method="post" action="edit<XDtForm:className/>.html" onsubmit="return validate<XDtForm:className/>(this)" id="<XDtForm:classNameLower/>Form">
+<ul>
+<XDtForm:forAllFields>
+<XDtForm:ifIsIdOrVersionField>
+<form:hidden path="<XDtForm:fieldName/>"/>
+</XDtForm:ifIsIdOrVersionField>
+<XDtForm:ifIsNotIdOrVersionField>
+    <li>
+        <mobriz4server:label styleClass="desc" key="<XDtForm:classNameLower/>.<XDtForm:fieldName/>"/>
+        <form:errors path="<XDtForm:fieldName/>" cssClass="fieldError"/>
+        <form:input path="<XDtForm:fieldName/>" id="<XDtForm:fieldName/>" cssClass="text medium"/>
+    </li>
+</XDtForm:ifIsNotIdOrVersionField>
+</XDtForm:forAllFields>
+    <li class="buttonBar bottom">
+        <input type="submit" class="button" name="save"  onclick="bCancel=false" value="<fmt:message key="button.save"/>" />
+        <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmDelete('<XDtForm:className/>')" value="<fmt:message key="button.delete"/>" />
+        <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>" />
+    </li>
+</ul>
+</form:form>
+
+<script type="text/javascript">
+    Form.focusFirstElement($('<XDtForm:classNameLower/>Form'));
+</script>
+
+<v:javascript formName="<XDtForm:classNameLower/>" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
+<script type="text/javascript"  src="<c:url value="/scripts/validator.jsp"/>"></script>

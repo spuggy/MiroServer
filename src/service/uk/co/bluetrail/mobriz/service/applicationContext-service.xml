@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+    <aop:config>
+        <aop:advisor id="userManagerTx" advice-ref="userManagerTxAdvice" pointcut="execution(* *..service.UserManager.*(..))" order="0"/>        
+        <aop:advisor id="userManagerSecurity" advice-ref="userSecurityAdvice" pointcut="execution(* *..service.UserManager.saveUser(..))" order="1"/>
+        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Manager.*(..))" order="2"/>
+    </aop:config>     
+    
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <tx:advice id="userManagerTxAdvice">
+        <tx:attributes>
+            <tx:method name="save*" rollback-for="UserExistsException"/>
+        </tx:attributes>
+    </tx:advice>
+    
+    <bean id="lookupManager" class="uk.co.bluetrail.mobriz.service.impl.LookupManagerImpl">
+        <property name="lookupDao" ref="lookupDao"/>
+    </bean>
+
+    <bean id="manager" class="uk.co.bluetrail.mobriz.service.impl.BaseManager">
+        <property name="dao" ref="dao"/>
+    </bean>
+
+    <bean id="userManager" class="uk.co.bluetrail.mobriz.service.impl.UserManagerImpl">
+        <property name="userDao" ref="userDao"/>
+           <property name="mtDao" ref="miroTransactionDao"/>
+        
+    </bean>
+
+    <bean id="userSecurityAdvice" class="uk.co.bluetrail.mobriz.service.UserSecurityAdvice">
+        <property name="userCache" ref="userCache"/>
+    </bean>
+
+    <bean id="userCache" class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+        <property name="cache">
+            <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+                <property name="cacheManager">
+                    <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+                </property>
+                <property name="cacheName" value="userCache"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="roleManager" class="uk.co.bluetrail.mobriz.service.impl.RoleManagerImpl">
+        <property name="roleDao" ref="roleDao"/>
+    </bean>
+
+    <bean id="mailEngine" class="uk.co.bluetrail.mobriz.service.MailEngine">
+        <property name="mailSender" ref="mailSender"/>
+        <property name="velocityEngine" ref="velocityEngine"/>
+        <property name="smsTo"  value="sms@messaging.clickatell.com" /> 
+        <property name="smsPassword" value="standard99" />
+        <property name="smsAccount" value="bluetrail" />
+        <property name="smsAPI" value="1235518" />
+        <property name="smsBluetrailEmail" value="rspence@bluetrail.co.uk" />               
+    </bean>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${mail.host}"/>
+        <property name="username" value="${mail.username}"/>
+        <property name="password" value="${mail.password}"/>
+    </bean>
+
+    <!-- Configure Velocity for sending e-mail -->
+    <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <props>
+                <prop key="resource.loader">class</prop>
+                <prop key="class.resource.loader.class">
+                    org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+                </prop>
+                <prop key="velocimacro.library"></prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="mailMessage" class="org.springframework.mail.SimpleMailMessage" scope="prototype">
+        <property name="from" value="${mail.default.from}"/>
+    </bean>
+
+    <!-- Add new Managers here -->
+    
+            
+    <bean id="accountManager" class="uk.co.bluetrail.mobriz.service.impl.AccountManagerImpl">
+        <property name="accountDao" ref="accountDao"/>
+    </bean>
+        
+    <bean id="settingManager" class="uk.co.bluetrail.mobriz.service.impl.SettingManagerImpl">
+        <property name="settingDao" ref="settingDao"/>
+    </bean>
+    
+    
+
+    <bean id="surveyManager" class="uk.co.bluetrail.mobriz.service.impl.SurveyManagerImpl" autowire="byName" >
+                <property name="settingManager" ref="settingManager"/>
+    </bean>
+	    
+    
+    
+    
+    
+    
+    
+    
+    <bean id="questionManager" class="uk.co.bluetrail.mobriz.service.impl.QuestionManagerImpl" autowire="byName"/>
+    <bean id="optionManager" class="uk.co.bluetrail.mobriz.service.impl.OptionManagerImpl" autowire="byName"/>
+    <bean id="constraintManager" class="uk.co.bluetrail.mobriz.service.impl.ConstraintManagerImpl" autowire="byName"/>
+    <bean id="surveyResponseManager" class="uk.co.bluetrail.mobriz.service.impl.SurveyResponseManagerImpl" autowire="byName"/>
+    <bean id="miroResponseManager" class="uk.co.bluetrail.mobriz.service.impl.MiroResponseManagerImpl" autowire="byName">
+     <property name="excessScore" value="55"/>
+    	  <property name="engagedScore" value="31"/>
+    	   <property name="latentScore" value="8"/>
+    	    <property name="miroGraphAdjustment" value="0.75"/>
+     <property name="testOffset" value="32" />
+     <property name="teamPieWidth" value="600" />
+     <property name="teamPieHeight" value="450" />
+       <property name="thumbNailPieWidth" value="150" />
+     <property name="thumbNailPieHeight" value="150" />
+     
+     
+    <property name="pdfLocation_dev" value="/Users/Richard/documents/workspace-copy/miroserver3/web/miro" />
+	<property name="pdfLocation_live" value="/home/webadmin/miro-assessment.com/miro-reports" />
+	<property name="pdfLocation_test" value="/home/webadmin/dev.bluetrail.co.uk/miro-reports" />
+   
+    </bean>
+      
+	
+	 <bean id="ajaxSurveyEditManager" class="uk.co.bluetrail.mobriz.webapp.ajaxImpl.AjaxSurveyEditManagerImpl">
+                 <property name="surveyResponseManager" ref="surveyResponseManager"/>
+               <property name="questionManager" ref="questionManager"/>
+               <property name="surveyManager" ref="surveyManager"/>
+               <property name="optionManager" ref="optionManager"/>
+                <property name="constraintManager" ref="constraintManager"/>
+               <property name="userManager" ref="userManager"/>
+               <property name="messageSource" ref="messageSource"/>
+               <property name="validator" ref="beanValidator"/>
+               <property name="maxSurveyLength" value="30" />
+               <property name="maxQuestionLength" value="100" />
+               <property name="maxQuestionShortNameLength" value="30" />
+               <property name="maxOptionLength" value="25" />
+               
+                 <property name="miroResponseManager" ref="miroResponseManager"/>
+            
+               
+               
+    </bean>
+     <bean id="ajaxMiroProjectManager" class="uk.co.bluetrail.mobriz.webapp.ajaxImpl.AjaxMiroProjectManagerImpl" autowire="byName">
+     <property name="mailEngine" ref="mailEngine"/>
+        <property name="message" ref="mailMessage"/>
+        <property name="templateName" value="emailInvite.vm"/>
+     </bean>
+    
+    
+      <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="ApplicationResources"/>
+    </bean>
+    
+    
+    
+    <!--LookupDef-START-->    
+    <bean id="lookupDefManager" class="uk.co.bluetrail.mobriz.service.impl.LookupDefManagerImpl">
+        <property name="lookupDefDao" ref="lookupDefDao"/>
+    </bean>
+    <!--LookupDef-END-->
+    <!--LookupDefItem-START-->    
+    <bean id="lookupDefItemManager" class="uk.co.bluetrail.mobriz.service.impl.LookupDefItemManagerImpl">
+        <property name="lookupDefItemDao" ref="lookupDefItemDao"/>
+    </bean>
+    <!--LookupDefItem-END-->
+    
+    <!--WebPage-START-->    
+    <bean id="webPageManager" class="uk.co.bluetrail.mobriz.service.impl.WebPageManagerImpl">
+        <property name="webPageDao" ref="webPageDao"/>
+    </bean>
+    <!--WebPage-END-->
+    
+      <!--MobrizAlert-START-->    
+    <bean id="mobrizAlertManager" class="uk.co.bluetrail.mobriz.service.impl.MobrizAlertManagerImpl">
+        <property name="mobrizAlertDao" ref="mobrizAlertDao"/>
+    </bean>
+    <!--MobrizAlert-END-->
+    
+       <!--MiroProject-START-->    
+    <bean id="miroProjectManager" class="uk.co.bluetrail.mobriz.service.impl.MiroProjectManagerImpl">
+        <property name="miroProjectDao" ref="miroProjectDao"/>
+        <property name="userDao" ref="userDao"/>
+
+    </bean>
+    <!--MiroProject-END-->
+<!--MiroTransaction-START-->    
+    <bean id="miroTransactionManager" class="uk.co.bluetrail.mobriz.service.impl.MiroTransactionManagerImpl">
+        <property name="miroTransactionDao" ref="miroTransactionDao"/>
+         <property name="userDao" ref="userDao"/>
+        
+    </bean>
+    <!--MiroTransaction-END-->
+</beans>
+
+
+
+

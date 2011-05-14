@@ -1,0 +1,13 @@
+Dear ${user.firstName}
+
+Congratulations on becoming a fully accredited MiRo practitioner. An account has been set up for you, which has already been credited with your free assessments. 
+
+Your login details are:
+
+Username: ${user.username}
+Password: ${user.confirmPassword}
+Login at: ${applicationURL}
+
+Best regards, 
+
+MiRo Psychometrics Ltd 

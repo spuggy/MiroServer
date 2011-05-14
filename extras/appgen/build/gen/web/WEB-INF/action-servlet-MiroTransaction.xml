@@ -1,0 +1,10 @@
+<!--MiroTransaction-BEAN-START-->
+    <bean id="miroTransactionController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTransactionController" autowire="byName"/>
+
+    <bean id="miroTransactionFormController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTransactionFormController" autowire="byName">
+        <property name="validator" ref="beanValidator"/>
+        <property name="formView" value="miroTransactionForm"/>
+        <property name="successView" value="redirect:miroTransactions.html"/>
+    </bean>
+    <!--MiroTransaction-BEAN-END-->
+    <!-- Add additional controller beans here -->

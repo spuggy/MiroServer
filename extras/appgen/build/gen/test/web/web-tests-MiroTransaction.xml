@@ -1,0 +1,96 @@
+
+<!--MiroTransaction-START-->
+    <!-- runs miroTransaction-related tests -->
+    <target name="MiroTransactionTests"
+        depends="SearchMiroTransactions,EditMiroTransaction,SaveMiroTransaction,AddMiroTransaction,DeleteMiroTransaction"
+        description="Call and executes all miroTransaction test cases (targets)">
+        <echo>Successfully ran all MiroTransaction JSP tests!</echo>
+    </target>
+
+    <!-- Verify the edit miroTransaction screen displays without errors -->
+    <target name="EditMiroTransaction"
+        description="Tests editing an existing MiroTransaction's information">
+        <webtest name="editMiroTransaction">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit MiroTransaction link" url="/editMiroTransaction.html?id=1"/>
+                <verifytitle description="we should see the miroTransactionDetail title"
+                    text=".*${miroTransactionDetail.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Edit a miroTransaction and then save -->
+    <target name="SaveMiroTransaction"
+        description="Tests editing and saving a miroTransaction">
+        <webtest name="saveMiroTransaction">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit MiroTransaction link" url="/editMiroTransaction.html?id=1"/>
+                <verifytitle description="we should see the miroTransactionDetail title"
+                    text=".*${miroTransactionDetail.title}.*" regex="true"/>
+
+                <!-- update some of the required fields -->
+                <clickbutton label="${button.save}" description="Click Save"/>
+
+                <verifytitle description="Page re-appears if save successful"
+                    text=".*${miroTransactionDetail.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Add a new MiroTransaction -->
+    <target name="AddMiroTransaction"
+        description="Adds a new MiroTransaction">
+        <webtest name="addMiroTransaction">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Add Button" url="/editMiroTransaction.html"/>
+                <verifytitle description="we should see the miroTransactionDetail title"
+                    text=".*${miroTransactionDetail.title}.*" regex="true"/>
+
+                <!-- enter required fields -->
+                <clickbutton label="${button.save}" description="Click button 'Save'"/>
+
+                <verifytitle description="MiroTransaction List appears if save successful"
+                    text=".*${miroTransactionList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${miroTransaction.added}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Delete existing miroTransaction -->
+    <target name="DeleteMiroTransaction"
+        description="Deletes existing MiroTransaction">
+        <webtest name="deleteMiroTransaction">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click Edit MiroTransaction link" url="/editMiroTransaction.html?id=1"/>
+                <prepareDialogResponse description="Confirm delete" dialogType="confirm" response="true"/>
+                <clickbutton label="${button.delete}" description="Click button 'Delete'"/>
+                <verifyNoDialogResponses/>
+                <verifytitle description="display MiroTransaction List" text=".*${miroTransactionList.title}.*" regex="true"/>
+                <verifytext description="verify success message" text="${miroTransaction.deleted}"/>
+            </steps>
+        </webtest>
+    </target>
+
+    <!-- Verify the people list screen displays without errors -->
+    <target name="SearchMiroTransactions"
+        description="Tests search for and displaying all miroTransactions">
+        <webtest name="searchMiroTransactions">
+            &config;
+            <steps>
+                &login;
+                <invoke description="click View MiroTransactions link" url="/miroTransactions.html"/>
+                <verifytitle description="we should see the miroTransactionList title"
+                    text=".*${miroTransactionList.title}.*" regex="true"/>
+            </steps>
+        </webtest>
+    </target>
+<!--MiroTransaction-END-->
+</project>

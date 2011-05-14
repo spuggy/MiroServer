@@ -1,0 +1,6 @@
+mv /opt/tomcat5/webapps/mirotest/miro/out  /opt/tomcat5/webapps/mirotest/miro/out.old
+cp /opt/tomcat5/webapps/mirotest/miro/xhtml/server-miro2fo.xsl /opt/tomcat5/webapps/mirotest/miro/xhtml/miro2fo.xsl 
+ln -s /home/webadmin/miro-assessment.com/miro-reports /opt/tomcat5/webapps/mirotest/miro/out
+
+
+unlink /opt/tomcat5/webapps/mirotest/miro/out

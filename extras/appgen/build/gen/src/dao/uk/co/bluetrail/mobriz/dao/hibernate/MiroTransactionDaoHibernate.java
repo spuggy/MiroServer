@@ -1,0 +1,62 @@
+
+package uk.co.bluetrail.mobriz.dao.hibernate;
+
+import java.util.List;
+
+import uk.co.bluetrail.mobriz.dao.hibernate.BaseDaoHibernate;
+import uk.co.bluetrail.mobriz.model.MiroTransaction;
+import uk.co.bluetrail.mobriz.dao.MiroTransactionDao;
+
+import org.springframework.orm.ObjectRetrievalFailureException;
+
+public class MiroTransactionDaoHibernate extends BaseDaoHibernate implements MiroTransactionDao {
+
+    /**
+     * @see uk.co.bluetrail.mobriz.dao.MiroTransactionDao#getMiroTransactions(uk.co.bluetrail.mobriz.model.MiroTransaction)
+     */
+    public List getMiroTransactions(final MiroTransaction miroTransaction) {
+        return getHibernateTemplate().find("from MiroTransaction");
+
+        /* Remove the line above and uncomment this code block if you want 
+           to use Hibernate's Query by Example API.
+        if (miroTransaction == null) {
+            return getHibernateTemplate().find("from MiroTransaction");
+        } else {
+            // filter on properties set in the miroTransaction
+            HibernateCallback callback = new HibernateCallback() {
+                public Object doInHibernate(Session session) throws HibernateException {
+                    Example ex = Example.create(miroTransaction).ignoreCase().enableLike(MatchMode.ANYWHERE);
+                    return session.createCriteria(MiroTransaction.class).add(ex).list();
+                }
+            };
+            return (List) getHibernateTemplate().execute(callback);
+        }*/
+    }
+
+    /**
+     * @see uk.co.bluetrail.mobriz.dao.MiroTransactionDao#getMiroTransaction(Long id)
+     */
+    public MiroTransaction getMiroTransaction(final Long id) {
+        MiroTransaction miroTransaction = (MiroTransaction) getHibernateTemplate().get(MiroTransaction.class, id);
+        if (miroTransaction == null) {
+            log.warn("uh oh, miroTransaction with id '" + id + "' not found...");
+            throw new ObjectRetrievalFailureException(MiroTransaction.class, id);
+        }
+
+        return miroTransaction;
+    }
+
+    /**
+     * @see uk.co.bluetrail.mobriz.dao.MiroTransactionDao#saveMiroTransaction(MiroTransaction miroTransaction)
+     */    
+    public void saveMiroTransaction(final MiroTransaction miroTransaction) {
+        getHibernateTemplate().saveOrUpdate(miroTransaction);
+    }
+
+    /**
+     * @see uk.co.bluetrail.mobriz.dao.MiroTransactionDao#removeMiroTransaction(Long id)
+     */
+    public void removeMiroTransaction(final Long id) {
+        getHibernateTemplate().delete(getMiroTransaction(id));
+    }
+}

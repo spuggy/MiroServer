@@ -1,0 +1,4 @@
+    <!--MiroTransaction-START-->
+    <sqlMap resource="uk/co/bluetrail/mobriz/dao/ibatis/sql/MiroTransactionSQL.xml" />
+    <!--MiroTransaction-END-->
+</sqlMapConfig>

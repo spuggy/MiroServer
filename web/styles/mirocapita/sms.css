@@ -1,0 +1,34 @@
+div#header { 
+
+	display: none; 
+
+}
+
+div#main h1 {
+	display: none; 
+}
+
+div #mainFooter {
+	
+	display: none; 
+	
+	
+}
+
+
+div#footer { 
+
+	display: none;
+
+}
+
+#smsMessage {
+
+	width: 400px;
+	height: 150px
+}
+
+
+div#sidebar { 
+	display:none;
+}
