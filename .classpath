@@ -74,15 +74,16 @@
 	<classpathentry kind="lib" path="lib/webtest-build1393/lib/js-1.6R2.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1393/lib/nekohtml-0.9.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3.8.1"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/fop.jar"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/jfreechart-1.0.6.jar"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/avalon-framework-4.2.0.jar"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/batik-all-1.6.jar"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/jcommon-1.0.10.jar"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/serializer-2.7.0.jar"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/xalan-2.7.0.jar"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/xercesImpl-2.7.1.jar"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/xml-apis-1.3.02.jar"/>
-	<classpathentry kind="lib" path="/Users/Richard/Documents/workspace-copy/MiroServer2/lib/fop/xmlgraphics-commons-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/fop/avalon-framework-4.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/fop/batik-all-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/fop/fop.jar"/>
+	<classpathentry kind="lib" path="lib/fop/itext-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/fop/jcommon-1.0.10.jar"/>
+	<classpathentry kind="lib" path="lib/fop/jfreechart-1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/fop/serializer-2.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/fop/xalan-2.7.0.jar"/>
+	<classpathentry kind="lib" path="lib/fop/xercesImpl-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/fop/xml-apis-1.3.02.jar"/>
+	<classpathentry kind="lib" path="lib/fop/xmlgraphics-commons-1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
