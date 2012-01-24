@@ -518,55 +518,55 @@ public class MiroResponse  {
 	
 	
 
-	public List<String[]> getReportPageList() {
+	public List<PageElement[]> getReportPageList() {
 	
-		String[]pageItems = null;
+		PageElement[]pageItems = null;
 		
-		List<String[]> pages = new ArrayList<String[]>();
+		List<PageElement[]> pages = new ArrayList<PageElement[]>();
 		
 		//page0 
-		pages.add(new String[] { "U1" });
+		pages.add(PageElement.create("U1"));
 		//page1
-		pages.add(new String[] { "U2"});
+		pages.add(PageElement.create("U2"));
 //		page2
-		pages.add(new String[] { "U3"});
+		pages.add(PageElement.create("U3"));
 //		page3	
-		pages.add(new String[] { "U4"});
+		pages.add(PageElement.create("U4"));
 //		page4
 		if(this.isExcess(results[0])) {
-			pages.add(new String[] { resultLetters[0]+"1.1"});
+			pages.add(PageElement.create(resultLetters[0]+"1.1"));
 		} else {
-			pages.add(new String[] { resultLetters[0]+"1"});
+			pages.add(PageElement.create(resultLetters[0]+"1"));
 		}
 		
 	
 //		page5
 		if(this.isEngaged(results[1])) {
-			pages.add(new String[] { resultLetters[1]+"2" });
+			pages.add(PageElement.create(resultLetters[1]+"2" ));
 		} else {
-			pages.add(new String[] { resultLetters[0] });
+			pages.add(PageElement.create( resultLetters[0] ));
 			
 		}
 //		page6
 		if(this.isEngaged(results[1])) {
-			pages.add(new String[] { resultLetters[0]+"-"+resultLetters[1] });
+			pages.add(PageElement.create(resultLetters[0]+"-"+resultLetters[1] ));
 		} else {
-			pages.add(new String[] { resultLetters[1]+"3" });
+			pages.add(PageElement.create( resultLetters[1]+"3" ));
 		}
 //		page7
-		pageItems = new String[2];
+		pageItems = new PageElement[2];
 		
 		if(this.isEngaged(results[2])) {
-			pageItems[0] = resultLetters[2]+"4" ;
+			pageItems[0] =  new PageElement(resultLetters[2]+"4") ;
 		} else {
-			pageItems[0] =  resultLetters[2]+"5" ;
+			pageItems[0] =  new PageElement(resultLetters[2]+"5");
 
 		}
 		
 		if(this.isLatent(results[3])) {
-			pageItems[1] = resultLetters[3]+"6.1" ;
+			pageItems[1] = new PageElement(resultLetters[3]+"6.1") ;
 		} else {
-			pageItems[1] = resultLetters[3]+"6";
+			pageItems[1] = new PageElement(resultLetters[3]+"6");
 			
 		}
 		
@@ -575,21 +575,21 @@ public class MiroResponse  {
 		//page8
 		//added by rob 26/08
 		if(this.isEngaged(results[0]) && this.isEngaged(results[1])) {
-			pages.add(new String[] { resultLetters[0]+"-"+resultLetters[1]+"7"});
+			pages.add(PageElement.create( resultLetters[0]+"-"+resultLetters[1]+"7"));
 		} else {
-			pages.add(new String[] { resultLetters[0]+"7"});
+			pages.add(PageElement.create( resultLetters[0]+"7"));
 		}
 		
 			
 		//page9
-		pages.add(new String[] { "U5" });
+		pages.add(PageElement.create( "U5" ));
 		
 //		page10
-		pages.add(new String[] { "U6" });
+		pages.add(PageElement.create( "U6" ));
 		
 		
 //		page11
-		pages.add(new String[] { "U7" });
+		pages.add(PageElement.create("U7" ));
 		
 		
 		return pages;
