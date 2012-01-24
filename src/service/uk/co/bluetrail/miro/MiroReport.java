@@ -221,7 +221,7 @@ public class MiroReport {
 		
 			log.info("Generating " + mr.getFullName() + "_" + mr.getTestId());
 		
-			List<String[]> pages = mr.getReportPageList();
+			List<PageElement[]> pages = mr.getReportPageList();
 			
 			//Image Map
 			Map<String, String> variables = new HashMap<String, String>();

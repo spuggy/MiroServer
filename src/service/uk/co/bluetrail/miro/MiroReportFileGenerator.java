@@ -114,24 +114,36 @@ public class MiroReportFileGenerator {
 	
 
 	
-	private void addPagesToReport(List <String[]>sourcePages) 
+	private void addPagesToReport(List <PageElement[]>sourcePages) 
 					throws ParserConfigurationException, SAXException, IOException {				
 		
-		log.debug("[XML Manipulation] Starting..");
+		log.debug("[XML Manipulation] Starting..0");
 		
 		
 		boolean addDivFlag = false;
 		for(int srcPgIdx = 0; srcPgIdx < sourcePages.size(); srcPgIdx++) {
 			addDivFlag = false;
-			String tempPage[] = sourcePages.get(srcPgIdx);
-			Element divEle = destDocument.createElement("div");
+			PageElement tempPage[] = sourcePages.get(srcPgIdx);
+			Element divEle = destDocument.createElement("div");  
 			divEle.setAttribute("id", srcPgIdx+"");
+			log.debug("[XML Manipulation] Starting..1");
 			for(int tmpPgIdx = 0; tmpPgIdx < tempPage.length; tmpPgIdx++) {
-				Element  element = sourceDocument.getElementById(tempPage[tmpPgIdx]);
-				if(element != null) {
+				PageElement pe = tempPage[tmpPgIdx];
+				Element  element = sourceDocument.getElementById(pe.getId());
+				log.debug("[XML Manipulation] Starting..2");   
+				if(element != null) {   
 					addDivFlag = true;
 					for(int i = 0; i < element.getChildNodes().getLength(); i++) {
 						Node nodeTemp = destDocument.importNode(element.getChildNodes().item(i), true);
+				        
+				        short nt = nodeTemp.getNodeType();
+				        if(nt==Node.ELEMENT_NODE) {
+				        	System.out.println("element");
+				        } else {
+				        	System.out.println("not element");
+				        }
+				        	
+				        
 						divEle.appendChild(nodeTemp);
 					}	
 				}
@@ -177,7 +189,7 @@ public class MiroReportFileGenerator {
 	 * @throws TransformerFactoryConfigurationError
 	 * @throws TransformerException
 	 */
-	public void generate(List <String[]>pages, 
+	public void generate(List <PageElement[]>pages, 
 						Map <String, String> variables, 
 						Map <String, String>imgNames) 
 				throws ParserConfigurationException, 

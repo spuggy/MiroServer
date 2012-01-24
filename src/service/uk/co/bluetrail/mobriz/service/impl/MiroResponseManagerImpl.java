@@ -418,6 +418,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 			teamMapDTO = new TeamMapDTO();		
 			try {
 				teamMapDTO = new TeamMapDTO();
+				teamMapDTO.setId(user.getId());
 				teamMapDTO.setFullName(user.getFullName());
 				teamMapDTO.setInitials(user.getInitials(initials));
 				miroReport.setTeamMapData(teamMapDTO, mr);
