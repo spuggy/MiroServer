@@ -10,6 +10,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;  
 
+import uk.co.bluetrail.mobriz.MiroPage;
 import uk.co.bluetrail.mobriz.model.MiroProject;
 import uk.co.bluetrail.mobriz.model.Question;
 import uk.co.bluetrail.mobriz.model.Setting;
@@ -518,78 +519,78 @@ public class MiroResponse  {
 	
 	
 
-	public List<PageElement[]> getReportPageList() {
+	public List<MiroPage> getReportPageList() {
 	
-		PageElement[]pageItems = null;
+		MiroPageElement[]pageItems = null;
 		
-		List<PageElement[]> pages = new ArrayList<PageElement[]>();
+		List<MiroPage> pages = new ArrayList<MiroPage>();
 		
 		//page0 
-		pages.add(PageElement.create("U1"));
+		pages.add(MiroPage.create("U1"));
 		//page1
-		pages.add(PageElement.create("U2"));
+		pages.add(MiroPage.create("U2"));
 //		page2
-		pages.add(PageElement.create("U3"));
+		pages.add(MiroPage.create("U3"));
 //		page3	
-		pages.add(PageElement.create("U4"));
+		pages.add(MiroPage.create("U4"));
 //		page4
 		if(this.isExcess(results[0])) {
-			pages.add(PageElement.create(resultLetters[0]+"1.1"));
+			pages.add(MiroPage.create(resultLetters[0]+"1.1"));
 		} else {
-			pages.add(PageElement.create(resultLetters[0]+"1"));
+			pages.add(MiroPage.create(resultLetters[0]+"1"));
 		}
 		
 	
 //		page5
 		if(this.isEngaged(results[1])) {
-			pages.add(PageElement.create(resultLetters[1]+"2" ));
+			pages.add(MiroPage.create(resultLetters[1]+"2" ));
 		} else {
-			pages.add(PageElement.create( resultLetters[0] ));
+			pages.add(MiroPage.create( resultLetters[0] ));
 			
 		}
 //		page6
 		if(this.isEngaged(results[1])) {
-			pages.add(PageElement.create(resultLetters[0]+"-"+resultLetters[1] ));
+			pages.add(MiroPage.create(resultLetters[0]+"-"+resultLetters[1] ));
 		} else {
-			pages.add(PageElement.create( resultLetters[1]+"3" ));
+			pages.add(MiroPage.create( resultLetters[1]+"3" ));
 		}
 //		page7
-		pageItems = new PageElement[2];
+		MiroPage page = new MiroPage();
 		
 		if(this.isEngaged(results[2])) {
-			pageItems[0] =  new PageElement(resultLetters[2]+"4") ;
+			page.add(resultLetters[2]+"4") ;
 		} else {
-			pageItems[0] =  new PageElement(resultLetters[2]+"5");
+			page.add(resultLetters[2]+"5");
 
 		}
 		
 		if(this.isLatent(results[3])) {
-			pageItems[1] = new PageElement(resultLetters[3]+"6.1") ;
+			page.add(resultLetters[3]+"6.1") ;
 		} else {
-			pageItems[1] = new PageElement(resultLetters[3]+"6");
+			page.add(resultLetters[3]+"6");
 			
 		}
 		
-		pages.add(pageItems);
+		pages.add(page);
 		
 		//page8
 		//added by rob 26/08
 		if(this.isEngaged(results[0]) && this.isEngaged(results[1])) {
-			pages.add(PageElement.create( resultLetters[0]+"-"+resultLetters[1]+"7"));
+			pages.add(MiroPage.create( resultLetters[0]+"-"+resultLetters[1]+"7"));
 		} else {
-			pages.add(PageElement.create( resultLetters[0]+"7"));
+			pages.add(MiroPage.create( resultLetters[0]+"7"));
 		}
 		
 			
 		//page9
-		pages.add(PageElement.create( "U5" ));
+		pages.add(MiroPage.create( "U5" ));
 		
-//		page10
-		pages.add(PageElement.create( "U6" ));
+		//page10
+		pages.add(MiroPage.create( "U6" ));
 		
 		
-//		page11
-		pages.add(PageElement.create("U7" ));
+		//page11
+		pages.add(MiroPage.create("U7" ));
 		
 		
 		return pages;

@@ -20,6 +20,8 @@ import org.w3c.dom.*;
 
 import org.xml.sax.SAXException;
 
+import uk.co.bluetrail.mobriz.MiroPage;
+
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -114,7 +116,7 @@ public class MiroReportFileGenerator {
 	
 
 	
-	private void addPagesToReport(List <PageElement[]>sourcePages) 
+	private void addPagesToReport(List <MiroPage>sourcePages) 
 					throws ParserConfigurationException, SAXException, IOException {				
 		
 		log.debug("[XML Manipulation] Starting..0");
@@ -123,12 +125,12 @@ public class MiroReportFileGenerator {
 		boolean addDivFlag = false;
 		for(int srcPgIdx = 0; srcPgIdx < sourcePages.size(); srcPgIdx++) {
 			addDivFlag = false;
-			PageElement tempPage[] = sourcePages.get(srcPgIdx);
+			MiroPage tempPage = sourcePages.get(srcPgIdx);
 			Element divEle = destDocument.createElement("div");  
 			divEle.setAttribute("id", srcPgIdx+"");
 			log.debug("[XML Manipulation] Starting..1");
-			for(int tmpPgIdx = 0; tmpPgIdx < tempPage.length; tmpPgIdx++) {
-				PageElement pe = tempPage[tmpPgIdx];
+			for(int tmpPgIdx = 0; tmpPgIdx < tempPage.getLength(); tmpPgIdx++) {
+				MiroPageElement pe = tempPage.get(tmpPgIdx);
 				Element  element = sourceDocument.getElementById(pe.getId());
 				log.debug("[XML Manipulation] Starting..2");   
 				if(element != null) {   
@@ -189,7 +191,7 @@ public class MiroReportFileGenerator {
 	 * @throws TransformerFactoryConfigurationError
 	 * @throws TransformerException
 	 */
-	public void generate(List <PageElement[]>pages, 
+	public void generate(List <MiroPage>pages, 
 						Map <String, String> variables, 
 						Map <String, String>imgNames) 
 				throws ParserConfigurationException, 

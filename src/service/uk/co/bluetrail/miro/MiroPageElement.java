@@ -3,27 +3,20 @@ package uk.co.bluetrail.miro;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PageElement {
+public class MiroPageElement {
 	
-	public static PageElement[] create(String id) {
 	
-		PageElement[] tmp = new PageElement[1];
-		
-		tmp[0] = new PageElement(id);
-		
-		return tmp;
-	}
 	
 	
 	String id;
 	String suffix ;
 	
-	public PageElement(String id) {
+	public MiroPageElement(String id) {
 		this.id = id;
 		this.suffix = null;
 	}
 	
-	public PageElement(String id,String suffix) {
+	public MiroPageElement(String id,String suffix) {
 		this.id = id;
 		this.suffix = suffix;
 	}
@@ -37,7 +30,7 @@ public class PageElement {
 	}
 	
 	public static void main(String args[]) { 
-		PageElement x = new PageElement("helllo") ;
+		MiroPageElement x = new MiroPageElement("helllo") ;
 		
 		System.out.println("parp " + x);
 		

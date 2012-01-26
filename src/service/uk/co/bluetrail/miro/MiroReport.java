@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import org.jfree.chart.title.TextTitle;
 import org.xml.sax.SAXException;
 
+import uk.co.bluetrail.mobriz.MiroPage;
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
 
@@ -221,7 +222,7 @@ public class MiroReport {
 		
 			log.info("Generating " + mr.getFullName() + "_" + mr.getTestId());
 		
-			List<PageElement[]> pages = mr.getReportPageList();
+			List<MiroPage> pages = mr.getReportPageList();
 			
 			//Image Map
 			Map<String, String> variables = new HashMap<String, String>();
