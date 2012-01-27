@@ -19,7 +19,6 @@ import org.apache.commons.logging.LogFactory;
 import org.jfree.chart.title.TextTitle;
 import org.xml.sax.SAXException;
 
-import uk.co.bluetrail.mobriz.MiroPage;
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
 

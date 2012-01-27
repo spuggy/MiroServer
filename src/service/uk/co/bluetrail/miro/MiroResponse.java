@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;  
 
-import uk.co.bluetrail.mobriz.MiroPage;
 import uk.co.bluetrail.mobriz.model.MiroProject;
 import uk.co.bluetrail.mobriz.model.Question;
 import uk.co.bluetrail.mobriz.model.Setting;
@@ -721,6 +720,14 @@ public class MiroResponse  {
 		
 		return sb.toString();
 				
+	}
+
+	/**
+	 * is the second result engages - used by mirteam
+	 */
+	public boolean is2ndEngaged() {
+		
+		return isEngaged(results[1]);
 	}
 
 	

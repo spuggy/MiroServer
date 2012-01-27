@@ -1,8 +1,7 @@
-package uk.co.bluetrail.mobriz;
+package uk.co.bluetrail.miro;
 
 import java.util.ArrayList;
 
-import uk.co.bluetrail.miro.MiroPageElement;
 
 public class MiroPage {
 	

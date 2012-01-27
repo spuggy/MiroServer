@@ -20,7 +20,6 @@ import org.w3c.dom.*;
 
 import org.xml.sax.SAXException;
 
-import uk.co.bluetrail.mobriz.MiroPage;
 
 
 import javax.xml.parsers.DocumentBuilder;
