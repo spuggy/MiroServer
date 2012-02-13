@@ -27,6 +27,10 @@ public class MiroPage {
 	}
 
 
+	public void add(MiroPageElement mpe) {
+		pageItems.add(mpe);
+		
+	}
 
 
 	public int getLength() {
@@ -39,5 +43,10 @@ public class MiroPage {
 	public MiroPageElement get(int idx) {
 		return this.pageItems.get(idx);
 	}
+
+
+
+
+	
 	
 }

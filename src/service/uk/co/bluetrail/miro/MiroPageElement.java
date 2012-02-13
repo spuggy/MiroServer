@@ -51,6 +51,15 @@ public class MiroPageElement {
 		
 	}
 	
+	public String getSuffix() {
+		if(suffix==null) {
+			return "";
+		} else {
+			return suffix;
+		}
+	}
+
+	
 	
 
 }
