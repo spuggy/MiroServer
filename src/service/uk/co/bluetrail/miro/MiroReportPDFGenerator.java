@@ -25,18 +25,18 @@ public class MiroReportPDFGenerator {
 	
 	private final static Log log = LogFactory.getLog(MiroReportPDFGenerator.class);
 	
-	public static void generatePDF(File baseDir,MiroResponse mr) throws Exception {
+	public static void generatePDF(File baseDir,String miroReportName) throws Exception {
       
             
-            log.debug("Preparing..." + mr.getMiroReportName());
+            log.debug("Preparing..." + miroReportName);
 
                
      
      
             // Setup input and output files            
-            File xmlfile = new File(baseDir, "out/" + mr.getMiroReportName()+".xhtml");
+            File xmlfile = new File(baseDir, "out/" + miroReportName+".xhtml");
             File xsltfile = new File(baseDir, "xhtml/miro2fo.xsl");
-            File pdffile = new File(baseDir, "out/" + mr.getMiroReportName()+".pdf");
+            File pdffile = new File(baseDir, "out/" + miroReportName+".pdf");
 
             log.debug("Input: XML (" + xmlfile + ")");
             log.debug("Stylesheet: " + xsltfile);
@@ -91,7 +91,7 @@ public class MiroReportPDFGenerator {
         	log.debug("No of Pages:"+pdfReader.getNumberOfPages());
 		    
             
-        	log.debug("Success for ! " + mr.getMiroReportName());
+        	log.debug("Success for ! " + miroReportName);
        
     }
 }

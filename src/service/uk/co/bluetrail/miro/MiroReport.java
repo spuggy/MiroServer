@@ -141,7 +141,7 @@ public class MiroReport {
 		log.debug("Before XMLReportFile " + mr.toString());
 		this.generateXMLReportFile();   
 		log.debug("Before PDF " + mr.toString());
-		MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr);
+		MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr.getMiroReportName());
 		
 		
 
