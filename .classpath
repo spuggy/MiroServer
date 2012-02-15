@@ -67,7 +67,6 @@
 	<classpathentry kind="lib" path="lib/jakarta-taglibs/standard-1.0.6/lib/standard.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-5.0.3/mysql-connector-java-5.0.3-bin.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1393/lib/commons-httpclient-3.0.1.jar"/>
-	<classpathentry kind="lib" path="lib/webtest-build1393/lib/commons-io-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1393/lib/htmlunit-1.9.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1393/lib/jaxen-1.1-beta-9.jar"/>
 	<classpathentry kind="lib" path="lib/webtest-build1393/lib/js-1.6R2.jar"/>
@@ -85,5 +84,6 @@
 	<classpathentry kind="lib" path="lib/fop/xml-apis-1.3.02.jar"/>
 	<classpathentry kind="lib" path="lib/fop/xmlgraphics-commons-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/mockito/mockito-all-1.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-commons/commons-io-1.3.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
