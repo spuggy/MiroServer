@@ -24,7 +24,7 @@ public class MiroReportLevel {
 		
 	}
 
-	public String getLevel(int v) {
+	public String getLevel(double v) {
 		
 		Iterator itr = levels.iterator() ;
 		
@@ -46,16 +46,16 @@ public class MiroReportLevel {
 class Level {
 	
 	public String level;
-	public int upper;
-	public int lower ;
+	public double upper;
+	public double lower ;
 	
 	public Level(String level, String upper, String lower){
-		this.upper = Integer.parseInt(upper);
-		this.lower = Integer.parseInt(lower);
+		this.upper = Double.parseDouble(upper);
+		this.lower = Double.parseDouble(lower);
 		this.level = level;
 	}
 
-	public boolean isMatch(int v) {
+	public boolean isMatch(double v) {
 		if(v>=lower && v<=upper) {
 			return true;
 		} else {

@@ -3,10 +3,13 @@ package uk.co.bluetrail.miro;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -31,7 +34,8 @@ public class MiroTeamReport {
 	private File baseDirectory;
 	private Setting miroLetters;
 	private MiroReportFileGenerator miroReportFileGenerator;
-	private OrderedMap teamTotals;
+	private Map teamTotals;
+	private ArrayList<MiroTeamResult> sortedTeamTotals;
 	
 	
 	private Map<String,Integer> leadingTotals ;
@@ -84,7 +88,11 @@ public class MiroTeamReport {
 			log.error("The miroTeamReportis null");
 		}
 
-	//	this.generateChart();
+		//this.generateTeamChart();
+		//this.generateTeamPies();
+		//this.generateTeamBarChart();
+		//this.generateTeamResultsGraphic();
+		//this.generateTeamStarChart();
 		this.generateXMLReportFile();   
 		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamReportName());
 		
@@ -180,7 +188,7 @@ public class MiroTeamReport {
 		//add intro text
 		pages.add(MiroPage.create("intro_text_page"));
 		
-		MiroPage teamPiesPage = new MiroPage();
+		MiroPage individualPiePage = new MiroPage();
 		List members = this.miroTeam.getMembers();
 		Iterator itr = members.iterator();
 		while(itr.hasNext()) {
@@ -203,10 +211,33 @@ public class MiroTeamReport {
 				mpe = new MiroPageElement(idKey,mr.getTestId().toString());
 				imgNames.put(pieKey+mpe.getSuffix(), getPieImage(mr));
 			}
-			teamPiesPage.add(mpe);
+			individualPiePage.add(mpe);
 			
 		}
-		pages.add(teamPiesPage);
+		pages.add(individualPiePage);
+		
+		MiroPage teamPiePage = new MiroPage();
+		//add the team pie 
+		teamPiePage.add(new MiroPageElement("team_pie"));
+		
+		//add the team results coloured box below
+		teamPiePage.add(new MiroPageElement("team_results_table"));
+		
+		//add Team descriptors.
+		for(int i = 0 ; i < 4 ; i++) {
+		
+			String mode = this.getMode(i);
+			String modeLevel = this.getModeLevel(i);
+			String divKey = "M" + modeLevel + i + mode;
+			
+			teamPiePage.add(new MiroPageElement(divKey));
+			
+			
+		}
+		
+		pages.add(teamPiePage);
+		
+		
 		
 		
 		//loop over users and add them 
@@ -324,8 +355,11 @@ public class MiroTeamReport {
 	 */
 	public String getMode(int index)	{
 		calculateResultsTable();
-		return "";
+		MiroTeamResult mtr =  this.sortedTeamTotals.get(index);
+		return mtr.key;
+	
 	}
+	
 	
 	/**
 	 * gets the modelevel for the specified index postion will return things like H M L A  .. 
@@ -335,7 +369,10 @@ public class MiroTeamReport {
 	 */
 	public String getModeLevel(int index)	{
 		calculateResultsTable();
-		return "";
+		MiroTeamResult mtr = this.sortedTeamTotals.get(index);
+		return this.miroLevels.getLevel(mtr.value);
+		
+		
 	}
 	
 	/**
@@ -343,7 +380,7 @@ public class MiroTeamReport {
 	 */
 	private void calculateResultsTable() {
 		
-		if(this.leadingTotals==null) {
+		if(this.leadingTotals!=null) {
 			//we have claculated em.  so quit
 			return ;
 		}
@@ -365,9 +402,9 @@ public class MiroTeamReport {
 		for(int i = 0 ; i < this.miroTeam.getTeamResults().size();i++) {
 			TeamMapDTO dt = (TeamMapDTO) this.miroTeam.getTeamResults().get(i);
 			Integer lm = this.leadingTotals.get(dt.getLeadingMode()) ; 
-			this.leadingTotals.put(dt.getLeadingMode(), lm++);
+			this.leadingTotals.put(dt.getLeadingMode(), ++lm);
 			Integer sm = this.secondaryTotals.get(dt.getSecondaryMode()) ; 
-			this.secondaryTotals.put(dt.getSecondaryMode(), sm++);
+			this.secondaryTotals.put(dt.getSecondaryMode(), ++sm);
 		}
 
 		//loop over map, calculate percentages 
@@ -378,19 +415,34 @@ public class MiroTeamReport {
 			Integer lm = this.leadingTotals.get(miroLetters[i]) ;
 			Integer sm = this.secondaryTotals.get(miroLetters[i]);
 			int teamTotal = (lm*2) + sm ;
-			this.teamTotals.put(miroLetters[i], lm);
+			this.teamTotals.put(miroLetters[i], teamTotal);
 			teamTotalTotals = teamTotalTotals + teamTotal;
 		}
+		
+		ArrayList<MiroTeamResult> tempSort = new ArrayList<MiroTeamResult>();
 		
 		//finally make the values in the map %
 		for(int i = 0 ; i < miroLetters.length;i++) {
 			
-			Integer teamTotal = (Integer) this.teamTotals.get(miroLetters[i]) ;
-			if(teamTotal>0) {
-				this.teamTotals.put(miroLetters[1], (teamTotal/teamTotalTotals)*100);
+			String ml = miroLetters[i];
+			
+			Integer teamTotal = (Integer) this.teamTotals.get(ml) ;
+			
+			double pc = 0.0;
+			
+			if(teamTotal.intValue()>0) {
+				pc = (teamTotal.doubleValue()/teamTotalTotals)*100;
+				tempSort.add(new MiroTeamResult(ml, pc));
+			} else {
+				tempSort.add(new MiroTeamResult(ml, 0.00));
 			}
 			
 		}
+		
+		int count = tempSort.size();
+		
+		Collections.sort(tempSort);
+		this.sortedTeamTotals = tempSort;
 		
 		
 	
@@ -406,7 +458,54 @@ public class MiroTeamReport {
 		buildReportPageList(pages,variables,imgNames);
 		
 	}
+
+	public void setTeam(MiroTeam mt) {
+		this.miroTeam = mt;
+		
+	}
+
+	
 	
 	
 
 }
+
+
+class MiroTeamResult implements Comparable<MiroTeamResult> {
+
+	
+	public String key;
+	public double value;
+
+
+	public MiroTeamResult(String key, double v) {
+		this.key = key ;
+		this.value = v;
+	}
+	
+	
+	public int compareTo(MiroTeamResult mtr) {
+		final int BEFORE = -1;
+	    final int EQUAL = 0;
+	    final int AFTER = 1;
+		
+		if(mtr.value==this.value) {
+	
+			return mtr.key.compareTo(this.key);
+			
+		}
+		
+		if(mtr.value>this.value) {
+			return AFTER;
+		}
+		
+		return BEFORE;
+		
+	}
+
+	
+	
+	
+	
+}
+
