@@ -125,6 +125,7 @@ public class MiroReportFileGenerator {
 			for (int tmpPgIdx = 0; tmpPgIdx < tempPage.getLength(); tmpPgIdx++) {
 				MiroPageElement pe = tempPage.get(tmpPgIdx);
 				Element element = sourceDocument.getElementById(pe.getId());
+				
 				log.debug("[XML Manipulation] Starting..2");
 				if (element != null) {
 					addDivFlag = true;
@@ -134,6 +135,8 @@ public class MiroReportFileGenerator {
 						divEle.appendChild(nodeTemp);
 					}
 					
+				} else {
+					element = sourceDocument.getElementById("missing_element");
 				}
 			}
 			if (addDivFlag) {
