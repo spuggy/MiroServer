@@ -69,7 +69,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		miroTeam = new MiroTeam();
 		miroTeam.setId(new Long(100));
-		miroTeam.setMiroTeamReportName("Test Report2");
+		miroTeam.setMiroTeamReportName("Testing Team");
 		
 		this.members = new ArrayList() ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
