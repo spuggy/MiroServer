@@ -159,8 +159,15 @@ public class MiroTeamReport {
 		//imgNames.put("graph", this.baseDirectory.getAbsolutePath() + "/out/" +this.getChartName());
 		
 		imgNames.put("home_page_banner_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_report_banner_image.png");
-		imgNames.put("team_pie_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_bar_chart_place_holder.png");
-		imgNames.put("team_results_table_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_report_banner_image.png");
+		imgNames.put("team_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_chart_place_holder.png");
+		imgNames.put("team_chart_table_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_chart_table_place_holder.png");
+		imgNames.put("team_radar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_radar_chart_holder.png");
+		imgNames.put("team_bar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_bar_chart_place_holder.png");
+		
+		
+		
+		
+		
 		imgNames.put("imgU1", this.baseDirectory.getAbsolutePath() + "/images/" + "U1.png");
 		imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/images/" + "U3.png");
 		imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/images/"  + "U2.png");
@@ -202,18 +209,32 @@ public class MiroTeamReport {
 			
 			String idKey = null;
 			String pieKey = null;
+			String nameKey = null;
 			String idSuffix = "pie_and_bullets_";
 			MiroPageElement mpe = null;
+			
+			//addname
+			nameKey = idSuffix + "title";
+			mpe = new MiroPageElement(nameKey,mr.getTestId().toString());
+			individualPiePage.add(mpe );
+			variables.put(idSuffix + "name_" + mpe.getSuffix(), mr.getFullName());
+			
+			
+			//add the pie
 			if(mr.is2ndEngaged()) {
 				idKey = idSuffix+resultLetters[0]+"-"+resultLetters[1];
 				pieKey = idKey + "_pie_" ;
+		
 				mpe = new MiroPageElement(idKey,mr.getTestId().toString());
 				imgNames.put(pieKey+mpe.getSuffix(), getPieImage(mr));
+				
 			} else {
 				idKey = idSuffix+resultLetters[1];
 				pieKey = idKey + "_pie_" ;
+				
 				mpe = new MiroPageElement(idKey,mr.getTestId().toString());
 				imgNames.put(pieKey+mpe.getSuffix(), getPieImage(mr));
+				
 			}
 			individualPiePage.add(mpe);
 			
@@ -221,19 +242,20 @@ public class MiroTeamReport {
 		pages.add(individualPiePage);
 		
 		MiroPage teamPiePage = new MiroPage();
+		
 		//add the team pie 
-		teamPiePage.add(new MiroPageElement("team_pie"));
+		teamPiePage.add(new MiroPageElement("team_chart"));
 		
 		//add the team results coloured box below
-		teamPiePage.add(new MiroPageElement("team_results_table"));
+		teamPiePage.add(new MiroPageElement("team_chart_table"));
 		
 		//add Team descriptors.
 		for(int i = 0 ; i < 4 ; i++) {
 		
 			String mode = this.getMode(i);
 			String modeLevel = this.getModeLevel(i);
-			String divKey = "M" + modeLevel + i + mode;
-			
+			String divKey = "M" + mode + (i+1) + modeLevel ;
+		
 			teamPiePage.add(new MiroPageElement(divKey));
 			
 			
@@ -241,102 +263,33 @@ public class MiroTeamReport {
 		
 		pages.add(teamPiePage);
 		
-		
-		
-		
-		//loop over users and add them 
-		//set the varables for their images
-		
-		/*
-		MiroPageElement[] pe = new MiroPageElement[3];
-		pe[0] = new  MiroPageElement("homepage","100");
-		pe[1] = new  MiroPageElement("homepage","101");
-		pe[2] = new  MiroPageElement("homepage","102");
-		pages.add(pe);
-		*/
-		
-		
-		//add team map - genrerate this to file?
-		
-		//add coloured reporitng table 
-		
-		//add paras
-		
-		//add a bar char - how to we do this?
-		
-		//ad more paras
-		
-		//more shit after this ... not sure how it worls speak to pob
-		
-		
-		
-			
-		
-		
-		
-		
-		/*
-		if(this.isExcess(results[0])) {
-			pages.add(new String[] { resultLetters[0]+"1.1"});
-		} else {
-			pages.add(new String[] { resultLetters[0]+"1"});
-		}
-		
+		MiroPage teamBulletsPage = new MiroPage();
+		teamBulletsPage.add(new MiroPageElement("team_bar_chart"));
 	
-//		page5
-		if(this.isEngaged(results[1])) {
-			pages.add(new String[] { resultLetters[1]+"2" });
-		} else {
-			pages.add(new String[] { resultLetters[0] });
+		
+		
+		
+		//Team descriptor Bullet points.
+		for(int i = 0 ; i < 4 ; i++) {
 			
-		}
-//		page6
-		if(this.isEngaged(results[1])) {
-			pages.add(new String[] { resultLetters[0]+"-"+resultLetters[1] });
-		} else {
-			pages.add(new String[] { resultLetters[1]+"3" });
-		}
-//		page7
-		pageItems = new String[2];
+			String mode = this.getMode(i);
+			String modeLevel = this.getModeLevel(i);
+			String divKey = "B" + mode + (i+1) + modeLevel ;
 		
-		if(this.isEngaged(results[2])) {
-			pageItems[0] = resultLetters[2]+"4" ;
-		} else {
-			pageItems[0] =  resultLetters[2]+"5" ;
-
-		}
-		
-		if(this.isLatent(results[3])) {
-			pageItems[1] = resultLetters[3]+"6.1" ;
-		} else {
-			pageItems[1] = resultLetters[3]+"6";
+			teamBulletsPage.add(new MiroPageElement(divKey));
+			
 			
 		}
 		
-		pages.add(pageItems);
+		pages.add(teamBulletsPage);
 		
-		//page8
-		//added by rob 26/08
-		if(this.isEngaged(results[0]) && this.isEngaged(results[1])) {
-			pages.add(new String[] { resultLetters[0]+"-"+resultLetters[1]+"7"});
-		} else {
-			pages.add(new String[] { resultLetters[0]+"7"});
-		}
-		
-			
-		//page9
-		pages.add(new String[] { "U5" });
-		
-//		page10
-		pages.add(new String[] { "U6" });
+		MiroPage teamRadarPage = new MiroPage();
+		teamRadarPage.add(new MiroPageElement("team_radar_chart"));
+		pages.add(teamRadarPage);
 		
 		
-//		page11
-		pages.add(new String[] { "U7" });
-		*/
-		
-		
-		
+//		practitiioner stuff
+		pages.add(MiroPage.create("practitioner_details"));
 		
 		
 		

@@ -52,7 +52,7 @@ class Level {
 	public Level(String level, String upper, String lower){
 		this.upper = Double.parseDouble(upper);
 		this.lower = Double.parseDouble(lower);
-		this.level = level;
+		this.level = level.toUpperCase();
 	}
 
 	public boolean isMatch(double v) {

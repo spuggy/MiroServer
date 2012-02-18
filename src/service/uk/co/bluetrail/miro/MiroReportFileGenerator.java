@@ -74,7 +74,7 @@ public class MiroReportFileGenerator {
 		while (mapIter.hasNext()) {
 			String tagId = mapIter.next();
 			// Get the Element by imageId
-			Element element = sourceDocument.getElementById(tagId);
+			Element element = this.sourceDocument.getElementById(tagId);
 			if (element != null) {
 				element.setTextContent((variables.get(tagId)));
 			}
@@ -110,7 +110,7 @@ public class MiroReportFileGenerator {
 
 	}
 
-	private void addPagesToReport(List<MiroPage> sourcePages, Map<String, String> imgNames)
+	private void addPagesToReport(List<MiroPage> sourcePages, Map<String, String> imgNames,Map<String, String> variables)
 			throws ParserConfigurationException, SAXException, IOException {
 
 		log.debug("[XML Manipulation] Starting..0");
@@ -131,7 +131,7 @@ public class MiroReportFileGenerator {
 					addDivFlag = true;
 					for (int i = 0; i < element.getChildNodes().getLength(); i++) {
 						Node nodeTemp = destDocument.importNode(element.getChildNodes().item(i), true);
-						adjustIdOfNode(nodeTemp, pe,imgNames);
+						adjustIdOfNode(nodeTemp, pe,imgNames,variables);
 						divEle.appendChild(nodeTemp);
 					}
 					
@@ -150,7 +150,7 @@ public class MiroReportFileGenerator {
 
 	
 
-	private void adjustIdOfNode(Node nodeTemp, MiroPageElement pe, Map<String, String> imgNames) {
+	private void adjustIdOfNode(Node nodeTemp, MiroPageElement pe, Map<String, String> imgNames, Map<String, String> vars) {
 		
 		if(nodeTemp == null) {
 			return;
@@ -168,10 +168,18 @@ public class MiroReportFileGenerator {
 		if (id != null && !id.equals("")) {
 			e.setAttribute("id", pe.addSuffix(id));
 			
+			//change the image source
 			String imgSrc = imgNames.get(pe.addSuffix(id));
 			if(imgSrc!=null) {
 				e.setAttribute("src", imgSrc);
+			} 
+			
+			//if this is a variable then flip out the text
+			String var = vars.get(pe.addSuffix(id));
+			if(var !=null) {
+				e.setTextContent(var);
 			}
+			
 			
 			
 		}
@@ -186,7 +194,7 @@ public class MiroReportFileGenerator {
 		
 		for (int i = 0; i < e.getChildNodes().getLength(); i++) {
 			Node nextNode = e.getChildNodes().item(i);
-			adjustIdOfNode(nextNode, pe,imgNames);
+			adjustIdOfNode(nextNode, pe,imgNames,vars);
 		}
 
 	}
@@ -277,8 +285,7 @@ public class MiroReportFileGenerator {
 
 		
 		
-		log.debug("Manipulating Variables..");
-		replaceVariables(variables);
+		
 
 		
 
@@ -287,7 +294,10 @@ public class MiroReportFileGenerator {
 
 		// Add pages to final xhtml report
 		log.debug("Adding pages to report..");
-		addPagesToReport(pages,imgNames);
+		addPagesToReport(pages,imgNames,variables);
+		
+		log.debug("Manipulating Variables..");
+		replaceVariables(variables);
 		
 		log.debug("Replacing image paths..");
 		replaceImagesPaths(imgNames);

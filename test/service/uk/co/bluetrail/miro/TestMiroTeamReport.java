@@ -34,20 +34,6 @@ public class TestMiroTeamReport extends TestCase {
 	private HashMap<String, String> modeNames;
 	
 	
-	private MiroResponse getMockMiroResponse(Long id,String firstName, String lastName) {
-	
-		MiroResponse mr = mock(MiroResponse.class);
-		when(mr.getFirstName()).thenReturn(firstName);
-		when(mr.getLastName()).thenReturn(lastName);
-		when(mr.getTestId()).thenReturn(id);
-		when(mr.getFullName()).thenReturn(firstName+ " " + lastName);
-		when(mr.getResultLetters()).thenReturn(new String[] {"A","E","O","D"});
-		when(mr.is2ndEngaged()).thenReturn(true);
-		when(mr.getMiroReportName()).thenReturn(firstName+"_"+lastName+"_"+id);
-		
-		return mr;
-		
-	}
 	
 	
 	/* (non-Javadoc)
@@ -69,7 +55,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		miroTeam = new MiroTeam();
 		miroTeam.setId(new Long(100));
-		miroTeam.setMiroTeamReportName("Testing Team");
+		miroTeam.setMiroTeamReportName("Testing Team 100");
 		
 		this.members = new ArrayList() ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
@@ -101,9 +87,11 @@ public class TestMiroTeamReport extends TestCase {
 		
 		User prac = new User();
 		
-		prac.setFirstName("Richard");
-		prac.setLastName("Spence");
+		prac.setFirstName("Kenny");
+		prac.setLastName("Practitioner");
 		prac.setId(new Long(99));
+		prac.setAddress1("80 Sandringham Road");
+		prac.setCity("Swindon");
 		
 		miroTeam.setPractitioner(prac);
 		
@@ -117,7 +105,17 @@ public class TestMiroTeamReport extends TestCase {
 
 	private void addTeamMember(String firstName, String secondName, String leading, String secondary, int id) {
 		
-		MiroResponse mr1 = getMockMiroResponse(new Long(id),firstName,secondName);
+		 
+		
+		MiroResponse mr1 = mock(MiroResponse.class);
+		when(mr1.getFirstName()).thenReturn(firstName);
+		when(mr1.getLastName()).thenReturn(secondName);
+		when(mr1.getTestId()).thenReturn(new Long(id));
+		when(mr1.getFullName()).thenReturn(firstName+ " " + secondName);
+		when(mr1.getResultLetters()).thenReturn(new String[] {leading,secondary});
+		when(mr1.is2ndEngaged()).thenReturn(true);
+		when(mr1.getMiroReportName()).thenReturn(firstName+"_"+secondName+"_"+id);
+		
 		members.add(mr1);
 		
 		TeamMapDTO tm1 = new TeamMapDTO();
@@ -151,7 +149,7 @@ public class TestMiroTeamReport extends TestCase {
 			
 			mtr.buildReportPageList(miroTeam, plist, variables,imgNames);
 			
-			Assert.assertEquals("Number of pages is 4", 4,plist.size());
+			Assert.assertEquals("Number of pages is 7", 7,plist.size());
 			
 			
 			
@@ -167,7 +165,11 @@ public class TestMiroTeamReport extends TestCase {
 			
 			pe = plist.get(2);
 			
-			Assert.assertEquals("Page 3 has two elements", 8,pe.getLength());
+			Assert.assertEquals("Page 16 has two elements", 16,pe.getLength());
+			
+			pe = plist.get(3);
+			
+			Assert.assertEquals("Page 4 has two elements", 6,pe.getLength());
 			
 			
 		} catch(Exception e) {

@@ -20,7 +20,7 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 		
 		String level = mtl.getLevel(42);
 		
-		Assert.assertEquals("Should be high", "h", level);
+		Assert.assertEquals("Should be high", "H", level);
 		
 	}
 	
@@ -32,7 +32,7 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 		
 		String level = mtl.getLevel(14);
 		
-		Assert.assertEquals("Should be low", "l", level);
+		Assert.assertEquals("Should be low", "L", level);
 		
 	}
 	
@@ -44,7 +44,7 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 		
 		String level = mtl.getLevel(0);
 		
-		Assert.assertEquals("Should be absent", "a", level);
+		Assert.assertEquals("Should be absent", "A", level);
 		
 	}
 	
@@ -56,7 +56,7 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 		
 		String level = mtl.getLevel(25);
 		
-		Assert.assertEquals("Should be medium", "m", level);
+		Assert.assertEquals("Should be medium", "M", level);
 		
 	}
 	
