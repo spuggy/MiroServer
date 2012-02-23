@@ -2,10 +2,14 @@ package uk.co.bluetrail.mobriz.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import uk.co.bluetrail.mobriz.Constants;
+import uk.co.bluetrail.mobriz.model.BaseObject;
 
 
-public class MiroTeam extends BaseObject {
+public class MiroTeam  extends BaseObject {
 
+	
+	private static final long serialVersionUID = -3533292341403024042L;
 	private Long id;
 	private String miroReportName;
 	private User practitioner;

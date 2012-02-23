@@ -12,7 +12,7 @@ public class Account extends BaseObject {
 
 	private Long id ;
 	private String companyName ; 
-	
+	  
 	
 	@Override
 	public boolean equals(Object o) {
