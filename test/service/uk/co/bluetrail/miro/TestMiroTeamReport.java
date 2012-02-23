@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public class TestMiroTeamReport extends TestCase {
 	File baseDir ;
 	Setting miroLetters;
 	Setting miroLevels;
-	private ArrayList members;
+	private HashSet members;
 	private ArrayList teamResults;
 	private HashMap<String, String> modeNames;
 	
@@ -57,7 +58,7 @@ public class TestMiroTeamReport extends TestCase {
 		miroTeam.setId(new Long(100));
 		miroTeam.setMiroTeamReportName("Testing Team 100");
 		
-		this.members = new ArrayList() ;   //a piule of mrs
+		this.members = new HashSet(); ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
 		
 		modeNames = new HashMap<String, String>();  
@@ -79,7 +80,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		
 		
-		miroTeam.setTeamMembers(members) ;
+		miroTeam.setMembers(members) ;
 		miroTeam.setResults(teamResults);
 		
 		

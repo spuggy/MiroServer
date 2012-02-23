@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -200,7 +201,7 @@ public class MiroTeamReport {
 		pages.add(MiroPage.create("intro_text_page"));
 		
 		MiroPage individualPiePage = new MiroPage();
-		List members = this.miroTeam.getMembers();
+		Set members = this.miroTeam.getMembers();
 		Iterator itr = members.iterator();
 		while(itr.hasNext()) {
 			MiroResponse mr = (MiroResponse) itr.next();

@@ -22,7 +22,8 @@
 				<value>uk/co/bluetrail/mobriz/model/WebPage.hbm.xml</value>           
 				<value>uk/co/bluetrail/mobriz/model/MobrizAlert.hbm.xml</value>                  
         	   	<value>uk/co/bluetrail/mobriz/model/MiroProject.hbm.xml</value>                      
-       			<value>uk/co/bluetrail/mobriz/model/MiroTransaction.hbm.xml</value>                      
+       			<value>uk/co/bluetrail/mobriz/model/MiroTransaction.hbm.xml</value>  
+       			<value>uk/co/bluetrail/mobriz/model/MiroTeam.hbm.xml</value>                      
             </list>
         </property>
         <property name="hibernateProperties">
@@ -110,6 +111,9 @@
    <!--MiroTransaction-START-->
     <bean id="miroTransactionDao" class="uk.co.bluetrail.mobriz.dao.hibernate.MiroTransactionDaoHibernate" autowire="byName"/>
     <!--MiroTransaction-END-->
+    
+    <bean id="miroTeamDao" class="uk.co.bluetrail.mobriz.dao.hibernate.MiroTeamDaoHibernate" autowire="byName"/>
+    
 </beans>
 
 

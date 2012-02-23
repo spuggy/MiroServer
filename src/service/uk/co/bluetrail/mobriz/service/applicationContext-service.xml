@@ -205,7 +205,17 @@
          <property name="userDao" ref="userDao"/>
         
     </bean>
+    
+    
     <!--MiroTransaction-END-->
+
+	<bean id="miroTeamManager" class="uk.co.bluetrail.mobriz.service.impl.MiroTeamManagerImpl">
+        <property name="miroTeamDao" ref="miroTeamDao"/>
+        
+    </bean>
+
+
+
 </beans>
 
 
