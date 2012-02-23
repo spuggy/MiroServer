@@ -94,8 +94,8 @@ MiroProjectFormController.prototype = {
    		
    	
    		
-   		if(!confirm("By clicking \"OK\" you agree to pay \u00A320.00 (Plus VAT) for this report or if you have pre-paid your account will be debited accordingly. Do you wish to continue?")) {
-   			return;
+    	if(!confirm("By clicking \"OK\" you agree to purchase this assessment report and will be charged accordingly. Do you wish to continue?")) {
+    		return;
    		}
    		
    		
