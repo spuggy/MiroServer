@@ -92,6 +92,7 @@
         <property name="templateName" value="accountCreated.vm"/>
     </bean>
     
+    <bean id="miroTeamController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTeamController" autowire="byName"/>
     
     
     <!--Account-BEAN-START-->
@@ -336,7 +337,7 @@
    				<prop key="/myaccount.html">purchasedReportsController</prop>
    				
    				<prop key="/miroTeamPie.html">miroTeamPieFormController</prop>
-   				<prop key="/miroTeamMap.html">miroTeamMapFormController</prop>
+   				<prop key="/miroTeamMap.html">miroTeamController</prop>
    			   	<prop key="/teamImage/teamPieImage.jpg">miroTeamPieImageController</prop>
    			   	<prop key="/teamImage/teamMapImageEngaged.jpg">miroTeamMapImageController</prop>
    			   	<prop key="/teamImage/teamMapImageLeading.jpg">miroTeamMapImageController</prop>

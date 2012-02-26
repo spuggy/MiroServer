@@ -73,7 +73,7 @@ public class MiroTeamManagerTest extends BaseManagerTestCase {
         User u = new User();
         
         // set required fields
-         miroTeam.setMiroTeamReportName("UyWxIpGzBuOyKbGoBfQgAdDpHiUfHp");
+         miroTeam.setMiroTeamName("UyWxIpGzBuOyKbGoBfQgAdDpHiUfHp");
      
         // set expected behavior on dao
         miroTeamDao.expects(once()).method("saveMiroTeam")

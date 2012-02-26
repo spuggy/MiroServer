@@ -14,14 +14,14 @@ import uk.co.bluetrail.mobriz.model.BaseObject;
  * <p><a href="MiroTeam.java.html"><i>View Source</i></a>
  *
  *
- * @hibernate.class table="mr.miroteam"
+ * @hibernate.class table="mr.miroteams"
  */
 public class MiroTeam  extends BaseObject implements SurveyElement  {
 
 	
 	private static final long serialVersionUID = -3533292341403024042L;
 	private Long id;
-	private String miroReportName;
+	private String miroTeamName;
 	private User practitioner;
 	private Set members;
 	private List teamResults;
@@ -71,7 +71,7 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 
 	@Override
 	public String toString() {
-		return this.miroReportName;
+		return this.miroTeamName;
 	}
 
 	/**
@@ -90,8 +90,8 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	/**
      * @hibernate.property length="100" not-null="true"
      */
-	public String getMiroTeamReportName() {
-		return this.miroReportName;
+	public String getMiroTeamName() {
+		return this.miroTeamName;
 	}
 
 	public String getCompany() {
@@ -130,8 +130,8 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 		
 	}
 
-	public void setMiroTeamReportName(String miroReportName) {
-		this.miroReportName = miroReportName;
+	public void setMiroTeamName(String miroTeamName) {
+		this.miroTeamName = miroTeamName;
 		
 	}
 

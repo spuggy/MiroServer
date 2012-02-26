@@ -95,7 +95,7 @@ public class MiroTeamReport {
 		//this.generateTeamResultsGraphic();
 		//this.generateTeamStarChart();
 		this.generateXMLReportFile();   
-		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamReportName());
+		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamName());
 		
 		
 	}
@@ -119,8 +119,8 @@ public class MiroTeamReport {
 		variables.put("id", miroTeam.getId().toString());
 		variables.put("prac", miroTeam.getPractitionerName());
 		
-		variables.put("team_report_name" , miroTeam.getMiroTeamReportName());
-		variables.put("reportFileName" , miroTeam.getMiroTeamReportName());
+		variables.put("team_report_name" , miroTeam.getMiroTeamName());
+		variables.put("reportFileName" , miroTeam.getMiroTeamName());
 		
 		
 

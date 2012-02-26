@@ -216,6 +216,8 @@ public class Constants {
 
 	public static final String SHOPPING_CART = "CART";
 
+	public static final String MIROTEAM_LIST = "miroTeamList";
+
 }
 
 

@@ -17,21 +17,7 @@
 
 </head>
 <ul>
-	<li>
-<spring:bind path="miroProjectSelectorForm.*">
-	<c:if test="${not empty status.errorMessages}">
-		<div class="error">
-			<c:forEach var="error" items="${status.errorMessages}">
-				<img src="<c:url value="/images/iconWarning.gif"/>"
-					alt="<fmt:message key="icon.warning"/>" class="icon" />
-				<c:out value="${error}" escapeXml="false" />
-				<br />
-			</c:forEach>
-		</div>
-	</c:if>
-</spring:bind>
-
-</li>
+	
 	<li>
 		
 		<div class="message" id="welcommes" >
@@ -89,7 +75,22 @@
 
 	</li>
 
-	<li class="buttonBar bottom">
+	<li>
+
+<display:table name="miroTeamList" cellspacing="0" cellpadding="0" requestURI=""
+    id="miroTeamList" pagesize="25" class="table miroTeamList" export="false">
+
+    <display:column property="id" escapeXml="true" sortable="true"
+        url="/editmiroTeam.html" paramId="id" paramProperty="id"
+        titleKey="miroTeam.id"/>
+      <display:column property="miroTeamName" escapeXml="true" sortable="true"
+         titleKey="miroTeam.miroTeamName"/>         
+    
+    
+  
+    <display:setProperty name="paging.banner.item_name" value="miroTeam"/>
+    <display:setProperty name="paging.banner.items_name" value="miroTeams"/>
+</display:table>
 
 	</li>
 </ul>
