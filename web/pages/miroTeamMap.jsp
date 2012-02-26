@@ -26,6 +26,7 @@
 			<p><br/><input type="button" value="edit team members" onclick="$('teamBuilder').show()"/>
 			<input type="button" value="re-select projects" onclick="location='miroTeamMap.html';"/>
 			<input type="button" value="save team map" onclick="alert('coming soon!');"/>
+			<input type="button" value="delete team map" onclick="alert('coming soon!');"/>
 			<input type="button" value="create team report" onclick="alert('coming soon!');"/>
 			</p>
 		
