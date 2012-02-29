@@ -24,7 +24,7 @@
 			</p>
 			
 			<p><br/><input type="button" value="edit team members" onclick="$('teamBuilder').show()"/>
-			<input type="button" value="re-select projects" onclick="location='miroTeamMap.html';"/>
+			<input type="button" value="re-select projects" onclick="location='miroTeamList.html';"/>
 			<input type="button" value="save team map" onclick="alert('coming soon!');"/>
 			<input type="button" value="delete team map" onclick="alert('coming soon!');"/>
 			<input type="button" value="create team report" onclick="alert('coming soon!');"/>
@@ -37,7 +37,7 @@
 
 	<div id="teamBuilder" style="display: none">
 	
-		<form:form commandName="miroProjectSelectorForm" method="post" action="/mirotest/miroTeamMap.html" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
+		<form:form commandName="miroProjectSelectorForm" method="post" action="" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
 			
 			  <c:forEach var="project_id" items="${selectedProjects}" varStatus="status">
         		   <input type="hidden" name="selectedProjects" value="<c:out value="${project_id}"/>" />

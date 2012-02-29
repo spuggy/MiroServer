@@ -91,7 +91,7 @@ public class MiroProjectSelectorFormController extends BaseFormController {
 	    throws Exception {
 	     
 	        return new MiroProjectSelectorForm();
-	    }
+    }
 	 
 	    public void setMiroProjectManager(MiroProjectManager miroProjectManager) {
 	        this.miroProjectManager = miroProjectManager;
@@ -99,7 +99,6 @@ public class MiroProjectSelectorFormController extends BaseFormController {
 	    public MiroProjectSelectorFormController() {
 	        setCommandName("miroProjectSelectorForm");
 	        setCommandClass(MiroProjectSelectorForm.class);
-	       
 	        
 	    }
 	    

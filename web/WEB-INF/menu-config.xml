@@ -12,7 +12,7 @@
          <Menu name="help" title="menu.help" page="/webPages.html?name=help" roles="user,admin"/>
          <Menu name="myaccount" title="menu.myaccount" page="/myaccount.html" roles="user,admin"/>
          <Menu name="miroteampie" title="miroTeamPie.heading" page="/miroTeamPie.html" roles="user,admin"/>
-         <Menu name="miroteammap" title="miroTeamMap.heading" page="/miroTeamMap.html" roles="user,admin"/>
+         <Menu name="miroteammap" title="miroTeamMap.heading" page="/miroTeamList.html" roles="user,admin"/>
       
      
       

@@ -28,7 +28,7 @@
 
 	<li>
 		<form:form commandName="miroProjectSelectorForm" method="post"
-			action="" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
+			action="editMiroTeamMap.html" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
 			
 			<fieldset class="pickList">
 				<legend>
