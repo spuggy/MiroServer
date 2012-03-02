@@ -148,7 +148,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 			if(miroProjectSelectorForm.getId()==null || miroProjectSelectorForm.getId().equals("")) {
 				mt = new MiroTeam();
 			} else {
-				mt = this.miroTeamManager.getMiroTeam(miroProjectSelectorForm.getId());
+				mt = this.miroTeamManager.getMiroTeam(miroProjectSelectorForm.getId().toString());
 			}
 			
 			List members = userManager.getUsers(miroProjectSelectorForm.getTeamUsers());
@@ -190,7 +190,11 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 			unselectedUserList = new ArrayList();
 		} else {
 			userList = userManager.getUsers(teamUsers);
-			allUsersList = userManager.getUsersByProjects(selectedProjects);
+			if(selectedProjects!=null) {
+				allUsersList = userManager.getUsersByProjects(selectedProjects);
+			} else {
+				allUsersList = userList;
+			}
 			unselectedUserList = subtract(userList, allUsersList);
 		}
 

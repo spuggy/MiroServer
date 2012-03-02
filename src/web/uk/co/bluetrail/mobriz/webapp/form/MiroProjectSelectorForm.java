@@ -49,7 +49,18 @@ public class MiroProjectSelectorForm {
 	 * @param id the id to set
 	 */
 	public void setId(String id) {
-		this.id = id;
+		
+		if(id == null) {
+			this.id = id;
+			return;
+		}
+		
+		if(id.indexOf(',') !=-1) {
+			String[] bits = id.split(",");
+			this.id = bits[0];
+		} else {
+			this.id = id;
+		}
 	}
 	/**
 	 * @hibernate.property 
