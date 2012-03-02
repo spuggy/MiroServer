@@ -5,9 +5,11 @@ import java.util.List;
 
 import uk.co.bluetrail.mobriz.service.impl.BaseManager;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
+import uk.co.bluetrail.mobriz.model.SurveyElement;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.dao.MiroTeamDao;
 import uk.co.bluetrail.mobriz.service.MiroTeamManager;
+import uk.co.bluetrail.mobriz.util.SurveyElementUtil;
 
 public class MiroTeamManagerImpl extends BaseManager implements MiroTeamManager {
    
@@ -41,7 +43,9 @@ public class MiroTeamManagerImpl extends BaseManager implements MiroTeamManager 
      */
     public void saveMiroTeam(MiroTeam miroTeam, User user) {
     	
-    	
+    	SurveyElementUtil.timeStamp((SurveyElement) miroTeam, user);
+
+    	miroTeam.setCheckPoint(new Long(0));
     	  
         dao.saveMiroTeam(miroTeam);
     }

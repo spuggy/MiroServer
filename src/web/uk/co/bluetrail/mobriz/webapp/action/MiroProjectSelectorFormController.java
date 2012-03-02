@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,12 +35,12 @@ import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 
 public class MiroProjectSelectorFormController extends BaseFormController {
 
-	 private MiroProjectManager miroProjectManager = null;
-	 private MiroResponseManager miroResponseManager = null;
-	 private UserManager userManager = null;
-     private int maxProjects ;
-     private String graphType;
-     private int maxPies ;
+	 protected MiroProjectManager miroProjectManager = null;
+	 protected MiroResponseManager miroResponseManager = null;
+	 protected UserManager userManager = null;
+	 protected int maxProjects ;
+	 protected String graphType;
+	 protected int maxPies ;
      
      
      
@@ -137,9 +138,6 @@ public class MiroProjectSelectorFormController extends BaseFormController {
 	    	String[] selectedProjects = request.getParameterValues("selectedProjects");
 	    	String[] teamUsers = request.getParameterValues("teamUsers");
 	    	
-	    	
-	    	
-	    	
 	    	List userList = null;
 	    	List allUsersList = null;
 	    	List unselectedUserList = null;
@@ -183,9 +181,20 @@ public class MiroProjectSelectorFormController extends BaseFormController {
 	    		    		    	
 
 	    }
-	    
-	    private List usertoLabel(List userList) {
+
+	    protected List usertoLabel(List userList) {
 	    	Iterator itr = userList.iterator();
+	    	return usertoLabel(itr);
+	    }
+	    
+	    protected List usertoLabel(Set userList) {
+	    	Iterator itr = userList.iterator();
+	    	return usertoLabel(itr);
+	    }
+	    
+	    
+	    private List usertoLabel(Iterator itr) {
+	    
 	        
 	        List userLabels= new ArrayList();
 	        User u= null ; 
@@ -205,7 +214,7 @@ public class MiroProjectSelectorFormController extends BaseFormController {
 	    }
 	    
 
-		private List subtract(List userList, List allUsersList) {
+	    protected List subtract(List userList, List allUsersList) {
 		
 			
 			
@@ -246,6 +255,7 @@ public class MiroProjectSelectorFormController extends BaseFormController {
 			model.put("teamUsers", usertoLabel(userList));
 			model.put("selectedProjects", selectedProjects);
 			model.put("unselectedUserList", usertoLabel(unselectedUserList));
+			model.put("miroProjectSelectorForm" , new MiroProjectSelectorForm());
 			
 			
 			//stick it in the session too so the graph controller can get to it too.

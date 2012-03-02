@@ -256,7 +256,7 @@
     </bean>
 
  	<bean id="miroTeamMapFormController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTeamFormController" autowire="byName">
-        <property name="formView" value="miroTeamMapSelectorForm"/>
+        <property name="formView" value="miroTeamMap"/>
         <property name="successView" value="miroTeamMap"/>
          <property name="maxProjects" value="10"/>
          <property name="graphType" value="map"/>

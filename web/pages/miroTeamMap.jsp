@@ -15,9 +15,12 @@
 <meta name="menu" content="MiroProjectMenu" />
 
 
+
 <ul>
 
-	<li>
+	<li>					
+	<form:form commandName="miroProjectSelectorForm" method="post" action="" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
+	
 		<div class="message" id="welcommes">
 			<p>
 				<fmt:message key="miroTeamMap.instructions" />
@@ -25,19 +28,29 @@
 			
 			<p><br/><input type="button" value="edit team members" onclick="$('teamBuilder').show()"/>
 			<input type="button" value="re-select projects" onclick="location='miroTeamList.html';"/>
-			<input type="button" value="save team map" onclick="alert('coming soon!');"/>
-			<input type="button" value="delete team map" onclick="alert('coming soon!');"/>
-			<input type="button" value="create team report" onclick="alert('coming soon!');"/>
+			<input type="submit" value="save team map" name="save" />
+			<input type="submit" value="delete team map" name="delete" onclick="alert('coming soon!');"/>
+			<input type="submit" value="create team report" name="createteamreport" onclick="alert('coming soon!');"/>
 			</p>
 		
 		
 		
 <p>
 	<br/>
+	
+	<c:out value="${miroProjectSelectorForm.id}" />
 
 	<div id="teamBuilder" style="display: none">
 	
-		<form:form commandName="miroProjectSelectorForm" method="post" action="" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
+			
+				<form:hidden path="id"/>
+			<form:hidden path="version"/>
+			
+			
+        <mobriz4server:label styleClass="desc" key="miroteam.miroteamname"/>
+        <form:input path="miroTeamName" id="miroTeamName" cssClass="text large"/>
+       	
+			
 			
 			  <c:forEach var="project_id" items="${selectedProjects}" varStatus="status">
         		   <input type="hidden" name="selectedProjects" value="<c:out value="${project_id}"/>" />
@@ -71,7 +84,7 @@
 					<tr>
 						<td colspan="3" id="miroProjectsSubmitButton" >
 							<input type="button" value="Hide team builder" onclick="$('teamBuilder').hide()"/>
-							<input type="submit"  class="button" name="save" value="<fmt:message key="button.submit"/>" />	
+							<input type="submit"  class="button" name="recalc_chart" value="recalc" />	
 						</td>
 					</tr>
 				</table>
@@ -79,11 +92,13 @@
 				
 			
 			
-		</form:form>
+
     </div>
+
     </p>
     		</div>
-    
+    		
+        </form:form>
     </li>
 	<li>
 		<h2>

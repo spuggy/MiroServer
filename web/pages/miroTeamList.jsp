@@ -59,7 +59,7 @@
 					</tr>
 					<tr>
 						<td colspan="3" id="miroProjectsSubmitButton" >
-							<input type="submit"  class="button" name="save" onclick=""
+							<input type="submit"  class="button" name="selectprojects" onclick=""
 								value="<fmt:message key="button.submit"/>" />
 						</td>
 					</tr>
@@ -81,13 +81,11 @@
     id="miroTeamList" pagesize="25" class="table miroTeamList" export="false">
 
     <display:column property="id" escapeXml="true" sortable="true"
-        url="/editmiroTeam.html" paramId="id" paramProperty="id"
+        url="/editMiroTeamMap.html" paramId="id" paramProperty="id"
         titleKey="miroTeam.id"/>
-      <display:column property="miroTeamName" escapeXml="true" sortable="true"
+    <display:column property="miroTeamName" escapeXml="true" sortable="true"
          titleKey="miroTeam.miroTeamName"/>         
     
-    
-  
     <display:setProperty name="paging.banner.item_name" value="miroTeam"/>
     <display:setProperty name="paging.banner.items_name" value="miroTeams"/>
 </display:table>

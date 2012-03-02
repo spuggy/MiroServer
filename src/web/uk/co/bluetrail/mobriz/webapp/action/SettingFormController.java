@@ -61,7 +61,7 @@ public class SettingFormController extends BaseFormController {
 
             if (!isNew) {
                 return new ModelAndView("redirect:editSetting.html", "id", setting.getId());
-            }
+             }
         }
 
         return new ModelAndView(getSuccessView());

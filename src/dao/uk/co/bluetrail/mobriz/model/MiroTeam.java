@@ -2,6 +2,8 @@ package uk.co.bluetrail.mobriz.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -40,7 +42,7 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
      * @return Set
      * 
      * @hibernate.set table="mr.miroteam_user" cascade="all" lazy="false"
-     * @hibernate.collection-key column="miro_team_id"
+     * @hibernate.collection-key column="miroteam_id"
      * @hibernate.collection-many-to-many class="uk.co.bluetrail.mobriz.model.User"   column="user_id"
      */
 	public Set getMembers() {
@@ -267,5 +269,41 @@ public boolean isDeleted() {
 
 public void setDeleted(boolean deleted) {
 	this.deleted = deleted;
+}
+
+
+
+public String[] getProjects() {
+	
+	if(this.members==null || this.members.size()==0) {
+		return null;
+	}
+	
+	
+	Iterator itr = this.members.iterator(); 
+	
+	ArrayList<String> projects = new ArrayList<String>();
+	HashMap h = new HashMap();
+	String pid = null;
+	User user = null;
+	while(itr.hasNext()) {
+		
+		user = (User) itr.next();
+		
+		if(h.get(user.getProject_id()) == null) {
+			h.put(user.getProject_id(), "");
+			projects.add(user.getProject_id().toString());
+		}
+		
+	}
+	
+	String[] project_ids = new String[projects.size()];
+
+	for(int i = 0 ; i < project_ids.length;i++) {
+		project_ids[i] = projects.get(i);
+	}
+	
+	return project_ids;
+	
 }
 }

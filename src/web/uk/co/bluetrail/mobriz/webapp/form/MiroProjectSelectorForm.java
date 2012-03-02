@@ -4,7 +4,66 @@ public class MiroProjectSelectorForm {
 
 	String[] selectedProjects;
 	String[] teamUsers;
+	String version;
+    String id;
+    String title;
+    String miroTeamName;
+    
+    
+    
 	
+	/**
+	 * @hibernate.property 
+	 * @return the miroTeamName
+	 */
+	public String getMiroTeamName() {
+		return miroTeamName;
+	}
+	/**
+	 * @param miroTeamName the miroTeamName to set
+	 */
+	public void setMiroTeamName(String miroTeamName) {
+		this.miroTeamName = miroTeamName;
+	}
+	/**
+	 * @hibernate.property 
+	 * @return the version
+	 */
+	public String getVersion() {
+		return version;
+	}
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	/**
+	 * @hibernate.property 
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+	/**
+	 * @hibernate.property 
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	/**
 	 * @hibernate.property 
 	 * @return the selectedProjects
