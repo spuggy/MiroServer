@@ -22,11 +22,15 @@
 		
 		<div class="message" id="welcommes" >
 			<p><fmt:message key="miroTeamPie.intro" /></p>
+			
+			<p><br/><input type="button" value="New Team Map" onclick="$('teamBuilder').show()"/></p>
+			
 	</div>
 		
 	</li>
 
-	<li>
+	
+	<li id="teamBuilder" style="display: none">
 		<form:form commandName="miroProjectSelectorForm" method="post"
 			action="editMiroTeamMap.html" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
 			
@@ -61,6 +65,7 @@
 						<td colspan="3" id="miroProjectsSubmitButton" >
 							<input type="submit"  class="button" name="selectprojects" onclick=""
 								value="<fmt:message key="button.submit"/>" />
+							<input type="button" value="Hide team builder" onclick="$('teamBuilder').hide()"/>
 						</td>
 					</tr>
 				</table>

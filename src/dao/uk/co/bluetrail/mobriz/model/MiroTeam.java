@@ -22,6 +22,9 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 
 	
 	private static final long serialVersionUID = -3533292341403024042L;
+	private static final int REPORT_WAITING_TO_BE_PROCESSED = 10;
+	private static final int REPORT_PROCESSED = 40;
+	
 	private Long id;
 	private String miroTeamName;
 	private User practitioner;
@@ -34,6 +37,7 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	private Date created_on = null;
 	protected Integer version;
 	boolean deleted ;
+	private int status = MiroTeam.REPORT_WAITING_TO_BE_PROCESSED ;
 	
 	
 	/**

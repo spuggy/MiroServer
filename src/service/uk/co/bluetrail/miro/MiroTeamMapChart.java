@@ -6,7 +6,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class MiroTeamMapChart  {
-    private int circleRadius = 30, borderWidth = 2;
+	
+	private static int BIG_BLOB_RADIUS = 30;
+	private static int SMALL_BLOB_RADIUS = 20;
+	private static int BIG_BLOB_FONT = 20 ;
+	private static int SMALL_BLOB_FONT = 15 ;
+	
+	
+    private int circleRadius = BIG_BLOB_RADIUS, borderWidth = 2;
+    private int fontSize = BIG_BLOB_FONT;
     Color circleColor = Color.black, borderColor = Color.white;
 
     public void setCircleRadius(int w) {
@@ -25,8 +33,19 @@ public class MiroTeamMapChart  {
         borderColor = bc;
     }
 
-    public BufferedImage createTeamChart(String backGroundFileName, String[] initials, int[] x, int[] y) throws Exception {
-
+    public BufferedImage createTeamChart(String backGroundFileName,MiroTeamMapPlotter plotter ) throws Exception {
+       
+    	
+    	
+    	String[] initials = plotter.getInitialsArray();
+    	int[] x = plotter.getX();
+    	int[] y = plotter.getY();
+    	
+    	if(!plotter.isBigBlobs()) {
+    		circleRadius = SMALL_BLOB_RADIUS ;
+    	    fontSize = SMALL_BLOB_FONT;
+    	}
+    	
         BufferedImage image = null;
         File file = new File(backGroundFileName);
         image = ImageIO.read(file);
@@ -38,7 +57,7 @@ public class MiroTeamMapChart  {
             g.fillOval(x[i]-circleRadius, y[i]-circleRadius, circleRadius*2, circleRadius*2);
             g.setColor(circleColor);
             g.fillOval(x[i]-circleRadius+borderWidth, y[i]-circleRadius+borderWidth, 2*(circleRadius-borderWidth), 2*(circleRadius-borderWidth));
-            g.setFont(new Font("Calibri", Font.BOLD, 20));
+            g.setFont(new Font("Calibri", Font.BOLD, fontSize));
             g.setColor(Color.WHITE);
             FontMetrics fm = g.getFontMetrics(g.getFont());
             int strW = fm.stringWidth(initials[i]);
