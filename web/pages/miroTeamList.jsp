@@ -79,12 +79,13 @@
 
 <display:table name="miroTeamList" cellspacing="0" cellpadding="0" requestURI=""
     id="miroTeamList" pagesize="25" class="table miroTeamList" export="false">
-
-    <display:column property="id" escapeXml="true" sortable="true"
-        url="/editMiroTeamMap.html" paramId="id" paramProperty="id"
-        titleKey="miroTeam.id"/>
+   
     <display:column property="miroTeamName" escapeXml="true" sortable="true"
-         titleKey="miroTeam.miroTeamName"/>         
+         titleKey="miroteam.miroteamname"  url="/editMiroTeamMap.html" paramId="id" paramProperty="id"
+        />
+    <display:column property="updated_at"  
+         titleKey="surveyForm.updated_at" decorator="uk.co.bluetrail.mobriz.webapp.util.ShortDateDecorator" />
+             
     
     <display:setProperty name="paging.banner.item_name" value="miroTeam"/>
     <display:setProperty name="paging.banner.items_name" value="miroTeams"/>
