@@ -22,8 +22,11 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 
 	
 	private static final long serialVersionUID = -3533292341403024042L;
-	private static final int REPORT_WAITING_TO_BE_PROCESSED = 10;
-	private static final int REPORT_PROCESSED = 40;
+	public static final int REPORT_CREATED= 10;
+	public static final int REPORT_REQUESTED = 20;
+	public static final int REPORT_DOWNLOADED = 40;
+
+
 	
 	private Long id;
 	private String miroTeamName;
@@ -37,7 +40,23 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	private Date created_on = null;
 	protected Integer version;
 	boolean deleted ;
-	private int status = MiroTeam.REPORT_WAITING_TO_BE_PROCESSED ;
+	private int teamReportStatus = MiroTeam.REPORT_CREATED;
+	
+	
+	/**
+	 * @hibernate.property 
+	 * @return the status
+	 */
+	public int getTeamReportStatus() {
+		return this.teamReportStatus;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setTeamReportStatus(int status) {
+		this.teamReportStatus = status;
+	}
 	
 	
 	/**

@@ -30,7 +30,7 @@
 			<input type="button" value="re-select projects" onclick="location='miroTeamList.html';"/>
 			<input type="submit" value="save team map" name="save" />
 			<input type="submit" value="delete team map" name="delete" onclick="alert('coming soon!');"/>
-			<input type="submit" value="create team report" name="createteamreport" onclick="alert('coming soon!');"/>
+			<input type="submit" value="create team report" name="createteamreport" />
 			</p>
 		
 		

@@ -142,7 +142,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 
 		MiroProjectSelectorForm miroProjectSelectorForm = (MiroProjectSelectorForm) command;
 
-		if (request.getParameter("save") != null) {
+		if (request.getParameter("save") != null || request.getParameter("createteamreport") != null) {
 
 			MiroTeam mt = null;
 			if(miroProjectSelectorForm.getId()==null || miroProjectSelectorForm.getId().equals("")) {
@@ -154,10 +154,17 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 			List members = userManager.getUsers(miroProjectSelectorForm.getTeamUsers());
 			mt.setMiroTeamName(miroProjectSelectorForm.getMiroTeamName());
 			mt.setMembers(new HashSet(members));
+			
+			if(request.getParameter("createteamreport") != null) {
+				mt.setTeamReportStatus(MiroTeam.REPORT_REQUESTED);
+				saveMessage(request, "Team saved and report requested,  You will recieve an email alert when it has been generated");
+			} else {
+				saveMessage(request, "Team saved");
+			}
+			
 			this.miroTeamManager.saveMiroTeam(mt, this.getCurrentUser());
-	
-
-			saveMessage(request, "Team Saved");
+			
+			
 			return new ModelAndView("redirect:miroTeamList.html");
 
 		}
