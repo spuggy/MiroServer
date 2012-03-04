@@ -25,6 +25,7 @@ import uk.co.bluetrail.miro.MiroReport;
 import uk.co.bluetrail.miro.MiroResponse;
 import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.Account;
+import uk.co.bluetrail.mobriz.model.MiroTeam;
 import uk.co.bluetrail.mobriz.model.MobrizAlert;
 import uk.co.bluetrail.mobriz.model.Question;
 import uk.co.bluetrail.mobriz.model.Setting;
@@ -34,6 +35,7 @@ import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.AccountManager;
 import uk.co.bluetrail.mobriz.service.MailEngine;
 import uk.co.bluetrail.mobriz.service.MiroResponseManager;
+import uk.co.bluetrail.mobriz.service.MiroTeamManager;
 import uk.co.bluetrail.mobriz.service.MobrizAlertManager;
 import uk.co.bluetrail.mobriz.service.SurveyManager;
 import uk.co.bluetrail.mobriz.service.SurveyResponseManager;
@@ -60,12 +62,8 @@ public class BatchProcessController implements Controller {
 	 private String fromEmail ;
 	 private MiroResponseManager miroResponseManager ;
 	 private String reportCreatedTemplateName ;
-	 
-	 
-	 
-
-     
-     
+	 private MiroTeamManager miroTeamManager =null;
+   
      
 	 private HttpServletRequest request ;
      private HttpServletResponse response ; 
@@ -74,6 +72,20 @@ public class BatchProcessController implements Controller {
      
      
 	
+
+	/**
+	 * @return the miroTeamManager
+	 */
+	public MiroTeamManager getMiroTeamManager() {
+		return miroTeamManager;
+	}
+
+	/**
+	 * @param miroTeamManager the miroTeamManager to set
+	 */
+	public void setMiroTeamManager(MiroTeamManager miroTeamManager) {
+		this.miroTeamManager = miroTeamManager;
+	}
 
 	/**
 	 * @param reportCreatedTemplateName the reportCreatedTemplateName to set
@@ -108,6 +120,8 @@ public class BatchProcessController implements Controller {
 
 			try {
 				processMiroReports(batchProcessResults, miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request)));
+				processMiroTeamReports(batchProcessResults, miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request)));
+				
 			} catch (Exception e) {
 				log.error("Exception processing pdfs: " + e.toString());
 				
@@ -124,7 +138,55 @@ public class BatchProcessController implements Controller {
         return new ModelAndView("batchProcessResults", "BatchProcessResults", batchProcessResults);
     }
 
-    private void processMiroReports(ArrayList batchProcessResults, String filePath) {
+    private void processMiroTeamReports(ArrayList batchProcessResults,String filePath) {
+	
+    	
+    	log.debug("processing miro teams reports ");
+    	List unprocessedTeams = miroTeamManager.getUnprocessedTeams(miroDocLimit);
+            	    	
+        
+    	MiroTeam mt = null;
+    	
+    	Iterator itr = unprocessedTeams.iterator();
+    	if(!itr.hasNext()) {
+    		log.debug("No miro reports to process");
+    	}
+    	
+    	MiroResponse mr = null;
+    	
+    	
+    	while(itr.hasNext()){
+    		mt = (MiroTeam) itr.next();
+    		
+    		
+    		if(miroTeamManager.createPDF(mt,filePath)){  
+    			sendMiroTeamEmails(mt);
+    		} 
+    				
+    	}
+    	
+    	log.debug("end processing miro team reports ");
+    	
+    	
+		
+	}
+
+	private void sendMiroTeamEmails(MiroTeam mt) {
+		log.debug("sending miro emails");
+		
+		try{
+			log.debug("sending email to " + mt.getPractitionerEmail() + " for miro team " + mt.getId());
+			sendAlertEmail(mt);
+			log.debug("sending alert emails");
+		} catch(Exception e) {
+			log.error("Error sending email to " +  mt.getPractitionerEmail() + " for surveyResponse " + mt.getId() + " - "+ e.toString());
+		}
+	
+		log.debug("finished sending alert emails");
+		
+	}
+
+	private void processMiroReports(ArrayList batchProcessResults, String filePath) {
 	
     	log.debug("processing miro reports ");
     	List unprocessedResponses = miroResponseManager.getUnprocessedMiroResponses(miroDocLimit);
@@ -216,6 +278,31 @@ public class BatchProcessController implements Controller {
        
        
     }
+    
+    /**
+     * Convenience message to send messages to users, includes app URL as footer.
+	 * @param filePath 
+     * @param user
+     * @param msg
+     * @param url
+	 * @throws MessagingException 
+	 * @throws MessagingException 
+     */
+    protected void sendAlertEmail(MiroTeam mt) throws MessagingException  {
+    	
+    	String emailBody = "Miro Team Report available for " + mt.getMiroTeamName()  + "\n\nLogin at:  " + RequestUtil.getAppURL(request) ;
+    	String emailSubject = "Miro Test Results available for " + mt.getMiroTeamName() ;
+    	    	
+    	ArrayList attachmentFiles = new ArrayList();
+    	
+    	
+    	mailEngine.sendMessage(fromEmail, mt.getPractitionerEmail(),emailBody, emailSubject, attachmentFiles);
+    	
+       
+       
+    }
+    
+    
     
    
 	/**
