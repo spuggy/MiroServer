@@ -36,6 +36,7 @@ import uk.co.bluetrail.mobriz.service.AccountManager;
 import uk.co.bluetrail.mobriz.service.MailEngine;
 import uk.co.bluetrail.mobriz.service.MiroResponseManager;
 import uk.co.bluetrail.mobriz.service.MiroTeamManager;
+import uk.co.bluetrail.mobriz.service.MiroTeamReportManager;
 import uk.co.bluetrail.mobriz.service.MobrizAlertManager;
 import uk.co.bluetrail.mobriz.service.SurveyManager;
 import uk.co.bluetrail.mobriz.service.SurveyResponseManager;
@@ -62,7 +63,7 @@ public class BatchProcessController implements Controller {
 	 private String fromEmail ;
 	 private MiroResponseManager miroResponseManager ;
 	 private String reportCreatedTemplateName ;
-	 private MiroTeamManager miroTeamManager =null;
+	 private MiroTeamReportManager miroTeamReportManager =null;
    
      
 	 private HttpServletRequest request ;
@@ -76,15 +77,15 @@ public class BatchProcessController implements Controller {
 	/**
 	 * @return the miroTeamManager
 	 */
-	public MiroTeamManager getMiroTeamManager() {
-		return miroTeamManager;
+	public MiroTeamReportManager getMiroTeamReportManager() {
+		return miroTeamReportManager;
 	}
 
 	/**
 	 * @param miroTeamManager the miroTeamManager to set
 	 */
-	public void setMiroTeamManager(MiroTeamManager miroTeamManager) {
-		this.miroTeamManager = miroTeamManager;
+	public void setMiroTeamReportManager(MiroTeamReportManager miroTeamReportManager) {
+		this.miroTeamReportManager = miroTeamReportManager;
 	}
 
 	/**
@@ -142,7 +143,7 @@ public class BatchProcessController implements Controller {
 	
     	
     	log.debug("processing miro teams reports ");
-    	List unprocessedTeams = miroTeamManager.getUnprocessedTeams(miroDocLimit);
+    	List unprocessedTeams = miroTeamReportManager.getUnprocessedTeams(miroDocLimit);
             	    	
         
     	MiroTeam mt = null;
@@ -159,7 +160,7 @@ public class BatchProcessController implements Controller {
     		mt = (MiroTeam) itr.next();
     		
     		
-    		if(miroTeamManager.createPDF(mt,filePath)){  
+    		if(miroTeamReportManager.createPDF(mt,filePath)){  
     			sendMiroTeamEmails(mt);
     		} 
     				

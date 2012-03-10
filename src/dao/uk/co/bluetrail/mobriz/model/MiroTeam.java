@@ -32,7 +32,6 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	private String miroTeamName;
 	private User practitioner;
 	private Set members;
-	private List teamResults;
 	private Long checkPoint = null; 
 	private Long lastUpdatedBy_id = null; 
 	private Date updated_at = null ;	
@@ -176,14 +175,7 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	
 	
 
-	public void setResults(List teamResults) {
-		this.teamResults = teamResults;
-		
-	}
 	
-	public List getTeamResults() {
-		return this.teamResults;
-	}
 	
 	
 	/**

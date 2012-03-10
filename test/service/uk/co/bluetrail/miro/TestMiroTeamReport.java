@@ -56,10 +56,11 @@ public class TestMiroTeamReport extends TestCase {
 		
 		miroTeam = new MiroTeam();
 		miroTeam.setId(new Long(100));
-		miroTeam.setMiroTeamName("Testing Team 100");
+		miroTeam.setMiroTeamName("Testing Team 101");
 		
 		this.members = new HashSet(); ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
+		
 		
 		modeNames = new HashMap<String, String>();  
 		modeNames.put("A", "Analysing Mode");  
@@ -80,8 +81,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		
 		
-		miroTeam.setMembers(members) ;
-		miroTeam.setResults(teamResults);
+		
 		
 		
 		
@@ -96,7 +96,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		miroTeam.setPractitioner(prac);
 		
-		this.baseDir = new File("/Users/RSpence1/git/MiroServer/web/miro");  
+		this.baseDir = new File("/Users/Richard/Documents/workspace-copy/MiroServer3/web/miro");
 		
 		
 	}
@@ -117,7 +117,7 @@ public class TestMiroTeamReport extends TestCase {
 		when(mr1.is2ndEngaged()).thenReturn(true);
 		when(mr1.getMiroReportName()).thenReturn(firstName+"_"+secondName+"_"+id);
 		
-		members.add(mr1);
+
 		
 		TeamMapDTO tm1 = new TeamMapDTO();
 		tm1.setId(mr1.getTestId());
@@ -126,6 +126,7 @@ public class TestMiroTeamReport extends TestCase {
 		tm1.setLeadingMode(leading);
 		tm1.setSecondaryModeText(modeNames.get(secondary));
 		tm1.setSecondaryMode(secondary);
+		tm1.setMiroResponse(mr1);
 		
 		teamResults.add(tm1);
 		
@@ -143,6 +144,8 @@ public class TestMiroTeamReport extends TestCase {
 		try {
 			
 			MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels);
+			
+			mtr.setResults(this.teamResults);
 			
 			List<MiroPage> plist = new ArrayList<MiroPage>();
 			Map<String, String> variables = new HashMap<String, String>();
@@ -183,6 +186,8 @@ public class TestMiroTeamReport extends TestCase {
 	public void testGenerate() {
 		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels);
 		
+		mtr.setResults(this.teamResults);
+		
 		try {
 			mtr.generateReport(miroTeam);
 		} catch (Exception e) {
@@ -192,6 +197,8 @@ public class TestMiroTeamReport extends TestCase {
 	
 	public void testGetLevel() {
 		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels);
+		
+		mtr.setResults(this.teamResults);
 		
 		mtr.setTeam(miroTeam);
 		

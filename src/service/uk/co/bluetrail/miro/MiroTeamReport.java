@@ -37,13 +37,25 @@ public class MiroTeamReport {
 	private MiroReportFileGenerator miroReportFileGenerator;
 	private Map teamTotals;
 	private ArrayList<MiroTeamResult> sortedTeamTotals;
-	
-	
+	private List teamResults;
+
 	private Map<String,Integer> leadingTotals ;
 	private Map<String,Integer> secondaryTotals ;
 	private MiroReportLevel miroLevels;
+
 	
 	
+	
+	
+
+	public void setResults(List teamResults) {
+		this.teamResults = teamResults;
+		
+	}
+	
+	public List getTeamResults() {
+		return this.teamResults;
+	}
 	
 	
 	/**
@@ -201,11 +213,14 @@ public class MiroTeamReport {
 		pages.add(MiroPage.create("intro_text_page"));
 		
 		MiroPage individualPiePage = new MiroPage();
-		Set members = this.miroTeam.getMembers();
+		List members = this.getTeamResults();
 		Iterator itr = members.iterator();
 		while(itr.hasNext()) {
-			MiroResponse mr = (MiroResponse) itr.next();
+			TeamMapDTO dto = (TeamMapDTO) itr.next();
 	
+			
+			MiroResponse mr = dto.getMiroResponse();
+			
 			String resultLetters[] = mr.getResultLetters();
 			
 			String idKey = null;
@@ -357,8 +372,8 @@ public class MiroTeamReport {
 		
 		
 		//count up each letter to get basic totals
-		for(int i = 0 ; i < this.miroTeam.getTeamResults().size();i++) {
-			TeamMapDTO dt = (TeamMapDTO) this.miroTeam.getTeamResults().get(i);
+		for(int i = 0 ; i < this.getTeamResults().size();i++) {
+			TeamMapDTO dt = (TeamMapDTO) this.getTeamResults().get(i);
 			Integer lm = this.leadingTotals.get(dt.getLeadingMode()) ; 
 			this.leadingTotals.put(dt.getLeadingMode(), ++lm);
 			Integer sm = this.secondaryTotals.get(dt.getSecondaryMode()) ; 
@@ -419,6 +434,13 @@ public class MiroTeamReport {
 
 	public void setTeam(MiroTeam mt) {
 		this.miroTeam = mt;
+		
+	}
+
+	public void generateReport(MiroTeam mt, List teamMapData) throws Exception {
+		
+		this.setResults(teamMapData);
+		this.generateReport(mt);
 		
 	}
 

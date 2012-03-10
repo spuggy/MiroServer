@@ -35,9 +35,7 @@ public interface MiroTeamManager extends Manager{
      */
     public void removeMiroTeam(final String id);
 
-	public List getUnprocessedTeams(int miroDocLimit);
-
-	public boolean createPDF(MiroTeam mt, String filePath);
+	
 	
 
 }

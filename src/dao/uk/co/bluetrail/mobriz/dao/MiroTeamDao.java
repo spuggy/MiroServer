@@ -39,6 +39,8 @@ public interface MiroTeamDao extends Dao {
      */
     public void removeMiroTeam(final Long id);
 
+    public List getMiroTeamsByExample(final MiroTeam miroTeam, final int limit) ;
+
 	
 	
 }

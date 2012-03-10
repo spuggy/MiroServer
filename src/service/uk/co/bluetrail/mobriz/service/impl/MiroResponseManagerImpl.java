@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,9 +31,9 @@ import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
 public class MiroResponseManagerImpl extends BaseManager implements MiroResponseManager {
 
-	private Survey survey;
-	private Setting miroLetters;
-	private SettingManager settingManager ;
+	protected Survey survey;
+	protected Setting miroLetters;
+	protected SettingManager settingManager ;
 	private UserManager userManager;
 	private SurveyManager surveyManager;
 	private int testOffset ;
@@ -131,7 +132,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 	}
 
 	
-	private void setup() {
+	protected void setup() {
 		
 		if(survey!=null) {
 			return; //setou must be done!!
@@ -393,7 +394,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		this.thumbNailPieWidth = thumbNailPieWidth;
 	}
 
-	public List getTeamMap(String baseDirectory,List users) {
+	public List getTeamMap(String baseDirectory,Collection users) {  
 		
 		MiroReport miroReport = getMiroReport(baseDirectory);
 
@@ -422,7 +423,9 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 				teamMapDTO.setFullName(user.getFullName());
 				teamMapDTO.setInitials(user.getInitials(initials));
 				miroReport.setTeamMapData(teamMapDTO, mr);
+				teamMapDTO.setMiroResponse(mr);
 				teamMapData.add(teamMapDTO);
+				
 			} catch(Exception e) {
 				log.error("Error trying to create teamMap for userid = " + user.getId());
 			}
@@ -430,6 +433,10 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		
 		return teamMapData;
 		
+	}
+
+	public Setting getMiroLetters() {
+		return miroLetters;
 	}
 	
 	

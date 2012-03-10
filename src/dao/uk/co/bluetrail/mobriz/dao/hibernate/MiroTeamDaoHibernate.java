@@ -73,4 +73,23 @@ public class MiroTeamDaoHibernate extends BaseDaoHibernate implements MiroTeamDa
     public void removeMiroTeam(final Long id) {
         getHibernateTemplate().delete(getMiroTeam(id));
     }
+    
+	public List getMiroTeamsByExample(final MiroTeam miroTeam, final int limit) {
+//		 filter on properties set in the surveyResponse
+       HibernateCallback callback = new HibernateCallback() {
+           public Object doInHibernate(Session session) throws HibernateException {
+               Example ex = Example.create(miroTeam).ignoreCase().enableLike(MatchMode.ANYWHERE);
+               Criteria crit = session.createCriteria(MiroTeam.class).add(ex);
+               crit.setFetchSize(limit);
+                       return crit.list();
+           }
+       };
+      return (List) getHibernateTemplate().execute(callback);
+   
+	}
+	
+	
+    
+    
+    
 }

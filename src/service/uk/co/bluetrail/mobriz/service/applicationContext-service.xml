@@ -213,6 +213,11 @@
         <property name="miroTeamDao" ref="miroTeamDao"/>
         
     </bean>
+    
+    <bean id="miroTeamReportManager" class="uk.co.bluetrail.mobriz.service.impl.MiroTeamReportManagerImpl">
+        <property name="miroTeamDao" ref="miroTeamDao"/>
+        
+    </bean>
 
 
 

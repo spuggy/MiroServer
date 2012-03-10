@@ -2,6 +2,8 @@ package uk.co.bluetrail.mobriz.serviceDTO;
 
 import java.io.Serializable;
 
+import uk.co.bluetrail.miro.MiroResponse;
+
 public class TeamMapDTO implements Serializable {
 
 	Long   id;
@@ -11,10 +13,23 @@ public class TeamMapDTO implements Serializable {
 	String leadingMode;
 	String secondaryMode;
 	String secondaryModeText;
+	MiroResponse miroResponse = null;
 	
 	
 	
-	
+	/**
+	 * @hibernate.property 
+	 * @return the miroResponse
+	 */
+	public MiroResponse getMiroResponse() {
+		return miroResponse;
+	}
+	/**
+	 * @param miroResponse the miroResponse to set
+	 */
+	public void setMiroResponse(MiroResponse miroResponse) {
+		this.miroResponse = miroResponse;
+	}
 	/**
 	 * @return the id
 	 */
