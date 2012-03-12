@@ -62,7 +62,7 @@ public class MiroTeamReportManagerTest extends TestCase {
 		
 		miroTeam = new MiroTeam();
 		miroTeam.setId(new Long(100));
-		miroTeam.setMiroTeamName("Testing Team 101");
+		miroTeam.setMiroTeamName("Testing Team 103");
 
 		this.members = new HashSet();
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
@@ -86,7 +86,7 @@ public class MiroTeamReportManagerTest extends TestCase {
 		
 		MiroResponseManager mrm = mock(MiroResponseManager.class);
 		when(mrm.getMiroLetters()).thenReturn(miroLetters);
-		when(mrm.getTeamMap("", new ArrayList())).thenReturn(teamResults);
+		when(mrm.getTeamMap(anyString(), anyList())).thenReturn(teamResults);
 		
 		this.miroTeamReportManager.setMiroResponseManager(mrm);
 		
