@@ -321,4 +321,19 @@ public String[] getProjects() {
 	return project_ids;
 	
 }
+
+	public void updateMembers() {
+	
+		if(this.members == null) {
+			return;
+		}
+		
+		Iterator itr = members.iterator();
+		while(itr.hasNext()) {
+			User u = (User) itr.next();
+			u.setMiroTeam_id(this.id);
+		}
+		
+		
+	}
 }

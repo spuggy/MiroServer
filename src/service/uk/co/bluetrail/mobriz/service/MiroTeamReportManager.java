@@ -6,6 +6,7 @@ import uk.co.bluetrail.mobriz.dao.MiroTeamDao;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
 import uk.co.bluetrail.mobriz.model.Setting;
 import uk.co.bluetrail.mobriz.model.Survey;
+import uk.co.bluetrail.mobriz.model.User;
 
 public interface MiroTeamReportManager {
 
@@ -49,5 +50,11 @@ public interface MiroTeamReportManager {
 	public boolean createPDF(MiroTeam mt, String filePath);
 
 	public List getUnprocessedTeams(int miroDocLimit);
+	
+	/**
+	 * @param miroTeamMangaer the miroTeamMangaer to set
+	 */
+	public void setMiroTeamManager(MiroTeamManager miroTeamManager) ;
+	
 
 }

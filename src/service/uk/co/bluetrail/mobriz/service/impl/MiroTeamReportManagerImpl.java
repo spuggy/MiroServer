@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import uk.co.bluetrail.miro.MiroException;
 import uk.co.bluetrail.miro.MiroReportLevel;
 import uk.co.bluetrail.miro.MiroTeamReport;
 import uk.co.bluetrail.mobriz.dao.MiroTeamDao;
@@ -14,17 +15,15 @@ import uk.co.bluetrail.mobriz.model.Survey;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.Manager;
 import uk.co.bluetrail.mobriz.service.MiroResponseManager;
+import uk.co.bluetrail.mobriz.service.MiroTeamManager;
 import uk.co.bluetrail.mobriz.service.MiroTeamReportManager;
 import uk.co.bluetrail.mobriz.service.SettingManager;
 import uk.co.bluetrail.mobriz.service.SurveyManager;
 import uk.co.bluetrail.mobriz.service.UserManager;
-import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
+
 
 public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamReportManager {
-  
-	
-	
-
+ 
 	private MiroTeamDao miroTeamDao = null;
 	private MiroResponseManager miroResponseManager = null;
 	private Setting miroLevels = null;
@@ -32,9 +31,30 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 	protected SettingManager settingManager ;
 	private UserManager userManager;
 	private SurveyManager surveyManager;
+	private MiroTeamManager miroTeamManager =null;
 	
 	
 	
+
+	/**
+	 * @hibernate.property 
+	 * @return the miroTeamMangaer
+	 */
+	public MiroTeamManager getMiroTeamMangaer() {
+		return miroTeamManager;
+	}
+
+	/**
+	 * @param miroTeamMangaer the miroTeamMangaer to set
+	 */
+	//public void setMiroTeamMangaer(MiroTeamManager miroTeamMangaer) {
+//		this.miroTeamMangaer = miroTeamMangaer;
+	//}
+	
+	public void setMiroTeamManager(MiroTeamManager miroTeamManager) {
+        this.miroTeamManager = miroTeamManager;  
+    }
+
 	/* (non-Javadoc)
 	 * @see uk.co.bluetrail.mobriz.service.impl.MiroTeamReportManager#setSettingManager(uk.co.bluetrail.mobriz.service.SettingManager)
 	 */
@@ -116,6 +136,13 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 			this.setup();
 		}
 		
+		User prac = userManager.getUser(mt.getCreatedBy_id().toString());
+		
+		if(prac == null) {
+			throw new MiroException("Prac " + mt.getCreatedBy_id()+ " not found" );
+		}
+		
+		mt.setPractitioner(prac);
 		
 		File baseDir = new File(filePath);
 		
@@ -125,6 +152,10 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 			List teamMapData = this.miroResponseManager.getTeamMap(filePath, mt.getMembers());
 		
 			mtr.generateReport(mt,teamMapData);
+			mt.setTeamReportStatus(40);
+			mt.updateMembers();
+			this.miroTeamManager.saveMiroTeam(mt,mt.getPractitioner());
+			
 			return true;
 		} catch (Exception e) {
 			

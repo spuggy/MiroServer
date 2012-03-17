@@ -252,18 +252,9 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		
 		User practitioner = userManager.getUser(miroProject.getCreatedBy_id().toString());
 			
-		mr.setPractitionerEmail(practitioner.getEmail());
-		mr.setPractitionerName(practitioner.getFirstName() +" " + practitioner.getLastName());
-		mr.setPractitionerTelNo(practitioner.getPhoneNumber());
-		mr.setPractitionerAddress(new String[] {practitioner.getAddress1(),practitioner.getAddress2(),practitioner.getCity(),practitioner.getCounty(),practitioner.getPostcode()});
-		mr.setFirstName(candidate.getFirstName());
-		mr.setLastName(candidate.getLastName());
-		mr.setWebaddress(practitioner.getWebaddress());  
-		mr.setCompany(practitioner.getCompany());
-		
-		
+		populateMiroResponse(mr,practitioner,candidate) ;
 		candidate.setResponse_id(sr.getId());
-		mr.setMiroReportName(candidate.getReportFileName());
+		
 		mr.setMiroProject(miroProject);  
 			
 		miroReport.generateReport(mr);
@@ -281,6 +272,25 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 	
 		return true;
 
+		
+	}
+	
+	
+	
+
+
+
+	private void populateMiroResponse(MiroResponse mr, User practitioner,
+			User candidate) {
+		mr.setPractitionerEmail(practitioner.getEmail());
+		mr.setPractitionerName(practitioner.getFirstName() +" " + practitioner.getLastName());
+		mr.setPractitionerTelNo(practitioner.getPhoneNumber());
+		mr.setPractitionerAddress(new String[] {practitioner.getAddress1(),practitioner.getAddress2(),practitioner.getCity(),practitioner.getCounty(),practitioner.getPostcode()});
+		mr.setFirstName(candidate.getFirstName());
+		mr.setLastName(candidate.getLastName());
+		mr.setWebaddress(practitioner.getWebaddress());  
+		mr.setCompany(practitioner.getCompany());
+		mr.setMiroReportName(candidate.getReportFileName());
 		
 	}
 
@@ -403,7 +413,8 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		
 		Iterator itr = users.iterator();
 		
-		User user = null;
+		User candidate = null;
+		User practitioner = null;
 		SurveyResponse sr = null;
 		MiroResponse mr = null;
 	
@@ -412,26 +423,44 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		ArrayList teamMapData = new ArrayList();
 		
 		while(itr.hasNext()) {
-			user = (User) itr.next();
-			sr = surveyResponseDAO.getSurveyResponse(user.getResponse_id());
+			candidate = (User) itr.next();
+			
+			practitioner = getPractitioner(candidate,practitioner);
+			
+			
+			sr = surveyResponseDAO.getSurveyResponse(candidate.getResponse_id());
 			mr = new MiroResponse();
 			mr.init(survey,sr, this.miroLetters,this.testOffset);
 			teamMapDTO = new TeamMapDTO();		
 			try {
 				teamMapDTO = new TeamMapDTO();
-				teamMapDTO.setId(user.getId());
-				teamMapDTO.setFullName(user.getFullName());
-				teamMapDTO.setInitials(user.getInitials(initials));
+				teamMapDTO.setId(candidate.getId());
+				teamMapDTO.setFullName(candidate.getFullName());
+				teamMapDTO.setInitials(candidate.getInitials(initials));
+				this.populateMiroResponse(mr, practitioner, candidate);
 				miroReport.setTeamMapData(teamMapDTO, mr);
 				teamMapDTO.setMiroResponse(mr);
 				teamMapData.add(teamMapDTO);
 				
 			} catch(Exception e) {
-				log.error("Error trying to create teamMap for userid = " + user.getId());
+				log.error("Error trying to create teamMap for userid = " + candidate.getId());
 			}
 		}
 		
 		return teamMapData;
+		
+	}
+
+	private User getPractitioner(User candidate, User practitioner) {
+		
+		if(practitioner !=null) {
+			return practitioner;
+		}
+		
+		User tmpPractitioner = userManager.getUser(candidate.getCreatedBy_id().toString());
+		
+		return tmpPractitioner;
+		
 		
 	}
 

@@ -209,12 +209,12 @@
     
     <!--MiroTransaction-END-->
 
-	<bean id="miroTeamManager" class="uk.co.bluetrail.mobriz.service.impl.MiroTeamManagerImpl">
+	<bean id="miroTeamManager" class="uk.co.bluetrail.mobriz.service.impl.MiroTeamManagerImpl" autowire="byName">
         <property name="miroTeamDao" ref="miroTeamDao"/>
         
     </bean>
     
-    <bean id="miroTeamReportManager" class="uk.co.bluetrail.mobriz.service.impl.MiroTeamReportManagerImpl">
+    <bean id="miroTeamReportManager" class="uk.co.bluetrail.mobriz.service.impl.MiroTeamReportManagerImpl" autowire="byName">
         <property name="miroTeamDao" ref="miroTeamDao"/>
         
     </bean>

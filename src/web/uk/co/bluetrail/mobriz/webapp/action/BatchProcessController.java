@@ -70,8 +70,6 @@ public class BatchProcessController implements Controller {
      private HttpServletResponse response ; 
 
      
-     
-     
 	
 
 	/**
