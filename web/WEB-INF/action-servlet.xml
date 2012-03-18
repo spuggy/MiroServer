@@ -279,6 +279,9 @@
 
 <bean id="miroReportShowController" class="uk.co.bluetrail.mobriz.webapp.action.MiroReportShowController" autowire="byName"/>
 
+<bean id="miroTeamReportShowController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTeamReportShowController" autowire="byName"/>
+
+
 <bean id="purchasedReportsController" class="uk.co.bluetrail.mobriz.webapp.action.PurchasedReportsController" autowire="byName"/>
 
 
@@ -328,9 +331,11 @@
                 <prop key="/editMobrizAlert.html">mobrizAlertFormController</prop>
     		    <prop key="/miroProjects.html">miroProjectController</prop>
                 <prop key="/editMiroProject.html">miroProjectFormController</prop>
-     			 <prop key="/showProject.html">miroProjectShowController</prop>
-          		    <prop key="/miroReportShow.html">miroReportShowController</prop>
-            	   <prop key="/addCredits.html">addCreditsFormController</prop>
+     			<prop key="/showProject.html">miroProjectShowController</prop>
+          		<prop key="/miroReportShow.html">miroReportShowController</prop>
+          		<prop key="/miroTeamReportShow.html">miroTeamReportShowController</prop>
+          		    
+               <prop key="/addCredits.html">addCreditsFormController</prop>
                <prop key="/addCreditsSuccess.html">addCreditsSuccessController</prop>
                <prop key="/addCreditsFailure.html">addCreditsSuccessController</prop>
                <prop key="/userConfirm.html">userConfirmFormController</prop>

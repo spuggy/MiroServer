@@ -218,6 +218,15 @@ public class Constants {
 
 	public static final String MIROTEAM_LIST = "miroTeamList";
 
+	public static final String PDF = ".pdf";
+	
+	public static final String JPEG = ".jpg";
+	
+	public static final String XHTML = ".xhtml";
+	
+	public static final String html = ".html";
+	
+	
 }
 
 

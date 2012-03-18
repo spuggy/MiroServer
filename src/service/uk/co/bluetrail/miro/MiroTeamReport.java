@@ -20,6 +20,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
 import uk.co.bluetrail.mobriz.model.Setting;
 import uk.co.bluetrail.mobriz.model.User;
@@ -106,7 +107,7 @@ public class MiroTeamReport {
 		//this.generateTeamResultsGraphic();
 		//this.generateTeamStarChart();
 		this.generateXMLReportFile();   
-		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamName());
+		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
 		
 	}
 	
@@ -146,7 +147,7 @@ public class MiroTeamReport {
 		variables.put("prac", miroTeam.getPractitionerName());
 		
 		variables.put("team_report_name" , miroTeam.getMiroTeamName());
-		variables.put("reportFileName" , miroTeam.getMiroTeamName());
+		variables.put("reportFileName" , miroTeam.getMiroTeamNameFileName(""));
 		
 		
 
@@ -322,7 +323,7 @@ public class MiroTeamReport {
 	}
 	
 	private String getTeamMapImage(MiroTeam mt) {
-		return this.baseDirectory.getAbsolutePath() + "/out/"  + mt.getMiroTeamName()+"_map.jpg";
+		return this.baseDirectory.getAbsolutePath() + "/out/"  + mt.getMiroTeamNameFileName(Constants.JPEG);
 	
 		
 	}

@@ -12,6 +12,7 @@ import antlr.collections.List;
 import static org.mockito.Mockito.*;
 
 import uk.co.bluetrail.miro.MiroResponse;
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.dao.MiroTeamDao;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
 import uk.co.bluetrail.mobriz.model.Setting;
@@ -104,7 +105,7 @@ public class MiroTeamReportManagerTest extends TestCase {
 		
 		this.baseDir = "/Users/Richard/Documents/workspace-copy/MiroServer3/web/miro";
 		
-		File pdf = new File(this.baseDir + "/out/" + miroTeam.getMiroTeamName() + ".pdf");
+		File pdf = new File(this.baseDir + "/out/" + miroTeam.getMiroTeamNameFileName(Constants.PDF));
 		
 		pdf.delete();
 		
@@ -162,7 +163,7 @@ public class MiroTeamReportManagerTest extends TestCase {
 		
 		this.miroTeamReportManager.createPDF(miroTeam, this.baseDir);
 		
-		File pdf = new File(this.baseDir + "/out/" + miroTeam.getMiroTeamName() + ".pdf");
+		File pdf = new File(this.baseDir + "/out/" + miroTeam.getMiroTeamNameFileName(Constants.PDF));
 		
 		assertTrue("PFD Exists" , pdf.exists());
 

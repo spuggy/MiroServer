@@ -117,6 +117,11 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	public String getMiroTeamName() {
 		return this.miroTeamName;
 	}
+	
+	public String getMiroTeamNameFileName(String extension) {
+		return this.miroTeamName+"_map_" + id + extension;
+	}
+	
 
 	public String getCompany() {
 		String comp = practitioner.getCompany();

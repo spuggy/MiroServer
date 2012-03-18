@@ -13,6 +13,7 @@ import uk.co.bluetrail.miro.MiroResponse;
 import uk.co.bluetrail.miro.MiroTeamMapChart;
 import uk.co.bluetrail.miro.MiroTeamMapPlotter;
 import uk.co.bluetrail.miro.MiroTeamReport;
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.dao.MiroTeamDao;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
 import uk.co.bluetrail.mobriz.model.Setting;
@@ -183,9 +184,7 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 		MiroTeamMapPlotter teamMapPlotter = new MiroTeamMapPlotter(teamMapData,true);
 		MiroTeamMapChart miroTeamMapChart = new MiroTeamMapChart();
 		
-		String fileName = mt.getMiroTeamName()+"_map.jpg";
-		
-	
+		String fileName = mt.getMiroTeamNameFileName(Constants.JPEG);
 		
 		
 		miroTeamMapChart.createTeamChartFile(fileName,filePath, teamMapPlotter);
