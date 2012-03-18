@@ -52,26 +52,13 @@ public class MiroTeamMapImageController extends BaseController {
 			teamMapImageEngaged = true;
 		}
 		
-		/*<prop key="/teamImage/teamMapImageEngaged.jpg">miroTeamMapImageController</prop>
-		   	<prop key="/teamImage/teamMapImageLeading.jpg">miroTeamMapImageController</prop>
-		 */
+		MiroTeamMapPlotter teamMapPlotter = new MiroTeamMapPlotter(teamMapData,teamMapImageEngaged);
+		 
 		
-		Iterator itr = teamMapData.iterator();
-		TeamMapDTO teamMapDTO = null;
-		MiroTeamMapPlotter teamMapPlotter = new MiroTeamMapPlotter(teamMapData.size());
-		while(itr.hasNext()) {
-			teamMapDTO = (TeamMapDTO) itr.next();
-			teamMapPlotter.add(teamMapDTO.getInitials(),teamMapDTO.getLeadingMode(),true);
-			if(teamMapImageEngaged) {
-				teamMapPlotter.add(teamMapDTO.getInitials(),teamMapDTO.getSecondaryMode(),false);
-			}
-			
-		}
+		String filePath = request.getSession().getServletContext().getRealPath("")  ;
+		 
 		
-		String backGroundFileName = request.getSession().getServletContext().getRealPath(teamMapPlotter.getBacgroundImage())  ;
-		   
-		
-		java.awt.image.BufferedImage teamMap = miroTeamMapChart.createTeamChart(backGroundFileName, teamMapPlotter);
+		java.awt.image.BufferedImage teamMap = miroTeamMapChart.createTeamChart(filePath, teamMapPlotter);
 		 
 		
 		//Set the mime type of the image

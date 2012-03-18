@@ -170,7 +170,6 @@ public class MiroTeamReport {
 		//imgNames.put("graph", this.baseDirectory.getAbsolutePath() + "/out/" +this.getChartName());
 		
 		imgNames.put("home_page_banner_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_report_banner_image.png");
-		imgNames.put("team_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_chart_place_holder.png");
 		imgNames.put("team_chart_table_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_chart_table_place_holder.png");
 		imgNames.put("team_radar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_radar_chart_holder.png");
 		imgNames.put("team_bar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_bar_chart_place_holder.png");
@@ -262,6 +261,7 @@ public class MiroTeamReport {
 		
 		//add the team results coloured box below
 		teamPiePage.add(new MiroPageElement("team_chart_table"));
+		imgNames.put("team_chart_img",getTeamMapImage(this.miroTeam));
 		
 		//add Team descriptors.
 		for(int i = 0 ; i < 4 ; i++) {
@@ -315,6 +315,12 @@ public class MiroTeamReport {
 	private String getPieImage(MiroResponse mr) {
 			
 			return this.baseDirectory.getAbsolutePath() + "/out/"  + mr.getMiroReportName()+".jpg";
+		
+	}
+	
+	private String getTeamMapImage(MiroTeam mt) {
+		return this.baseDirectory.getAbsolutePath() + "/out/"  + mt.getMiroTeamName()+"_map.jpg";
+	
 		
 	}
 

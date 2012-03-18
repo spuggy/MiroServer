@@ -5,9 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+ 
+
 import uk.co.bluetrail.miro.MiroException;
 import uk.co.bluetrail.miro.MiroReportLevel;
 import uk.co.bluetrail.miro.MiroResponse;
+import uk.co.bluetrail.miro.MiroTeamMapChart;
+import uk.co.bluetrail.miro.MiroTeamMapPlotter;
 import uk.co.bluetrail.miro.MiroTeamReport;
 import uk.co.bluetrail.mobriz.dao.MiroTeamDao;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
@@ -154,7 +158,7 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 			List teamMapData = this.miroResponseManager.getTeamMap(filePath, mt.getMembers());
 		
 			this.generateIndividualPies(teamMapData,filePath) ;
-			
+			this.generateTeamReportMap(mt,teamMapData,filePath) ;
 			
 			
 			mtr.generateReport(mt,teamMapData);
@@ -170,6 +174,21 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 		}
 		
 		
+		
+		
+	}
+
+	private void generateTeamReportMap(MiroTeam mt,List teamMapData, String filePath) throws Exception {
+		
+		MiroTeamMapPlotter teamMapPlotter = new MiroTeamMapPlotter(teamMapData,true);
+		MiroTeamMapChart miroTeamMapChart = new MiroTeamMapChart();
+		
+		String fileName = mt.getMiroTeamName()+"_map.jpg";
+		
+	
+		
+		
+		miroTeamMapChart.createTeamChartFile(fileName,filePath, teamMapPlotter);
 		
 		
 	}

@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 public class MiroTeamMapChart  {
 	
@@ -32,8 +35,26 @@ public class MiroTeamMapChart  {
     public void setCircleBorderColor(Color bc) {
         borderColor = bc;
     }
+    
+    
+    public void createTeamChartFile(String fileName,String filePath,MiroTeamMapPlotter plotter  ) throws Exception {
+    
+    	java.awt.image.BufferedImage teamMap = createTeamChart(filePath, plotter);
+		
+		char seperator = File.separatorChar;
+		
+		String file = new String(filePath+seperator+"out"+seperator+fileName);
+		
 
-    public BufferedImage createTeamChart(String backGroundFileName,MiroTeamMapPlotter plotter ) throws Exception {
+		
+		FileOutputStream out = new FileOutputStream(file);
+		
+        ImageIO.write(teamMap, "jpg", out);
+        out.close();
+    	
+    }
+    
+    public BufferedImage createTeamChart(String filePath,MiroTeamMapPlotter plotter ) throws Exception {
        
     	
     	
@@ -47,7 +68,7 @@ public class MiroTeamMapChart  {
     	}
     	
         BufferedImage image = null;
-        File file = new File(backGroundFileName);
+        File file = new File(filePath + plotter.getBacgroundImage());
         image = ImageIO.read(file);
         Graphics2D g = (Graphics2D)image.getGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

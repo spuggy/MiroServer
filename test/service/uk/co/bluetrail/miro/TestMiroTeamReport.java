@@ -26,14 +26,14 @@ import static org.mockito.Mockito.*;
 
 public class TestMiroTeamReport extends TestCase {
 
-	MiroTeam miroTeam;
-	File baseDir ;
-	Setting miroLetters;
-	Setting miroLevels;
-	private HashSet members;
-	private ArrayList teamResults;
-	private HashMap<String, String> modeNames;
-	
+	protected MiroTeam miroTeam;
+	protected File baseDir ;
+	protected Setting miroLetters;
+	protected Setting miroLevels;
+	protected HashSet members;
+	protected ArrayList teamResults;
+	protected HashMap<String, String> modeNames;
+	HashMap initials;
 	
 	
 	
@@ -106,6 +106,10 @@ public class TestMiroTeamReport extends TestCase {
 
 	private void addTeamMember(String firstName, String secondName, String leading, String secondary, int id) {
 		
+		if(initials == null) {
+			initials = new HashMap();
+			
+		}
 		 
 		
 		MiroResponse mr1 = mock(MiroResponse.class);
@@ -127,11 +131,27 @@ public class TestMiroTeamReport extends TestCase {
 		tm1.setSecondaryModeText(modeNames.get(secondary));
 		tm1.setSecondaryMode(secondary);
 		tm1.setMiroResponse(mr1);
+		tm1.setInitials(getInitials(firstName,secondName));
 		
 		teamResults.add(tm1);
 		
 	}
 
+	private String getInitials(String firstName, String lastName) {
+		
+		StringBuffer i = new StringBuffer();
+		if(firstName!=null) {
+			i.append(firstName.charAt(0));
+		}
+		if(lastName!=null) {
+			i.append(lastName.charAt(0));
+		}
+		
+		return i.toString().toUpperCase();
+		
+		
+	}
+	
 
 	public void testCreate() {
 		

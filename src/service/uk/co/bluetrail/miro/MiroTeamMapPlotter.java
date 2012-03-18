@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Stack;
+
+import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
 
 public class MiroTeamMapPlotter{
 
 	public static int BIGDOTSCOUNT = 17;
-	
 	
 	ArrayList plotInitials = new ArrayList();
 	ArrayList plotXY = new ArrayList();
@@ -35,10 +37,24 @@ public class MiroTeamMapPlotter{
 	
 	
 	
-	public MiroTeamMapPlotter(int size) {
+	public MiroTeamMapPlotter( List teamMapData, boolean teamMapImageEngaged) {
+		
+		
+		
 		this.size = size;
 		init(size);
-	
+		
+		Iterator itr = teamMapData.iterator();
+		TeamMapDTO teamMapDTO = null;
+		while(itr.hasNext()) {
+			teamMapDTO = (TeamMapDTO) itr.next();
+			add(teamMapDTO.getInitials(),teamMapDTO.getLeadingMode(),true);
+			if(teamMapImageEngaged) {
+				add(teamMapDTO.getInitials(),teamMapDTO.getSecondaryMode(),false);
+			}
+			
+		}
+		
 	}
 
 	private void buildXYStacks() {
@@ -78,7 +94,7 @@ public class MiroTeamMapPlotter{
 
 	public String getBacgroundImage() {
 		
-		return "/images/teammapbackground.png";
+		return  "/images/teammapbackground.png";
 	}
 
 	public String[] getInitialsArray() {
@@ -185,7 +201,7 @@ public class MiroTeamMapPlotter{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+		/*
 		MiroTeamMapPlotter tmp = new MiroTeamMapPlotter(23);
 		
 		tmp.add("RS", "D", true) ;
@@ -226,7 +242,7 @@ public class MiroTeamMapPlotter{
 			
 		}
 		
-		
+		*/
 		
 
 	}
