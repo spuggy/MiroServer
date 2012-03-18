@@ -110,8 +110,6 @@ public class MiroTeamReport {
 		
 	}
 	
-	
-	
 
 	private void generateXMLReportFile() throws ParserConfigurationException, SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
 		
@@ -121,6 +119,24 @@ public class MiroTeamReport {
 		Map<String, String> variables = new HashMap<String, String>();
 		// Image Map
 		Map<String, String> imgNames = new HashMap<String, String>();
+		
+		
+		imgNames.put("home_page_banner_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_report_banner_image.png");
+		imgNames.put("team_chart_table_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_chart_table_place_holder.png");
+		imgNames.put("team_radar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_radar_chart_holder.png");
+		imgNames.put("team_bar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_bar_chart_place_holder.png");
+		
+		
+		
+		
+		
+		imgNames.put("imgU1", this.baseDirectory.getAbsolutePath() + "/images/" + "U1.png");
+		imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/images/" + "U3.png");
+		imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/images/"  + "U2.png");
+		imgNames.put("imgU6", this.baseDirectory.getAbsolutePath() + "/images/"  + "U6.png");
+	   
+		
+		
 		
 		buildReportPageList(pages,variables,imgNames);
 		
@@ -169,20 +185,7 @@ public class MiroTeamReport {
 		
 		//imgNames.put("graph", this.baseDirectory.getAbsolutePath() + "/out/" +this.getChartName());
 		
-		imgNames.put("home_page_banner_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_report_banner_image.png");
-		imgNames.put("team_chart_table_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_chart_table_place_holder.png");
-		imgNames.put("team_radar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_radar_chart_holder.png");
-		imgNames.put("team_bar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_bar_chart_place_holder.png");
 		
-		
-		
-		
-		
-		imgNames.put("imgU1", this.baseDirectory.getAbsolutePath() + "/images/" + "U1.png");
-		imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/images/" + "U3.png");
-		imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/images/"  + "U2.png");
-		imgNames.put("imgU6", this.baseDirectory.getAbsolutePath() + "/images/"  + "U6.png");
-	   
 		
 		
 		

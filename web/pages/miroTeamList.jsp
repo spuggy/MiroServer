@@ -83,13 +83,17 @@
 	<li>
 
 <display:table name="miroTeamList" cellspacing="0" cellpadding="0" requestURI=""
-    id="miroTeamList" pagesize="25" class="table miroTeamList" export="false">
+    id="miroTeamList" pagesize="25" class="table miroTeamList" export="false" decorator="uk.co.bluetrail.mobriz.webapp.util.MiroTeamTableDecorator">
    
     <display:column property="miroTeamName" escapeXml="true" sortable="true"
          titleKey="miroteam.miroteamname"  url="/editMiroTeamMap.html" paramId="id" paramProperty="id"
         />
     <display:column property="updated_at"  
          titleKey="surveyForm.updated_at" decorator="uk.co.bluetrail.mobriz.webapp.util.ShortDateDecorator" />
+             
+    <display:column property="teamReportStatus"  
+         titleKey="miroteam.miroteamreportstatus" />
+    
              
     
     <display:setProperty name="paging.banner.item_name" value="miroTeam"/>
