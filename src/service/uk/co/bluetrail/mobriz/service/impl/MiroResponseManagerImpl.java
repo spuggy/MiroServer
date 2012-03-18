@@ -203,9 +203,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 	 private MiroReport getMiroReport(String baseDirectory){
 		 
 		 	
-		 
 			MiroReport miroReport = new MiroReport(new File(baseDirectory),this.engagedScore,this.excessScore,this.latentScore);
-					
 			
 			HashMap modes = new HashMap();
 			modes.put("E", "Energising Mode");
@@ -233,6 +231,16 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		 
 		 
 	 }
+	 
+	public void createPie(MiroResponse mr, String baseDirectory)  {
+		
+
+		MiroReport miroReport = getMiroReport(baseDirectory); 
+			
+		miroReport.generatePieChart(mr,"");
+		
+	}
+	 
 	
 	public boolean createPDF(SurveyResponse sr, MiroResponse mr,String baseDirectory) {
 		

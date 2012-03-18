@@ -102,19 +102,17 @@ public class MiroTeamReport {
 		}
 
 		//this.generateTeamChart();
-		//this.generateTeamPies();
 		//this.generateTeamBarChart();
 		//this.generateTeamResultsGraphic();
 		//this.generateTeamStarChart();
 		this.generateXMLReportFile();   
 		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamName());
 		
-		
 	}
 	
 	
 	
-	
+
 	private void generateXMLReportFile() throws ParserConfigurationException, SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
 		
 		log.info("generateXMLReportFile");

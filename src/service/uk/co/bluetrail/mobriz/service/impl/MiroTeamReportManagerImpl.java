@@ -7,6 +7,7 @@ import java.util.Set;
 
 import uk.co.bluetrail.miro.MiroException;
 import uk.co.bluetrail.miro.MiroReportLevel;
+import uk.co.bluetrail.miro.MiroResponse;
 import uk.co.bluetrail.miro.MiroTeamReport;
 import uk.co.bluetrail.mobriz.dao.MiroTeamDao;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
@@ -20,6 +21,7 @@ import uk.co.bluetrail.mobriz.service.MiroTeamReportManager;
 import uk.co.bluetrail.mobriz.service.SettingManager;
 import uk.co.bluetrail.mobriz.service.SurveyManager;
 import uk.co.bluetrail.mobriz.service.UserManager;
+import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
 
 public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamReportManager {
@@ -151,6 +153,10 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 		try {
 			List teamMapData = this.miroResponseManager.getTeamMap(filePath, mt.getMembers());
 		
+			this.generateIndividualPies(teamMapData,filePath) ;
+			
+			
+			
 			mtr.generateReport(mt,teamMapData);
 			mt.setTeamReportStatus(40);
 			mt.updateMembers();
@@ -164,6 +170,22 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 		}
 		
 		
+		
+		
+	}
+
+	private void generateIndividualPies(List teamMapData,String filePath) {
+	
+		Iterator itr = teamMapData.iterator();
+		
+		TeamMapDTO dto = null;
+		
+		while(itr.hasNext()) {
+			
+			dto =  (TeamMapDTO) itr.next();
+			this.miroResponseManager.createPie(dto.getMiroResponse(),filePath);
+			
+		}
 		
 		
 	}

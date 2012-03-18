@@ -161,6 +161,14 @@ public class MiroReport {
 		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
 		
 	}
+	
+	public void generatePieChart(MiroResponse mr, String title) {
+		
+		this.mr = mr;
+	
+		MiroPieChartGenerator pieChart = this.getMiroPieChart(title)  ;
+		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
+	}
 
 	private MiroPieChartGenerator getMiroPieChart(String pieTitle) {
 		
