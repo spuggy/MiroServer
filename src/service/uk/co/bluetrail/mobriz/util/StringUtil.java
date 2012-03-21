@@ -41,7 +41,6 @@ public class StringUtil {
         MessageDigest md = null;
 
         try {
-            // first create an instance, given the provider
             md = MessageDigest.getInstance(algorithm);
         } catch (Exception e) {
             log.error("Exception: " + e);

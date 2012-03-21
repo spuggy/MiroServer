@@ -19,7 +19,7 @@
 <ul>
 
 	<li>					
-	<form:form commandName="miroProjectSelectorForm" method="post" action="" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
+	<form:form commandName="miroProjectSelectorForm" method="post" action="" id="miroProjectSelectorForm" onsubmit="return validateForm(this)">
 	
 		<div class="message" id="welcommes">
 			<p>
@@ -28,9 +28,9 @@
 			
 			<p><br/><input type="button" value="edit team members" onclick="$('teamBuilder').show()"/>
 			<input type="button" value="re-select projects" onclick="location='miroTeamList.html';"/>
-			<input type="submit" value="save team map" name="save" />
+			<input type="submit" value="save team map" name="save" onclick="bSave=true;" />
 			<input type="submit" value="delete team map" name="delete" onclick="alert('coming soon!');"/>
-			<input type="submit" value="create team report" name="createteamreport" />
+			<input type="submit" value="create team report" name="createteamreport" onclick="bSave=true;" />
 			</p>
 		
 		
@@ -138,11 +138,37 @@
 	<li>
 </ul>
 
-<script type="text/javascript">
-<!-- This is here so we can exclude the selectAll call when roles is hidden -->
-function onFormSubmit(theForm) {
-    selectAll('teamUsers');
-    return true;
-}
+<script type="text/javascript" language="Javascript1.1"> 
+
+<!-- Begin 
+
+     var bSave = false; 
+
+    function validateForm(form) {                                                                   
+       
+        selectAll('teamUsers');
+       
+        if (!bSave) {
+     		 return true; 
+        } else {  
+      		 
+      		 if(this["miroTeamName"].value== "") {
+      			$('teamBuilder').show();
+      		 	alert("Please supply a value for the Team Name");
+      		 	return false; 
+      		 
+      		 } else {
+      		 	return true;
+      		 }
+      		 
+        }
+   } 
+
+   
+
+
+//End --> 
 </script>
+
+
 
