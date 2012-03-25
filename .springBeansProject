@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<configs>
+		<config>src/dao/uk/co/bluetrail/mobriz/persistence/hibernate/applicationContext-hibernate.xml</config>
+		<config>src/service/uk/co/bluetrail/mobriz/service/applicationContext-service.xml</config>
+	</configs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>
