@@ -39,6 +39,7 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 	private UserManager userManager;
 	private SurveyManager surveyManager;
 	private MiroTeamManager miroTeamManager =null;
+	private Setting dynamicTensionDefaults;
 	
 	
 	
@@ -100,6 +101,14 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 			throw new RuntimeException("MIRO_LEVELS not Found!!");
 			
 		}
+		
+		this.dynamicTensionDefaults = settingManager.getSettingByName("MIRO_DYNAMICTENSIONDEFAULTS");
+			
+		if(this.dynamicTensionDefaults  ==null) {
+			log.error("MIRO_DYNAMICTENSIONDEFAULTS not Found!!");
+			throw new RuntimeException("MIRO_DYNAMICTENSIONDEFAULTS not Found!!");
+				
+		}
 	       
     }
 	
@@ -153,7 +162,7 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 		
 		File baseDir = new File(filePath);
 		
-		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroResponseManager.getMiroLetters(),this.miroLevels);
+		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroResponseManager.getMiroLetters(),this.miroLevels,this.dynamicTensionDefaults );
 		
 		try {
 			List teamMapData = this.miroResponseManager.getTeamMap(filePath, mt.getMembers());

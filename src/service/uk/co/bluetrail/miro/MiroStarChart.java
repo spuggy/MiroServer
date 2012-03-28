@@ -18,14 +18,14 @@ public class MiroStarChart {
 	int[] x = {190,305,356,305,190, 66, 30,66};
 	int[] y = {30, 67, 180,289,322,289,180,63};
 	String IMG_NAME = "miro.jpg";
-	String filePath = "";
+	File filePath = null;
 	Color textColor = null;
 	
 	//images start from 12 oclock
 	
-	public MiroStarChart(String filePath,  Color textColor) {
+	public MiroStarChart(File baseDirectory,  Color textColor) {
 	
-		this.filePath = filePath;
+		this.filePath = baseDirectory;
 		this.textColor = textColor;
 	}
 	
@@ -56,7 +56,7 @@ public class MiroStarChart {
 
 		char seperator = File.separatorChar;
 
-		String outputFile = new String(this.filePath+seperator+"out"+seperator+outputFileName);
+		String outputFile = new String(this.filePath.getAbsolutePath()+seperator+"out"+seperator+outputFileName);
 
 		FileOutputStream out = new FileOutputStream(outputFile);
 

@@ -11,7 +11,7 @@ public class TestMiroStarChart extends TestCase {
 		
 		int[] values = {10,20,30,40,50,60,70,80};
 		
-		String filePath = "/Users/Richard/Documents/workspace-copy/MiroServer3/web/miro";
+		File filePath = new File("/Users/Richard/Documents/workspace-copy/MiroServer3/web/miro");
 		
 		MiroStarChart msc = new MiroStarChart(filePath, Color.BLUE);
 		

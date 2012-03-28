@@ -29,6 +29,7 @@ public class TestMiroTeamReport extends TestCase {
 	protected MiroTeam miroTeam;
 	protected File baseDir ;
 	protected Setting miroLetters;
+	protected Setting dynamicTensionDefaults;
 	protected Setting miroLevels;
 	protected HashSet members;
 	protected ArrayList teamResults;
@@ -44,7 +45,11 @@ public class TestMiroTeamReport extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		
+		dynamicTensionDefaults  = new Setting();
+		
+		dynamicTensionDefaults.setSettingValue("20.00;0.25;0.24");
 				
+		
 		
 		miroLevels = new Setting();
 		
@@ -56,7 +61,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		miroTeam = new MiroTeam();
 		miroTeam.setId(new Long(100));
-		miroTeam.setMiroTeamName("Testing Team 1001");
+		miroTeam.setMiroTeamName("Testing Team all bullets");
 		
 		this.members = new HashSet(); ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
@@ -155,7 +160,7 @@ public class TestMiroTeamReport extends TestCase {
 
 	public void testCreate() {
 		
-		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels);
+		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
 		
 	}
 	
@@ -163,7 +168,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		try {
 			
-			MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels);
+			MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
 			
 			mtr.setResults(this.teamResults);
 			
@@ -204,7 +209,7 @@ public class TestMiroTeamReport extends TestCase {
 	}
 	
 	public void testGenerate() {
-		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels);
+		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
 		
 		mtr.setResults(this.teamResults);
 		
@@ -216,7 +221,7 @@ public class TestMiroTeamReport extends TestCase {
 	}
 	
 	public void testGetLevel() {
-		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels);
+		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
 		
 		mtr.setResults(this.teamResults);
 		

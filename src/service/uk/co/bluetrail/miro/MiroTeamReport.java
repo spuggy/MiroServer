@@ -1,5 +1,6 @@
 package uk.co.bluetrail.miro;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class MiroTeamReport {
 	private MiroTeam miroTeam;
 	private File baseDirectory;
 	private Setting miroLetters;
+	private String[] dynamicTensionDefaults;  
 	private MiroReportFileGenerator miroReportFileGenerator;
 	private Map teamTotals;
 	private ArrayList<MiroTeamResult> sortedTeamTotals;
@@ -44,7 +46,8 @@ public class MiroTeamReport {
 	private Map<String,Integer> secondaryTotals ;
 	private MiroReportLevel miroLevels;
 
-	
+	private DynamicTension[] dynamicTensions ;
+	private HashMap<String,Double> startChartTotals;
 	
 	
 	
@@ -76,7 +79,7 @@ public class MiroTeamReport {
 		this.miroLetters = miroLetters;
 	}
 
-	public MiroTeamReport(File baseDirectory,Setting miroLetters,Setting miroLevelsSetting) {
+	public MiroTeamReport(File baseDirectory,Setting miroLetters,Setting miroLevelsSetting, Setting dynamicTensionDefaults) {
 		
 		if(baseDirectory == null) {
 			throw new RuntimeException("baseDirectory constructor vars is null");
@@ -89,10 +92,27 @@ public class MiroTeamReport {
 		if(miroLevelsSetting == null) {
 			throw new RuntimeException("miroLevels constructor var is null");
 		}
+		if(dynamicTensionDefaults == null) {
+			throw new RuntimeException("dynamicTensionDefaults constructor var is null");
+		}
+		
+		
 		
 		this.miroLetters = miroLetters;
 		this.baseDirectory = baseDirectory;
 		this.miroLevels = new MiroReportLevel(miroLevelsSetting.getSettingValues());
+		
+		this.dynamicTensionDefaults  = dynamicTensionDefaults.getSettingValues();
+		
+			
+		
+		this.dynamicTensions = new DynamicTension[4];
+		dynamicTensions[0] = new DynamicTension('N','S');
+		dynamicTensions[1] = new DynamicTension('T','F');
+		dynamicTensions[2] = new DynamicTension('D','O');
+		dynamicTensions[3] = new DynamicTension('E','A');
+		
+		
 	}
 	
 	public void generateReport(MiroTeam miroTeam) throws Exception {
@@ -101,16 +121,39 @@ public class MiroTeamReport {
 		if(miroTeam == null) {
 			log.error("The miroTeamReportis null");
 		}
+		
+		calculateResultsTable();
+		
+	
+		
 
-		//this.generateTeamChart();
 		//this.generateTeamBarChart();
 		//this.generateTeamResultsGraphic();
-		//this.generateTeamStarChart();
+		this.generateTeamStarChart();
 		this.generateXMLReportFile();   
 		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
 		
 	}
 	
+
+	private void generateTeamStarChart() throws Exception {
+		
+		MiroStarChart msc = new MiroStarChart(this.baseDirectory, Color.BLACK);
+		
+		int[] v = new int[8];
+		
+		v[0] = (int) this.startChartTotals.get("N").doubleValue();
+		v[1] = (int) this.startChartTotals.get("E").doubleValue();
+		v[2] = (int) this.startChartTotals.get("F").doubleValue();
+		v[3] = (int) this.startChartTotals.get("O").doubleValue();
+		v[4] = (int) this.startChartTotals.get("S").doubleValue();
+		v[5] = (int) this.startChartTotals.get("A").doubleValue();
+		v[6] = (int) this.startChartTotals.get("T").doubleValue();
+		v[7] = (int) this.startChartTotals.get("D").doubleValue();
+		
+		msc.createChart(this.miroTeam.getMiroTeamNameFileName("")+"_star_chart.png", v );
+		
+	}
 
 	private void generateXMLReportFile() throws ParserConfigurationException, SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
 		
@@ -124,7 +167,7 @@ public class MiroTeamReport {
 		
 		imgNames.put("home_page_banner_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_report_banner_image.png");
 		imgNames.put("team_chart_table_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_chart_table_place_holder.png");
-		imgNames.put("team_radar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_radar_chart_holder.png");
+		imgNames.put("team_radar_chart_img", this.baseDirectory.getAbsolutePath() + "/out/"+ this.miroTeam.getMiroTeamNameFileName("")+"_star_chart.png");
 		imgNames.put("team_bar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_bar_chart_place_holder.png");
 		
 		
@@ -273,9 +316,7 @@ public class MiroTeamReport {
 			String mode = this.getMode(i);
 			String modeLevel = this.getModeLevel(i);
 			String divKey = "M" + mode + (i+1) + modeLevel ;
-		
 			teamPiePage.add(new MiroPageElement(divKey));
-			
 			
 		}
 		
@@ -284,8 +325,6 @@ public class MiroTeamReport {
 		MiroPage teamBulletsPage = new MiroPage();
 		teamBulletsPage.add(new MiroPageElement("team_bar_chart"));
 	
-		
-		
 		
 		//Team descriptor Bullet points.
 		for(int i = 0 ; i < 4 ; i++) {
@@ -301,9 +340,76 @@ public class MiroTeamReport {
 		
 		pages.add(teamBulletsPage);
 		
-		MiroPage teamRadarPage = new MiroPage();
-		teamRadarPage.add(new MiroPageElement("team_radar_chart"));
-		pages.add(teamRadarPage);
+		//dynamicTensions
+		MiroPage dynamicTensionPage = new MiroPage();
+		dynamicTensionPage.add(new MiroPageElement("team_radar_chart"));
+		
+
+		for(int i = 0 ; i < this.dynamicTensions.length; i ++) {
+			
+			
+			String divKey = this.dynamicTensions[i].toString() + getBalanceValue(this.dynamicTensions[i]);
+			dynamicTensionPage.add(new MiroPageElement(divKey));
+			
+		}
+		
+		
+		
+		pages.add(dynamicTensionPage);
+		
+		
+		
+		//comms bit 
+		MiroPage contextBulletsPage = new MiroPage();
+		
+		contextBulletsPage.add(new MiroPageElement("contextBulletPageTitle"));
+		
+		contextBulletsPage.add(new MiroPageElement("commsBulletTitle"));
+		
+		//Team descriptor Bullet points.
+		for(int i = 0 ; i < 4 ; i++) {
+			
+			String mode = this.getMode(i);
+			String modeLevel = this.getModeLevel(i);
+			String divKey = "C" + mode + (i+1) + modeLevel ;
+			contextBulletsPage.add(new MiroPageElement(divKey));
+		}
+	
+		contextBulletsPage.add(new MiroPageElement("decisonBulletTitle"));
+		
+		//Team descriptor Bullet points.
+		for(int i = 0 ; i < 4 ; i++) {
+			
+			String mode = this.getMode(i);
+			String modeLevel = this.getModeLevel(i);
+			String divKey = "D" + mode + (i+1) + modeLevel ;
+			contextBulletsPage.add(new MiroPageElement(divKey));
+		}
+		
+		contextBulletsPage.add(new MiroPageElement("relationshipsBulletTitle"));
+		
+		//Team descriptor Bullet points.
+		for(int i = 0 ; i < 4 ; i++) {
+			
+			String mode = this.getMode(i);
+			String modeLevel = this.getModeLevel(i);
+			String divKey = "R" + mode + (i+1) + modeLevel ;
+			contextBulletsPage.add(new MiroPageElement(divKey));
+		}
+		
+		contextBulletsPage.add(new MiroPageElement("dealingChangeBulletTitle"));
+		
+		//Team descriptor Bullet points.
+		for(int i = 0 ; i < 4 ; i++) {
+			
+			String mode = this.getMode(i);
+			String modeLevel = this.getModeLevel(i);
+			String divKey = "H" + mode + (i+1) + modeLevel ;
+			contextBulletsPage.add(new MiroPageElement(divKey));
+		}
+		
+		pages.add(contextBulletsPage);
+		
 		
 		
 //		practitiioner stuff
@@ -315,6 +421,74 @@ public class MiroTeamReport {
 	
 	
 	
+
+	private String getBalanceValue(DynamicTension dt) {
+		
+		
+		double larger = 0.00 ;
+		double smaller = 0.00 ;
+		char larger_mode = ' ';
+		
+		if(this.startChartTotals.get(dt.getf()) > this.startChartTotals.get(dt.gets())) {
+			larger = this.startChartTotals.get(dt.getf());
+			larger_mode = dt.f;
+			smaller = this.startChartTotals.get(dt.gets());
+		} else {
+			larger = this.startChartTotals.get(dt.gets());
+			larger_mode = dt.s;
+			smaller = this.startChartTotals.get(dt.getf());
+		}
+		
+		/*
+		If larger plus smaller = 0 then Z   (both = zero)  
+
+		If lager plus smaller = less than 20 then V   
+
+		If larger minus smaller = less than 25% of larger then B
+
+		If larger minus smaller = more than 24% of larger then U-larger  
+
+		If larger minus smaller = 100 then C larger
+*/
+
+		if(larger==0.00 && smaller ==0.00) {
+			return "Z";
+		}
+		
+		if(larger+smaller < Double.parseDouble(this.dynamicTensionDefaults[0])) {
+			return "V" ;
+		}
+		
+		if(larger-smaller < (larger*Double.parseDouble(this.dynamicTensionDefaults[1]))) {
+			return "B";
+		}
+		
+		if(larger-smaller > (larger*Double.parseDouble(this.dynamicTensionDefaults[2]))) {
+			return "U" + larger_mode;
+		}
+		
+		if(larger-smaller == 100.00) {
+			return "C" + larger;
+		}
+
+		throw new RuntimeException("getBalanceValue() Exception - should not be here");
+		
+	}
+	
+	private MiroTeamResult getResultForLetter(String letter) {
+		
+		MiroTeamResult result = null;
+		
+		for(int i = 0 ; i <this.sortedTeamTotals.size(); i++) {
+			result = this.sortedTeamTotals.get(i);
+			
+			if(result.key.equals(letter)) {
+				return result;
+			}
+		}
+		
+		throw new RuntimeException("Could not find letter " + letter);
+	}
 
 	private String getPieImage(MiroResponse mr) {
 			
@@ -418,6 +592,8 @@ public class MiroTeamReport {
 				tempSort.add(new MiroTeamResult(ml, 0.00));
 			}
 			
+		
+			
 		}
 		
 		int count = tempSort.size();
@@ -425,6 +601,24 @@ public class MiroTeamReport {
 		Collections.sort(tempSort);
 		this.sortedTeamTotals = tempSort;
 		
+	this.startChartTotals = new HashMap<String,Double>();
+	Iterator itr =  this.sortedTeamTotals.iterator();
+	while(itr.hasNext()) {
+		MiroTeamResult mtr = (MiroTeamResult) itr.next();
+		this.startChartTotals.put(mtr.key, mtr.value);
+	}
+	
+	//N	d+e
+	//S	a+o
+	//T	d+a
+	//F	e+o
+	
+	//now make sure the values from the star chart are there;
+	//hard wired letters - these are not likely to change from now on so fuck it.
+	this.startChartTotals.put("N",this.startChartTotals.get("D") + this.startChartTotals.get("E"));
+	this.startChartTotals.put("S",this.startChartTotals.get("A") + this.startChartTotals.get("O"));
+	this.startChartTotals.put("T",this.startChartTotals.get("D") + this.startChartTotals.get("A"));
+	this.startChartTotals.put("F",this.startChartTotals.get("E") + this.startChartTotals.get("O"));
 		
 	
 		
@@ -457,6 +651,33 @@ public class MiroTeamReport {
 	
 
 }
+
+class DynamicTension {
+	
+	public char f;
+	public char s;
+
+	public DynamicTension(char f, char s) {
+		this.f = f;
+		this.s = s;
+	}
+	
+	public String gets() {
+		return this.s+"";
+	}
+
+	public String getf() {
+		return this.f+"";
+	}
+	
+	public String toString() {
+		return f+""+s;
+	}
+	
+}
+
+
+
 
 
 class MiroTeamResult implements Comparable<MiroTeamResult> {
@@ -491,6 +712,7 @@ class MiroTeamResult implements Comparable<MiroTeamResult> {
 		
 	}
 
+	
 	
 	
 	
