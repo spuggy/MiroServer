@@ -127,18 +127,18 @@ public class MiroTeamReport {
 	
 		
 
-		//this.generateTeamBarChart();
+		this.generateTeamBarChart();
 		//this.generateTeamResultsGraphic();
-		this.generateTeamStarChart();
+		this.generateTeamSpiderWebChart();
 		this.generateXMLReportFile();   
 		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
 		
 	}
 	
 
-	private void generateTeamStarChart() throws Exception {
+	private void generateTeamSpiderWebChart() throws Exception {
 		
-		MiroStarChart msc = new MiroStarChart(this.baseDirectory, Color.BLACK);
+		MiroSpiderWebChart mswc = new MiroSpiderWebChart(this.baseDirectory, Color.BLACK);
 		
 		int[] v = new int[8];
 		
@@ -151,10 +151,52 @@ public class MiroTeamReport {
 		v[6] = (int) this.startChartTotals.get("T").doubleValue();
 		v[7] = (int) this.startChartTotals.get("D").doubleValue();
 		
-		msc.createChart(this.miroTeam.getMiroTeamNameFileName("")+"_star_chart.png", v );
+		//TODO should facotor these labels out some where
+		String[] labels = {"Intuition","Energising","Feeling","Organising","Sensing","Analysing","Thinking","Driving"};
+		
+		
+		mswc.createChart(this.miroTeam.getMiroTeamNameFileName("")+"_star_chart.png", v , labels);
 		
 	}
 
+	private void generateTeamBarChart() throws Exception {
+		
+		MiroTeamBarChart mtbc = new MiroTeamBarChart(this.baseDirectory);
+		
+		double[] v = new double[4];
+		HashMap<String,String> desc = new HashMap<String,String>();
+		HashMap<String,Color> colors = new HashMap<String,Color>();
+		
+		//TODO should facotor these labels out some where
+		String[] l = new String[4];
+		desc.put("E","Energising");
+		desc.put("O", "Organising");
+		desc.put("A", "Analysing");
+		desc.put("D","Driving");
+		
+		Color[] c = new Color[4];
+		colors.put("E",Color.YELLOW);
+		colors.put("O", Color.GREEN);
+		colors.put("A", Color.BLUE);
+		colors.put("D",Color.RED);
+		
+		MiroTeamResult mtr = null;
+		
+		for(int i = 0 ; i < 4 ; i++) {
+			
+			mtr = this.sortedTeamTotals.get(i);
+			v[i] = mtr.value;
+			l[i] = desc.get(mtr.key);
+			c[i] = colors.get(mtr.key);
+			
+		}
+		
+		mtbc.createBarChart("",this.miroTeam.getMiroTeamNameFileName("")+"_bar_chart.png", v , l,c);
+		
+	}
+
+	
+	
 	private void generateXMLReportFile() throws ParserConfigurationException, SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
 		
 		log.info("generateXMLReportFile");
@@ -168,7 +210,7 @@ public class MiroTeamReport {
 		imgNames.put("home_page_banner_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_report_banner_image.png");
 		imgNames.put("team_chart_table_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_chart_table_place_holder.png");
 		imgNames.put("team_radar_chart_img", this.baseDirectory.getAbsolutePath() + "/out/"+ this.miroTeam.getMiroTeamNameFileName("")+"_star_chart.png");
-		imgNames.put("team_bar_chart_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_bar_chart_place_holder.png");
+		imgNames.put("team_bar_chart_img", this.baseDirectory.getAbsolutePath() + "/out/"+ this.miroTeam.getMiroTeamNameFileName("")+"_bar_chart.png");
 		
 		
 		

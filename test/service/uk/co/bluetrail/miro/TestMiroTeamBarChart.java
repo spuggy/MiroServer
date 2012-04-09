@@ -1,0 +1,39 @@
+package uk.co.bluetrail.miro;
+
+import java.awt.Color;
+import java.io.File;
+
+import junit.framework.TestCase;
+
+public class TestMiroTeamBarChart extends TestCase {
+
+	public void testCreate() {
+		double[] barValues = { 30.0, 20.0, 15.0, 13.0 };
+		
+		Color[] barColors = { Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED };
+		
+		String[] barLabels = {"Energising","Organising","Analysing","Driving"};
+		
+		File filePath = new File("/Users/Richard/Documents/workspace-copy/MiroServer3/web/miro");
+		
+		
+		uk.co.bluetrail.miro.MiroTeamBarChart barChart = new MiroTeamBarChart(filePath);
+		
+		
+		//the first param is the directory where the chart goes
+		
+		String fileName = "barchart.png" ;
+		
+		barChart.createBarChart("",fileName,barValues,barLabels,barColors);
+		
+		
+		
+		File f = new File(filePath+"/out/"+fileName);
+		
+		if(!f.exists()) {
+			fail("file no found");
+		}
+		
+	}
+	
+}

@@ -68,6 +68,7 @@ public class MiroTeamMapChart  {
     	}
     	
         BufferedImage image = null;
+       
         File file = new File(filePath + plotter.getBacgroundImage());
         image = ImageIO.read(file);
         Graphics2D g = (Graphics2D)image.getGraphics();

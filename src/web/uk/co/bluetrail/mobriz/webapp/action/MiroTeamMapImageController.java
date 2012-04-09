@@ -18,15 +18,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 import uk.co.bluetrail.miro.MiroTeamMapChart;
 import uk.co.bluetrail.miro.MiroTeamMapPlotter;
+import uk.co.bluetrail.mobriz.service.MiroResponseManager;
+import uk.co.bluetrail.mobriz.service.SurveyResponseManager;
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 
 
 public class MiroTeamMapImageController extends BaseController {  
 
+	private MiroResponseManager miroResponseManager ;
 	
-    	
 	
+
+	/**
+	 * @param miroResponseManager the miroResponseManager to set
+	 */
+	public void setMiroResponseManager(MiroResponseManager miroResponseManager) {
+		this.miroResponseManager = miroResponseManager;
+	}
+
+
+
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
@@ -54,9 +66,9 @@ public class MiroTeamMapImageController extends BaseController {
 		
 		MiroTeamMapPlotter teamMapPlotter = new MiroTeamMapPlotter(teamMapData,teamMapImageEngaged);
 		 
+		String filePath = this.miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request));
 		
-		String filePath = request.getSession().getServletContext().getRealPath("")  ;
-		 
+		System.out.println(filePath);
 		
 		java.awt.image.BufferedImage teamMap = miroTeamMapChart.createTeamChart(filePath, teamMapPlotter);
 		 

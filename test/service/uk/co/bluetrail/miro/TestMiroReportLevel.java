@@ -84,7 +84,25 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 		
 	}
 	
+	public void testCrazyRobError() {
+		
+		
+		
+		String[] levels = {"h","100","40","m","39.999999999999999","20","l","19.9999999999999999","10","a","0","0"};
+		
+		MiroReportLevel mtl = new MiroReportLevel(levels);
+		
+		try {
+			String level = mtl.getLevel(19.047619047619047);
+			Assert.assertTrue(true);
+		} catch(Exception e) {
+			Assert.fail(" exception " + e.getMessage());
+			
+		}	
+		
 	
+		
+	}
 	 
 	
 	
