@@ -133,8 +133,13 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	}
 
 	public String[] getPractitionerAddress() {
-		String[] add = {"22 Rail way Cuttings", "East Cheam"};
-		return add;
+		
+		if(practitioner == null) {
+			return new String[] {""};
+		}
+		
+		return new String[] {practitioner.getAddress1(),practitioner.getAddress2(),practitioner.getCity(),practitioner.getCounty(),practitioner.getPostcode()};
+		
 	}
 
 	public String getPractitionerTelNo() {

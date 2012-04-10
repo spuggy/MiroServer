@@ -23,6 +23,23 @@ public class MiroReportLevel {
 		
 		
 	}
+	
+	public double getLower(String level) {
+		
+		Iterator itr = levels.iterator() ;
+		
+		while(itr.hasNext()) {
+			
+			Level l = (Level) itr.next();
+			if (l.level.toLowerCase().equals(level.toLowerCase())) {
+				return l.lower;
+			}
+			
+		}
+		
+		throw new RuntimeException("Could not find the level !! ");
+		
+	}
 
 	public String getLevel(double v) {
 		

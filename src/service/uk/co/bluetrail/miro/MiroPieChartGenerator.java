@@ -108,6 +108,7 @@ public class MiroPieChartGenerator
 		PiePlot pieplot = (PiePlot) jfreechart.getPlot();
 		// Sets bachgroung color of chart to white
 		jfreechart.setBackgroundPaint(Color.white);
+		pieplot.setBackgroundPaint(Color.WHITE);
 		// To make legend display in Left side of Chart
 		LegendTitle legend = jfreechart.getLegend();
 		legend.setPosition(RectangleEdge.LEFT);

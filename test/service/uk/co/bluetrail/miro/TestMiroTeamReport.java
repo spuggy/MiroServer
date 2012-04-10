@@ -73,15 +73,6 @@ public class TestMiroTeamReport extends TestCase {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		User prac = new User();
 		
 		prac.setFirstName("Kenny");

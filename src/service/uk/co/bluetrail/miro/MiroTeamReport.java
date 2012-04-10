@@ -47,7 +47,7 @@ public class MiroTeamReport {
 	private MiroReportLevel miroLevels;
 
 	private DynamicTension[] dynamicTensions ;
-	private HashMap<String,Double> startChartTotals;
+	private HashMap<String,Double> starChartTotals;
 	
 	
 	
@@ -142,14 +142,14 @@ public class MiroTeamReport {
 		
 		int[] v = new int[8];
 		
-		v[0] = (int) this.startChartTotals.get("N").doubleValue();
-		v[1] = (int) this.startChartTotals.get("E").doubleValue();
-		v[2] = (int) this.startChartTotals.get("F").doubleValue();
-		v[3] = (int) this.startChartTotals.get("O").doubleValue();
-		v[4] = (int) this.startChartTotals.get("S").doubleValue();
-		v[5] = (int) this.startChartTotals.get("A").doubleValue();
-		v[6] = (int) this.startChartTotals.get("T").doubleValue();
-		v[7] = (int) this.startChartTotals.get("D").doubleValue();
+		v[0] = (int) this.starChartTotals.get("N").doubleValue();
+		v[1] = (int) this.starChartTotals.get("E").doubleValue();
+		v[2] = (int) this.starChartTotals.get("F").doubleValue();
+		v[3] = (int) this.starChartTotals.get("O").doubleValue();
+		v[4] = (int) this.starChartTotals.get("S").doubleValue();
+		v[5] = (int) this.starChartTotals.get("A").doubleValue();
+		v[6] = (int) this.starChartTotals.get("T").doubleValue();
+		v[7] = (int) this.starChartTotals.get("D").doubleValue();
 		
 		//TODO should facotor these labels out some where
 		String[] labels = {"Intuition","Energising","Feeling","Organising","Sensing","Analysing","Thinking","Driving"};
@@ -180,18 +180,38 @@ public class MiroTeamReport {
 		colors.put("A", Color.BLUE);
 		colors.put("D",Color.RED);
 		
+		String[] levelLabels = new String[4] ;
+		levelLabels[0] = "high" ;
+		levelLabels[1] = "medium";
+		levelLabels[2] = "low";
+		levelLabels[3] = "";   //ignore absent cos it gets in the way
+		
+		double[] barLevels = new double[4];
+		barLevels[0] = this.miroLevels.getLower("h");
+		barLevels[1] = this.miroLevels.getLower("m");
+		barLevels[2] = this.miroLevels.getLower("l");
+		barLevels[3] = 0.00;
+		
+		String[] order = {"D","E","O","A"};
+		
+		
+		//driving, energising, organising, analysing
+		
+		//his.starChartTotals.put(mtr.key, mtr.value);
+		
 		MiroTeamResult mtr = null;
 		
 		for(int i = 0 ; i < 4 ; i++) {
 			
 			mtr = this.sortedTeamTotals.get(i);
-			v[i] = mtr.value;
-			l[i] = desc.get(mtr.key);
-			c[i] = colors.get(mtr.key);
+			
+			v[i] = this.starChartTotals.get(order[i]);
+			l[i] = desc.get(order[i]);
+			c[i] = colors.get(order[i]);
 			
 		}
 		
-		mtbc.createBarChart("",this.miroTeam.getMiroTeamNameFileName("")+"_bar_chart.png", v , l,c);
+		mtbc.createBarChart("",this.miroTeam.getMiroTeamNameFileName("")+"_bar_chart.png", v , l,c,barLevels,levelLabels);
 		
 	}
 
@@ -229,7 +249,7 @@ public class MiroTeamReport {
 		//Image Map
 		
 		variables.put("id", miroTeam.getId().toString());
-		variables.put("prac", miroTeam.getPractitionerName());
+		variables.put("v1", miroTeam.getPractitionerName());
 		
 		variables.put("team_report_name" , miroTeam.getMiroTeamName());
 		variables.put("reportFileName" , miroTeam.getMiroTeamNameFileName(""));
@@ -471,14 +491,14 @@ public class MiroTeamReport {
 		double smaller = 0.00 ;
 		char larger_mode = ' ';
 		
-		if(this.startChartTotals.get(dt.getf()) > this.startChartTotals.get(dt.gets())) {
-			larger = this.startChartTotals.get(dt.getf());
+		if(this.starChartTotals.get(dt.getf()) > this.starChartTotals.get(dt.gets())) {
+			larger = this.starChartTotals.get(dt.getf());
 			larger_mode = dt.f;
-			smaller = this.startChartTotals.get(dt.gets());
+			smaller = this.starChartTotals.get(dt.gets());
 		} else {
-			larger = this.startChartTotals.get(dt.gets());
+			larger = this.starChartTotals.get(dt.gets());
 			larger_mode = dt.s;
-			smaller = this.startChartTotals.get(dt.getf());
+			smaller = this.starChartTotals.get(dt.getf());
 		}
 		
 		/*
@@ -643,11 +663,11 @@ public class MiroTeamReport {
 		Collections.sort(tempSort);
 		this.sortedTeamTotals = tempSort;
 		
-	this.startChartTotals = new HashMap<String,Double>();
+	this.starChartTotals = new HashMap<String,Double>();
 	Iterator itr =  this.sortedTeamTotals.iterator();
 	while(itr.hasNext()) {
 		MiroTeamResult mtr = (MiroTeamResult) itr.next();
-		this.startChartTotals.put(mtr.key, mtr.value);
+		this.starChartTotals.put(mtr.key, mtr.value);
 	}
 	
 	//N	d+e
@@ -657,10 +677,10 @@ public class MiroTeamReport {
 	
 	//now make sure the values from the star chart are there;
 	//hard wired letters - these are not likely to change from now on so fuck it.
-	this.startChartTotals.put("N",this.startChartTotals.get("D") + this.startChartTotals.get("E"));
-	this.startChartTotals.put("S",this.startChartTotals.get("A") + this.startChartTotals.get("O"));
-	this.startChartTotals.put("T",this.startChartTotals.get("D") + this.startChartTotals.get("A"));
-	this.startChartTotals.put("F",this.startChartTotals.get("E") + this.startChartTotals.get("O"));
+	this.starChartTotals.put("N",this.starChartTotals.get("D") + this.starChartTotals.get("E"));
+	this.starChartTotals.put("S",this.starChartTotals.get("A") + this.starChartTotals.get("O"));
+	this.starChartTotals.put("T",this.starChartTotals.get("D") + this.starChartTotals.get("A"));
+	this.starChartTotals.put("F",this.starChartTotals.get("E") + this.starChartTotals.get("O"));
 		
 	
 		
