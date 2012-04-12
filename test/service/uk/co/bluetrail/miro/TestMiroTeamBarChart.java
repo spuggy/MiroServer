@@ -8,11 +8,11 @@ import junit.framework.TestCase;
 public class TestMiroTeamBarChart extends TestCase {
 
 	public void testCreate() {
-		double[] barValues = { 30.0, 20.0, 15.0, 13.0 };
+		double[] barValues = { 100.0, 22.0, 15.0, 13.0 };
 		
-		double[] barLevels = { 30.0, 20.0, 15.0, 0 };
+		double[] barLevels = { 100.0, 40.0, 19.0,0.0 };
 		
-		String[] levelLabels = {"High", "Medium", "Low", "Absent" };
+		String[] levelLabels = {"", "High","Medium", "Low" };
 		
 		
 		Color[] barColors = { Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED };
@@ -29,7 +29,7 @@ public class TestMiroTeamBarChart extends TestCase {
 		
 		//the first param is the directory where the chart goes
 		
-		String fileName = "barchart-bar.png" ;
+		String fileName = "barchart-bar-better.png" ;
 		
 		barChart.createBarChart("",fileName,barValues,barLabels,barColors,barLevels,levelLabels);
 		

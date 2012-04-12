@@ -181,18 +181,20 @@ public class MiroTeamReport {
 		colors.put("D",Color.RED);
 		
 		String[] levelLabels = new String[4] ;
-		levelLabels[0] = "high" ;
-		levelLabels[1] = "medium";
-		levelLabels[2] = "low";
-		levelLabels[3] = "";   //ignore absent cos it gets in the way
+		levelLabels[0] = "" ;
+		levelLabels[1] = "High";
+		levelLabels[2] = "Medium";
+		levelLabels[3] = "Low";   //ignore absent cos it gets in the way
 		
 		double[] barLevels = new double[4];
-		barLevels[0] = this.miroLevels.getLower("h");
-		barLevels[1] = this.miroLevels.getLower("m");
-		barLevels[2] = this.miroLevels.getLower("l");
+		barLevels[0] = this.miroLevels.getHigher("h");
+		barLevels[1] = this.miroLevels.getHigher("m");
+		barLevels[2] = this.miroLevels.getHigher("l");
 		barLevels[3] = 0.00;
 		
 		String[] order = {"D","E","O","A"};
+		
+
 		
 		
 		//driving, energising, organising, analysing
@@ -474,10 +476,13 @@ public class MiroTeamReport {
 		
 		
 		
-//		practitiioner stuff
-		pages.add(MiroPage.create("practitioner_details"));
+//		practitiioner stuff and whats next
+		MiroPage whatsNextPage = new MiroPage();
 		
+		whatsNextPage.add(new MiroPageElement("whatsnext"));
+		whatsNextPage.add(new MiroPageElement("practitioner_details"));
 		
+		pages.add(whatsNextPage);
 		
 	}
 	
@@ -529,9 +534,11 @@ public class MiroTeamReport {
 			return "U" + larger_mode;
 		}
 		
-		if(larger-smaller == 100.00) {
+		if(larger > 0 && smaller == 0.00) {
 			return "C" + larger;
 		}
+		
+		
 
 		throw new RuntimeException("getBalanceValue() Exception - should not be here");
 		
