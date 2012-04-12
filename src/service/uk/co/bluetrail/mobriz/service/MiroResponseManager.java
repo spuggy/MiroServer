@@ -19,6 +19,6 @@ public interface MiroResponseManager extends Manager{
 	public BufferedImage getMiroTeamPie(String baseDirectory,String[] userIds) throws Exception;
 	public List getTeamMap(String baseDir, Collection userList) ;
 	public Setting getMiroLetters();
-	public void createPie(MiroResponse miroResponse, String filePath);
+	public void createPie(MiroResponse miroResponse, String filePath,boolean plain);
 	
 }

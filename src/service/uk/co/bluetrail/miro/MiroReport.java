@@ -157,20 +157,20 @@ public class MiroReport {
 
 	private void generateChart() {
 		
-		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart")  ;
+		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",false)  ;
 		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
 		
 	}
 	
-	public void generatePieChart(MiroResponse mr, String title) {
+	public void generatePieChart(MiroResponse mr, String title, boolean plain) {
 		
 		this.mr = mr;
 	
-		MiroPieChartGenerator pieChart = this.getMiroPieChart(title)  ;
+		MiroPieChartGenerator pieChart = this.getMiroPieChart(title,plain)  ;
 		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
 	}
 
-	private MiroPieChartGenerator getMiroPieChart(String pieTitle) {
+	private MiroPieChartGenerator getMiroPieChart(String pieTitle, boolean plain) {
 		
 		int resultsLen = mr.getResults().length;
 		String[] pieLabels1 = new String[resultsLen];
@@ -212,8 +212,10 @@ public class MiroReport {
 			
 		}
 		
-		return new MiroPieChartGenerator(pieTitle, mr.getResults(this.miroGraphAdjustment),pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors);
-
+		
+		return new MiroPieChartGenerator(pieTitle, mr.getResults(this.miroGraphAdjustment),pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,plain,plain);
+		
+		
 		
 	}
 
@@ -324,7 +326,7 @@ public class MiroReport {
 		setupMr(mr);
 		
 		
-		MiroPieChartGenerator pieChart = this.getMiroPieChart(title)  ;
+		MiroPieChartGenerator pieChart = this.getMiroPieChart(title,false)  ;
 		Font defFont = TextTitle.DEFAULT_FONT;
 		Font smallFont = new Font(defFont.getName(),defFont.getStyle(),10);
 				

@@ -232,15 +232,16 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		 
 	 }
 	 
-	public void createPie(MiroResponse mr, String baseDirectory)  {
+	public void createPie(MiroResponse mr, String baseDirectory, boolean plain)  {
 		
 
 		MiroReport miroReport = getMiroReport(baseDirectory); 
 			
-		miroReport.generatePieChart(mr,"");
+		miroReport.generatePieChart(mr,"",plain);
 		
 	}
-	 
+	
+	
 	
 	public boolean createPDF(SurveyResponse sr, MiroResponse mr,String baseDirectory) {
 		
@@ -475,6 +476,8 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 	public Setting getMiroLetters() {
 		return miroLetters;
 	}
+
+	
 	
 	
 }

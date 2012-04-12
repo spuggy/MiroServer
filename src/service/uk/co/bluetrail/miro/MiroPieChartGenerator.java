@@ -41,13 +41,20 @@ public class MiroPieChartGenerator
 	private String pieTitle;
 	private Font titleFont = null;
 	
+	private boolean hideLegend = true;
+	private boolean hideTitle = true ;
+	
+	
 	public void setTitleFont(Font f){
 		titleFont = f;
 	}
 	
+	
+	
+	
 	public MiroPieChartGenerator(String pieTitle, int[] pieValues, String[] pieLabels1,
 			String[] pieLabels2, String[] pieLabels3, boolean[] pieExplode,
-			Color[] pieColors)
+			Color[] pieColors, boolean showLegend, boolean showTitle)
 	{
 
 		this.pieTitle = pieTitle;
@@ -60,6 +67,9 @@ public class MiroPieChartGenerator
 
 		this.pieExplode = pieExplode;
 		this.pieColors = pieColors;
+		
+		this.hideLegend = hideLegend;
+		this.hideTitle = hideTitle;
 
 	}
 
@@ -103,8 +113,11 @@ public class MiroPieChartGenerator
 		}
 
 		// Creates JFreeChart
-		JFreeChart jfreechart = ChartFactory.createPieChart(pieTitle,
-				piedataset, true, true, false);  
+		if(hideTitle) {
+			this.pieTitle = "";
+		}
+		
+		JFreeChart jfreechart = ChartFactory.createPieChart(pieTitle,piedataset, true, true, false);  
 		PiePlot pieplot = (PiePlot) jfreechart.getPlot();
 		// Sets bachgroung color of chart to white
 		jfreechart.setBackgroundPaint(Color.white);
@@ -112,6 +125,7 @@ public class MiroPieChartGenerator
 		// To make legend display in Left side of Chart
 		LegendTitle legend = jfreechart.getLegend();
 		legend.setPosition(RectangleEdge.LEFT);
+		legend.setVisible(!this.hideLegend);
 
 		// Message to be displayed when there is no data
 		pieplot.setNoDataMessage("No data available");
@@ -211,9 +225,9 @@ public class MiroPieChartGenerator
 		Color[] pieColors = { Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED };
 
 		MiroPieChartGenerator pieChart = new MiroPieChartGenerator("Your MiRo Results Chart", pieValues,
-				pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors);
+				pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,true,true);
 
-		pieChart.createPie("someDir", "aaakensPie.jpg");
+		pieChart.createPie("someDir", "demoPie.jpg");
 	}
 	
 	public BufferedImage getThumbnailPie(int width, int height) throws Exception

@@ -142,7 +142,7 @@
 				<fo:block text-align="center" font-size="11pt" line-height="13pt" space-after="11pt" font-family="Arial" border-top-width="0.25mm" border-top-style="solid" >
 					<fo:page-number />
 					<fo:block font-size="10pt" line-height="13pt" >
-			&#169; MiRo Psychometrics Ltd 2008
+			&#169; MiRo Psychometrics Ltd 2012
 		</fo:block>
 					
 				</fo:block>

@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
+  
  
 
 import uk.co.bluetrail.miro.MiroException;
@@ -210,7 +210,7 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 		while(itr.hasNext()) {
 			
 			dto =  (TeamMapDTO) itr.next();
-			this.miroResponseManager.createPie(dto.getMiroResponse(),filePath);
+			this.miroResponseManager.createPie(dto.getMiroResponse(),filePath,true);
 			
 		}
 		
