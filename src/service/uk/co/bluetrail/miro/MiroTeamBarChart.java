@@ -102,14 +102,22 @@ public class MiroTeamBarChart {
     	 }
     	 public Paint getItemPaint(final int row, final int column) 
     	 { 
-    	    // returns color for each column 
-    	    return (this.colors[column % this.colors.length]); 
+    		 // make the first columen transparent and force to 100% to make the chart 100% high
+    		 //leave transparent so we can see high med low
+    	     if(column == 0 ) {
+    	    	 return new Color(0,0,0,0);
+    	     } else {
+    		 
+    		  return (this.colors[column-1]); 
+    	     }
     	 } 
     	}
     	
     	
     	DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    	dataset.addValue(0.00, "", "");
+    	dataset.addValue(100.00, "", "");
+    	
+    	
         for(int i = 0;i < barValues.length;i++) {
         	dataset.addValue(barValues[i], labels[i], labels[i]);
         }
@@ -144,8 +152,19 @@ public class MiroTeamBarChart {
             ValueAxis ra = plot.getRangeAxis();
             ra.setTickLabelsVisible(false);
             ra.setTickMarksVisible(false);
-
-            for (int i = 0 ;  i < barLevels.length;i++) {
+            ra.setAxisLineVisible(false);
+            
+            
+            
+           
+            
+            
+           
+           
+            
+            
+            //start at one to ignore the 100% bar
+            for (int i = 1 ;  i < barLevels.length;i++) {
             	CategoryTextAnnotation a = new CategoryTextAnnotation(levelLabels[i], "", barLevels[i]);
                 a.setCategoryAnchor(CategoryAnchor.START);
                 a.setFont(new Font("SansSerif", Font.PLAIN, 12));

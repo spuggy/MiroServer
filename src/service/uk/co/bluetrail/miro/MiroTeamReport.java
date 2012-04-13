@@ -131,7 +131,7 @@ public class MiroTeamReport {
 		//this.generateTeamResultsGraphic();
 		this.generateTeamSpiderWebChart();
 		this.generateXMLReportFile();   
-		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
+		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""),"miro2fo-team.xsl");
 		
 	}
 	
@@ -389,7 +389,7 @@ public class MiroTeamReport {
 		MiroPage teamBulletsPage = new MiroPage();
 		teamBulletsPage.add(new MiroPageElement("team_bar_chart"));
 	
-		
+		teamBulletsPage.add(new MiroPageElement("startlist"));
 		//Team descriptor Bullet points.
 		for(int i = 0 ; i < 4 ; i++) {
 			
@@ -401,14 +401,18 @@ public class MiroTeamReport {
 			
 			
 		}
+		teamBulletsPage.add(new MiroPageElement("endlist"));
+		
 		
 		pages.add(teamBulletsPage);
 		
 		//dynamicTensions
 		MiroPage dynamicTensionPage = new MiroPage();
+		
 		dynamicTensionPage.add(new MiroPageElement("team_radar_chart"));
 		
-
+		dynamicTensionPage.add(new MiroPageElement("startlist"));
+		
 		for(int i = 0 ; i < this.dynamicTensions.length; i ++) {
 			
 			
@@ -417,18 +421,20 @@ public class MiroTeamReport {
 			
 		}
 		
+		dynamicTensionPage.add(new MiroPageElement("list"));
 		
+
 		
 		pages.add(dynamicTensionPage);
 		
 		
 		
 		//comms bit 
-		MiroPage contextBulletsPage = new MiroPage();
+		MiroPage contextBulletsPage1 = new MiroPage();
 		
-		contextBulletsPage.add(new MiroPageElement("contextBulletPageTitle"));
+		contextBulletsPage1.add(new MiroPageElement("contextBulletPageTitle"));
 		
-		contextBulletsPage.add(new MiroPageElement("commsBulletTitle"));
+		contextBulletsPage1.add(new MiroPageElement("commsBulletTitle"));
 		
 		//Team descriptor Bullet points.
 		for(int i = 0 ; i < 4 ; i++) {
@@ -436,10 +442,10 @@ public class MiroTeamReport {
 			String mode = this.getMode(i);
 			String modeLevel = this.getModeLevel(i);
 			String divKey = "C" + mode + (i+1) + modeLevel ;
-			contextBulletsPage.add(new MiroPageElement(divKey));
+			contextBulletsPage1.add(new MiroPageElement(divKey));
 		}
 	
-		contextBulletsPage.add(new MiroPageElement("decisonBulletTitle"));
+		contextBulletsPage1.add(new MiroPageElement("decisonBulletTitle"));
 		
 		//Team descriptor Bullet points.
 		for(int i = 0 ; i < 4 ; i++) {
@@ -447,10 +453,15 @@ public class MiroTeamReport {
 			String mode = this.getMode(i);
 			String modeLevel = this.getModeLevel(i);
 			String divKey = "D" + mode + (i+1) + modeLevel ;
-			contextBulletsPage.add(new MiroPageElement(divKey));
+			contextBulletsPage1.add(new MiroPageElement(divKey));
 		}
 		
-		contextBulletsPage.add(new MiroPageElement("relationshipsBulletTitle"));
+		pages.add(contextBulletsPage1);
+		
+		MiroPage contextBulletsPage2 = new MiroPage();
+		
+		
+		contextBulletsPage2.add(new MiroPageElement("relationshipsBulletTitle"));
 		
 		//Team descriptor Bullet points.
 		for(int i = 0 ; i < 4 ; i++) {
@@ -458,10 +469,10 @@ public class MiroTeamReport {
 			String mode = this.getMode(i);
 			String modeLevel = this.getModeLevel(i);
 			String divKey = "R" + mode + (i+1) + modeLevel ;
-			contextBulletsPage.add(new MiroPageElement(divKey));
+			contextBulletsPage2.add(new MiroPageElement(divKey));
 		}
 		
-		contextBulletsPage.add(new MiroPageElement("dealingChangeBulletTitle"));
+		contextBulletsPage2.add(new MiroPageElement("dealingChangeBulletTitle"));
 		
 		//Team descriptor Bullet points.
 		for(int i = 0 ; i < 4 ; i++) {
@@ -469,10 +480,10 @@ public class MiroTeamReport {
 			String mode = this.getMode(i);
 			String modeLevel = this.getModeLevel(i);
 			String divKey = "H" + mode + (i+1) + modeLevel ;
-			contextBulletsPage.add(new MiroPageElement(divKey));
+			contextBulletsPage2.add(new MiroPageElement(divKey));
 		}
 		
-		pages.add(contextBulletsPage);
+		pages.add(contextBulletsPage2);
 		
 		
 		

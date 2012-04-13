@@ -60,7 +60,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		miroTeam = new MiroTeam();
 		miroTeam.setId(new Long(100));
-		miroTeam.setMiroTeamName("Testing Team all bullets");
+		miroTeam.setMiroTeamName("Testing02");
 		
 		
 		

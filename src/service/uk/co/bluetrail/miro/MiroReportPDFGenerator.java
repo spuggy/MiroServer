@@ -25,17 +25,25 @@ public class MiroReportPDFGenerator {
 	
 	private final static Log log = LogFactory.getLog(MiroReportPDFGenerator.class);
 	
+	private static String xslFileName = "miro2fo.xsl";
+	
+	public static void generatePDF(File baseDir,String miroReportName, String xslFileName) throws Exception {
+	
+		MiroReportPDFGenerator.xslFileName = xslFileName;
+		
+		MiroReportPDFGenerator.generatePDF(baseDir, miroReportName);
+		
+	}	
+	
 	public static void generatePDF(File baseDir,String miroReportName) throws Exception {
       
             
             log.debug("Preparing..." + miroReportName);
 
-               
-     
      
             // Setup input and output files            
             File xmlfile = new File(baseDir, "out/" + miroReportName+".xhtml");
-            File xsltfile = new File(baseDir, "xhtml/miro2fo.xsl");
+            File xsltfile = new File(baseDir, "xhtml/" + MiroReportPDFGenerator.xslFileName );
             File pdffile = new File(baseDir, "out/" + miroReportName+".pdf");
 
             log.debug("Input: XML (" + xmlfile + ")");
