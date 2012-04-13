@@ -1,6 +1,7 @@
 package uk.co.bluetrail.miro;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,6 +25,7 @@ public class MiroSpiderWebChart {
 	}
 
 	public void createChart(String fileName, int[] values, String[] labels)  {
+	
 		String series1 = "First";
         String series2 = "Second";
         
@@ -31,15 +33,19 @@ public class MiroSpiderWebChart {
         
         double spokeSize = 5.0;
         
-        
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
+        
         
         double val = 0;
         
         for(int i=0;i<values.length;i++) {
-        	  dataset.addValue(spokeSize, series1, labels[i]);
+        	
+        	  String label = + (values[i]) + "% " + labels[i]  ;
+         	  dataset.addValue(spokeSize, series1, label);
         	  val = (values[i]/100.00)*spokeSize;
-        	  dataset.addValue(val, series2, labels[i]);
+        	  dataset.addValue(val, series2, label);
+        	  
         }
         
         
@@ -51,6 +57,8 @@ public class MiroSpiderWebChart {
         plot.setStartAngle(90);
 
         plot.setInteriorGap(0.30);
+        
+        plot.setLabelFont(new Font("SansSerif", Font.BOLD, 12));
 
         plot.setToolTipGenerator(new StandardCategoryToolTipGenerator());
 

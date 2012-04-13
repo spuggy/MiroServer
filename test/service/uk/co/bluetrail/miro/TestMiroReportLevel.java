@@ -3,10 +3,23 @@ package uk.co.bluetrail.miro;
 import junit.framework.*;
 
 public class TestMiroReportLevel extends junit.framework.TestCase {
+	
+	//h;100;40;m;40;20;l;20;1;a;0;0
 
+	String[] levels = {"h","100","40","m","40","20","l","20","1","a","1","-1"};  
+	
+	
+	/* (non-Javadoc)
+	 * @see junit.framework.TestCase#setUp()
+	 */
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+	}
+	
+	
 	public void testCreate() {
 		
-		String[] levels = {"h","100","40","m","39","20","l","19","10","a","0","0"};
 		
 		MiroReportLevel mtl = new MiroReportLevel(levels);
 		
@@ -14,19 +27,17 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 	
 	public void testGetLevelHigh() {
 		
-		String[] levels = {"h","100","40","m","39","20","l","19","10","a","0","0"};
 		
 		MiroReportLevel mtl = new MiroReportLevel(levels);
 		
 		String level = mtl.getLevel(42);
-		
+		   
 		Assert.assertEquals("Should be high", "H", level);
 		
 	}
 	
 	public void testGetLevelLow() {
 		
-		String[] levels = {"h","100","40","m","39","20","l","19","10","a","0","0"};
 		
 		MiroReportLevel mtl = new MiroReportLevel(levels);
 		
@@ -38,11 +49,10 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 	
 	public void testGetLevelAbsent() {
 		
-		String[] levels = {"h","100","40","m","39","20","l","19","10","a","0","0"};
 		
 		MiroReportLevel mtl = new MiroReportLevel(levels);
 		
-		String level = mtl.getLevel(0);
+		String level = mtl.getLevel(0.00);
 		
 		Assert.assertEquals("Should be absent", "A", level);
 		
@@ -50,7 +60,6 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 	
 	public void testGetLevelMedium() {
 		
-		String[] levels = {"h","100","40","m","39","20","l","19","10","a","0","0"};
 		
 		MiroReportLevel mtl = new MiroReportLevel(levels);
 		
@@ -63,7 +72,6 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 	
 	public void testGetLevelShouldThrowException() {
 		
-		String[] levels = {"h","100","40","m","39","20","l","19","10","a","0","0"};
 		
 		MiroReportLevel mtl = new MiroReportLevel(levels);
 		
@@ -87,8 +95,6 @@ public class TestMiroReportLevel extends junit.framework.TestCase {
 	public void testCrazyRobError() {
 		
 		
-		
-		String[] levels = {"h","100","40","m","39.999999999999999","20","l","19.9999999999999999","10","a","0","0"};
 		
 		MiroReportLevel mtl = new MiroReportLevel(levels);
 		

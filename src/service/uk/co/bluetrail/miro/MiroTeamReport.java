@@ -320,12 +320,18 @@ public class MiroTeamReport {
 		//add intro text
 		pages.add(MiroPage.create("intro_text_page"));
 		
+		
+		int maxPieCount = 3;
+		int pieCount = 0;
+		
 		MiroPage individualPiePage = new MiroPage();
+		individualPiePage.add(new MiroPageElement("pie_and_bullets_page_title"));
+		
+		
 		List members = this.getTeamResults();
 		Iterator itr = members.iterator();
 		while(itr.hasNext()) {
 			TeamMapDTO dto = (TeamMapDTO) itr.next();
-	
 			
 			MiroResponse mr = dto.getMiroResponse();
 			
@@ -360,18 +366,33 @@ public class MiroTeamReport {
 				imgNames.put(pieKey+mpe.getSuffix(), getPieImage(mr));
 				
 			}
+			
+			pieCount++;
+			
+			
+			
 			individualPiePage.add(mpe);
 			
+			if(pieCount==maxPieCount) {
+				pages.add(individualPiePage);
+				individualPiePage = new MiroPage();
+				pieCount=0;
+			}
+			
+			
 		}
-		pages.add(individualPiePage);
 		
-		MiroPage teamPiePage = new MiroPage();
+		if(pieCount!=0) {
+			pages.add(individualPiePage);
+		}
+		
+		MiroPage teamMapPage = new MiroPage();
 		
 		//add the team pie 
-		teamPiePage.add(new MiroPageElement("team_chart"));
+		teamMapPage.add(new MiroPageElement("team_chart"));
 		
 		//add the team results coloured box below
-		teamPiePage.add(new MiroPageElement("team_chart_table"));
+		//teamPiePage.add(new MiroPageElement("team_chart_table"));
 		imgNames.put("team_chart_img",getTeamMapImage(this.miroTeam));
 		
 		//add Team descriptors.
@@ -380,11 +401,11 @@ public class MiroTeamReport {
 			String mode = this.getMode(i);
 			String modeLevel = this.getModeLevel(i);
 			String divKey = "M" + mode + (i+1) + modeLevel ;
-			teamPiePage.add(new MiroPageElement(divKey));
+			teamMapPage.add(new MiroPageElement(divKey));
 			
 		}
 		
-		pages.add(teamPiePage);
+		pages.add(teamMapPage);
 		
 		MiroPage teamBulletsPage = new MiroPage();
 		teamBulletsPage.add(new MiroPageElement("team_bar_chart"));
@@ -411,17 +432,16 @@ public class MiroTeamReport {
 		
 		dynamicTensionPage.add(new MiroPageElement("team_radar_chart"));
 		
-		dynamicTensionPage.add(new MiroPageElement("startlist"));
 		
 		for(int i = 0 ; i < this.dynamicTensions.length; i ++) {
 			
-			
+			String divHeading = this.dynamicTensions[i].toString()+"_heading";
 			String divKey = this.dynamicTensions[i].toString() + getBalanceValue(this.dynamicTensions[i]);
+			dynamicTensionPage.add(new MiroPageElement(divHeading));
 			dynamicTensionPage.add(new MiroPageElement(divKey));
 			
 		}
 		
-		dynamicTensionPage.add(new MiroPageElement("list"));
 		
 
 		

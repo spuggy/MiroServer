@@ -22,7 +22,7 @@ public class TestMiroSpiderWebChart extends TestCase {
 		
 		MiroSpiderWebChart msc = new MiroSpiderWebChart(filePath, Color.BLUE);
 		
-		String fileName = "barchart.png" ;
+		String fileName = "spiderchart.png" ;
 		
 		try {
 			msc.createChart(fileName, values,labels);
