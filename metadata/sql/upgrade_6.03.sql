@@ -1,0 +1,1 @@
+INSERT INTO role (id, name, description, version) VALUES (4, 'teamreport', 'Team Report Creator', NULL);

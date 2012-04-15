@@ -62,6 +62,9 @@ public class Constants {
      * The name of the User role, as specified in web.xml
      */
     public static final String USER_ROLE = "user";
+    
+    public static final String TEAMREPORT_ROLE = "teamreport";
+    
 
     /**
      * The name of the user's role list, a request-scoped attribute

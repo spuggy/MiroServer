@@ -43,19 +43,37 @@ public class HomePageController implements Controller {
         
         LabelValue role = null ; 
         
+        boolean isSysAdmin = false;
+        boolean isAdmin = false;
+        boolean isClient = false;
+        
+        
         while(itr.hasNext()) {
         	role = (LabelValue) itr.next() ;
         	
+        	if(role.getValue().equals(Constants.SYSADMIN_ROLE)) {
+        		isSysAdmin = true;
+        	}    
         	if(role.getValue().equals(Constants.ADMIN_ROLE)) {
-        		return new ModelAndView((String) homePages.get(Constants.ADMIN_ROLE));
+        		isAdmin = true;
         	}
         	if(role.getValue().equals(Constants.CLIENT_ROLE)) {
-        		return new ModelAndView((String) homePages.get(Constants.CLIENT_ROLE));
+        		isClient = true;
         	}
-        	if(role.getValue().equals(Constants.SYSADMIN_ROLE)) {
-        		return new ModelAndView((String) homePages.get(Constants.SYSADMIN_ROLE));
-        	}        		
+      
         }
+        
+    	if(isSysAdmin) {
+    		return new ModelAndView((String) homePages.get(Constants.SYSADMIN_ROLE));
+    	}    
+    	if(isAdmin) {
+    		return new ModelAndView((String) homePages.get(Constants.ADMIN_ROLE));
+    	} 
+    	
+    	if(isClient) {
+    		return new ModelAndView((String) homePages.get(Constants.CLIENT_ROLE));
+    	}
+        
         
         return new ModelAndView((String) homePages.get(Constants.USER_ROLE));
         

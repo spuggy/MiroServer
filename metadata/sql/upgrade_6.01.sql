@@ -9,4 +9,4 @@ ALTER TABLE mr.miroteams ALTER COLUMN teamreportstatus SET NOT NULL;
 ALTER TABLE app_user ADD COLUMN miroteam_id bigint;
 ALTER TABLE app_user ALTER COLUMN miroteam_id SET STORAGE PLAIN;
 
-INSERT INTO mr.setting (id, account_id, settingdescription, settingname, settingvalue) VALUES (8, 1, 'Miro Levels', 'MIRO_LEVELS', 'h;100;40;m;39;20;l;19;1;a;0;0');
+INSERT INTO mr.setting (id, account_id, settingdescription, settingname, settingvalue) VALUES (8, 1, 'Miro Levels', 'MIRO_LEVELS', 'h;100;40;m;40;20;l;20;1;a;1;-1');

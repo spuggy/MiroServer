@@ -72,7 +72,6 @@ public class UserFormController extends BaseFormController {
     throws Exception {
        
     	
-    	
     	if (log.isDebugEnabled()) {
             log.debug("entering 'onSubmit' method...");
         }
@@ -106,14 +105,21 @@ public class UserFormController extends BaseFormController {
                 user.setPassword(StringUtil.encodePassword(user.getPassword(), algorithm));
             }
 
-            Role userRole = roleManager.getRole(Constants.USER_ROLE);
-            Role adminRole = roleManager.getRole(Constants.ADMIN_ROLE);
            
             
-            user.getRoles().clear();
-            user.addRole(userRole) ;
-            user.addRole(adminRole);
             
+           Role userRole = roleManager.getRole(Constants.USER_ROLE);
+           Role adminRole = roleManager.getRole(Constants.ADMIN_ROLE);
+           Role teamReportRole = roleManager.getRole(Constants.TEAMREPORT_ROLE);   
+           
+          
+           String[] roleNames = (String[]) request.getParameterValues("userRoles");
+       	   user.getRoles().clear();
+           user.addRole(userRole) ;
+           user.addRole(adminRole);
+           if(isMember(roleNames,Constants.TEAMREPORT_ROLE)) {
+        	   user.addRole(teamReportRole);
+           }
             
             
 
@@ -181,7 +187,21 @@ public class UserFormController extends BaseFormController {
         return showForm(request, response, errors);
     }
 
-    protected ModelAndView showForm(HttpServletRequest request,
+    private boolean isMember(String[] roleNames, String roleName) {
+		if(roleNames == null) {
+			return false;
+		}
+		
+		for(int i = 0 ; i < roleNames.length ; i++) {
+			if(roleNames[i].equals(roleName)) {
+				return true;
+			}
+		}
+	
+		return false;
+	}
+
+	protected ModelAndView showForm(HttpServletRequest request,
                                     HttpServletResponse response,
                                     BindException errors)
     throws Exception {

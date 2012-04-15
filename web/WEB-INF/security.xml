@@ -75,9 +75,14 @@
                 /photos/*=admin,user
                 /teamImage/*=admin,user
                 /passwordHint.html*=ROLE_ANONYMOUS,admin,user
-                /reload.*=admin
+                /reload.*=sysadmin
                 /signup.html*=ROLE_ANONYMOUS,admin,user
-                /users.html*=admin
+                /users.html*=sysadmin
+                /admin.html*=sysadmin
+                /miroProjects.html*=admin
+                /miroTeamList.html*=admin
+                /miroTeamPie.html*=admin
+                /myaccount.html*=admin
                 /**/*.html*=admin,user
             </value>
         </property>
