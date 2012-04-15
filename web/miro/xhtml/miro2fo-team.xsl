@@ -98,8 +98,8 @@
 
 		<fo:root>
 			<fo:layout-master-set>
-				<fo:simple-page-master master-name="noheader" page-height="29.7cm" page-width="21.0cm" margin-left="2.0cm" margin-right="0.0cm">
-					<fo:region-body margin="0cm" />
+				<fo:simple-page-master master-name="noheader" page-height="29.7cm" page-width="21.0cm" margin-left="0cm" margin-right="0.0cm">
+					<fo:region-body  background-image="/miro-reports/images/miroteamreport/homepage02.png"/>
 				</fo:simple-page-master>
 				
 				<fo:simple-page-master master-name="A4" page-height="29.7cm" page-width="21.0cm" margin-left="2cm" margin-right="2cm" margin-top="0.5cm"   margin-bottom="0.1cm">
@@ -108,6 +108,7 @@
 					<fo:region-after  extent="2cm" />
 				
 				</fo:simple-page-master>
+				
 			</fo:layout-master-set>
 
 			<xsl:apply-templates />
@@ -119,23 +120,21 @@
 
 	<xsl:template match="/html/body/div[@id = '0' ]">
 		<fo:page-sequence master-reference="noheader"  force-page-count="no-force">
-			<fo:flow flow-name="xsl-region-body">
-				<fo:block >
+			<fo:flow flow-name="xsl-region-body" >
+			 	<fo:block margin-left="285px" padding-top="150px">
 					<xsl:apply-templates />
 				</fo:block>
 			</fo:flow>
 		</fo:page-sequence>
-
-
 	</xsl:template>
-
-
+	
+		
 	<xsl:template match="/html/body/div[@id &gt; '0' ]">
 		<fo:page-sequence  master-reference="A4"  >
 
-			<fo:static-content flow-name="xsl-region-before">
+			    <fo:static-content flow-name="xsl-region-before">
 								<fo:block border-bottom-width="0.25mm" border-bottom-style="solid">
-						<fo:external-graphic src="url('/miro-reports/images/miro-logo.jpg')" content-height="35px"  content-width="75px"/>
+						<fo:external-graphic src="url('/miro-reports/images/miroteamreport/header_logo.png')" content-height="35px"  content-width="450px"/>
 				</fo:block>
 			</fo:static-content>
 			<fo:static-content flow-name="xsl-region-after" >
@@ -155,6 +154,13 @@
 		</fo:page-sequence>
 
 
+	</xsl:template>
+
+
+	<xsl:template match="banner">
+		<fo:block  color="#ffffff" font-size="20pt" line-height="25pt" space-after="10pt" font-weight="bold">
+			<xsl:apply-templates select="*|text()" />
+		</fo:block>
 	</xsl:template>
 
 
@@ -391,7 +397,7 @@
 
 
 	<xsl:template match="img">
-		<fo:block space-after="12pt">
+		<fo:inline>
 			<fo:external-graphic src="{@src}" scaling="uniform">
 				<xsl:if test="@width">
 					<xsl:attribute name="content-width">
@@ -420,7 +426,7 @@
 					</xsl:attribute>
 				</xsl:if>
 			</fo:external-graphic>
-		</fo:block>
+		</fo:inline>
 	</xsl:template>
 	
 	<!-- ============================================
@@ -467,9 +473,7 @@
     =============================================== -->
 
   <xsl:template match="td">
-    <fo:table-cell 
-      padding-start="3pt" padding-end="3pt"
-      padding-before="3pt" padding-after="3pt">
+    <fo:table-cell >
       <xsl:if test="@colspan">
         <xsl:attribute name="number-columns-spanned">
           <xsl:value-of select="@colspan"/>

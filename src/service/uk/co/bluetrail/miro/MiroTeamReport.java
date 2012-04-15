@@ -229,7 +229,7 @@ public class MiroTeamReport {
 		Map<String, String> imgNames = new HashMap<String, String>();
 		
 		
-		imgNames.put("home_page_banner_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_report_banner_image.png");
+		imgNames.put("home_page_banner_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/homepage.png");
 		imgNames.put("team_chart_table_img", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/team_chart_table_place_holder.png");
 		imgNames.put("team_radar_chart_img", this.baseDirectory.getAbsolutePath() + "/out/"+ this.miroTeam.getMiroTeamNameFileName("")+"_star_chart.png");
 		imgNames.put("team_bar_chart_img", this.baseDirectory.getAbsolutePath() + "/out/"+ this.miroTeam.getMiroTeamNameFileName("")+"_bar_chart.png");
@@ -237,9 +237,14 @@ public class MiroTeamReport {
 		
 		
 		
+		imgNames.put("4dperformer", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/4DPerformer.jpg");
+		imgNames.put("miromodel", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/miro-model.png" );
+		imgNames.put("communications", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/communication.jpg" );
+		imgNames.put("decisionmaking", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/decisionmaking.jpg" );
+		imgNames.put("relationships", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/relationships.jpg" );
+		imgNames.put("change", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/change.jpg" );
 		
-		imgNames.put("imgU1", this.baseDirectory.getAbsolutePath() + "/images/" + "U1.png");
-		imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/images/" + "U3.png");
+	
 		imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/images/"  + "U2.png");
 		imgNames.put("imgU6", this.baseDirectory.getAbsolutePath() + "/images/"  + "U6.png");
 	   
@@ -465,6 +470,10 @@ public class MiroTeamReport {
 			contextBulletsPage1.add(new MiroPageElement(divKey));
 		}
 	
+		contextBulletsPage1.add(new MiroPageElement("communication_footer"));
+		
+		
+		
 		contextBulletsPage1.add(new MiroPageElement("decisonBulletTitle"));
 		
 		//Team descriptor Bullet points.
@@ -475,6 +484,9 @@ public class MiroTeamReport {
 			String divKey = "D" + mode + (i+1) + modeLevel ;
 			contextBulletsPage1.add(new MiroPageElement(divKey));
 		}
+		
+		contextBulletsPage1.add(new MiroPageElement("decision_footer"));
+		
 		
 		pages.add(contextBulletsPage1);
 		
@@ -492,6 +504,9 @@ public class MiroTeamReport {
 			contextBulletsPage2.add(new MiroPageElement(divKey));
 		}
 		
+		contextBulletsPage2.add(new MiroPageElement("relationships_footer"));
+		
+		
 		contextBulletsPage2.add(new MiroPageElement("dealingChangeBulletTitle"));
 		
 		//Team descriptor Bullet points.
@@ -502,6 +517,9 @@ public class MiroTeamReport {
 			String divKey = "H" + mode + (i+1) + modeLevel ;
 			contextBulletsPage2.add(new MiroPageElement(divKey));
 		}
+		
+		contextBulletsPage2.add(new MiroPageElement("change_footer"));
+		
 		
 		pages.add(contextBulletsPage2);
 		

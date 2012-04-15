@@ -63,8 +63,6 @@ public class TestMiroTeamReport extends TestCase {
 		miroTeam.setMiroTeamName("Testing02");
 		
 		
-		
-		
 		modeNames = new HashMap<String, String>();  
 		modeNames.put("A", "Analysing Mode");  
 		modeNames.put("E", "Energising Mode");
