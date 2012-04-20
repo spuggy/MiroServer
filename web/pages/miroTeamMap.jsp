@@ -21,6 +21,24 @@
 	<li>					
 	<form:form commandName="miroProjectSelectorForm" method="post" action="" id="miroProjectSelectorForm" onsubmit="return validateForm(this)">
 	
+		<c:if test="${showReportInprogressMessage == true}">
+			<div class="message" >
+			The Team report is being generated - please check back shortly!
+			</div>
+			</c:if>
+			
+			<c:if test="${showDownloadLink == true}">
+			<div class="message" >
+			
+			<p>A report has been generated for this team.  Click the link below to download.</p>
+			<br/>
+			
+			<a href="miroTeamReportShow.html?id=<c:out value="${miroTeam.id}" />" /><img  src="images/pdf_large.png" /></a>
+			</div>
+			</c:if>
+		
+	    <c:if test="${showRecalcEditButtons == true}">
+			
 		<div class="message" id="welcommes">
 			<p>
 				<fmt:message key="miroTeamMap.instructions" />
@@ -28,9 +46,17 @@
 			
 			<p><br/><input type="button" value="edit team members" onclick="$('teamBuilder').show()"/>
 			<input type="button" value="re-select projects" onclick="location='miroTeamList.html';"/>
+			
+
+			 <c:if test="${showTeamSaveCreateButtons == true}">
 			<input type="submit" value="save team map" name="save" onclick="bSave=true;" />
-			<input type="submit" value="delete team map" name="delete" onclick="alert('coming soon!');"/>
+			
+			<c:if test="${showDeleteButton == true}">
+					<input type="submit" value="delete team map" name="delete" onclick="bDelete=true;"/>
+			</c:if>
+			
 			<input type="submit" value="create team report" name="createteamreport" onclick="bSave=true;" />
+			</c:if>
 			</p>
 		
 		
@@ -98,6 +124,9 @@
     </p>
     		</div>
     		
+    		</c:if>
+			
+    		
         </form:form>
     </li>
 	<li>
@@ -148,10 +177,7 @@
        
         selectAll('teamUsers');
        
-        if (!bSave) {
-     		 return true; 
-        } else {  
-      		 
+        if (bSave) {
       		 if(this["miroTeamName"].value== "") {
       			$('teamBuilder').show();
       		 	alert("Please supply a value for the Team Name");
@@ -161,6 +187,16 @@
       		 	return true;
       		 }
       		 
+        } 
+        
+        if (bDelete) {
+        
+        	if(confirm("Are you sure you want to delete?")) {
+        		return true;
+        	} else {
+        		return false;
+        	}
+        
         }
    } 
 

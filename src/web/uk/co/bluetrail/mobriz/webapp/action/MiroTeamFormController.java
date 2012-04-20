@@ -89,7 +89,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
             userList = new ArrayList(mt.getMembers());
     		allUsersList = userManager.getUsersByProjects(mt.getProjects());
     		unselectedUserList = subtract(userList,allUsersList);
-    		return doTeamMap(request,null,userList,allUsersList,unselectedUserList);
+    		return doTeamMap(request,null,userList,allUsersList,unselectedUserList,mt);
                        
         } 
         
@@ -115,12 +115,45 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 
 
 
-	private Map doTeamMap(HttpServletRequest request, String[] selectedProjects, List userList, List allUsersList,List unselectedUserList) {
+	private Map doTeamMap(HttpServletRequest request, String[] selectedProjects, List userList, List allUsersList,List unselectedUserList, MiroTeam mt) {
 
 		List teamMapData = miroResponseManager.getTeamMap(miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request)), userList);
 		
 		HashMap model = new HashMap();
 
+		boolean showRecalcEditButtons = false;
+		boolean showTeamSaveCreateButtons = false ; 
+		boolean showReportInprogressMessage = false ;
+		boolean showDownloadLink = false;
+		boolean showDeleteButton = true ;
+		
+		if(mt.getId()==null) {
+			showDeleteButton = false;
+		}
+		
+		if(mt.getTeamReportStatus()==MiroTeam.REPORT_CREATED) {
+			showRecalcEditButtons = true;
+		}
+		
+		if(this.getCurrentUser().isTeamReportCreator()) {
+			showTeamSaveCreateButtons = true;
+		}
+		
+		if(mt.getTeamReportStatus()==MiroTeam.REPORT_REQUESTED) {
+			showReportInprogressMessage = true;
+		}
+		
+		if(mt.getTeamReportStatus()==MiroTeam.REPORT_DOWNLOADED) {
+			showDownloadLink = true;
+		}
+		
+		model.put("showDeleteButton", showDeleteButton);
+		model.put("showRecalcEditButtons" , showRecalcEditButtons);
+		model.put("showTeamSaveCreateButtons" , showTeamSaveCreateButtons);
+		model.put("showReportInprogressMessage" ,showReportInprogressMessage);
+		model.put("showDownloadLink", showDownloadLink);
+		
+		model.put("miroTeam", mt);
 		model.put("teamMapData", teamMapData);
 		model.put("allUsers", allUsersList);
 		model.put("teamUsers", usertoLabel(userList));
@@ -129,7 +162,6 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		model.put("miroProjectSelectorForm", new MiroProjectSelectorForm());
 
 		// stick it in the session too so the graph controller can get to it
-		// too.
 		HttpSession session = request.getSession();
 		session.setAttribute("teamMapData", teamMapData);
 
@@ -142,9 +174,20 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 
 		MiroProjectSelectorForm miroProjectSelectorForm = (MiroProjectSelectorForm) command;
 
+		MiroTeam mt = new MiroTeam();
+		
+		if (request.getParameter("delete") != null) {
+			 
+			this.miroTeamManager.removeMiroTeam(miroProjectSelectorForm.getId().toString());
+            saveMessage(request, "Report deleted");
+
+            return new ModelAndView("redirect:miroTeamList.html");
+		}
+		
+		
 		if (request.getParameter("save") != null || request.getParameter("createteamreport") != null) {
 
-			MiroTeam mt = null;
+			
 			if(miroProjectSelectorForm.getId()==null || miroProjectSelectorForm.getId().equals("")) {
 				mt = new MiroTeam();
 			} else {
@@ -205,7 +248,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 			unselectedUserList = subtract(userList, allUsersList);
 		}
 
-		Map model = doTeamMap(request, selectedProjects, userList, allUsersList, unselectedUserList);
+		Map model = doTeamMap(request, selectedProjects, userList, allUsersList, unselectedUserList,mt);
 		
 			
 			 

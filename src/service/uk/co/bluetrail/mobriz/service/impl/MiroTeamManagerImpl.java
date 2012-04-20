@@ -55,7 +55,14 @@ public class MiroTeamManagerImpl extends BaseManager implements MiroTeamManager 
      * @see uk.co.bluetrail.mobriz.service.MiroTeamManager#removeMiroTeam(String id)
      */
     public void removeMiroTeam(final String id) {
-        dao.removeMiroTeam(new Long(id));
+    	 if (log.isDebugEnabled()) {
+             log.debug("removing miroteam: " + id);
+         }
+         
+        MiroTeam miroTeam = dao.getMiroTeam(new Long(id)) ; 
+        miroTeam.setDeleted(true) ;
+     
+     	dao.saveMiroTeam(miroTeam);
     }
 
 	

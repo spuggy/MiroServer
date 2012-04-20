@@ -35,7 +35,7 @@ public class MiroTeamDaoHibernate extends BaseDaoHibernate implements MiroTeamDa
  	            
  	            
  	            crit.add(Expression.eq("createdBy_id",user.getId()));
- 	             
+ 	            crit.add(Expression.eq("deleted", false));
  	            crit.addOrder(Order.desc("updated_at"));
  	             
  	             

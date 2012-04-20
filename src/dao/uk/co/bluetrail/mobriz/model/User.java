@@ -635,6 +635,31 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
 		
 	}
 
+	
+	public boolean isTeamReportCreator() {
+		
+		List roles = this.getRoleList() ; 
+		if(roles == null) {
+			return false;
+		}
+		 
+		LabelValue role = null ; 
+		Iterator itr = roles.iterator() ;
+		while(itr.hasNext()) {
+        	role = (LabelValue) itr.next() ;
+        	
+        
+        	if(role.getValue().equals(Constants.TEAMREPORT_ROLE)) {
+        		return true;
+        	}        		
+        }
+		
+		return false;
+		
+	}
+
+	
+	
 	public boolean isComplete() {
 		
 		if(this.response_id == null || this.response_id.longValue() == 0L) {
