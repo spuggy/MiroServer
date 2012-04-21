@@ -146,7 +146,7 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 	/* (non-Javadoc)
 	 * @see uk.co.bluetrail.mobriz.service.impl.MiroTeamReportManager#createPDF(uk.co.bluetrail.mobriz.model.MiroTeam, java.lang.String)
 	 */
-	public boolean createPDF(MiroTeam mt, String filePath) {
+	public boolean createPDF(MiroTeam mt, String filePath) throws Exception {
 		
 		if(this.miroLevels==null) {
 			this.setup();
@@ -164,7 +164,6 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 		
 		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroResponseManager.getMiroLetters(),this.miroLevels,this.dynamicTensionDefaults );
 		
-		try {
 			List teamMapData = this.miroResponseManager.getTeamMap(filePath, mt.getMembers());
 		
 			this.generateIndividualPies(teamMapData,filePath) ;
@@ -177,11 +176,7 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 			this.miroTeamManager.saveMiroTeam(mt,mt.getPractitioner());
 			
 			return true;
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-			return false;
-		}
+
 		
 		
 		

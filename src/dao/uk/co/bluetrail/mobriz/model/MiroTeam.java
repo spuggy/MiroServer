@@ -38,8 +38,9 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	private Long createdBy_id = null;
 	private Date created_on = null;
 	protected Integer version;
-	boolean deleted ;
+	boolean deleted = false;
 	private int teamReportStatus = MiroTeam.REPORT_CREATED;
+	
 	
 	
 	/**
@@ -287,9 +288,13 @@ public boolean isNew() {
 		}
 	}
 
+/**
+* @hibernate.property 
+*/
 public boolean isDeleted() {
-	// TODO Auto-generated method stub
-	return false;
+
+	return deleted;
+
 }
 
 public void setDeleted(boolean deleted) {

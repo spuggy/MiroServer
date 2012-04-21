@@ -47,7 +47,7 @@ public interface MiroTeamReportManager {
 	 */
 	public void setMiroTeamDao(MiroTeamDao miroTeamDao);
 
-	public boolean createPDF(MiroTeam mt, String filePath);
+	public boolean createPDF(MiroTeam mt, String filePath) throws Exception;
 
 	public List getUnprocessedTeams(int miroDocLimit);
 	

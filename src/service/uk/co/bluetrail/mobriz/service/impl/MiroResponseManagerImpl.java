@@ -26,6 +26,7 @@ import uk.co.bluetrail.mobriz.service.MiroProjectManager;
 import uk.co.bluetrail.mobriz.service.MiroResponseManager;
 import uk.co.bluetrail.mobriz.service.SettingManager;
 import uk.co.bluetrail.mobriz.service.SurveyManager;
+import uk.co.bluetrail.mobriz.service.UserExistsException;
 import uk.co.bluetrail.mobriz.service.UserManager;
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
@@ -243,7 +244,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 	
 	
 	
-	public boolean createPDF(SurveyResponse sr, MiroResponse mr,String baseDirectory) {
+	public boolean createPDF(SurveyResponse sr, MiroResponse mr,String baseDirectory) throws Exception {
 		
 		MiroReport miroReport = getMiroReport(baseDirectory);
 		
@@ -252,7 +253,6 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		mr.init(survey,sr, this.miroLetters,this.testOffset);
 		
 				
-		try{ 
 		
 		
 		User candidate  = sr.getUser();
@@ -274,10 +274,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		userManager.saveUser(candidate);
 		this.surveyResponseDAO.saveSurveyResponse(sr);
 		
-		} catch(Exception e) {
-			log.error("Error creating pdf for response " + sr.getId() + " = " + e.toString());
-			return false ;
-		}
+		
 	
 		return true;
 

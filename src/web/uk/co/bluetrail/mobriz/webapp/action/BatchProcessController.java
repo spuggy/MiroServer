@@ -119,22 +119,34 @@ public class BatchProcessController implements Controller {
 
 			try {
 				processMiroReports(batchProcessResults, miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request)));
-				processMiroTeamReports(batchProcessResults, miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request)));
 				
 			} catch (Exception e) {
-				log.error("Exception processing pdfs: " + e.toString());
+				log.error("Exception processing individual pdfs: " + e.toString());
+				batchProcessResults.add("Exception processing individual pdfs: " + e.toString());
+			}
+			
+			
+			try {
+				processMiroTeamReports(batchProcessResults, miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request)));
+					
+			} catch (Exception e) {
+				log.error("Exception processing team pdfs: " + e.toString());
+				batchProcessResults.add("Exception processing team pdfs: " + e.toString());
+				
 				
 			}
 			
 			
 			
+			
+			
 		
-		if(batchProcessResults.size()>0){
-			String errorMsg= "BatchProcessError: zipPhotoFiles " + batchProcessResults.size() + " errors ceating zips)"; 
-			log.warn(errorMsg );
-		}
 		
-        return new ModelAndView("batchProcessResults", "BatchProcessResults", batchProcessResults);
+		
+		HashMap model = new HashMap();
+		model.put("batchProcessResults", batchProcessResults);
+		
+        return new ModelAndView("batchProcessResults",model);
     }
 
     private void processMiroTeamReports(ArrayList batchProcessResults,String filePath) {
@@ -157,10 +169,17 @@ public class BatchProcessController implements Controller {
     	while(itr.hasNext()){
     		mt = (MiroTeam) itr.next();
     		
+    		try {
+    			if(miroTeamReportManager.createPDF(mt,filePath)){  
+    					sendMiroTeamEmails(mt);
+    			}
+    			batchProcessResults.add("Miro Team report created" + mt.getMiroTeamName() + "id=" + mt.getId() );
+    			
+    		    
+    		} catch (Exception e) {
+    			batchProcessResults.add("ERROR Miro Team processing " + mt.getMiroTeamName() + "id=" + mt.getId()+ ": " + e.getMessage());
+    		}
     		
-    		if(miroTeamReportManager.createPDF(mt,filePath)){  
-    			sendMiroTeamEmails(mt);
-    		} 
     				
     	}
     	
@@ -205,10 +224,17 @@ public class BatchProcessController implements Controller {
     		sr = (SurveyResponse) itr.next();
     		
     		mr = new MiroResponse();
-    		
+    	try {
     		if(miroResponseManager.createPDF(sr,mr,filePath)){  
     			sendMiroEmails(mr);
     		} 
+    		batchProcessResults.add("Individual Report created for " + sr.getUser().getFullName() + "id=" + sr.getUser().getId());
+			
+		    
+		} catch (Exception e) {
+			batchProcessResults.add("ERROR Individual Report "  + sr.getUser().getFullName() + "id=" + sr.getUser().getId() + ": " + e.getMessage());
+		}
+		
     				
     	}
     	

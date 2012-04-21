@@ -1,12 +1,15 @@
 <%@ include file="/common/taglibs.jsp"%>
 
+<%@ page import="java.util.*" %>
+
 <title><fmt:message key="batchProcess.results"/></title>
-<content tag="heading"><fmt:message key="batchProcess.results"/></content>
+<content tag="heading">Batch Process Results</content>
 <meta name="menu" content="sysAdmin"/>
 
-helooo;
 
 
-<script type="text/javascript">
-    highlightTableRows("accountList");
-</script>
+<c:forEach var="result" items="${batchProcessResults}">
+                
+        <br/><c:out value="${result}" />
+           
+</c:forEach>
