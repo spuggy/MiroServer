@@ -161,7 +161,11 @@ public class MiroTeamReportManagerTest extends TestCase {
 
 		
 		
-		this.miroTeamReportManager.createPDF(miroTeam, this.baseDir);
+		try {
+			this.miroTeamReportManager.createPDF(miroTeam, this.baseDir);
+		} catch (Exception e) {
+			fail("Exception " + e.getMessage());
+		}
 		
 		File pdf = new File(this.baseDir + "/out/" + miroTeam.getMiroTeamNameFileName(Constants.PDF));
 		

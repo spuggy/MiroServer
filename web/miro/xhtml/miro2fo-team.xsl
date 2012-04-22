@@ -173,6 +173,15 @@
 		</fo:block>
 	</xsl:template>
 	
+	<xsl:template match="center">
+		<fo:block text-align="center" font-size="10pt" line-height="12pt" space-after="10pt">
+			<xsl:apply-templates select="*|text()" />
+		</fo:block>
+	</xsl:template>
+	
+	
+	
+	
 	<xsl:template match="pp">
 		<fo:block text-align="justify" font-size="10pt" line-height="12pt" >
 			<xsl:apply-templates select="*|text()" />
@@ -265,7 +274,7 @@
 		=============================================== -->
 
 	<xsl:template match="h2">
-		<fo:block font-size="24pt" line-height="28pt" font-weight="bold"
+		<fo:block font-size="18pt" line-height="24pt" font-weight="bold"
 			keep-with-next="always" space-after="18pt" font-family="Arial">
 			<xsl:attribute name="id">
 				<xsl:choose>
