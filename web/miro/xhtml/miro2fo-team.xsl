@@ -236,7 +236,7 @@
 				<fo:block>&#x2022;</fo:block>
 			</fo:list-item-label>
 			<fo:list-item-body start-indent="body-start()">
-				<fo:block font-size="10pt" font-family="Arial" line-height="12pt" space-after="10pt">
+				<fo:block font-size="10pt"  line-height="12pt" space-after="10pt">
 					<xsl:apply-templates select="*|text()" />
 				</fo:block>
 			</fo:list-item-body>
@@ -275,7 +275,7 @@
 
 	<xsl:template match="h2">
 		<fo:block font-size="18pt" line-height="24pt" font-weight="bold"
-			keep-with-next="always" space-after="18pt" font-family="Arial">
+			keep-with-next="always" space-after="18pt" >
 			<xsl:attribute name="id">
 				<xsl:choose>
 					<xsl:when test="@id">
@@ -296,7 +296,7 @@
 
 	<xsl:template match="h3">
 		<fo:block font-size="14pt" line-height="18pt" font-weight="bold"
-			keep-with-next="always" space-after="7pt" font-family="Arial">
+			keep-with-next="always" space-after="7pt" >
 			<xsl:attribute name="id">
 				<xsl:choose>
 					<xsl:when test="@id">
@@ -319,7 +319,7 @@
 
 	<xsl:template match="h4">
 		<fo:block font-size="12pt" line-height="14pt" font-weight="bold"
-			keep-with-next="always" space-after="6pt" font-family="Arial">
+			keep-with-next="always" space-after="6pt" >
 			<xsl:attribute name="id">
 				<xsl:choose>
 					<xsl:when test="@id">
