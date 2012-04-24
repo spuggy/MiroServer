@@ -187,6 +187,11 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		
 		if (request.getParameter("save") != null || request.getParameter("createteamreport") != null) {
 
+			if (miroProjectSelectorForm.getMiroTeamName() == null || miroProjectSelectorForm.getMiroTeamName().equals("")) {
+				errors.reject("miroProjectSelectorForm.noSelection","Please enter a name for the team");
+				return showForm(request, response, errors);
+			}
+			
 			
 			if(miroProjectSelectorForm.getId()==null || miroProjectSelectorForm.getId().equals("")) {
 				mt = new MiroTeam();

@@ -566,9 +566,13 @@ public class MiroTeamReport {
 
 		If larger minus smaller = 100 then C larger
 */
-
+		
 		if(larger==0.00 && smaller ==0.00) {
 			return "Z";
+		}
+		
+		if(larger > 0 && smaller == 0.00) {
+			return "C" + larger;
 		}
 		
 		if(larger+smaller < Double.parseDouble(this.dynamicTensionDefaults[0])) {
@@ -583,9 +587,7 @@ public class MiroTeamReport {
 			return "U" + larger_mode;
 		}
 		
-		if(larger > 0 && smaller == 0.00) {
-			return "C" + larger;
-		}
+		
 		
 		
 
@@ -674,10 +676,19 @@ public class MiroTeamReport {
 		//count up each letter to get basic totals
 		for(int i = 0 ; i < this.getTeamResults().size();i++) {
 			TeamMapDTO dt = (TeamMapDTO) this.getTeamResults().get(i);
-			Integer lm = this.leadingTotals.get(dt.getLeadingMode()) ; 
-			this.leadingTotals.put(dt.getLeadingMode(), ++lm);
-			Integer sm = this.secondaryTotals.get(dt.getSecondaryMode()) ; 
-			this.secondaryTotals.put(dt.getSecondaryMode(), ++sm);
+			try{
+				Integer lm = this.leadingTotals.get(dt.getLeadingMode()) ; 
+				this.leadingTotals.put(dt.getLeadingMode(), ++lm);
+			} catch(Exception e) {
+				//catch null modes
+			}
+			
+			try {
+				Integer sm = this.secondaryTotals.get(dt.getSecondaryMode()) ; 
+				this.secondaryTotals.put(dt.getSecondaryMode(), ++sm);
+			} catch(Exception e) {
+				//catch null modes  that keith bloke
+			}
 		}
 
 		//loop over map, calculate percentages 

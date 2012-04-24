@@ -358,8 +358,7 @@ public class MiroReport {
 		if(attached[1]) {
 			teamMapDTO.setSecondaryModeText(secondaryModeDesc);
 			teamMapDTO.setSecondaryMode(resultLetters[1]);
-			
-		}
+		} 
 		
 		
 		
