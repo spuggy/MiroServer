@@ -52,7 +52,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		miroLevels = new Setting();
 		
-		miroLevels.setSettingValue("h;100;40;m;40;20;l;20;1;a;0;0");
+		miroLevels.setSettingValue("h;100;40;m;40;20;l;20;1;a;1;-1");
 		
 		miroLetters = new Setting();
 		
@@ -245,28 +245,195 @@ public class TestMiroTeamReport extends TestCase {
 		} 
 	}
 	
-	
-	public void testRobTeams() {
+	public void testDeBalance() {
 		
 		this.dynamicTensionDefaults  = new Setting();
-		this.dynamicTensionDefaults.setSettingValue("20.00;0.30;0.29");
-	
+		this.dynamicTensionDefaults.setSettingValue("10.00;0.35;0.34");
 		
 		try {
 		
 		this.members = new HashSet(); ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
-		this.miroTeam.setMiroTeamName("Wacky wankers");
-		addTeamMember("Dave","Richards","e","a",100);
-		addTeamMember("Dee","Jagger","e","a",101);
-		addTeamMember("Dozy","Jones","e","a",102);
-		addTeamMember("beaky","Wyman","e","a",103);
-		addTeamMember("Mick","Watts","a","e",104);
-		addTeamMember("Titch","McCartney","a","e",105);
-		addTeamMember("Matthew ","Lennon","a","e",106);
-		addTeamMember("Mark","Star","o","d",107);
-		addTeamMember("Luke","Springsteen","o","d",108);
-		addTeamMember("John","Clemons","d","o",109);
+		this.miroTeam.setMiroTeamName("De Ballance");
+		addTeamMember("Dave","Edmonds","D","E",1000);			
+		addTeamMember("Doris ","Engles","D","E",1010);			
+		addTeamMember("Eddy","Davis","E","D",1020);			
+		addTeamMember("Enid","Dobson","E","D",1030);			
+		
+		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
+		
+		mtr.setResults(this.teamResults);
+		
+		mtr.generateReport(miroTeam);
+		
+
+	} catch (Exception e) {
+		Assert.fail("generate threw exception " + e.getMessage());
+	} 
+		
+		
+	}
+	
+	
+	public void testAnotherTeam() {
+		
+		this.dynamicTensionDefaults  = new Setting();
+		this.dynamicTensionDefaults.setSettingValue("10.00;0.35;0.34");
+		
+		
+		try {
+		
+		this.members = new HashSet(); ;   //a piule of mrs
+		this.teamResults = new ArrayList(); // a pile of uerDTOS
+		this.miroTeam.setMiroTeamName("Another Team");
+		
+		addTeamMember("dave","eccles","d","e",1200);
+		addTeamMember("deadre","eccles","d","e",1210);
+		addTeamMember("don","eccles","d","e",1220);
+		addTeamMember("dan","eccles","d","e",1230);
+		addTeamMember("dolly","eccles","d","e",1240);
+		addTeamMember("danny ","eccles","d","e",1250);
+		addTeamMember("dupre","eccles","d","e",1260);
+		addTeamMember("drue","eccles","d","e",1270);
+		addTeamMember("dom","eccles","d","e",1280);
+		addTeamMember("del","eccles","d","e",1290);
+		addTeamMember("andy","eccles","a","e",1300);
+		
+		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
+		
+		mtr.setResults(this.teamResults);
+		
+		
+		mtr.generateReport(miroTeam);
+		
+
+		} catch (Exception e) {
+			Assert.fail("generate threw exception " + e.getMessage());
+		} 
+	}
+	
+	
+	public void testYetAnotherRobTeams() {
+		
+		this.dynamicTensionDefaults  = new Setting();
+		this.dynamicTensionDefaults.setSettingValue("10.00;0.35;0.34");
+		
+		
+		try {
+		
+			this.members = new HashSet(); ;   //a piule of mrs
+			this.teamResults = new ArrayList(); // a pile of uerDTOS
+			this.miroTeam.setMiroTeamName("Yet Another Team");
+			addTeamMember("dave","Oddie","d","o",1400);
+			addTeamMember("deadre","Oddie","d","o",1410);
+			addTeamMember("don","Oddie","d","o",1420);
+			addTeamMember("dan","Oddie","d","o",1430);
+			addTeamMember("dolly","Oddie","d","o",1440);
+			addTeamMember("danny ","Oddie","d","o",1450);
+			addTeamMember("dupre","Oddie","d","o",1460);
+			addTeamMember("drue","Oddie","d","o",1470);
+			addTeamMember("dom","Oddie","d","o",1480);
+			addTeamMember("del","Oddie","d","o",1490);
+			addTeamMember("andy","eccles","a","e",1500);			
+			
+			MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
+			
+			mtr.setResults(this.teamResults);
+			
+			
+			mtr.generateReport(miroTeam);
+			
+			
+			//////
+			this.members = new HashSet(); ;   //a piule of mrs
+			this.teamResults = new ArrayList(); // a pile of uerDTOS
+			this.miroTeam.setMiroTeamName("and another");
+		
+			addTeamMember("dave","Oddie","d","o",1510);
+			addTeamMember("deadre","Oddie","d","o",1520);		
+			
+			mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
+			mtr.setResults(this.teamResults);
+			mtr.generateReport(miroTeam);
+		
+		
+
+		} catch (Exception e) {
+			Assert.fail("generate threw exception " + e.getMessage());
+		} 
+		
+		///
+	}
+	
+public void testLastTwoRobTeams() {
+		
+		this.dynamicTensionDefaults  = new Setting();
+		this.dynamicTensionDefaults.setSettingValue("10.00;0.35;0.34");
+		
+		
+		try {
+		
+			this.members = new HashSet(); ;   //a piule of mrs
+			this.teamResults = new ArrayList(); // a pile of uerDTOS
+			this.miroTeam.setMiroTeamName("One More Team");
+			addTeamMember("dave","Oddie","d","o",1600);
+			addTeamMember("deadre","Oddie","d","o",1610);
+			addTeamMember("don","Oddie","d","o",1620);
+			addTeamMember("dan","Oddie","d","o",1630);
+			addTeamMember("dolly","Oddie","d","o",1640);
+			addTeamMember("danny ","Oddie","d","o",1650);
+			addTeamMember("dupre","Oddie","d","o",1660);
+			addTeamMember("drue","Oddie","d","o",1670);
+			addTeamMember("dom","Oddie","d","o",1680);
+			addTeamMember("del","Oddie","d","o",1690);
+			addTeamMember("andy","eccles","a","e",1700);	
+			
+			MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
+			
+			mtr.setResults(this.teamResults);
+			
+			
+			mtr.generateReport(miroTeam);
+			
+			
+			//////
+			this.members = new HashSet(); ;   //a piule of mrs
+			this.teamResults = new ArrayList(); // a pile of uerDTOS
+			this.miroTeam.setMiroTeamName("well two more");
+		
+			addTeamMember("dave","Oddie","d","o",1710);
+			addTeamMember("deadre","Oddie","d","o",1720);
+			
+			mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
+			mtr.setResults(this.teamResults);
+			mtr.generateReport(miroTeam);
+		
+		
+
+		} catch (Exception e) {
+			Assert.fail("generate threw exception " + e.getMessage());
+		} 
+		
+		///
+	}
+	
+	
+	
+	public void testRobTeams() {
+		
+		this.dynamicTensionDefaults  = new Setting();
+		this.dynamicTensionDefaults.setSettingValue("10.00;0.35;0.34");
+		
+		
+		try {
+		
+		this.members = new HashSet(); ;   //a piule of mrs
+		this.teamResults = new ArrayList(); // a pile of uerDTOS
+		this.miroTeam.setMiroTeamName("De Ballance");
+		addTeamMember("Dave","Edmonds","D","E",1000);			
+		addTeamMember("Doris ","Engles","D","E",1010);			
+		addTeamMember("Eddy","Davis","E","D",1020);			
+		addTeamMember("Enid","Dobson","E","D",1030);			
 		
 		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
 		
@@ -279,18 +446,12 @@ public class TestMiroTeamReport extends TestCase {
 		//////
 		this.members = new HashSet(); ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
-		this.miroTeam.setMiroTeamName("Bunch of cunts");
+		this.miroTeam.setMiroTeamName("All square");
 	
-		addTeamMember("Dave","Richards","d","a",100);
-		addTeamMember("Dee","Jagger","d","a",101);
-		addTeamMember("Dozy","Jones","d","a",102);
-		addTeamMember("beaky","Wyman","d","a",103);
-		addTeamMember("Mick","Watts","a","d",104);
-		addTeamMember("Titch","McCartney","a","d",105);
-		addTeamMember("Matthew ","Lennon","a","d",106);
-		addTeamMember("Mark","Star","a","d",107);
-		addTeamMember("Luke","Springsteen","o","e",108);
-		addTeamMember("John","Clemons","o","e",109);
+		addTeamMember("Dave","Edmonds","D","E",1040);			
+		addTeamMember("Angela","O'leary","A","O",1050);			
+		addTeamMember("Oscar","Delaney","O","D",1060);			
+		addTeamMember("Ernest","Atlee","E","A",1070);			
 		
 		mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
 		mtr.setResults(this.teamResults);
@@ -300,17 +461,11 @@ public class TestMiroTeamReport extends TestCase {
 		
 		this.members = new HashSet(); ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
-		this.miroTeam.setMiroTeamName("Knob headz");
-		addTeamMember("Dave","Richards","o","e",100);
-		addTeamMember("Dee","Jagger","o","e",101);
-		addTeamMember("Dozy","Jones","o","e",102);
-		addTeamMember("beaky","Wyman","o","e",103);
-		addTeamMember("Mick","Watts","o","e",104);
-		addTeamMember("Titch","McCartney","o","e",105);
-		addTeamMember("Matthew ","Lennon","o","e",106);
-		addTeamMember("Mark","Star","o","e",107);
-		addTeamMember("Luke","Springsteen","o","e",108);
-		addTeamMember("John","Clemons","o","e",109);
+		this.miroTeam.setMiroTeamName("A little off");
+		addTeamMember("Dave","Edmonds","D","E",1080);
+		addTeamMember("Danny","Engles","D","E",1090);
+		addTeamMember("Deadre","Eastman","D","E",1100);
+		addTeamMember("Oscar","Atlee","O","A",1110);
 		
 		mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
 		mtr.setResults(this.teamResults);
@@ -319,38 +474,18 @@ public class TestMiroTeamReport extends TestCase {
 		///
 		this.members = new HashSet(); ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
-		this.miroTeam.setMiroTeamName("Oily tossers");
-		addTeamMember("Dave","Richards","e","o",100);
-		addTeamMember("Dee","Jagger","e","o",101);
-		addTeamMember("Dozy","Jones","e","o",102);
-		addTeamMember("beaky","Wyman","e","o",103);
-		addTeamMember("Mick","Watts","e","o",104);
-		addTeamMember("Titch","McCartney","e","d",105);
-		addTeamMember("Matthew ","Lennon","e","d",106);
-		addTeamMember("Mark","Star","e","d",107);
-		addTeamMember("Luke","Springsteen","e","d",108);
-		addTeamMember("John","Clemons","e","d",109);
+		this.miroTeam.setMiroTeamName("Eccentric");
+		addTeamMember("Dave","Edmonds","D","E",1120);
+		addTeamMember("Danny","Engles","D","E",1130);
+		addTeamMember("Dilbert","Eccles","D","E",1140);
+		addTeamMember("Deadre","Eastman","D","E",1150);
+		addTeamMember("Oscar","Atlee","O","A",1160);
+		addTeamMember("Otto","Atlee","O","A",1170);
 		mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
 		mtr.setResults(this.teamResults);
 		mtr.generateReport(miroTeam);
 	
-		//
-		this.members = new HashSet(); ;   //a piule of mrs
-		this.teamResults = new ArrayList(); // a pile of uerDTOS
-		this.miroTeam.setMiroTeamName("Fuck whits");
-		addTeamMember("Dave","Richards","o","a",100);
-		addTeamMember("Dee","Jagger","o","a",101);
-		addTeamMember("Dozy","Jones","a","o",102);
-		addTeamMember("beaky","Wyman","a","o",103);
-		addTeamMember("Mick","Watts","d","e",104);
-		addTeamMember("Titch","McCartney","d","e",105);
-		addTeamMember("Matthew ","Lennon","e","d",106);
-		addTeamMember("Mark","Star","e","d",107);
-		addTeamMember("Luke","Springsteen","d","e",108);
-		addTeamMember("John","Clemons","e","d",109);
-		mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
-		mtr.setResults(this.teamResults);
-		mtr.generateReport(miroTeam);
+		
 	
 		
 		} catch (Exception e) {

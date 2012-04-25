@@ -572,7 +572,7 @@ public class MiroTeamReport {
 		}
 		
 		if(larger > 0 && smaller == 0.00) {
-			return "C" + larger;
+			return "C" + larger_mode;
 		}
 		
 		if(larger+smaller < Double.parseDouble(this.dynamicTensionDefaults[0])) {
