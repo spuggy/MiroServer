@@ -178,7 +178,7 @@
         selectAll('teamUsers');
        
         if (bSave) {
-      		 if(this["miroTeamName"].value== "") {
+      		 if(form["miroTeamName"].value== "") {
       			$('teamBuilder').show();
       		 	alert("Please supply a value for the Team Name");
       		 	return false; 
@@ -198,6 +198,8 @@
         	}
         
         }
+        
+        return false;
    } 
 
    
