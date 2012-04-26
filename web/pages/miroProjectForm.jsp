@@ -43,6 +43,12 @@
         <form:errors path="projectTitle" cssClass="fieldError"/>
         <form:input path="projectTitle" id="projectTitle" cssClass="text large"/>
     </li>
+    
+    <li>
+        <mobriz4server:label styleClass="desc" key="miroProject.costcode"/>
+        <form:errors path="costcode" cssClass="fieldError"/>
+        <form:input path="costcode" id="costcode" cssClass="text large"/>
+    </li>
 
  	<li>
         <mobriz4server:label styleClass="desc" key="miroProject.projectDescription"/>

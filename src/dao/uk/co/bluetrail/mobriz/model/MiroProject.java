@@ -24,6 +24,7 @@ public class MiroProject extends BaseObject implements SurveyElement {
 	private String emailInviteSubject ;
 	private String emailInviteText ;
 	private Integer projectStatus = OPEN_PROJECT ;
+	private String costcode ;
 	
 	static public Integer OPEN_PROJECT = 1 ;
 	static public Integer CLOSED_PROJECT = 2 ;
@@ -40,6 +41,30 @@ public class MiroProject extends BaseObject implements SurveyElement {
 	
 	
 	
+	/**
+	 * @hibernate.property 
+	 * @return the costcode
+	 */
+	public String getCostcode() {
+		if(costcode==null) {
+			return "";
+		}
+		return costcode;
+	}
+
+	/**
+	 * @param costcode the costcode to set
+	 * @spring.validator type="required"
+	 */
+	public void setCostcode(String costcode) {
+		if(costcode !=null && costcode.length()> 21) {
+			this.costcode = costcode.substring(0,20);
+		} else {
+			this.costcode = costcode;
+		}
+		
+	}
+
 	/**
 	 * @hibernate.property 
 	 * @return the emailInviteSubject
