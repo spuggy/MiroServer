@@ -1,6 +1,6 @@
 <%@ include file="/common/taglibs.jsp"%>
 <head>
-	<title><fmt:message key="miroTeamPie.title" />
+	<title><fmt:message key="miroTeamMap.title" />
 	</title>
 	<content tag="heading">
 	<fmt:message key="miroTeamPie.heading" />
