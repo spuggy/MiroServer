@@ -235,11 +235,8 @@ public class BatchProcessController implements Controller {
     		
     		mr = new MiroResponse();
     	try {
-    		User candidate = sr.getUser();
-    		MiroProject miroProject = miroProjectManager.getMiroProject(candidate.getProject_id().toString());
-    		User practitioner = userManager.getUser(miroProject.getCreatedBy_id().toString());
     		
-    		if(miroResponseManager.createPDF(sr,candidate,mr,filePath,practitioner,miroProject)){  
+    		if(miroResponseManager.createPDF(sr,mr,filePath)){  
     			sendMiroEmails(mr);
     		} 
     		batchProcessResults.add("Individual Report created for " + sr.getUser().getFullName() + "id=" + sr.getUser().getId());

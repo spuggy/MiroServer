@@ -244,34 +244,40 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 	
 	
 	
-	public boolean createPDF(SurveyResponse sr, User candidate, MiroResponse mr,String baseDirectory, User practitioner, MiroProject miroProject) throws Exception {
-		
+	public boolean createPDF(SurveyResponse sr, MiroResponse mr,String baseDirectory) throws Exception {
+
 		MiroReport miroReport = getMiroReport(baseDirectory);
-		
+
 		this.setup();
-		
+
 		mr.init(survey,sr, this.miroLetters,this.testOffset);
-			
-		populateMiroResponse(mr,practitioner,candidate) ;
+
+
+		User candidate  = sr.getUser();
+
+		MiroProject miroProject = miroProjectManager.getMiroProject(candidate.getProject_id().toString());
+
+		User practitioner = userManager.getUser(miroProject.getCreatedBy_id().toString());
+
 		candidate.setResponse_id(sr.getId());
+		populateMiroResponse(mr,practitioner,candidate) ;
 		
+
 		mr.setMiroProject(miroProject);  
-			
+
 		miroReport.generateReport(mr);
-		
-	
+
+
 		sr.setAlertsProcessed(true);
-		
-		userManager.saveAsPurchased(candidate.getId());
+
+		userManager.saveAsPurchased(candidate.getId(),sr.getId());
 		this.surveyResponseDAO.saveSurveyResponse(sr);
-		
-		
+
 	
 		return true;
 
-		
+
 	}
-	
 	
 	
 

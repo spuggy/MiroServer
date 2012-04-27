@@ -16,7 +16,7 @@ public interface MiroResponseManager extends Manager{
 	
 	public boolean isValid(SurveyResponse sr) ;
 	public List getUnprocessedMiroResponses(int miroDocLimit);
-	public boolean createPDF(SurveyResponse sr, User candidate, MiroResponse m,  String filePath, User practitioner, MiroProject miroProject) throws Exception;
+	public boolean createPDF(SurveyResponse sr, MiroResponse m,  String filePath) throws Exception;
 	public String getMiroReportPath(String appURL);
 	public BufferedImage getMiroTeamPie(String baseDirectory,String[] userIds) throws Exception;
 	public List getTeamMap(String baseDir, Collection userList) ;

@@ -80,5 +80,5 @@ public interface UserManager {
 
 	public List getUsers(String[] userIds);
 
-	public void saveAsPurchased(Long id) throws UserExistsException;
+	public void saveAsPurchased(Long id, Long srid) throws UserExistsException;
 }

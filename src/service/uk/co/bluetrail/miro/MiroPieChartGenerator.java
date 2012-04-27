@@ -54,7 +54,7 @@ public class MiroPieChartGenerator
 	
 	public MiroPieChartGenerator(String pieTitle, int[] pieValues, String[] pieLabels1,
 			String[] pieLabels2, String[] pieLabels3, boolean[] pieExplode,
-			Color[] pieColors, boolean showLegend, boolean showTitle)
+			Color[] pieColors, boolean hideLegend, boolean hideTitle)
 	{
 
 		this.pieTitle = pieTitle;
@@ -225,9 +225,9 @@ public class MiroPieChartGenerator
 		Color[] pieColors = { Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED };
 
 		MiroPieChartGenerator pieChart = new MiroPieChartGenerator("Your MiRo Results Chart", pieValues,
-				pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,true,true);
+				pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,false,false);
 
-		pieChart.createPie("someDir", "demoPie.jpg");
+		pieChart.createPie("/users/richard/documents/", "demoPie.jpg");
 	}
 	
 	public BufferedImage getThumbnailPie(int width, int height) throws Exception
