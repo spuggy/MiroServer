@@ -79,4 +79,6 @@ public interface UserManager {
 	public List getUsersByProjects(String[] selectedProjects);
 
 	public List getUsers(String[] userIds);
+
+	public void saveAsPurchased(Long id) throws UserExistsException;
 }

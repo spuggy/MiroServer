@@ -247,4 +247,14 @@ public class UserManagerImpl extends BaseManager implements UserManager {
 		
 		return dao.getUsers(userIds);
 	}
+
+	public void saveAsPurchased(Long id) throws UserExistsException {
+		
+		User u = dao.getUser(id);
+		
+		u.setStatus(User.PURCHASE_REPORT);
+		
+		this.saveUser(u);
+		
+	}
 }

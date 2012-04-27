@@ -25,6 +25,7 @@ import uk.co.bluetrail.miro.MiroReport;
 import uk.co.bluetrail.miro.MiroResponse;
 import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.Account;
+import uk.co.bluetrail.mobriz.model.MiroProject;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
 import uk.co.bluetrail.mobriz.model.MobrizAlert;
 import uk.co.bluetrail.mobriz.model.Question;
@@ -34,6 +35,7 @@ import uk.co.bluetrail.mobriz.model.SurveyResponse;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.AccountManager;
 import uk.co.bluetrail.mobriz.service.MailEngine;
+import uk.co.bluetrail.mobriz.service.MiroProjectManager;
 import uk.co.bluetrail.mobriz.service.MiroResponseManager;
 import uk.co.bluetrail.mobriz.service.MiroTeamManager;
 import uk.co.bluetrail.mobriz.service.MiroTeamReportManager;
@@ -57,6 +59,7 @@ public class BatchProcessController implements Controller {
 	 
 	 private SurveyManager surveyManager = null;
 	 private SurveyResponseManager surveyResponseManager = null;
+	 private MiroProjectManager miroProjectManager = null;
 	 private MobrizAlertManager mobrizAlertManager = null;
 	 private UserManager userManager = null;
 	 private MailEngine mailEngine = null;
@@ -66,7 +69,14 @@ public class BatchProcessController implements Controller {
 	 private MiroTeamReportManager miroTeamReportManager =null;
    
      
-	 private HttpServletRequest request ;
+	 /**
+	 * @param miroProjectManager the miroProjectManager to set
+	 */
+	public void setMiroProjectManager(MiroProjectManager miroProjectManager) {
+		this.miroProjectManager = miroProjectManager;
+	}
+
+	private HttpServletRequest request ;
      private HttpServletResponse response ; 
 
      
@@ -225,7 +235,11 @@ public class BatchProcessController implements Controller {
     		
     		mr = new MiroResponse();
     	try {
-    		if(miroResponseManager.createPDF(sr,mr,filePath)){  
+    		User candidate = sr.getUser();
+    		MiroProject miroProject = miroProjectManager.getMiroProject(candidate.getProject_id().toString());
+    		User practitioner = userManager.getUser(miroProject.getCreatedBy_id().toString());
+    		
+    		if(miroResponseManager.createPDF(sr,candidate,mr,filePath,practitioner,miroProject)){  
     			sendMiroEmails(mr);
     		} 
     		batchProcessResults.add("Individual Report created for " + sr.getUser().getFullName() + "id=" + sr.getUser().getId());
