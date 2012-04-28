@@ -43,3 +43,7 @@ div#footer {
 	display: none;
 
 }
+
+#loginbanner {
+	background: url(login_logo.png) no-repeat 2px 2px;
+}

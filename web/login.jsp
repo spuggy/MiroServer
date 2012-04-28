@@ -34,8 +34,7 @@
 			<div id="contentlogin"><!-- added new class to layout.css for Login page to center the login box (only in login.jsp.htm)-->
 
 			  <div id="main">
-					<h1 align="center">
-						Login					</h1>
+					<h1 id="loginbanner" align="center">Login </h1>
 
 				  <div id="submain">
 
