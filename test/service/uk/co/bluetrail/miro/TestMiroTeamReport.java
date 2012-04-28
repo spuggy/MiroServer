@@ -52,7 +52,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		miroLevels = new Setting();
 		
-		miroLevels.setSettingValue("h;100;40;m;40;20;l;20;1;a;1;-1");
+		miroLevels.setSettingValue("h;100;37;m;38;17;l;18;0;a;1;-1");
 		
 		miroLetters = new Setting();
 		

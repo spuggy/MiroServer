@@ -64,9 +64,11 @@ public class MiroReportLevel {
 
 class Level {
 	
-	public String level;
-	public double upper;
-	public double lower ;
+	//miroLevels.setSettingValue("h;100;40;m;40;20;l;20;1;a;1;-1");
+	
+	public String level; 
+	public double upper;  
+	public double lower ;  
 	
 	public Level(String level, String upper, String lower){
 		this.upper = Double.parseDouble(upper);

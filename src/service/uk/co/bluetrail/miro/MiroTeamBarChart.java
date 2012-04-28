@@ -171,7 +171,7 @@ public class MiroTeamBarChart {
                 a.setTextAnchor(TextAnchor.BOTTOM_LEFT);
                 plot.addAnnotation(a);
                 
-                ValueMarker marker = new ValueMarker(barLevels[i],Color.BLACK,new BasicStroke(1.0f));
+                ValueMarker marker = new ValueMarker(barLevels[i]*2,Color.BLACK,new BasicStroke(1.0f)); //multiplied by 2 to make the chart look purdy
                 plot.addRangeMarker(marker, Layer.BACKGROUND);
                 
             }
