@@ -119,7 +119,7 @@ public class MiroTeamBarChart {
     	
     	
         for(int i = 0;i < barValues.length;i++) {
-        	dataset.addValue(barValues[i], labels[i], labels[i]);
+        	dataset.addValue((barValues[i]*2), labels[i], labels[i]);  //multiplied by 2 to pad out the chart
         }
     	
     
@@ -165,7 +165,7 @@ public class MiroTeamBarChart {
             
             //start at one to ignore the 100% bar
             for (int i = 1 ;  i < barLevels.length;i++) {
-            	CategoryTextAnnotation a = new CategoryTextAnnotation(levelLabels[i], "", barLevels[i]);
+            	CategoryTextAnnotation a = new CategoryTextAnnotation(levelLabels[i], "", (barLevels[i]*2));  //multiplied by 2 to make the chart look purdy
                 a.setCategoryAnchor(CategoryAnchor.START);
                 a.setFont(new Font("SansSerif", Font.PLAIN, 12));
                 a.setTextAnchor(TextAnchor.BOTTOM_LEFT);

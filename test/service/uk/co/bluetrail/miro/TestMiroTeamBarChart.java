@@ -8,9 +8,9 @@ import junit.framework.TestCase;
 public class TestMiroTeamBarChart extends TestCase {
 
 	public void testCreate() {
-		double[] barValues = { 80.0, 22.0, 15.0, 13.0 };
-		
-		double[] barLevels = { 100.0, 40.0, 19.0,0.0 };
+		double[] barValues = { 180.0, 44.0, 30.0, 26.0 };
+		  
+		double[] barLevels = { 90.0, 80.0, 38.0,0.0 };    
 		
 		String[] levelLabels = {"", "High","Medium", "Low" };
 		
