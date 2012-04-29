@@ -166,7 +166,13 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	}
 
 	public void setMiroTeamName(String miroTeamName) {
-		this.miroTeamName = miroTeamName;
+		
+		if(miroTeamName != null) {
+			this.miroTeamName = miroTeamName.replace( ':', ' ' );
+		} else {
+			this.miroTeamName = miroTeamName;
+		}
+		
 		
 	}
 

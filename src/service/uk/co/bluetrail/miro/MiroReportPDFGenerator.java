@@ -100,6 +100,9 @@ public class MiroReportPDFGenerator {
     
                 // Start XSLT transformation and FOP processing
                 transformer.transform(src, res);
+            } catch(Exception e) {
+            	log.debug("Exception transforming xhtml " + e.getMessage());
+                
             } finally {
                 out.close();
             }
