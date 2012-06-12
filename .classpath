@@ -80,12 +80,27 @@
 	<classpathentry kind="lib" path="lib/fop/xalan-2.7.0.jar"/>
 	<classpathentry kind="lib" path="lib/fop/xercesImpl-2.7.1.jar"/>
 	<classpathentry kind="lib" path="lib/fop/xml-apis-1.3.02.jar"/>
-	<classpathentry kind="lib" path="lib/fop/xmlgraphics-commons-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/mockito/mockito-all-1.9.0.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta-commons/commons-io-1.3.1.jar"/>
 	<classpathentry kind="lib" path="dist/mirotest-dao.jar"/>
 	<classpathentry kind="lib" path="dist/mirotest-service.jar"/>
 	<classpathentry kind="lib" path="lib/fop/jcommon-1.0.17.jar"/>
 	<classpathentry kind="lib" path="lib/fop/jfreechart-1.0.14.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/antlr-runtime-3.3.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/avalon-framework-api-4.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/avalon-framework-impl-4.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/docx4j-2.8.0.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/jaxb-svg11-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/jaxb-xmldsig-core-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/jaxb-xslfo-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/poi-3.8.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/poi-scratchpad-3.8.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/serializer-2.7.1.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/stringtemplate-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/wmf2svg-0.9.0.jar"/>
+	<classpathentry kind="lib" path="lib/docx4j/xhtmlrenderer-1.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/fop/xmlgraphics-commons-1.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

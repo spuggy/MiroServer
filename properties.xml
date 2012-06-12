@@ -126,6 +126,7 @@
         <pathelement location="${dist.dir}/${webapp.name}-dao.jar"/>
         <fileset dir="${javamail.dir}" includes="*.jar"/>
     	<fileset dir="${fop.dir}" includes="*.jar"/>
+    	<fileset dir="${docx4j.dir}" includes="*.jar"/>
     	<pathelement location="${commons-beanutils.jar}"/>
         <pathelement location="${commons-io.jar}"/>
         <pathelement location="${commons-collections.jar}"/>
