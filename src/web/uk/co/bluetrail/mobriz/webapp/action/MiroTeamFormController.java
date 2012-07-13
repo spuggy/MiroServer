@@ -54,6 +54,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
             mf.setId(mt.getId().toString());
             mf.setMiroTeamName(mt.getMiroTeamName());
             mf.setVersion(mt.getVersion().toString());
+            mf.setCommentary(mt.getCommentary());  
                        
         } else {
         	mf = new MiroProjectSelectorForm();
@@ -202,6 +203,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 			List members = userManager.getUsers(miroProjectSelectorForm.getTeamUsers());
 			mt.setMiroTeamName(miroProjectSelectorForm.getMiroTeamName());
 			mt.setMembers(new HashSet(members));
+			mt.setCommentary(miroProjectSelectorForm.getCommentary());
 			
 			if(request.getParameter("createteamreport") != null) {
 				mt.setTeamReportStatus(MiroTeam.REPORT_REQUESTED);

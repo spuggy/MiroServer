@@ -8,10 +8,24 @@ public class MiroProjectSelectorForm {
     String id;
     String title;
     String miroTeamName;
+    String commentary;
     
     
     
 	
+	/**
+	 * @hibernate.property 
+	 * @return the commentary
+	 */
+	public String getCommentary() {
+		return commentary;
+	}
+	/**
+	 * @param commentary the commentary to set
+	 */
+	public void setCommentary(String commentary) {
+		this.commentary = commentary;
+	}
 	/**
 	 * @hibernate.property 
 	 * @return the miroTeamName

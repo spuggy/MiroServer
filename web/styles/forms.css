@@ -278,6 +278,12 @@ form textarea.editor{
      width: 60em;
 }
 
+form textarea.comments{
+    height: 30em;
+    width: 100%;
+    margin-bottom: 5em;
+}
+
 
 /* ----- ERRORS ----- */
 form li.error{

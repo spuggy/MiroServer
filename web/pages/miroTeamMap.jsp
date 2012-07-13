@@ -75,6 +75,9 @@
 			
         <mobriz4server:label styleClass="desc" key="miroteam.miroteamname"/>
         <form:input path="miroTeamName" id="miroTeamName" cssClass="text large"/>
+        
+        <mobriz4server:label styleClass="desc" key="miroTeamMap.commentary"/>
+        <form:textarea path="commentary" id="commentary" cssClass="text comments"/>
        	
 			
 			
