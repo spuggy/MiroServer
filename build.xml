@@ -402,7 +402,8 @@
 
             <lib file="${clickstream.jar}"/>
             <lib file="${dwr.jar}"/>
-        	   <lib dir="${fop.dir}" includes="*.jar"/>
+        	<lib dir="${docx4j.dir}" includes="*.jar"/>
+        	<lib dir="${fop.dir}" includes="*.jar"/>
             <lib dir="${commons.dir}" includes="*.jar"/>
             <lib dir="${jstl.final.dir}/lib" includes="*.jar"/>
             <lib dir="${javamail.dir}" includes="*.jar"/>   

@@ -132,7 +132,8 @@ public class MiroTeamReport {
 		this.generateTeamSpiderWebChart();
 		this.generateXMLReportFile();   
 		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""),"miro2fo-team.xsl");
-		
+		//rem out .docx generation for now.
+		//MiroReportDocxGenerator.generateDocx(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
 	}
 	
 
