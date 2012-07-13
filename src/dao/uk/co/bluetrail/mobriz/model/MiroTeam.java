@@ -49,7 +49,13 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	 * @return the comentary
 	 */
 	public String getCommentary() {
-		return commentary;
+		if(commentary==null) {
+			return "";
+		} else {
+			return commentary;
+		}
+		
+		
 	}
 
 	/**
