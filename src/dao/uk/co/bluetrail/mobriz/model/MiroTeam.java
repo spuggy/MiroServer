@@ -37,12 +37,28 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	private Date updated_at = null ;	
 	private Long createdBy_id = null;
 	private Date created_on = null;
+	private String commentary = null ; //comments added by practitioner
 	protected Integer version;
 	boolean deleted = false;
 	private int teamReportStatus = MiroTeam.REPORT_CREATED;
 	
 	
 	
+	/**
+	 * @hibernate.property 
+	 * @return the comentary
+	 */
+	public String getCommentary() {
+		return commentary;
+	}
+
+	/**
+	 * @param commentary the commentary to set
+	 */
+	public void setCommentary(String commentary) {
+		this.commentary = commentary;
+	}
+
 	/**
 	 * @hibernate.property 
 	 * @return the status
