@@ -129,6 +129,7 @@ public class MiroTeamReport {
 
 		this.generateTeamBarChart();
 		//this.generateTeamResultsGraphic();
+		this.generateDynamicContent();
 		this.generateTeamSpiderWebChart();
 		this.generateXMLReportFile();   
 		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""),"miro2fo-team.xsl");
@@ -136,6 +137,25 @@ public class MiroTeamReport {
 		//MiroReportDocxGenerator.generateDocx(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
 	}
 	
+
+	private void generateDynamicContent() throws IOException {
+		
+		
+		
+		MiroDynamicContentFileGenerator f = new MiroDynamicContentFileGenerator(this.baseDirectory,this.miroTeam.getMiroTeamNameFileName("_dynamic.xhtml"));
+		
+		if(this.miroTeam.getCommentary()==null || this.miroTeam.getCommentary().equals("")) {
+			//dont add blank stuff it freaks the pdf generator out.
+		} else {
+			
+			f.addContent("commentary","<h3>Practitioner Commentary</h3>" + this.miroTeam.getCommentary());
+		}
+		
+		f.addContent("dummy","dummy");
+		
+		f.genertate();
+		
+	}
 
 	private void generateTeamSpiderWebChart() throws Exception {
 		
@@ -263,6 +283,8 @@ public class MiroTeamReport {
 		variables.put("reportFileName" , miroTeam.getMiroTeamNameFileName(""));
 		
 		
+		System.out.println(variables.get("commentary"));
+		
 
 		int vName = 2;
 		
@@ -304,7 +326,7 @@ public class MiroTeamReport {
 		
 		
 		if(miroReportFileGenerator==null){
-			miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miroteamreportsource.xhtml");
+			miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miroteamreportsource.xhtml",this.miroTeam.getMiroTeamNameFileName("_dynamic.xhtml"));
 		}
 		miroReportFileGenerator.generate(pages, variables, imgNames);
 		
@@ -430,7 +452,6 @@ public class MiroTeamReport {
 		}
 		teamBulletsPage.add(new MiroPageElement("endlist"));
 		
-		
 		pages.add(teamBulletsPage);
 		
 		//dynamicTensions
@@ -530,6 +551,11 @@ public class MiroTeamReport {
 		MiroPage whatsNextPage = new MiroPage();
 		
 		whatsNextPage.add(new MiroPageElement("whatsnext"));
+		
+		if(!this.miroTeam.getCommentary().equals("")) {
+			whatsNextPage.add(new MiroPageElement("commentary"));
+		}
+			
 		whatsNextPage.add(new MiroPageElement("practitioner_details"));
 		
 		pages.add(whatsNextPage);

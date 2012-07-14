@@ -39,6 +39,7 @@ public class MiroReportFileGenerator {
 			.getLog(MiroReportPDFGenerator.class);
 
 	private Document sourceDocument = null;
+	private Document dynamicDocument = null;
 	private Document destDocument = null;
 	private Element htmlElement = null;
 	private Element bodyElement = null;
@@ -46,6 +47,8 @@ public class MiroReportFileGenerator {
 	private String srcFilename = "mirosource.xhtml";
 	private String srcFolder = "xhtml";
 	private String outputFolder = "out";
+
+	private String dynamicFileName;
 
 	/**
 	 * @param baseDirectory
@@ -67,6 +70,13 @@ public class MiroReportFileGenerator {
 	public MiroReportFileGenerator(File baseDirectory, String srcFilename) {
 		this.baseDirectory = baseDirectory;
 		this.srcFilename = srcFilename;
+	}
+
+	public MiroReportFileGenerator(File baseDirectory, String srcFilename,String dynamicFileName) {
+			
+		this.baseDirectory = baseDirectory;
+		this.srcFilename = srcFilename;
+		this.dynamicFileName = dynamicFileName;
 	}
 
 	private void replaceVariables(Map<String, String> variables) {
@@ -124,7 +134,7 @@ public class MiroReportFileGenerator {
 			log.debug("[XML Manipulation] Starting..1");
 			for (int tmpPgIdx = 0; tmpPgIdx < tempPage.getLength(); tmpPgIdx++) {
 				MiroPageElement pe = tempPage.get(tmpPgIdx);
-				Element element = sourceDocument.getElementById(pe.getId());
+				Element element = getElement(pe.getId());
 				
 				log.debug("[XML Manipulation] Starting..2");
 				if (element != null) {
@@ -147,8 +157,18 @@ public class MiroReportFileGenerator {
 		log.debug("[XML Manipulation] Complete!");
 
 	}
+	
+	
 
 	
+
+	private Element getElement(String id) {
+		Element e = sourceDocument.getElementById(id);
+		if(e==null && this.dynamicDocument!=null) {
+			e = dynamicDocument.getElementById(id);
+		}
+		return e;
+	}
 
 	private void adjustIdOfNode(Node nodeTemp, MiroPageElement pe, Map<String, String> imgNames, Map<String, String> vars) {
 		
@@ -257,14 +277,11 @@ public class MiroReportFileGenerator {
 		
 	
 		
-		
-		
-		
-		
 
 		log.debug("Creating Parser..22");
 		// this loader will validate XML-input:
 		sourceParser = factory.newDocumentBuilder();
+		
 		log.debug("Creating Parser..setting resolver to null");
 		sourceParser.setEntityResolver(null);
 
@@ -278,9 +295,16 @@ public class MiroReportFileGenerator {
 
 		log.debug("Parsing XML Document.. " + srcFolder + " " + srcFilename);
 		if (sourceDocument == null) {
-			sourceDocument = sourceParser.parse(getFilePathToWrite(srcFolder,
-					srcFilename));
+			sourceDocument = sourceParser.parse(getFilePathToWrite(srcFolder,srcFilename));
 		}
+		
+		if (dynamicDocument == null) {
+			dynamicDocument = sourceParser.parse(getFilePathToWrite(outputFolder,dynamicFileName));
+		}
+
+		
+		Element e = dynamicDocument.getElementById("commentary");
+		
 		destDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 
 		
