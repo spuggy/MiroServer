@@ -178,6 +178,16 @@ label.desc{
     font-weight: bold;
 }
 
+label.desc_inline{
+    margin: 4px 0 3px 0;
+    border: 0;
+    color: #444;
+    font-size: 1em;
+    line-height: 1.3em;
+    font-weight: bold;
+}
+
+
 p label {
     font-weight: normal;
 }
@@ -278,12 +288,25 @@ form textarea.editor{
      width: 60em;
 }
 
-form textarea.comments{
+form textarea.big_comments{
     height: 30em;
     width: 100%;
-    margin-bottom: 5em;
+    margin-bottom: 2em;
 }
 
+form textarea.small_comments{
+    height: 5em;
+    width: 100%;
+    margin-bottom: 2em;
+}
+
+.hideme {	
+	display: none;	
+}
+
+.blockme {
+	display: block;	
+}
 
 /* ----- ERRORS ----- */
 form li.error{

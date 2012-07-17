@@ -8,6 +8,29 @@
 	<link rel="stylesheet" type="text/css" media="all"
 		href="<c:url value='/styles/${appConfig["csstheme"]}/miroPickList.css'/>" />
 
+<script type="text/javascript">
+
+function bigCommentary() {
+
+	$('biggercommentary').addClassName('hideme');
+	$('smallercommentary').removeClassName('hideme');
+	$('commentary').removeClassName('small_comments');
+	$('commentary').addClassName('big_comments');
+
+}
+
+function smallCommentary() {
+
+	$('biggercommentary').removeClassName('hideme');
+	$('smallercommentary').addClassName('hideme');
+	$('commentary').addClassName('small_comments');
+	$('commentary').removeClassName('big_comments');
+
+}
+
+
+</script>
+
 </head>
 <content tag="heading">
 <fmt:message key="miroTeamMap.heading" />
@@ -76,8 +99,8 @@
         <mobriz4server:label styleClass="desc" key="miroteam.miroteamname"/>
         <form:input path="miroTeamName" id="miroTeamName" cssClass="text large"/>
         
-        <mobriz4server:label styleClass="desc" key="miroTeamMap.commentary"/>
-        <form:textarea path="commentary" id="commentary" cssClass="text comments"/>
+        <div class="blockme"><mobriz4server:label styleClass="desc_inline" key="miroTeamMap.commentary"/> <a href="#" id="biggercommentary" onclick="bigCommentary()" class="bigger_box">(Make Bigger)</a><a id="smallercommentary" onclick="smallCommentary()" href="#" class="hideme smaller_box">(Make Smaller)</a></div> 
+        <form:textarea path="commentary" id="commentary" cssClass="text small_comments"/>
        	
 			
 			

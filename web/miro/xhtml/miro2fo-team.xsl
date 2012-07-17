@@ -397,6 +397,11 @@
 			<xsl:apply-templates select="*|text()" />
 		</fo:inline>
 	</xsl:template>
+	
+	<xsl:template match="br">
+  		<fo:block> </fo:block>
+	</xsl:template>
+          
 
 	<xsl:template match="mironame">
 		<fo:inline font-weight="bold">

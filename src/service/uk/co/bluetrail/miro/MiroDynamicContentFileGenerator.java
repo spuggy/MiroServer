@@ -32,7 +32,7 @@ public class MiroDynamicContentFileGenerator {
 		this.content.append("\">" );
 		this.content.append("<p>");
 		if(content!=null) {
-			this.content.append(content.replaceAll("(\r\n|\n\r|\r|\n)", "</p><p>"));
+			this.content.append(content.replaceAll("(\r\n|\n\r|\r|\n)", "<br/>"));
 		} 
 		this.content.append("</p>");
 		this.content.append("</div>");
