@@ -142,9 +142,35 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	}
 	
 	public String getMiroTeamNameFileName(String extension) {
-		return this.miroTeamName+"_map_" + id + extension;
+		return stripBadFileNameChars(this.miroTeamName+"_map_") + id + extension;
 	}
-	
+
+    private String stripBadFileNameChars(String name) {
+        //oh fucking hell I wish I could be arsed to learn regex
+        if(name != null) {
+           StringBuffer sb = new StringBuffer();
+           char[] c = name.toCharArray();
+           for(int i = 0 ; i< c.length;i++) {
+
+
+               switch(c[i]) {
+
+                  case '\\':
+                  case '/':
+                  case ':':
+                  case '?':
+
+                       //do nowt
+                     break;
+                   default:
+                       sb.append(c[i]);
+              }
+           }
+           return sb.toString().trim();
+        }
+        return  name;
+    }
+
 
 	public String getCompany() {
 		String comp = practitioner.getCompany();
@@ -265,7 +291,7 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 		return lastUpdatedBy_id;
 	}
 	/**
-	 * @param lastUpdateBy_id The lastUpdateBy to set.
+	 * @param lastUpdatedBy_id The lastUpdateBy to set.
 	 */
 	public void setLastUpdatedBy_id(Long lastUpdatedBy_id) {
 		this.lastUpdatedBy_id = lastUpdatedBy_id;
