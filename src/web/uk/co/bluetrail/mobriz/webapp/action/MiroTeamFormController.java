@@ -131,10 +131,17 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		if(mt.getId()==null) {
 			showDeleteButton = false;
 		}
-		
+
+
+
+
+        /*
+        let people edit created reports
 		if(mt.getTeamReportStatus()==MiroTeam.REPORT_CREATED || mt.getId()==null) {
 			showRecalcEditButtons = true;
-		}
+		}*/
+
+        showRecalcEditButtons = true;
 		
 		if(this.getCurrentUser().isTeamReportCreator()) {
 			showTeamSaveCreateButtons = true;
