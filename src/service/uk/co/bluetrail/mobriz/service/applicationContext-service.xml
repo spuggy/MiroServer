@@ -130,7 +130,7 @@
      <property name="thumbNailPieHeight" value="150" />
      
      
-    <property name="pdfLocation_dev" value="/Users/Richard/documents/workspace-copy/miroserver3/web/miro" />
+    <property name="pdfLocation_dev" value="/miro-reports" />
 	<property name="pdfLocation_live" value="/home/webadmin/miro-assessment.com/miro-reports" />
 	<property name="pdfLocation_test" value="/home/webadmin/dev.bluetrail.co.uk/miro-reports" />
    
@@ -138,7 +138,7 @@
       
 	
 	 <bean id="ajaxSurveyEditManager" class="uk.co.bluetrail.mobriz.webapp.ajaxImpl.AjaxSurveyEditManagerImpl">
-                 <property name="surveyResponseManager" ref="surveyResponseManager"/>
+               <property name="surveyResponseManager" ref="surveyResponseManager"/>
                <property name="questionManager" ref="questionManager"/>
                <property name="surveyManager" ref="surveyManager"/>
                <property name="optionManager" ref="optionManager"/>
