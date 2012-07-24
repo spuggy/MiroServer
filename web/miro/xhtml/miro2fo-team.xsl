@@ -399,7 +399,7 @@
 	</xsl:template>
 	
 	<xsl:template match="br">
-  		<fo:block> </fo:block>
+        <fo:block/>
 	</xsl:template>
           
 
