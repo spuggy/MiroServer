@@ -172,8 +172,17 @@
 			<xsl:apply-templates select="*|text()" />
 		</fo:block>
 	</xsl:template>
-	
-	<xsl:template match="center">
+
+    <xsl:template match="ppkeep">
+        <fo:block text-align="justify" keep-together.within-page="always" font-size="10pt" line-height="12pt" space-after="10pt">
+            <xsl:apply-templates select="*|text()" />
+        </fo:block>
+    </xsl:template>
+
+
+
+
+    <xsl:template match="center">
 		<fo:block text-align="center" font-size="10pt" line-height="12pt" space-after="10pt">
 			<xsl:apply-templates select="*|text()" />
 		</fo:block>
@@ -187,6 +196,8 @@
 			<xsl:apply-templates select="*|text()" />
 		</fo:block>
 	</xsl:template>
+
+
 
 
 	<xsl:template match="ul">
