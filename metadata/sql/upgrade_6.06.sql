@@ -1,0 +1,1 @@
+ALTER TABLE app_user ADD COLUMN miroTeamAdded_on timestamp without time zone;

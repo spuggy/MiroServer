@@ -1,11 +1,6 @@
 package uk.co.bluetrail.mobriz.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.BaseObject;
@@ -396,11 +391,20 @@ public String[] getProjects() {
 		if(this.members == null) {
 			return;
 		}
-		
+
+        Calendar cal = Calendar.getInstance();
+
+
+
+
 		Iterator itr = members.iterator();
 		while(itr.hasNext()) {
 			User u = (User) itr.next();
-			u.setMiroTeam_id(this.id);
+            if(u.getMiroTeam_id()==null) {
+                u.setMiroTeam_id(this.id);
+                u.setMiroTeamAdded_on(cal.getTime())   ;
+            }
+
 		}
 		
 		

@@ -92,7 +92,23 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
     
 	private int status = User.INVITE_NOT_SENT ;
 	private Long miroTeam_id ;
-	
+    private Date miroTeamAdded_on ;
+
+
+
+    /**
+     * @hibernate.property
+     * @return the MiroTeamAdded_on
+     */
+    public Date getMiroTeamAdded_on() {
+        return miroTeamAdded_on;
+    }
+
+    public void setMiroTeamAdded_on(Date miroTeamAdded_on) {
+        this.miroTeamAdded_on = miroTeamAdded_on;
+    }
+
+
 	
 	
 	/**
