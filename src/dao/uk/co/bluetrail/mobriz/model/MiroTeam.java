@@ -143,25 +143,7 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
     private String stripBadFileNameChars(String name) {
         //oh fucking hell I wish I could be arsed to learn regex
         if(name != null) {
-           StringBuffer sb = new StringBuffer();
-           char[] c = name.toCharArray();
-           for(int i = 0 ; i< c.length;i++) {
-
-
-               switch(c[i]) {
-
-                  case '\\':
-                  case '/':
-                  case ':':
-                  case '?':
-
-                       //do nowt
-                     break;
-                   default:
-                       sb.append(c[i]);
-              }
-           }
-           return sb.toString().trim();
+           return name.replaceAll("[^A-Za-z0-9]", "").trim();
         }
         return  name;
     }
