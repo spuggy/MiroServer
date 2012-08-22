@@ -132,6 +132,9 @@
     </wildcardResourcePatterns>
     <annotationProcessing enabled="false" useClasspath="true" />
   </component>
+  <component name="CopyrightManager" default="">
+    <module2copyright />
+  </component>
   <component name="CvsConfiguration">
     <Checkout>
       <option name="DATE_TAG" value="" />
@@ -519,6 +522,7 @@
   <component name="WebManager">
     <option enabled="false" />
   </component>
+  <component name="WebServicesPlugin" addRequiredLibraries="true" />
   <component name="com.intellij.jsf.UserDefinedFacesConfigs">
     <option name="USER_DEFINED_CONFIGS">
       <value>
