@@ -1,1 +1,1 @@
-sudo ln -s /Users/richard/documents/miro/miroserver/web/miro/out /miro-reports
+sudo ln -s /Users/richard/documents/miro/miroserver/web/miro/ /miro-reports
