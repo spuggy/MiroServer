@@ -36,7 +36,7 @@ import javax.xml.transform.stream.StreamResult;
 public class MiroReportFileGenerator {
 
 	private final static Log log = LogFactory
-			.getLog(MiroReportPDFGenerator.class);
+			.getLog(MiroReportFileGenerator.class);
 
 	private Document sourceDocument = null;
 	private Document dynamicDocument = null;
@@ -298,13 +298,11 @@ public class MiroReportFileGenerator {
 			sourceDocument = sourceParser.parse(getFilePathToWrite(srcFolder,srcFilename));
 		}
 		
-		if (dynamicDocument == null) {
+		if (dynamicDocument == null && this.dynamicFileName !=null) {
 			dynamicDocument = sourceParser.parse(getFilePathToWrite(outputFolder,dynamicFileName));
 		}
 
-		
-		Element e = dynamicDocument.getElementById("commentary");
-		
+
 		destDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 
 		
