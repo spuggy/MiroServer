@@ -79,7 +79,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		miroTeam.setPractitioner(prac);
 		
-		this.baseDir = new File("/Users/RSpence1/documents/workspace-copy/MiroServer/web/miro");
+		this.baseDir = new File("/miro-reports");
 		
 		
 	}
