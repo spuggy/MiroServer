@@ -35,6 +35,7 @@ import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 public class MiroReport {
     private final Log log = LogFactory.getLog(MiroReport.class);
 
+
     File baseDirectory;
 	MiroResponse mr ;
 	HashMap modes = null;

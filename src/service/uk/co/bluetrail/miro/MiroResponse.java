@@ -115,6 +115,9 @@ public class MiroResponse  {
 			
 		
 	}
+
+
+
 	
 	private void calculateResults() {
 		

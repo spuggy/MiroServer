@@ -47,9 +47,7 @@ public class TestMiroTeamReport extends TestCase {
 		
 		this.dynamicTensionDefaults  = new Setting();
 		this.dynamicTensionDefaults.setSettingValue("10.00;0.35;0.34");
-				
-		
-		
+
 		miroLevels = new Setting();
 		
 		miroLevels.setSettingValue("h;100;37;m;38;17;l;18;0;a;1;-1");
