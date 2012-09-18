@@ -130,33 +130,31 @@
 	</xsl:template>
 
 
-	<xsl:template match="/html/body/div[@id &gt; '0' ]">
-		<fo:page-sequence  master-reference="A4"  >
+    <xsl:template match="/html/body/div[@id &gt; '0' ]">
+        <fo:page-sequence  master-reference="A4"  >
 
-			<fo:static-content flow-name="xsl-region-before">
-								<fo:block border-bottom-width="0.25mm" border-bottom-style="solid">
-						<fo:external-graphic src="url('/miro-reports/images/miro-logo.jpg')" content-height="35px"  content-width="75px"/>
-				</fo:block>
-			</fo:static-content>
-			<fo:static-content flow-name="xsl-region-after" >
-				<fo:block text-align="center" font-size="11pt" line-height="13pt" space-after="11pt" font-family="Arial" border-top-width="0.25mm" border-top-style="solid" >
-					<fo:page-number />
-					<fo:block font-size="10pt" line-height="13pt" >
-			&#169; MiRo Psychometrics Ltd 2012
-		</fo:block>
-					
-				</fo:block>
-			</fo:static-content>
-			<fo:flow flow-name="xsl-region-body">
-				<fo:block>
-					<xsl:apply-templates />
-				</fo:block>
-			</fo:flow>
-		</fo:page-sequence>
+            <fo:static-content flow-name="xsl-region-before">
+                <fo:block border-bottom-width="0.25mm" border-bottom-style="solid">
+                    <fo:external-graphic src="url('/miro-reports/images/miroteamreport/header_logo.png')" content-height="35px"  content-width="450px"/>
+                </fo:block>
+            </fo:static-content>
+            <fo:static-content flow-name="xsl-region-after" >
+                <fo:block  text-align="center" font-size="10pt" line-height="12pt" space-after="10pt" font-family="Arial" border-top-width="0.25mm" border-top-style="solid" >
+                    Page <fo:page-number /> of 99
+                    <fo:block font-size="9pt" line-height="12pt" >
+                        &#169; MiRo Psychometrics Ltd 2012
+                    </fo:block>
+                </fo:block>
+            </fo:static-content>
+            <fo:flow flow-name="xsl-region-body">
+                <fo:block>
+                    <xsl:apply-templates />
+                </fo:block>
+            </fo:flow>
+        </fo:page-sequence>
 
 
-	</xsl:template>
-
+    </xsl:template>
 
 
 

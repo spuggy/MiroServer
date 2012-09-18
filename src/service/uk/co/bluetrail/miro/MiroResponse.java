@@ -529,7 +529,11 @@ public class MiroResponse  {
 		
 		//page0 
 		pages.add(MiroPage.create("U1"));
-		//page1
+
+        pages.add(MiroPage.create("TOC"));
+
+
+        //page1
 		pages.add(MiroPage.create("U2"));
 //		page2
 		pages.add(MiroPage.create("U3"));

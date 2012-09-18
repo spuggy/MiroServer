@@ -81,15 +81,14 @@ public class MiroReportPDFGenerator {
                 // Construct fop with desired output format
                 Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
                       
-               
-                
-                
+
                 // Setup XSLT
                 TransformerFactory factory = TransformerFactory.newInstance();
                 Transformer transformer = factory.newTransformer(new StreamSource(xsltfile));
                 
                 // Set the value of a <param> in the stylesheet
                 transformer.setParameter("versionParam", "2.0");
+
             
                 // Setup input for XSLT transformation
                 Source src = new StreamSource(xmlfile);
