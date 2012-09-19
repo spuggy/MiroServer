@@ -51,7 +51,7 @@ public class MiroXSLFileGenerator {
             if(strLine.indexOf(s)==-1) {
                 //ignore
             } else {
-              return strings.get(s);   //returns here assumes on one per line
+              return strLine.replaceAll(s,strings.get(s));   //returns here assumes on one per line
             }
         }
 

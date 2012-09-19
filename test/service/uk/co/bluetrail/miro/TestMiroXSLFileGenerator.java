@@ -22,7 +22,7 @@ public class TestMiroXSLFileGenerator extends TestCase {
         HashMap<String,String> strings =  new HashMap<String,String>();
 
         strings.put("#PAGECOUNT","10");
-        strings.put("#MONTH","April 2012");
+        strings.put("#DATEOFREPORT","April 2012");
 
 
 		try {
