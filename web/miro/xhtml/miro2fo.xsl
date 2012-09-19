@@ -138,13 +138,10 @@
                     <fo:external-graphic src="url('/miro-reports/images/miroteamreport/header_logo.png')" content-height="35px"  content-width="450px"/>
                 </fo:block>
             </fo:static-content>
-            <fo:static-content flow-name="xsl-region-after" >
-                <fo:block  text-align="center" font-size="10pt" line-height="12pt" space-after="10pt" font-family="Arial" border-top-width="0.25mm" border-top-style="solid" >
-                    Page <fo:page-number /> of 99
-                    <fo:block font-size="9pt" line-height="12pt" >
-                        &#169; MiRo Psychometrics Ltd 2012
-                    </fo:block>
-                </fo:block>
+            <fo:static-content flow-name="xsl-region-after" font-family="Helvetica" font-size="8pt">
+
+                    <xsl:call-template name="footer1"/>
+
             </fo:static-content>
             <fo:flow flow-name="xsl-region-body">
                 <fo:block>
@@ -156,6 +153,17 @@
 
     </xsl:template>
 
+    <xsl:template name="footer1">
+    <fo:block text-align="center"  line-height="12pt" space-before="10pt" space-after="10pt"  border-top-width="0.25mm" border-top-style="solid" >
+        <fo:block  line-height="12pt" space-before="10pt" >
+            Page <fo:page-number /> of #PAGENUMBER  xxx
+        </fo:block>
+        <fo:block  line-height="12pt" >
+            &#169; MiRo Psychometrics Ltd 2012  - Capita-MiRo Confidential #DATEOFREPORT    xxxxxx
+        </fo:block>
+
+    </fo:block>
+    </xsl:template>
 
 
 
@@ -219,7 +227,7 @@
 				<fo:block>&#x2022;</fo:block>
 			</fo:list-item-label>
 			<fo:list-item-body start-indent="body-start()">
-				<fo:block font-size="11pt" font-family="Arial" line-height="13pt" space-after="11pt">
+				<fo:block font-size="11pt" font-family="Helvetica" line-height="13pt" space-after="11pt">
 					<xsl:apply-templates select="*|text()" />
 				</fo:block>
 			</fo:list-item-body>
@@ -230,7 +238,7 @@
 	<xsl:template match="h1">
 
 		<fo:block font-size="28pt" line-height="32pt" font-weight="bold"
-			keep-with-next="always" space-after="22pt" font-family="Arial">
+			keep-with-next="always" space-after="22pt" font-family="Helvetica">
 			<xsl:attribute name="id">
 				<xsl:choose>
 					<xsl:when test="@id">
@@ -258,7 +266,7 @@
 
 	<xsl:template match="h2">
 		<fo:block font-size="24pt" line-height="28pt" font-weight="bold"
-			keep-with-next="always" space-after="18pt" font-family="Arial">
+			keep-with-next="always" space-after="18pt" font-family="Helvetica">
 			<xsl:attribute name="id">
 				<xsl:choose>
 					<xsl:when test="@id">
@@ -279,7 +287,7 @@
 
 	<xsl:template match="h3">
 		<fo:block font-size="14pt" line-height="18pt" font-weight="bold"
-			keep-with-next="always" space-after="7pt" font-family="Arial">
+			keep-with-next="always" space-after="7pt" font-family="Helvetica">
 			<xsl:attribute name="id">
 				<xsl:choose>
 					<xsl:when test="@id">
@@ -302,7 +310,7 @@
 
 	<xsl:template match="h4">
 		<fo:block font-size="12pt" line-height="14pt" font-weight="bold"
-			keep-with-next="always" space-after="6pt" font-family="Arial">
+			keep-with-next="always" space-after="6pt" font-family="Helvetica">
 			<xsl:attribute name="id">
 				<xsl:choose>
 					<xsl:when test="@id">
@@ -324,7 +332,7 @@
 
 	<xsl:template match="h5">
 		<fo:block font-size="12pt" line-height="19pt"
-			keep-with-next="always" space-after="12pt" font-family="Arial"
+			keep-with-next="always" space-after="12pt" font-family="Helvetica"
 			text-decoration="underline">
 			<xsl:attribute name="id">
 				<xsl:choose>
@@ -347,7 +355,7 @@
 
 	<xsl:template match="h6">
 		<fo:block font-size="11pt" line-height="17pt"
-			keep-with-next="always" space-after="12pt" font-family="Arial"
+			keep-with-next="always" space-after="12pt" font-family="Helvetica"
 			font-style="italic" text-decoration="underline">
 			<xsl:attribute name="id">
 				<xsl:choose>
