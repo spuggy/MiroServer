@@ -17,22 +17,22 @@ public class TestMiroXSLFileGenerator extends TestCase {
 	
 	public void testGenerate() {
 		
-		String filename = "testreplace.xsl";
+		String filename = "testmiro2fo.xsl";
 
         HashMap<String,String> strings =  new HashMap<String,String>();
 
-        strings.put("#FOOTER","<footer>");
-        strings.put("#HEADER","<header>");
+        strings.put("#PAGECOUNT","10");
+        strings.put("#MONTH","April 2012");
 
 
 		try {
-            MiroXSLFileGenerator.generate(this.baseDir, filename, strings);
+            MiroXSLFileGenerator.generate(this.baseDir, filename, "replace_report", strings);
 
         } catch(Exception e) {
 			fail("Exception creating file " + e.getMessage());
 		}
 			
-		String filepath = this.baseDir.getAbsoluteFile() + File.separator + "out" + File.separator+ filename;
+		String filepath = this.baseDir.getAbsoluteFile() + File.separator + "out" + File.separator+ "replace_report.xsl" ;
 
 		File g = new File(filepath);
 		

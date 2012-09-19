@@ -5,10 +5,7 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -142,13 +139,32 @@ public class MiroReport {
 		log.debug("Before XMLReportFile " + mr.toString());
 		this.generateXMLReportFile();   
 		log.debug("Before PDF " + mr.toString());
+        this.generateXSLReportFile(mr.getMiroReportName());
 		MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr.getMiroReportName());
 		
 		
 
 	}
 
-	private void setupMr(MiroResponse mr) {
+    private void generateXSLReportFile(String reportName) throws Exception{
+
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+
+        String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
+
+        HashMap<String,String> strings = new HashMap<String, String>();
+        strings.put("#PAGECOUNT","6");
+        strings.put("#REPORTDATE",months[month] + " " + year);
+
+        MiroXSLFileGenerator.generate(this.baseDirectory,"testmiro2fo.xsl",reportName,strings);
+
+    }
+
+    private void setupMr(MiroResponse mr) {
 		this.mr = mr;
 		this.mr.setEngagedScore(this.engagedScore);
 		this.mr.setExcessScore(this.excessScore);

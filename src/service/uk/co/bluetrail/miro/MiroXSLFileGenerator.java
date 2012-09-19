@@ -15,10 +15,10 @@ public class MiroXSLFileGenerator {
 
 
 
-    public static void generate(File baseDir, String input, HashMap<String,String> strings ) throws IOException {
+    public static void generate(File baseDir, String input, String reportName, HashMap<String,String> strings ) throws IOException {
 
         String inputFileName =  baseDir.getAbsoluteFile() + File.separator + "xhtml" + File.separator+ input;
-        String outputFileName =  baseDir.getAbsoluteFile() + File.separator + "out" + File.separator+ input;
+        String outputFileName =  baseDir.getAbsoluteFile() + File.separator + "out" + File.separator+ reportName + ".xsl";
 
 
         FileInputStream fstream = new FileInputStream(inputFileName);
