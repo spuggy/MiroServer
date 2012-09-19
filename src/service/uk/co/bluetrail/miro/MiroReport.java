@@ -157,10 +157,10 @@ public class MiroReport {
         String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
 
         HashMap<String,String> strings = new HashMap<String, String>();
-        strings.put("#PAGECOUNT","6");
-        strings.put("#REPORTDATE",months[month] + " " + year);
+        strings.put("#PAGENUMBER","13");
+        strings.put("#DATEOFREPORT",months[month] + " " + year);
 
-        MiroXSLFileGenerator.generate(this.baseDirectory,"testmiro2fo.xsl",reportName,strings);
+        MiroXSLFileGenerator.generate(this.baseDirectory,"miro2fo.xsl",reportName,strings);
 
     }
 

@@ -135,7 +135,7 @@
 
             <fo:static-content flow-name="xsl-region-before">
                 <fo:block border-bottom-width="0.25mm" border-bottom-style="solid">
-                    <fo:external-graphic src="url('/miro-reports/images/miroteamreport/header_logo.png')" content-height="35px"  content-width="450px"/>
+                    <fo:external-graphic src="url('/miro-reports/images/header_logo.png')" content-height="35px"  content-width="450px"/>
                 </fo:block>
             </fo:static-content>
             <fo:static-content flow-name="xsl-region-after" font-family="Helvetica" font-size="8pt">
@@ -156,13 +156,23 @@
     <xsl:template name="footer1">
     <fo:block text-align="center"  line-height="12pt" space-before="10pt" space-after="10pt"  border-top-width="0.25mm" border-top-style="solid" >
         <fo:block  line-height="12pt" space-before="10pt" >
-            Page <fo:page-number /> of #PAGENUMBER  xxx
+            Page <fo:page-number /> of #PAGENUMBER
         </fo:block>
         <fo:block  line-height="12pt" >
-            &#169; MiRo Psychometrics Ltd 2012  - Capita-MiRo Confidential #DATEOFREPORT    xxxxxx
+            &#169; MiRo Psychometrics Ltd 2012
+        </fo:block>
+        <fo:block  line-height="12pt" >
+            Capita-MiRo Confidential #DATEOFREPORT
         </fo:block>
 
+
     </fo:block>
+    </xsl:template>
+
+    <xsl:template match="box">
+        <fo:block border-width="1mm" border-style="solid" padding="3mm" margin-right="15mm">
+            <xsl:apply-templates select="*|text()" />
+        </fo:block>
     </xsl:template>
 
 

@@ -53,7 +53,14 @@ public class MiroReportPDFGenerator {
      
             // Setup input and output files            
             File xmlfile = new File(baseDir, "out/" + miroReportName+".xhtml");
-            File xsltfile = new File(baseDir, "xhtml/" + xslFileName );
+            File xsltfile = new File(baseDir, "out/" + miroReportName+".xsl");
+
+            if(!xsltfile.exists())                {
+              log.debug("Cannot find user xslt file for using global");
+              xsltfile = new File(baseDir, "xhtml/" + xslFileName );
+            }
+
+
             File pdffile = new File(baseDir, "out/" + miroReportName+".pdf");
 
             log.debug("Input: XML (" + xmlfile + ")");
