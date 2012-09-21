@@ -54,19 +54,19 @@ public class BatchProcessController implements Controller {
 	 private final Log log = LogFactory.getLog(BatchProcessController.class);
 	
 	 
-	 private int miroDocLimit;
+	 protected int miroDocLimit;
 	 
 	 
-	 private SurveyManager surveyManager = null;
-	 private SurveyResponseManager surveyResponseManager = null;
-	 private MiroProjectManager miroProjectManager = null;
-	 private MobrizAlertManager mobrizAlertManager = null;
-	 private UserManager userManager = null;
-	 private MailEngine mailEngine = null;
-	 private String fromEmail ;
-	 private MiroResponseManager miroResponseManager ;
-	 private String reportCreatedTemplateName ;
-	 private MiroTeamReportManager miroTeamReportManager =null;
+	 protected SurveyManager surveyManager = null;
+	 protected SurveyResponseManager surveyResponseManager = null;
+	 protected MiroProjectManager miroProjectManager = null;
+	 protected MobrizAlertManager mobrizAlertManager = null;
+	 protected UserManager userManager = null;
+	 protected MailEngine mailEngine = null;
+	 protected String fromEmail ;
+	 protected MiroResponseManager miroResponseManager ;
+	 protected String reportCreatedTemplateName ;
+	 protected MiroTeamReportManager miroTeamReportManager =null;
    
      
 	 /**

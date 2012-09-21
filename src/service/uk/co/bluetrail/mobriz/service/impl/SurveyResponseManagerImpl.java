@@ -74,12 +74,12 @@ public class SurveyResponseManagerImpl extends BaseManager implements
 
 	public List getUnstampedPhotoResponses(Survey survey) {
 		return dao.getSurveyResponsesGreaterThanId(survey, survey
-				.getLastPhotoStampResponse_id());
+				.getLastPhotoStampResponse_id(),100);
 	}
 
 	public List getUnZippedResponses(Survey survey) {
 		return dao.getSurveyResponsesGreaterThanId(survey, survey
-				.getLastZipResponse_id());
+				.getLastZipResponse_id(),100);
 
 	}
 
@@ -147,5 +147,7 @@ public class SurveyResponseManagerImpl extends BaseManager implements
 	
 		
 	}
+
+
 
 }

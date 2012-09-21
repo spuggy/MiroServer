@@ -47,7 +47,7 @@ public interface SurveyResponseDAO extends Dao {
 	
 	public List getSurveyResponsesByExample(final SurveyResponse surveyResponse) ;
 
-	public List getSurveyResponsesGreaterThanId(Survey survey, Long lastPhotoStampResponse_id);
+	public List getSurveyResponsesGreaterThanId(Survey survey, Long lastPhotoStampResponse_id,final int Limit);
 
 	public List getSurveyResponsesByExample(final SurveyResponse surveyResponse, final int Limit) ;
 	    

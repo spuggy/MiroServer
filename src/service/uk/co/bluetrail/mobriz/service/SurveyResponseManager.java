@@ -58,6 +58,8 @@ public interface SurveyResponseManager extends Manager {
 
 	public List getUnprocessedResponses(Survey survey, int alertDocLimit);
 	public List getSurveyResponses(Survey survey, User currentUser);
+
+
 	
 }
 

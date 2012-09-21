@@ -4,11 +4,8 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.text.DateFormat;
+import java.util.*;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -181,7 +178,78 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		this.userManager = userManager;
 	}
 
-	public List getUnprocessedMiroResponses(int miroDocLimit) {
+
+    public List getSurveyResponsesGreaterThanId(Long last_id,int limit) {
+
+        this.setup();
+
+         return this.surveyResponseDAO.getSurveyResponsesGreaterThanId(survey,last_id,limit);
+
+    }
+
+    public String getRawResults(SurveyResponse sr, MiroResponse mr,String baseDirectory) throws Exception {
+
+
+        MiroReport miroReport = getMiroReport(baseDirectory);
+
+        this.setup();
+
+        mr.init(survey,sr, this.miroLetters,this.testOffset);
+
+        User candidate  = sr.getUser();
+
+        MiroProject miroProject = miroProjectManager.getMiroProject(candidate.getProject_id().toString());
+
+        User practitioner = userManager.getUser(miroProject.getCreatedBy_id().toString());
+
+        populateMiroResponse(mr,practitioner,candidate) ;
+
+
+        mr.setMiroProject(miroProject);
+
+
+
+        StringBuffer sb = new StringBuffer();
+
+        DateFormat df =  DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
+
+        sb.append(sr.getId()); sb.append(",");
+        appendString(sb,candidate.getFirstName());
+        appendString(sb,candidate.getLastName());
+        sb.append(df.format(sr.getUpdated_at())); sb.append(",");
+        sb.append(miroProject.getId()); sb.append(",");
+        appendString(sb,miroProject.getProjectTitle());
+        appendString(sb,practitioner.getFullName());
+
+        int x[] = mr.getResults()  ;
+        String c[] = mr.getResultLetters();
+
+        for(int i = 0 ; i < x.length;i++) {
+               sb.append(c[i]);
+               sb.append(",");
+
+
+        }
+
+        for(int i = 0 ; i < x.length;i++) {
+
+            sb.append(x[i]);
+            sb.append(",");
+
+        }
+
+        return sb.toString();
+    }
+
+    public void appendString(StringBuffer sb, String str) {
+        sb.append("\"");
+        sb.append(str);
+        sb.append("\"");
+        sb.append(",");
+    }
+
+
+    public List getUnprocessedMiroResponses(int miroDocLimit) {
 		
 		this.setup();
 		
@@ -193,7 +261,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 	}
 
 	/**
-	 * @param surveyReponseDAO the surveyReponseDAO to set
+	 * @param surveyResponseDAO the surveyReponseDAO to set
 	 */
 	public void setSurveyReponseDAO(SurveyResponseDAO surveyResponseDAO) {
 		
@@ -241,7 +309,8 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		miroReport.generatePieChart(mr,"",plain);
 		
 	}
-	
+
+
 	
 	
 	public boolean createPDF(SurveyResponse sr, MiroResponse mr,String baseDirectory) throws Exception {
@@ -266,7 +335,6 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 		mr.setMiroProject(miroProject);  
 
 		miroReport.generateReport(mr);
-
 
 		sr.setAlertsProcessed(true);
 

@@ -22,5 +22,8 @@ public interface MiroResponseManager extends Manager{
 	public List getTeamMap(String baseDir, Collection userList) ;
 	public Setting getMiroLetters();
 	public void createPie(MiroResponse miroResponse, String filePath,boolean plain);
-	
+    public List getSurveyResponsesGreaterThanId(Long last_id,int limit) ;
+    public String getRawResults(SurveyResponse sr, MiroResponse mr,String baseDirectory) throws Exception;
+
+    
 }

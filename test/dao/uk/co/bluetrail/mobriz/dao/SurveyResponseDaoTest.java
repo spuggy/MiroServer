@@ -44,7 +44,7 @@ public class SurveyResponseDaoTest extends BaseDaoTestCase {
     	Survey s = new Survey();
     	s.setId(new Long(20));
     	
-    	List srs = dao.getSurveyResponsesGreaterThanId(s, new Long(10));
+    	List srs = dao.getSurveyResponsesGreaterThanId(s, new Long(10),99);
     	
     	assertNotNull(srs);
     	assertTrue(srs.size() > 0);

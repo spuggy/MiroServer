@@ -179,9 +179,18 @@
     	
     	
     </bean>
-    
-   
-   
+
+    <bean id="reportProcessController" class="uk.co.bluetrail.mobriz.webapp.action.ReportProcessController" autowire="byName">
+        <property name="miroDocLimit" value="300"/>
+        <property name="fromEmail" value="noreply@miro-assessment.com"/>
+        <property name="reportCreatedTemplateName" value="reportCreated.vm"/>
+
+
+    </bean>
+
+
+
+
     <bean id="miroSurveyController" class="uk.co.bluetrail.mobriz.webapp.action.MiroSurveyController" autowire="byName"/>
  
         
@@ -317,7 +326,9 @@
    				<prop key="/sms.html">smsFormController</prop>
    				<prop key="/surveyPhotos.html">responsesPhotoController</prop>
    				<prop key="/batchProcess.html">batchProcessController</prop>
-   				<prop key="/lookupDefs.html">lookupDefController</prop>
+                <prop key="/reportProcess.html">reportProcessController</prop>
+
+                <prop key="/lookupDefs.html">lookupDefController</prop>
    				<prop key="/editLookupDef.html">lookupDefFormController</prop>
    				<prop key="/lookupItemsUpload.html">lookupItemsUploadFormController</prop>
    				<prop key="/editLookupDefItem.html">lookupDefItemFormController</prop>
