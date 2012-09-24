@@ -174,7 +174,7 @@ public class MiroReport {
 
 	private void generateChart() {
 		
-		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",false)  ;
+		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",true)  ;
 		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
 		
 	}

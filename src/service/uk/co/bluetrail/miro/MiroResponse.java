@@ -528,7 +528,7 @@ public class MiroResponse  {
 		List<MiroPage> pages = new ArrayList<MiroPage>();
 		
 		//page0 
-		pages.add(MiroPage.create("U1"));
+        pages.add(MiroPage.create("homepage"));
 
         pages.add(MiroPage.create("TOC"));
 
