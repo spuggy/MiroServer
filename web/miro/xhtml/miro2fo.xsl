@@ -135,7 +135,7 @@
 
             <fo:static-content flow-name="xsl-region-before">
                 <fo:block border-bottom-width="0.25mm" border-bottom-style="solid">
-                    <fo:external-graphic src="url('/miro-reports/images/header_logo.png')" content-height="35px"  content-width="450px"/>
+                    <fo:external-graphic src="url('/miro-reports/images/header-logo-03.png')" content-height="35px"  content-width="450px"/>
                 </fo:block>
             </fo:static-content>
             <fo:static-content flow-name="xsl-region-after" font-family="Helvetica" font-size="8pt">
