@@ -132,20 +132,16 @@
 	<xsl:template match="/html/body/div[@id &gt; '0' ]">
 		<fo:page-sequence  master-reference="A4"  >
 
-			    <fo:static-content flow-name="xsl-region-before">
-								<fo:block border-bottom-width="0.25mm" border-bottom-style="solid">
-						<fo:external-graphic src="url('/miro-reports/images/miroteamreport/header_logo.png')" content-height="35px"  content-width="450px"/>
-				</fo:block>
-			</fo:static-content>
-			<fo:static-content flow-name="xsl-region-after" >
-				<fo:block text-align="center" font-size="10pt" line-height="12pt" space-after="10pt" font-family="Arial" border-top-width="0.25mm" border-top-style="solid" >
-					<fo:page-number />
-					<fo:block font-size="9pt" line-height="12pt" >
-			&#169; MiRo Psychometrics Ltd 2012
-		</fo:block>
-					
-				</fo:block>
-			</fo:static-content>
+            <fo:static-content flow-name="xsl-region-before">
+                <fo:block border-bottom-width="0.25mm" border-bottom-style="solid">
+                    <fo:external-graphic src="url('/miro-reports/images/header-logo-04.png')" content-height="35px"  content-width="650px"/>
+                </fo:block>
+            </fo:static-content>
+            <fo:static-content flow-name="xsl-region-after" font-family="Helvetica" font-size="8pt">
+
+                <xsl:call-template name="footer1"/>
+
+            </fo:static-content>
 			<fo:flow flow-name="xsl-region-body">
 				<fo:block>
 					<xsl:apply-templates />
@@ -155,6 +151,22 @@
 
 
 	</xsl:template>
+
+    <xsl:template name="footer1">
+        <fo:block text-align="center"  line-height="12pt" space-before="10pt" space-after="10pt"  border-top-width="0.25mm" border-top-style="solid" >
+            <fo:block  line-height="12pt" space-before="10pt" >
+                Page <fo:page-number /> of #PAGENUMBER
+            </fo:block>
+            <fo:block  line-height="12pt" >
+                &#169; MiRo Psychometrics Ltd 2012
+            </fo:block>
+            <fo:block  line-height="12pt" >
+                Capita-MiRo Confidential #DATEOFREPORT
+            </fo:block>
+
+
+        </fo:block>
+    </xsl:template>
 
 
 	<xsl:template match="banner">

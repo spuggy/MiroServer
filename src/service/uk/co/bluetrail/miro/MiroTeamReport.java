@@ -326,7 +326,7 @@ public class MiroTeamReport {
 		
 		
 		if(miroReportFileGenerator==null){
-			miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miroteamreportsource03.xhtml",this.miroTeam.getMiroTeamNameFileName("_dynamic.xhtml"));
+			miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miroteamreportsource.xhtml",this.miroTeam.getMiroTeamNameFileName("_dynamic.xhtml"));
 		}
 		miroReportFileGenerator.generate(pages, variables, imgNames);
 		
