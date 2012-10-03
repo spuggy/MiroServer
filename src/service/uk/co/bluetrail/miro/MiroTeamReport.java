@@ -3,15 +3,7 @@ package uk.co.bluetrail.miro;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -32,7 +24,11 @@ import org.apache.commons.collections.map.LinkedMap;
 
 public class MiroTeamReport {
 
-	private final Log log = LogFactory.getLog(MiroTeamReport.class);
+    private int BASEPAGECOUNT = 8;  // the number of pages with no pie chart pages;
+    private int PIESPERPAGE = 3;  // the number of pages with no pie chart pages;
+
+
+    private final Log log = LogFactory.getLog(MiroTeamReport.class);
 	private MiroTeam miroTeam;
 	private File baseDirectory;
 	private Setting miroLetters;
@@ -114,6 +110,38 @@ public class MiroTeamReport {
 		
 		
 	}
+
+    private int getPiePageCount() {
+
+        List members =  getTeamResults() ;
+
+        int size = members.size();
+
+        return (int)Math.floor(size/this.PIESPERPAGE) + (size%this.PIESPERPAGE) ;
+
+
+
+    }
+
+    private void generateXSLReportFile(String reportName) throws Exception{
+
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+
+        String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
+
+        HashMap<String,String> strings = new HashMap<String, String>();
+
+
+        strings.put("#PAGENUMBER",getPiePageCount()+ this.BASEPAGECOUNT+"");
+        strings.put("#DATEOFREPORT",months[month] + " " + year);
+
+        MiroXSLFileGenerator.generate(this.baseDirectory,"miro2fo.xsl",reportName,strings);
+
+    }
 	
 	public void generateReport(MiroTeam miroTeam) throws Exception {
 		this.miroTeam = miroTeam;
@@ -131,8 +159,10 @@ public class MiroTeamReport {
 		//this.generateTeamResultsGraphic();
 		this.generateDynamicContent();
 		this.generateTeamSpiderWebChart();
-		this.generateXMLReportFile();   
-		MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""),"miro2fo-team.xsl");
+		this.generateXMLReportFile();
+        this.generateXSLReportFile(this.miroTeam.getMiroTeamNameFileName(""));
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
+	//	MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""),"miro2fo-team.xsl");
 		//rem out .docx generation for now.
 		//MiroReportDocxGenerator.generateDocx(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
 	}
@@ -281,8 +311,19 @@ public class MiroTeamReport {
 		
 		variables.put("team_report_name" , miroTeam.getMiroTeamName());
 		variables.put("reportFileName" , miroTeam.getMiroTeamNameFileName(""));
-		
-		
+
+
+        int piePages = getPiePageCount();
+
+        variables.put("toc1" , 3+piePages+"");
+        variables.put("toc2" , 4+piePages+"");
+        variables.put("toc3" , 5+piePages+"");
+        variables.put("toc4" , 6+piePages+"");
+        variables.put("toc5" , 8+piePages+"");
+
+
+
+
 		System.out.println(variables.get("commentary"));
 		
 
@@ -346,6 +387,8 @@ public class MiroTeamReport {
 		//add home page 
 		pages.add(MiroPage.create("homepage"));
 		//add intro text
+
+        pages.add(MiroPage.create("TOC"));
 		pages.add(MiroPage.create("intro_text_page"));
 		
 		
