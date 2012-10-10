@@ -1,31 +1,19 @@
 package uk.co.bluetrail.mobriz.service.impl;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.Serializable;
-import java.text.DateFormat;
-import java.util.*;
-
-import org.springframework.web.servlet.ModelAndView;
-
 import uk.co.bluetrail.miro.MiroReport;
 import uk.co.bluetrail.miro.MiroResponse;
 import uk.co.bluetrail.miro.MiroTeamPieChart;
-import uk.co.bluetrail.mobriz.dao.Dao;
 import uk.co.bluetrail.mobriz.dao.SurveyResponseDAO;
-import uk.co.bluetrail.mobriz.model.MiroProject;
-import uk.co.bluetrail.mobriz.model.Setting;
-import uk.co.bluetrail.mobriz.model.Survey;
-import uk.co.bluetrail.mobriz.model.SurveyResponse;
-import uk.co.bluetrail.mobriz.model.User;
-import uk.co.bluetrail.mobriz.service.MiroProjectManager;
-import uk.co.bluetrail.mobriz.service.MiroResponseManager;
-import uk.co.bluetrail.mobriz.service.SettingManager;
-import uk.co.bluetrail.mobriz.service.SurveyManager;
-import uk.co.bluetrail.mobriz.service.UserExistsException;
-import uk.co.bluetrail.mobriz.service.UserManager;
+import uk.co.bluetrail.mobriz.model.*;
+import uk.co.bluetrail.mobriz.service.*;
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.text.DateFormat;
+import java.util.*;
+import java.util.List;
 
 public class MiroResponseManagerImpl extends BaseManager implements MiroResponseManager {
 
@@ -306,8 +294,8 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
 		MiroReport miroReport = getMiroReport(baseDirectory); 
 			
-		miroReport.generatePieChart(mr,"",plain);
-		
+		miroReport.generatePieChart(mr,"",true, true);
+
 	}
 
 

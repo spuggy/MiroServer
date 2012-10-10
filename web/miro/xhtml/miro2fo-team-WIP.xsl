@@ -127,10 +127,10 @@
 			</fo:flow>
 		</fo:page-sequence>
 	</xsl:template>
-
-
-    <xsl:template match="/html/body/div[@id &gt; '0' ]">
-        <fo:page-sequence  master-reference="A4"  >
+	
+		
+	<xsl:template match="/html/body/div[@id &gt; '0' ]">
+		<fo:page-sequence  master-reference="A4"  >
 
             <fo:static-content flow-name="xsl-region-before">
                 <fo:block border-bottom-width="0.25mm" border-bottom-style="solid">
@@ -142,15 +142,15 @@
                 <xsl:call-template name="footer1"/>
 
             </fo:static-content>
-            <fo:flow flow-name="xsl-region-body">
-                <fo:block>
-                    <xsl:apply-templates />
-                </fo:block>
-            </fo:flow>
-        </fo:page-sequence>
+			<fo:flow flow-name="xsl-region-body">
+				<fo:block>
+					<xsl:apply-templates />
+				</fo:block>
+			</fo:flow>
+		</fo:page-sequence>
 
 
-    </xsl:template>
+	</xsl:template>
 
     <xsl:template name="footer1">
         <fo:block text-align="center"  line-height="12pt" space-before="10pt" space-after="10pt"  border-top-width="0.25mm" border-top-style="solid" >
@@ -270,7 +270,7 @@
 	<xsl:template match="h1">
 
 		<fo:block font-size="28pt" line-height="32pt" font-weight="bold"
-			keep-with-next="always" space-after="22pt" font-family="Helvetica">
+			keep-with-next="always" space-after="22pt" font-family="Arial">
 			<xsl:attribute name="id">
 				<xsl:choose>
 					<xsl:when test="@id">
@@ -364,7 +364,7 @@
 
 	<xsl:template match="h5">
 		<fo:block font-size="12pt" line-height="19pt"
-			keep-with-next="always" space-after="12pt" font-family="Helvetica"
+			keep-with-next="always" space-after="12pt" font-family="Arial"
 			text-decoration="underline">
 			<xsl:attribute name="id">
 				<xsl:choose>
@@ -387,7 +387,7 @@
 
 	<xsl:template match="h6">
 		<fo:block font-size="11pt" line-height="17pt"
-			keep-with-next="always" space-after="12pt" font-family="Helvetica"
+			keep-with-next="always" space-after="12pt" font-family="Arial"
 			font-style="italic" text-decoration="underline">
 			<xsl:attribute name="id">
 				<xsl:choose>

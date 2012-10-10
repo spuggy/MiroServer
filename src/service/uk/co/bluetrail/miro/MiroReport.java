@@ -1,22 +1,20 @@
 package uk.co.bluetrail.miro;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jfree.chart.title.TextTitle;
 import org.xml.sax.SAXException;
-
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 
 
@@ -174,20 +172,20 @@ public class MiroReport {
 
 	private void generateChart() {
 		
-		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",true)  ;
+		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",false, true)  ;
 		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
 		
 	}
 	
-	public void generatePieChart(MiroResponse mr, String title, boolean plain) {
+	public void generatePieChart(MiroResponse mr, String title, boolean hideLegend, boolean hideTitle) {
 		
 		this.mr = mr;
 	
-		MiroPieChartGenerator pieChart = this.getMiroPieChart(title,plain)  ;
+		MiroPieChartGenerator pieChart = this.getMiroPieChart(title, hideLegend,  hideTitle);
 		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
 	}
 
-	private MiroPieChartGenerator getMiroPieChart(String pieTitle, boolean plain) {
+	private MiroPieChartGenerator getMiroPieChart(String pieTitle, boolean hideLegend, boolean hideTitle) {
 		
 		int resultsLen = mr.getResults().length;
 		String[] pieLabels1 = new String[resultsLen];
@@ -230,7 +228,7 @@ public class MiroReport {
 		}
 		
 		
-		return new MiroPieChartGenerator(pieTitle, mr.getResults(this.miroGraphAdjustment),pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,plain,plain);
+		return new MiroPieChartGenerator(pieTitle, mr.getResults(this.miroGraphAdjustment),pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors, hideLegend, hideTitle );
 		
 		
 		
@@ -343,7 +341,7 @@ public class MiroReport {
 		setupMr(mr);
 		
 		
-		MiroPieChartGenerator pieChart = this.getMiroPieChart(title,false)  ;
+		MiroPieChartGenerator pieChart = this.getMiroPieChart(title,false,false)  ;
 		Font defFont = TextTitle.DEFAULT_FONT;
 		Font smallFont = new Font(defFont.getName(),defFont.getStyle(),10);
 				

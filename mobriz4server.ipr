@@ -382,6 +382,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/../DbExport-Maven/pom.xml" />
+        <option value="$PROJECT_DIR$/../MiroAppFuse/pom.xml" />
       </list>
     </option>
   </component>
@@ -509,6 +510,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../DbExport-Maven/DbExport-Maven.iml" filepath="$PROJECT_DIR$/../DbExport-Maven/DbExport-Maven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../MiroAppFuse/MiroAppFuse.iml" filepath="$PROJECT_DIR$/../MiroAppFuse/MiroAppFuse.iml" />
       <module fileurl="file://$PROJECT_DIR$/../MiroDbExport/MiroDbExport.iml" filepath="$PROJECT_DIR$/../MiroDbExport/MiroDbExport.iml" />
       <module fileurl="file://$PROJECT_DIR$/mobriz4server.iml" filepath="$PROJECT_DIR$/mobriz4server.iml" />
     </modules>

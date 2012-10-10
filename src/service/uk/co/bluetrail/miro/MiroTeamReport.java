@@ -1,30 +1,26 @@
 package uk.co.bluetrail.miro;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import org.apache.commons.collections.map.LinkedMap;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.xml.sax.SAXException;
+import uk.co.bluetrail.mobriz.Constants;
+import uk.co.bluetrail.mobriz.model.MiroTeam;
+import uk.co.bluetrail.mobriz.model.Setting;
+import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.xml.sax.SAXException;
-
-import uk.co.bluetrail.mobriz.Constants;
-import uk.co.bluetrail.mobriz.model.MiroTeam;
-import uk.co.bluetrail.mobriz.model.Setting;
-import uk.co.bluetrail.mobriz.model.User;
-import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
-
-import org.apache.commons.collections.OrderedMap;
-import org.apache.commons.collections.map.LinkedMap;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 public class MiroTeamReport {
 
-    private int BASEPAGECOUNT = 9;  // the number of pages with no pie chart pages;
+    private int BASEPAGECOUNT = 8;  // the number of pages with no pie chart pages;
     private int PIESPERPAGE = 3;  // the number of pages with no pie chart pages;
 
 
@@ -139,7 +135,7 @@ public class MiroTeamReport {
         strings.put("#PAGENUMBER",getPiePageCount()+ this.BASEPAGECOUNT+"");
         strings.put("#DATEOFREPORT",months[month] + " " + year);
 
-        MiroXSLFileGenerator.generate(this.baseDirectory,"miro2fo.xsl",reportName,strings);
+        MiroXSLFileGenerator.generate(this.baseDirectory,"miro2fo-team.xsl",reportName,strings);
 
     }
 	
@@ -316,10 +312,10 @@ public class MiroTeamReport {
         int piePages = getPiePageCount();
 
         variables.put("toc1" , 3+piePages+"");
-        variables.put("toc2" , 5+piePages+"");
-        variables.put("toc3" , 6+piePages+"");
-        variables.put("toc4" , 7+piePages+"");
-        variables.put("toc5" , 9+piePages+"");
+        variables.put("toc2" , 4+piePages+"");
+        variables.put("toc3" , 5+piePages+"");
+        variables.put("toc4" , 6+piePages+"");
+        variables.put("toc5" , 8+piePages+"");
 
 
 
