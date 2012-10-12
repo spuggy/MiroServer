@@ -2,9 +2,6 @@ package uk.co.bluetrail.mobriz.model;
 
 import java.util.*;
 
-import uk.co.bluetrail.mobriz.Constants;
-import uk.co.bluetrail.mobriz.model.BaseObject;
-
 /**
  * MiroTeam  information 
  *
@@ -137,7 +134,7 @@ public class MiroTeam  extends BaseObject implements SurveyElement  {
 	}
 	
 	public String getMiroTeamNameFileName(String extension) {
-		return stripBadFileNameChars(this.miroTeamName+"_map_") + id + extension;
+		return stripBadFileNameChars(this.miroTeamName+"_report_") + id + extension;
 	}
 
     private String stripBadFileNameChars(String name) {

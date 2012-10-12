@@ -3,7 +3,7 @@
 	<title><fmt:message key="miroTeamMap.title" />
 	</title>
 	<content tag="heading">
-	<fmt:message key="miroTeamPie.heading" />
+    <fmt:message key="miroTeamMap.heading" />
 	</content>
 	<link rel="stylesheet" type="text/css" media="all"
 		href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>" />
