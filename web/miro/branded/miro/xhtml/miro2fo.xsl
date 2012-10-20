@@ -99,7 +99,7 @@
         <fo:root>
             <fo:layout-master-set>
                 <fo:simple-page-master master-name="noheader" page-height="29.7cm" page-width="21.0cm" margin-left="0cm" margin-right="0.0cm">
-                    <fo:region-body  background-image="/miro-reports/images/homepage02.png"/>
+                    <fo:region-body  background-image="/miro-reports/images/miroteamreport/homepage02.png"/>
                 </fo:simple-page-master>
 
                 <fo:simple-page-master master-name="A4" page-height="29.7cm" page-width="21.0cm" margin-left="2cm" margin-right="2cm" margin-top="0.5cm"   margin-bottom="0.1cm">
@@ -122,7 +122,7 @@
     <xsl:template match="/html/body/div[@id = '0' ]">
         <fo:page-sequence master-reference="noheader"  force-page-count="no-force">
             <fo:flow flow-name="xsl-region-body" >
-                <fo:block margin-left="285px" padding-top="150px">
+                <fo:block margin-left="100px" padding-top="690px">
                     <xsl:apply-templates />
                 </fo:block>
             </fo:flow>
@@ -168,7 +168,7 @@
 
 
     <xsl:template match="banner">
-        <fo:block  color="#ffffff" font-size="20pt" line-height="25pt" space-after="10pt" font-weight="bold">
+        <fo:block  color="#000000" font-size="20pt" line-height="25pt" space-after="10pt" font-weight="bold">
             <xsl:apply-templates select="*|text()" />
         </fo:block>
     </xsl:template>

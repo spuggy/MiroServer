@@ -1,27 +1,17 @@
 package uk.co.bluetrail.miro;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-
-import org.xml.sax.SAXException;
-
+import junit.framework.Assert;
+import junit.framework.TestCase;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
 import uk.co.bluetrail.mobriz.model.Setting;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
-import junit.framework.Assert;
-import junit.framework.TestCase;
-import static org.mockito.Mockito.*;
+import java.io.File;
+import java.util.*;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 public class TestMiroTeamReport extends TestCase {

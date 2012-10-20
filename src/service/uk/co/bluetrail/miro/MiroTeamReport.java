@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MiroTeamReport {
 
-    private int BASEPAGECOUNT = 8;  // the number of pages with no pie chart pages;
+    private int BASEPAGECOUNT = 9;  // the number of pages with no pie chart pages;
     private int PIESPERPAGE = 3;  // the number of pages with no pie chart pages;
 
 
@@ -113,7 +113,14 @@ public class MiroTeamReport {
 
         int size = members.size();
 
-        return (int)Math.floor(size/this.PIESPERPAGE) + (size%this.PIESPERPAGE) ;
+        if((size%this.PIESPERPAGE)>0) {
+            return (int)Math.floor(size/this.PIESPERPAGE) + 1 ;
+
+        }   else {
+            return (int)Math.floor(size/this.PIESPERPAGE)  ;
+
+        }
+
 
 
 
@@ -311,11 +318,11 @@ public class MiroTeamReport {
 
         int piePages = getPiePageCount();
 
-        variables.put("toc1" , 3+piePages+"");
-        variables.put("toc2" , 4+piePages+"");
-        variables.put("toc3" , 5+piePages+"");
-        variables.put("toc4" , 6+piePages+"");
-        variables.put("toc5" , 8+piePages+"");
+        variables.put("toc1" , 4+piePages+"");
+        variables.put("toc2" , 5+piePages+"");
+        variables.put("toc3" , 6+piePages+"");
+        variables.put("toc4" , 7+piePages+"");
+        variables.put("toc5" , 9+piePages+"");
 
 
 

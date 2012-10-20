@@ -1,5 +1,4 @@
-miro2fo-team.xsl
-        miro2fo.xsl<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -122,7 +121,7 @@ miro2fo-team.xsl
 	<xsl:template match="/html/body/div[@id = '0' ]">
 		<fo:page-sequence master-reference="noheader"  force-page-count="no-force">
 			<fo:flow flow-name="xsl-region-body" >
-			 	<fo:block margin-left="285px" padding-top="150px">
+			 	<fo:block margin-left="100px" padding-top="690px">
 					<xsl:apply-templates />
 				</fo:block>
 			</fo:flow>
@@ -169,7 +168,7 @@ miro2fo-team.xsl
 
 
 	<xsl:template match="banner">
-		<fo:block  color="#ffffff" font-size="20pt" line-height="25pt" space-after="10pt" font-weight="bold">
+		<fo:block  color="#000000" font-size="20pt" line-height="25pt" space-after="10pt" font-weight="bold">
 			<xsl:apply-templates select="*|text()" />
 		</fo:block>
 	</xsl:template>
