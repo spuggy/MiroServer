@@ -433,7 +433,7 @@ public class MiroTeamReport {
 				imgNames.put(pieKey+mpe.getSuffix(), getPieImage(mr));
 				
 			} else {
-				idKey = idSuffix+resultLetters[1];
+				idKey = idSuffix+resultLetters[0];
 				pieKey = idKey + "_pie_" ;
 				
 				mpe = new MiroPageElement(idKey,mr.getTestId().toString());
