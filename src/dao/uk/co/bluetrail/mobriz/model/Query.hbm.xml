@@ -11,9 +11,37 @@
  		<return alias="survey" class="uk.co.bluetrail.mobriz.model.Survey"/>
 	<![CDATA[
 	    select s.*, count as responseCount from mr.surveys s, mr.responsecount r where s.id = r.id and s.account_id= :account_id]]>
-	</sql-query> 
+	</sql-query>
 
-	
+
+    <sql-query name="findTestCounts">
+
+        <![CDATA[
+	 SELECT (vwtotals.pr_fn::text || ' '::text) || vwtotals.pr_ln::text AS prac_name, sum(vwtotals.num) AS count
+   FROM vwtotals
+  WHERE date_part('month'::text, vwtotals.updated_at) = :month_selected AND
+  date_part('year'::text, vwtotals.updated_at) = :year_selected
+  GROUP BY (vwtotals.pr_fn::text || ' '::text) || vwtotals.pr_ln::text
+  ORDER BY (vwtotals.pr_fn::text || ' '::text) || vwtotals.pr_ln::text
+
+]]>
+
+    </sql-query>
+
+
+    <sql-query name="findTestDetails">
+
+        <![CDATA[
+	 SELECT u.id, vp.projecttitle, vp.prac_first_name AS pracfname, vp.prac_last_name AS prac_lname, u.first_name, u.last_name, u.status, u.created_on, u.updated_at, date_part('month'::text, u.updated_at) AS billing_month, vp.costcode
+   FROM app_user u, vwprojects vp
+  WHERE vp.id = u.project_id AND u.oldreport = false AND
+  date_part('month'::text, u.updated_at) = :month_selected
+  AND date_part('year'::text, u.updated_at) = :year_selected
+  ORDER BY vp.prac_last_name, u.created_on DESC
+]]>
+
+    </sql-query>
+
 
 
 
