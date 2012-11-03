@@ -171,5 +171,17 @@ public class SurveyDAOHibernate extends BaseDaoHibernate implements SurveyDAO {
 		 return getHibernateTemplate().find("from Survey s where s.surveyStatus !='X' and s.visibility != 0  ");
 		
 	}
-	
+
+    public List getSurveyNamedQuery(String queryName,String[] fieldNames, Object[] objects) {
+
+
+
+
+        List  namedQueryResults = getHibernateTemplate().findByNamedQueryAndNamedParam(queryName,  fieldNames, objects);
+
+        return namedQueryResults;
+
+    }
+
+
 }

@@ -14,7 +14,7 @@
 	</sql-query>
 
 
-    <sql-query name="findTestCounts">
+    <sql-query name="findMonthTotals">
 
         <![CDATA[
 	 SELECT (vwtotals.pr_fn::text || ' '::text) || vwtotals.pr_ln::text AS prac_name, sum(vwtotals.num) AS count
@@ -29,7 +29,7 @@
     </sql-query>
 
 
-    <sql-query name="findTestDetails">
+    <sql-query name="findMonthDetails">
 
         <![CDATA[
 	 SELECT u.id, vp.projecttitle, vp.prac_first_name AS pracfname, vp.prac_last_name AS prac_lname, u.first_name, u.last_name, u.status, u.created_on, u.updated_at, date_part('month'::text, u.updated_at) AS billing_month, vp.costcode

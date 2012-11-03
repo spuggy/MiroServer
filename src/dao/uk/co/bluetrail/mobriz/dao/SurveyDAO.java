@@ -1,11 +1,10 @@
 
 package uk.co.bluetrail.mobriz.dao;
 
-import java.util.List;
-
 import uk.co.bluetrail.mobriz.model.Survey;
-import uk.co.bluetrail.mobriz.model.SurveyResponse;
 import uk.co.bluetrail.mobriz.model.User;
+
+import java.util.List;
 
 public interface SurveyDAO extends Dao {
 
@@ -53,6 +52,9 @@ public interface SurveyDAO extends Dao {
 
 	public List getLiveSurveys();
 
-	
+
+    public List getSurveyNamedQuery(String queryName,String[] fieldNames, Object[] objects) ;
+
+
 }
 

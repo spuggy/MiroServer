@@ -220,6 +220,12 @@
     </bean>
 
 
+    <bean id="miroStatsReportManager" class="uk.co.bluetrail.mobriz.service.impl.MiroStatsReportManagerImpl" autowire="byName">
+
+
+    </bean>
+
+
 
 </beans>
 
