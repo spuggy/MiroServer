@@ -3,7 +3,7 @@
 	<title><fmt:message key="miroTeamMap.title" />
 	</title>
 	<content tag="heading">
-    <fmt:message key="miroTeamMap.heading" />
+    <fmt:message key="miroTeamReport.heading" />
 	</content>
 	<link rel="stylesheet" type="text/css" media="all"
 		href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>" />
@@ -23,7 +23,7 @@
 		<div class="message" id="welcommes" >
 			<p><fmt:message key="miroTeamPie.intro" /></p>
 			
-			<p><br/><input type="button" value="New Team Map" onclick="$('teamBuilder').show()"/></p>
+			<p><br/><input type="button" value="New Team Report" onclick="$('teamBuilder').show()"/></p>
 			
 	</div>
 		
@@ -32,7 +32,7 @@
 	
 	<li id="teamBuilder" style="display: none">
 		<form:form commandName="miroProjectSelectorForm" method="post"
-			action="editMiroTeamMap.html" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
+			action="editMiroTeamReport.html" id="miroProjectSelectorForm" onsubmit="return onFormSubmit(this)">
 			
 			<fieldset class="pickList">
 				<legend>
@@ -86,7 +86,7 @@
     id="miroTeamList" pagesize="25" class="table miroTeamList" export="false" decorator="uk.co.bluetrail.mobriz.webapp.util.MiroTeamTableDecorator">
    
     <display:column property="miroTeamName" escapeXml="true" sortable="true"
-         titleKey="miroteam.miroteamname"  url="/editMiroTeamMap.html" paramId="id" paramProperty="id"
+         titleKey="miroteam.miroteamname"  url="/editMiroTeamReport.html" paramId="id" paramProperty="id"
         />
     <display:column property="updated_at"  
          titleKey="surveyForm.updated_at" decorator="uk.co.bluetrail.mobriz.webapp.util.ShortDateDecorator" />

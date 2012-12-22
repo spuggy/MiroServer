@@ -7,7 +7,6 @@
 		<%@ include file="/common/meta.jsp"%>
 		<title><decorator:title /> | MiRo
 		</title>
-
 		<link rel="stylesheet" type="text/css" media="all"
 			href="<c:url value='/styles/${appConfig["csstheme"]}/theme.css'/>" />
 		<link rel="stylesheet" type="text/css" media="print"

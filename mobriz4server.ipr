@@ -339,6 +339,10 @@
     <option name="OPEN_IN_BROWSER" value="true" />
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
+  <component name="GradleSettings">
+    <option name="gradleHome" value="/usr/local/bin" />
+    <option name="linkedProjectPath" value="$PROJECT_DIR$/build.gradle" />
+  </component>
   <component name="IdProvider" IDEtalkID="582155E7011F877EF1653A854B705B89" />
   <component name="JUnitProjectSettings">
     <option name="TEST_RUNNER" value="UI" />

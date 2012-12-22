@@ -264,9 +264,9 @@
         <property name="maxPies" value="12" />
     </bean>
 
- 	<bean id="miroTeamMapFormController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTeamFormController" autowire="byName">
-        <property name="formView" value="miroTeamMap"/>
-        <property name="successView" value="miroTeamMap"/>
+ 	<bean id="miroTeamReportFormController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTeamFormController" autowire="byName">
+        <property name="formView" value="miroTeamReport"/>
+        <property name="successView" value="miroTeamReport"/>
          <property name="maxProjects" value="10"/>
          <property name="graphType" value="map"/>
     </bean>
@@ -353,7 +353,7 @@
    				<prop key="/myaccount.html">purchasedReportsController</prop>
    				
    				<prop key="/miroTeamPie.html">miroTeamPieFormController</prop>
-   				<prop key="/editMiroTeamMap.html">miroTeamMapFormController</prop>
+   				<prop key="/editMiroTeamReport.html">miroTeamReportFormController</prop>
    			   <prop key="/miroTeamList.html">miroTeamController</prop>
    			   
    			   	<prop key="/teamImage/teamPieImage.jpg">miroTeamPieImageController</prop>

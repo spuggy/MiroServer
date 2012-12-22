@@ -12,7 +12,7 @@
          <Menu name="help" title="menu.help" page="/webPages.html?name=help" roles="user,admin"/>
          <Menu name="myaccount" title="menu.myaccount" page="/myaccount.html" roles="user,admin"/>
          <Menu name="miroteampie" title="miroTeamPie.heading" page="/miroTeamPie.html" roles="user,admin"/>
-         <Menu name="miroteammap" title="miroTeamMap.heading" page="/miroTeamList.html" roles="user,admin"/>
+         <Menu name="miroteamreport" title="miroTeamReport.heading" page="/miroTeamList.html" roles="user,admin"/>
       
      
       
@@ -31,7 +31,7 @@
         <Menu name="Import Survey" title="menu.surveyAdmin.uploadSurveys" page="/surveyUpload.html" roles="admin"/>
         <Menu name="LookupDefs" title="lookupDefList.title" page="/lookupDefs.html"  roles="admin"/>
         <Menu name="NewLookupDef" title="lookupDef.add" page="/editLookupDef.html"  roles="admin"/>
-              <Menu name="MobrizAlertMenu" title="mobrizAlertList.title" page="/mobrizAlerts.html"/>
+        <Menu name="MobrizAlertMenu" title="mobrizAlertList.title" page="/mobrizAlerts.html"/>
   
         
         

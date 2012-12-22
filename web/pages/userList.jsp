@@ -18,7 +18,7 @@
 <c:out value="${buttons}" escapeXml="false" />
 
 <display:table name="userList" cellspacing="0" cellpadding="0" requestURI="" 
-    defaultsort="1" id="users" pagesize="100" class="table" export="false">
+    defaultsort="1" id="users" pagesize="1000" class="table" export="false">
     <display:column property="username" escapeXml="true" sortable="true" titleKey="user.username"   url="/editUser.html?from=list" paramId="username" paramProperty="username"/>
     <display:column property="fullName" escapeXml="true" sortable="true" titleKey="activeUsers.fullName" />
     <display:column property="email" sortable="true" titleKey="user.email" autolink="true" media="html"/>

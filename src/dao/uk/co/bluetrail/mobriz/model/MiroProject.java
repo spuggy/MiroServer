@@ -2,9 +2,6 @@ package uk.co.bluetrail.mobriz.model;
 
 import java.util.Date;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * MiroProject class
  * 
@@ -42,7 +39,7 @@ public class MiroProject extends BaseObject implements SurveyElement {
 	
 	
 	/**
-	 * @hibernate.property 
+	 * @hibernate.property length="50" not-null="true"
 	 * @return the costcode
 	 */
 	public String getCostcode() {
@@ -66,7 +63,7 @@ public class MiroProject extends BaseObject implements SurveyElement {
 	}
 
 	/**
-	 * @hibernate.property 
+	 * @hibernate.property length="50" not-null="true"
 	 * @return the emailInviteSubject
 	 */
 	public String getEmailInviteSubject() {
@@ -81,7 +78,7 @@ public class MiroProject extends BaseObject implements SurveyElement {
 	}
 
 	/**
-	 * @hibernate.property 
+	 * @hibernate.property length="100" not-null="true"
 	 * @return the emailInviteText
 	 */
 	public String getEmailInviteText() {
@@ -98,7 +95,7 @@ public class MiroProject extends BaseObject implements SurveyElement {
 	}
 
 	/**
-	 * @hibernate.property 
+	 * @hibernate.property length="254" not-null="true"
 	 * @return the projectDescription
 	 */
 	public String getProjectDescription() {
@@ -128,7 +125,7 @@ public class MiroProject extends BaseObject implements SurveyElement {
 	}
 
 	/**
-	 * @hibernate.property 
+	 * @hibernate.property length="100" not-null="true"
 	 * @return the projectTitle
 	 */
 	public String getProjectTitle() {

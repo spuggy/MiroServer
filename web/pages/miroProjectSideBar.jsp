@@ -4,7 +4,7 @@
     
      <menu:displayMenu name="MiroProjects"/>
       <menu:displayMenu name="miroteampie"/>
-      <menu:displayMenu name="miroteammap"/>
+      <menu:displayMenu name="miroteamreport"/>
      <menu:displayMenu name="myprofile"/>
      <menu:displayMenu name="help"/>
      <menu:displayMenu name="myaccount"/>

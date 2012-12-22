@@ -33,7 +33,7 @@ function smallCommentary() {
 
 </head>
 <content tag="heading">
-<fmt:message key="miroTeamMap.heading" />
+<fmt:message key="miroTeamReport.heading" />
 </content>
 <meta name="menu" content="MiroProjectMenu" />
 
@@ -72,14 +72,15 @@ function smallCommentary() {
 			
 
 			 <c:if test="${showTeamSaveCreateButtons == true}">
-			<input type="submit" value="save team map" name="save" onclick="bSave=true;" />
+			<input type="submit" value="save team report" name="save" onclick="bSave=true;" />
 			
 			<c:if test="${showDeleteButton == true}">
 					<input type="submit" value="delete team map" name="delete" onclick="bDelete=true;"/>
 			</c:if>
 			
-			<input type="submit" value="create team report" name="createteamreport" onclick="bSave=true;" />
-			</c:if>
+			<input type="submit" value="create team report" name="createteamreport" onclick="bSave=true;bConfirm=<c:out value="${confirmReportCreation}" />" />
+
+            </c:if>
 			</p>
 		
 		
@@ -210,7 +211,15 @@ function smallCommentary() {
       		 	return false; 
       		 
       		 } else {
-      		 	return true;
+
+                if(bConfirm) {
+                     return confirm("Only individuals addedd to a team report for the first time will be charged to your account. By clicking OK you agree to pay for the inclusion of these individuals. Do you wish to continue?");
+                } else {
+                    return true;
+                }
+
+
+
       		 }
       		 
         } 

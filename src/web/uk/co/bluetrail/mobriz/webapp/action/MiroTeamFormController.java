@@ -1,29 +1,18 @@
 package uk.co.bluetrail.mobriz.webapp.action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.validation.BindException;
+import org.springframework.validation.Errors;
+import org.springframework.web.servlet.ModelAndView;
+import uk.co.bluetrail.mobriz.model.MiroTeam;
+import uk.co.bluetrail.mobriz.service.MiroTeamManager;
+import uk.co.bluetrail.mobriz.webapp.form.MiroProjectSelectorForm;
+import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang.StringUtils;
-import uk.co.bluetrail.mobriz.webapp.action.BaseFormController;
-import uk.co.bluetrail.mobriz.webapp.form.MiroProjectSelectorForm;
-import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
-import uk.co.bluetrail.mobriz.model.LabelValue;
-import uk.co.bluetrail.mobriz.model.MiroProject;
-import uk.co.bluetrail.mobriz.model.MiroTeam;
-import uk.co.bluetrail.mobriz.model.Setting;
-import uk.co.bluetrail.mobriz.service.MiroTeamManager;
-import org.springframework.validation.BindException;
-import org.springframework.validation.Errors;
-import org.springframework.web.servlet.ModelAndView;
+import java.util.*;
 
 public class MiroTeamFormController extends MiroProjectSelectorFormController {
 	private MiroTeamManager miroTeamManager = null;
@@ -154,6 +143,12 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		if(mt.getTeamReportStatus()==MiroTeam.REPORT_DOWNLOADED) {
 			showDownloadLink = true;
 		}
+
+        if(mt.getTeamReportStatus()>=MiroTeam.REPORT_REQUESTED)   {
+            model.put("confirmReportCreation",false);
+        } else {
+            model.put("confirmReportCreation",true);
+        }
 		
 		model.put("showDeleteButton", showDeleteButton);
 		model.put("showRecalcEditButtons" , showRecalcEditButtons);
@@ -168,6 +163,10 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		model.put("selectedProjects", selectedProjects);
 		model.put("unselectedUserList", usertoLabel(unselectedUserList));
 		model.put("miroProjectSelectorForm", new MiroProjectSelectorForm());
+
+
+
+
 
 		// stick it in the session too so the graph controller can get to it
 		HttpSession session = request.getSession();
