@@ -505,11 +505,14 @@
             <javac target="1.5" srcdir="${src}/@{module};@{additional.src.dirs}"
                 destdir="${build.dir}/@{module}/classes" debug="${compile.debug}"
                 deprecation="${compile.deprecation}" optimize="${compile.optimize}"
+                includeantruntime="false"
                 classpathref="@{module}.compile.classpath">
                 <options/>
             </javac>
             <javac target="1.5" srcdir="test/@{module}" debug="true"
-                destdir="${test.dir}/@{module}/classes">
+                destdir="${test.dir}/@{module}/classes"
+                includeantruntime="false"
+                    >
                 <classpath>
                     <path refid="@{module}.test.classpath"/>
                     <path location="${build.dir}/@{module}/classes"/>
