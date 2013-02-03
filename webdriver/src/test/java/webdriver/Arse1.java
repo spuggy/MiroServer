@@ -23,13 +23,13 @@ public class Arse1 {
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "http://miro-assessment.com/";
+        baseUrl = "http://localhost:8080";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
     @Test
     public void testArse1() throws Exception {
-        driver.get(baseUrl + "/miro-assessment/");
+        driver.get(baseUrl + "/mirotest/");
         driver.findElement(By.id("j_username")).clear();
         driver.findElement(By.id("j_username")).sendKeys("miro");
         driver.findElement(By.id("j_password")).clear();

@@ -3,3 +3,5 @@
 build
 dist
 web/miro/out/
+velocity.log
+serializer.log

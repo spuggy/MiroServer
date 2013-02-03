@@ -21,7 +21,7 @@
 	<li>
 		
 		<div class="message" id="welcommes" >
-			<p><fmt:message key="miroTeamPie.intro" /></p>
+			<p><fmt:message key="miroTeamReport.intro" /></p>
 			
 			<p><br/><input type="button" value="New Team Report" onclick="$('teamBuilder').show()"/></p>
 			
