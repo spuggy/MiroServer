@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AntConfiguration">
-    <defaultAnt bundledAnt="true" />
     <buildFile url="file://$PROJECT_DIR$/build.xml">
       <additionalClassPath>
         <entry path="file://$PROJECT_DIR$/lib/junit3.8.1/junit.jar" />
       </additionalClassPath>
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
-      <maximumStackSize value="2" />
-      <properties />
     </buildFile>
   </component>
   <component name="ArtifactManager">
@@ -347,7 +341,6 @@
     <EjbView showMembers="false" autoscrollToSource="false" />
   </component>
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
-    <file url="file://$PROJECT_DIR$/../HelloMaven" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/webdriver" charset="UTF-8" />
   </component>
   <component name="EntryPointsManager">
@@ -359,8 +352,9 @@
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
   <component name="GradleSettings">
-    <option name="gradleHome" value="/usr/local/bin" />
+    <option name="gradleHome" value="/usr/local/Cellar/gradle/1.2/libexec" />
     <option name="linkedProjectPath" value="$PROJECT_DIR$/build.gradle" />
+    <option name="preferLocalInstallationToWrapper" value="true" />
   </component>
   <component name="IdProvider" IDEtalkID="582155E7011F877EF1653A854B705B89" />
   <component name="JUnitProjectSettings">
@@ -537,8 +531,8 @@
       <module fileurl="file://$PROJECT_DIR$/../DbExport-Maven/DbExport-Maven.iml" filepath="$PROJECT_DIR$/../DbExport-Maven/DbExport-Maven.iml" />
       <module fileurl="file://$PROJECT_DIR$/../HelloMaven/HelloMaven.iml" filepath="$PROJECT_DIR$/../HelloMaven/HelloMaven.iml" />
       <module fileurl="file://$PROJECT_DIR$/../MiroAppFuse/MiroAppFuse.iml" filepath="$PROJECT_DIR$/../MiroAppFuse/MiroAppFuse.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../MiroDbExport/MiroDbExport.iml" filepath="$PROJECT_DIR$/../MiroDbExport/MiroDbExport.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mobriz4server.iml" filepath="$PROJECT_DIR$/mobriz4server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MiroServer.iml" filepath="$PROJECT_DIR$/MiroServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webdriver/webdriver.iml" filepath="$PROJECT_DIR$/webdriver/webdriver.iml" />
       <module fileurl="file://$PROJECT_DIR$/webdriver/webdriver.iml" filepath="$PROJECT_DIR$/webdriver/webdriver.iml" />
     </modules>
   </component>
@@ -570,22 +564,9 @@
   </component>
   <component name="libraryTable">
     <library name="dbunit-2.4.8">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/dbunit-2.4.8/dbunit-2.4.8.jar!/" />
-      </CLASSES>
+      <CLASSES />
       <JAVADOC />
       <SOURCES />
-    </library>
-    <library name="Maven: ant:ant:1.6.5">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/ant/ant/1.6.5/ant-1.6.5.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/ant/ant/1.6.5/ant-1.6.5-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/ant/ant/1.6.5/ant-1.6.5-sources.jar!/" />
-      </SOURCES>
     </library>
     <library name="Maven: cglib:cglib-nodep:2.1_3">
       <CLASSES>
@@ -596,17 +577,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/cglib/cglib-nodep/2.1_3/cglib-nodep-2.1_3-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: classworlds:classworlds:1.1-alpha-2">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/classworlds/classworlds/1.1-alpha-2/classworlds-1.1-alpha-2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: com.google.guava:guava:13.0.1">
@@ -717,28 +687,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/io/netty/netty/3.5.2.Final/netty-3.5.2.Final-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: junit:junit:3.8.1">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.1/junit-3.8.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: junit:junit:3.8.2">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/3.8.2/junit-3.8.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: junit:junit:4.8.1">
@@ -873,76 +821,8 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpmime/4.2.2/httpmime-4.2.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.apache.maven:maven-model:2.0">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-model/2.0/maven-model-2.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-model/2.0/maven-model-2.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-model/2.0/maven-model-2.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.apache.maven:maven-plugin-api:2.0">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.apache.maven:maven-settings:2.0">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-settings/2.0/maven-settings-2.0.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-settings/2.0/maven-settings-2.0-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/apache/maven/maven-settings/2.0/maven-settings-2.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.codehaus.mojo:dbunit-maven-plugin:1.0-beta-3">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/mojo/dbunit-maven-plugin/1.0-beta-3/dbunit-maven-plugin-1.0-beta-3.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/mojo/dbunit-maven-plugin/1.0-beta-3/dbunit-maven-plugin-1.0-beta-3-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/mojo/dbunit-maven-plugin/1.0-beta-3/dbunit-maven-plugin-1.0-beta-3-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.codehaus.plexus:plexus-container-default:1.0-alpha-8">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.codehaus.plexus:plexus-utils:1.0.4">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Maven: org.dbunit:dbunit:2.4.5">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/dbunit/dbunit/2.4.5/dbunit-2.4.5.jar!/" />
-      </CLASSES>
+      <CLASSES />
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/dbunit/dbunit/2.4.5/dbunit-2.4.5-javadoc.jar!/" />
       </JAVADOC>
@@ -1135,28 +1015,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/seleniumhq/selenium/selenium-support/2.28.0/selenium-support-2.28.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.slf4j:slf4j-api:1.5.6">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.5.6/slf4j-api-1.5.6-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: org.slf4j:slf4j-simple:1.5.6">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.5.6/slf4j-simple-1.5.6.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.5.6/slf4j-simple-1.5.6-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.5.6/slf4j-simple-1.5.6-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.w3c.css:sac:1.3">
