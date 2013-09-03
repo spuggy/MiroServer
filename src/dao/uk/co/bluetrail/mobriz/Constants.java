@@ -64,6 +64,8 @@ public class Constants {
     public static final String USER_ROLE = "user";
     
     public static final String TEAMREPORT_ROLE = "teamreport";
+
+    public static final String DEPARTMENT_ADMIN_ROLE = "departmentadmin" ;
     
 
     /**

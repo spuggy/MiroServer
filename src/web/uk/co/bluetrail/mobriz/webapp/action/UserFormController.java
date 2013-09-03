@@ -110,18 +110,28 @@ public class UserFormController extends BaseFormController {
             
            Role userRole = roleManager.getRole(Constants.USER_ROLE);
            Role adminRole = roleManager.getRole(Constants.ADMIN_ROLE);
-           Role teamReportRole = roleManager.getRole(Constants.TEAMREPORT_ROLE);   
-           
-          
-           String[] roleNames = (String[]) request.getParameterValues("userRoles");
+           Role teamReportRole = roleManager.getRole(Constants.TEAMREPORT_ROLE);
+           Role departmentAdminRole = roleManager.getRole(Constants.DEPARTMENT_ADMIN_ROLE);
+           Role sysAdminRole = roleManager.getRole(Constants.SYSADMIN_ROLE);
+
+
+
+            String[] roleNames = (String[]) request.getParameterValues("userRoles");
        	   user.getRoles().clear();
            user.addRole(userRole) ;
            user.addRole(adminRole);
            if(isMember(roleNames,Constants.TEAMREPORT_ROLE)) {
         	   user.addRole(teamReportRole);
            }
-            
-            
+            if(isMember(roleNames,Constants.DEPARTMENT_ADMIN_ROLE)) {
+                user.addRole(departmentAdminRole);
+            }
+
+            if(isMember(roleNames,Constants.SYSADMIN_ROLE)) {
+                user.addRole(sysAdminRole);
+            }
+
+
 
             try {
             if (user.getPinNumber().equals(Constants.BLANKPIN)) {

@@ -1,0 +1,1 @@
+INSERT INTO role (id, name, description VALUES (5, 'departmentadmin', 'Department Administrator';
