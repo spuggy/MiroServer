@@ -46,14 +46,23 @@ public class HomePageController implements Controller {
         boolean isSysAdmin = false;
         boolean isAdmin = false;
         boolean isClient = false;
-        
-        
+        boolean isDepartmentAdmin = false;
+
+
+
+
         while(itr.hasNext()) {
         	role = (LabelValue) itr.next() ;
         	
         	if(role.getValue().equals(Constants.SYSADMIN_ROLE)) {
         		isSysAdmin = true;
-        	}    
+        	}
+
+            if(role.getValue().equals(Constants.DEPARTMENT_ADMIN_ROLE)) {
+                isDepartmentAdmin = true;
+            }
+
+
         	if(role.getValue().equals(Constants.ADMIN_ROLE)) {
         		isAdmin = true;
         	}
@@ -62,11 +71,20 @@ public class HomePageController implements Controller {
         	}
       
         }
+
+
         
     	if(isSysAdmin) {
     		return new ModelAndView((String) homePages.get(Constants.SYSADMIN_ROLE));
-    	}    
-    	if(isAdmin) {
+    	}
+
+        if(isDepartmentAdmin) {
+            return new ModelAndView((String) homePages.get(Constants.DEPARTMENT_ADMIN_ROLE));
+        }
+
+
+
+        if(isAdmin) {
     		return new ModelAndView((String) homePages.get(Constants.ADMIN_ROLE));
     	} 
     	

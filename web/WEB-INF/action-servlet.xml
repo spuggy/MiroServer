@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress ALL -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
@@ -159,8 +160,6 @@
         <property name="formView" value="lookupItemsUploadForm"/>        
     </bean>
     
-    
-    
 
     
     
@@ -238,6 +237,7 @@
                 <prop key="admin">redirect:miroProjects.html</prop>
                 <prop key="sysadmin">redirect:admin.html</prop>
                 <prop key="client">redirect:responses.html</prop>
+                <prop key="departmentadmin">redirect:departmentAccounts.html</prop>
                 <prop key="user">redirect:userConfirm.html</prop>
             </props>
        </property>
@@ -359,10 +359,10 @@
    			   	<prop key="/teamImage/teamPieImage.jpg">miroTeamPieImageController</prop>
    			   	<prop key="/teamImage/teamMapImageEngaged.jpg">miroTeamMapImageController</prop>
    			   	<prop key="/teamImage/teamMapImageLeading.jpg">miroTeamMapImageController</prop>
-   			   			
-   				   		
-   				   			
-   				   				
+
+                <prop key="/departmentAccounts.html">purchasedReportsController</prop>
+
+
             </props>
         </property>
     </bean>

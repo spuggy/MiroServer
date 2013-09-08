@@ -120,6 +120,8 @@ public class UserFormController extends BaseFormController {
        	   user.getRoles().clear();
            user.addRole(userRole) ;
            user.addRole(adminRole);
+
+
            if(isMember(roleNames,Constants.TEAMREPORT_ROLE)) {
         	   user.addRole(teamReportRole);
            }
