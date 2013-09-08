@@ -534,6 +534,7 @@
       <module fileurl="file://$PROJECT_DIR$/MiroServer.iml" filepath="$PROJECT_DIR$/MiroServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/webdriver/webdriver.iml" filepath="$PROJECT_DIR$/webdriver/webdriver.iml" />
       <module fileurl="file://$PROJECT_DIR$/webdriver/webdriver.iml" filepath="$PROJECT_DIR$/webdriver/webdriver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webdriver/webdriver.iml" filepath="$PROJECT_DIR$/webdriver/webdriver.iml" />
     </modules>
   </component>
   <component name="ProjectResources">
