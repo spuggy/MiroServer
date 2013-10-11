@@ -71,6 +71,7 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
     private String postcode;
     private String webaddress;
     private String company;
+    private String department;
   
     private Date created_on = new Date();
     private boolean oldreport = false; 
@@ -109,6 +110,23 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
     }
 
 
+	/**
+	 * @return Returns the pinNumber.
+	 * @hibernate.property
+	 */
+	public String getDepartment() {
+		return department;
+	}
+	/**
+	 * @spring.validator type="required"
+	 * @param department to set.
+	 */
+	public void setDepartment(String department) {
+	
+		
+		this.department = department ; 
+		
+	}
 	
 	
 	/**

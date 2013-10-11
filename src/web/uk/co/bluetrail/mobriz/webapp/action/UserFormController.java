@@ -25,6 +25,9 @@ import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that interacts with
@@ -243,6 +246,30 @@ public class UserFormController extends BaseFormController {
 
         return super.showForm(request, response, errors);
     }
+
+	protected Map referenceData(HttpServletRequest request)  throws Exception {
+    	
+    	Map refData = new HashMap() ;
+
+    	Setting departmentSetting = settingManager.getSettingByName("MIRO_DEPARTMENTS");
+
+		if(departmentSetting ==null) {
+			throw new RuntimeException("could not find setting MIRO_DEPARTMENTS");
+		}
+		
+		try {
+		
+			String[] departments = departmentSetting.getSettingValues();
+    		refData.put("departments" , departments) ;
+			
+		} catch(Exception e) {
+			throw new RuntimeException("Could not create MIRO_DEPARTMENTS from the setting - missing?");
+		}
+
+    	
+    	return refData;
+    }
+
 
     protected Object formBackingObject(HttpServletRequest request)
     throws Exception {

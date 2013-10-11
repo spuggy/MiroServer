@@ -13,7 +13,7 @@
          <Menu name="myaccount" title="menu.myaccount" page="/myaccount.html" roles="user,admin"/>
          <Menu name="miroteampie" title="miroTeamPie.heading" page="/miroTeamPie.html" roles="user,admin"/>
          <Menu name="miroteamreport" title="miroTeamReport.heading" page="/miroTeamList.html" roles="user,admin"/>
-        <Menu name="departmentadmin" title="menu.departmentadmin" page="/departmentAccounts.html" roles="user,departmentadmin"/>
+        <Menu name="departmentadmin" title="menu.departmentadmin" page="/departmentAccounts.html" roles="departmentadmin"/>
      
       
       

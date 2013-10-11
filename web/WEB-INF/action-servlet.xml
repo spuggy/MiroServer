@@ -246,6 +246,9 @@
  <bean id="miroProjectController" class="uk.co.bluetrail.mobriz.webapp.action.MiroProjectController" autowire="byName"/>
 <bean id="miroProjectShowController" class="uk.co.bluetrail.mobriz.webapp.action.MiroProjectShowController" autowire="byName"/>
 <bean id="miroTeamMapImageController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTeamMapImageController" autowire="byName"/>
+<bean id="miroDepartmentAccountsController" class="uk.co.bluetrail.mobriz.webapp.action.MiroDepartmentAccountsController" autowire="byName"> 
+	<property name="miroDepartmentAccountsReportManager" ref="miroDepartmentAccountsReportManager"/>
+</bean>
 
 
 
@@ -360,7 +363,7 @@
    			   	<prop key="/teamImage/teamMapImageEngaged.jpg">miroTeamMapImageController</prop>
    			   	<prop key="/teamImage/teamMapImageLeading.jpg">miroTeamMapImageController</prop>
 
-                <prop key="/departmentAccounts.html">purchasedReportsController</prop>
+                <prop key="/departmentAccounts.html">miroDepartmentAccountsController</prop>
 
 
             </props>

@@ -83,6 +83,7 @@
                 /miroTeamList.html*=admin
                 /miroTeamPie.html*=admin
                 /myaccount.html*=admin
+                /departmentAccounts.html*=departmentadmin
                 /**/*.html*=admin,user
             </value>
         </property>

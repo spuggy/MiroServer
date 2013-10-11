@@ -189,7 +189,23 @@
    
    
 <c:choose>
+
+
+
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
+
+    <li>
+        <mobriz4server:label styleClass="desc" key="user.department"/>
+        <form:errors path="department" cssClass="fieldError"/>
+		<form:select path="department" id="departmen">
+			<form:options items="${departments}"  />
+		</form:select>
+
+
+    </li>
+
+
+
     <li>
         <fieldset>
             <legend><fmt:message key="userProfile.accountSettings"/></legend>
@@ -229,6 +245,7 @@
             <c:out value="${role.label}"/><c:if test="${!status.last}">,</c:if>
             <input type="hidden" name="userRoles" value="<c:out value="${role.label}"/>"/>
         </c:forEach>
+        <strong>department</strong>
         <form:hidden path="enabled"/>
         <form:hidden path="accountExpired"/>
         <form:hidden path="accountLocked"/>

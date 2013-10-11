@@ -8,6 +8,7 @@
      <menu:displayMenu name="myprofile"/>
      <menu:displayMenu name="help"/>
      <menu:displayMenu name="myaccount"/>
+    <menu:displayMenu name="departmentadmin"/>
   	
   	
 </ul>
