@@ -29,15 +29,22 @@
     </sql-query>
 
 
-    <sql-query name="findMonthDetails">
+
+    <sql-query name="findTeamReportsMonthTotals">
 
         <![CDATA[
-	 SELECT u.id, vp.projecttitle, vp.prac_first_name AS pracfname, vp.prac_last_name AS prac_lname, u.first_name, u.last_name, u.status, u.created_on, u.updated_at, date_part('month', u.updated_at) AS billing_month, vp.costcode
-   FROM app_user u, vwprojects vp
-  WHERE vp.id = u.project_id AND u.oldreport = false AND
-  date_part('month', u.updated_at) = :month_selected
-  AND date_part('year', u.updated_at) = :year_selected
-  ORDER BY vp.prac_last_name, u.created_on DESC
+
+     SELECT (vp.prac_first_name || ' ') || vp.prac_last_name AS prac_name, count(*) AS count
+        FROM app_user u, vwprojects vp, mr.miroteams t
+        WHERE u.miroteam_id = t.id and
+        vp.id = u.project_id AND u.oldreport = false
+        AND date_part('month', u.miroteamadded_on)  = :month_selected
+        AND date_part('year', u.miroteamadded_on) = :year_selected
+        AND department = :dept_selected
+        GROUP BY (vp.prac_first_name || ' ') || vp.prac_last_name
+        ORDER BY (vp.prac_first_name || ' ') || vp.prac_last_name
+
+
 ]]>
 
     </sql-query>

@@ -37,33 +37,29 @@ private final Log log = LogFactory.getLog(MiroDepartmentAccountsController.class
         int month_selected  = 0;
 
         try {
-
             year_selected = Integer.parseInt(year_selected_str);
             month_selected = Integer.parseInt(month_selected_str) ;
-
         }  catch(Exception e) {
-
-
             year_selected = calendar.get(Calendar.YEAR);
             month_selected = calendar.get(Calendar.MONTH)+1;
-
-
-        }
+         }
 
         String[] mths = {"","January","February","March","April","May","June","July","August","September","October","November","December"};
         month_selected_str = mths[ month_selected];
 
 
 		HashMap pracs = new HashMap();
-
         String department = this.getCurrentUser().getDepartment();
 
 		//add the monthtotals to the report
-        List monthTotals = miroDepartmentAccountsReportManager.getMonthTotals(department,month_selected,year_selected) ;
-		
-		addMonthTotals(pracs,monthTotals);
+        List indTotals = miroDepartmentAccountsReportManager.getMonthTotals(department,month_selected,year_selected) ;
+        List teamTotals = miroDepartmentAccountsReportManager.getMonthTeamTotals(department,month_selected,year_selected) ;
+        addMonthTotals(pracs,indTotals,teamTotals);
+
 
 		ArrayList l = createList(pracs);
+
+
 
         Map model = new HashMap() ;
         model.put("reportLines" , l) ;
@@ -71,17 +67,21 @@ private final Log log = LogFactory.getLog(MiroDepartmentAccountsController.class
         model.put("month_selected" , month_selected) ;
         model.put("department",department);
         model.put("month_selected_str" , month_selected_str) ;
-		
-
-
         return new ModelAndView("miroDepartmentAccounts", model);
     }
 
 
+    /**
+     *
+     * add the team and individual totals
+     *
+     * @param pracs
+     * @param indTotals
+     * @param teamTotals
+     */
+    private void addMonthTotals(HashMap pracs,List indTotals,List teamTotals) {
 
-    private void addMonthTotals(HashMap pracs,List monthTotals) {
-
-        Iterator itr = monthTotals.iterator();
+        Iterator itr = indTotals.iterator();
 
         while(itr.hasNext()) {
 
@@ -89,15 +89,34 @@ private final Log log = LogFactory.getLog(MiroDepartmentAccountsController.class
 
             DeptAccountReportRow row = (DeptAccountReportRow) pracs.get(obj[0]);
 
-
-
             if(row==null) {
                 row = new DeptAccountReportRow(obj[0]);
-                row.setIndnumber( obj[1])  ;
+                row.setIndnumber(obj[1])  ;
                 pracs.put(obj[0],row);
 
             } else {
                 row.setIndnumber( obj[1]);
+            }
+
+
+        }
+
+
+        itr = teamTotals.iterator();
+
+        while(itr.hasNext()) {
+
+            Object[] obj = (Object[]) itr.next();
+
+            DeptAccountReportRow row = (DeptAccountReportRow) pracs.get(obj[0]);
+
+            if(row==null) {
+                row = new DeptAccountReportRow(obj[0]);
+                row.setTeamnumber(obj[1]);
+                pracs.put(obj[0],row);
+
+            } else {
+                row.setTeamnumber( obj[1]);
             }
 
 

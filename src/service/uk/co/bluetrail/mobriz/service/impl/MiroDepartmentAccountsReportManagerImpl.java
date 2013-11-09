@@ -24,14 +24,14 @@ public class MiroDepartmentAccountsReportManagerImpl extends BaseManager impleme
 
     }
 
-    public List getMonthDetails(int month_selected, int year_selected) {
+    public List getMonthTeamTotals(String dept_selected, int month_selected, int year_selected) {
+        String[] fieldNames =  new String[] {"dept_selected","month_selected","year_selected"} ;
+        Object[] objects = new Object[] {dept_selected,month_selected,year_selected};
 
-        String[] fieldNames =  new String[] {"month_selected","year_selected"} ;
-        Object[] objects = new Object[] {month_selected,year_selected};
-
-        return dao.getSurveyNamedQuery("findMonthDetails",fieldNames,objects );
-
+        return dao.getSurveyNamedQuery("findTeamReportsMonthTotals",fieldNames,objects );
     }
+
+
 
 
 }

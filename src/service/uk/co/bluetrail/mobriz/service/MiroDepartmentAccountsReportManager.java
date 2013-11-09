@@ -11,7 +11,5 @@ public interface MiroDepartmentAccountsReportManager {
 
 
     public List getMonthTotals(String dept_selected,int month_selected, int year_selected) ;
-    public List getMonthDetails(int month_selected, int year_selected) ;
-
-
+    public List getMonthTeamTotals(String dept_selected, int month_selected, int year_selected);
 }

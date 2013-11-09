@@ -57,18 +57,23 @@
 
 <li>
 <display:table name="reportLines" cellspacing="0" cellpadding="0" requestURI="" 
-    id="reportLines" pagesize="200" class="table" export="true" >
-   
-    
-      <display:column  property="pname" titleKey="departmentadmin.name"   />
- 	  <display:column  property="indnumber" titleKey="departmentadmin.individual_reports"   />
-      <display:column  property="teamnumber" titleKey="departmentadmin.team_reports"   />
+    id="reportLines" pagesize="200" class="table" export="true" decorator="org.displaytag.decorator.TotalTableDecorator">
+
+    <display:setProperty name="export.pdf" value="false"/>
+    <display:setProperty name="export.xml" value="false"/>
+    <display:setProperty name="export.csv" value="false"/>
+    <display:setProperty name="export.excel.filename">mirototals_<%=request.getParameter("year_selected")%>-<%=request.getParameter("month_selected")%>.xls</display:setProperty>
+
+
+    <display:column  property="pname" titleKey="departmentadmin.name"   />
+ 	  <display:column  property="indnumber" titleKey="departmentadmin.individual_reports"  total="true" format="{0,number,#.##}"/>
+      <display:column  property="teamnumber" titleKey="departmentadmin.team_reports"  total="true" format="{0,number,#.##}" />
 
 
 
      
-    <display:setProperty name="paging.banner.item_name" value="report"/>
-    <display:setProperty name="paging.banner.items_name" value="reports"/>
+    <display:setProperty name="paging.banner.item_name" value="Practitioner"/>
+    <display:setProperty name="paging.banner.items_name" value="Practitioners"/>
 </display:table>
 
 </li>

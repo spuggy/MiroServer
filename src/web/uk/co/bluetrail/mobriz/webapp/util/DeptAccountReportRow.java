@@ -1,13 +1,14 @@
 package uk.co.bluetrail.mobriz.webapp.util;
 
+import java.math.BigInteger;
+
 public class DeptAccountReportRow {
 
 	private String pname;
-	private String teamnumber;
-	private String indnumber;
+	private int teamnumber = 0 ;
+	private int indnumber = 0 ;
 
-	
-	public DeptAccountReportRow(Object pname) {
+    public DeptAccountReportRow(Object pname) {
 		
 		this.pname = (String) pname;
 
@@ -21,26 +22,22 @@ public class DeptAccountReportRow {
         this.pname = (String) pname;
     }
 
-    public String getTeamnumber() {
-        if(this.teamnumber==null || this.teamnumber.equals("")) {
-            return "0";
-        }
+    public int getTeamnumber() {
 
         return this.teamnumber;
     }
 
     public void setTeamnumber(Object teamnumber) {
-        this.teamnumber = teamnumber.toString();
+        this.teamnumber = ((BigInteger) teamnumber).intValue();
     }
 
-    public String getIndnumber() {
-        if(this.indnumber==null || this.indnumber.equals("")) {
-            return "0";
-        }
+    public int getIndnumber() {
+
         return indnumber;
     }
 
     public void setIndnumber(Object indnumber) {
-        this.indnumber = indnumber.toString();
+
+        this.indnumber = ((BigInteger) indnumber).intValue();
     }
 }
