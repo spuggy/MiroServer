@@ -4,6 +4,7 @@ drop view vw_q1_totals ;
 drop view vw_q2_totals ;
 drop view vw_q3_totals ;
 drop view vw_q4_totals ;
+
 drop view vw_totals_detail ;
 drop view vwtotals;
 drop view vwpurchased;
@@ -19,7 +20,7 @@ SELECT u.id, u.username, u.version, u.pinnumber, u.userid, u.password, u.first_n
 
 
 create view vwprojects as 
-SELECT p.id, p.projecttitle, p.projectdescription, p.emailinvitetext, p.projectstatus, p.checkpoint, p.created_on, p.updated_at, p.version, p.createdby_id, p.lastupdatedby_id, p.emailinvitesubject, u.id AS prid, u.first_name AS prac_first_name, u.last_name AS prac_last_name
+SELECT p.id, p.projecttitle, p.projectdescription, p.emailinvitetext, p.projectstatus, p.checkpoint, p.created_on, p.updated_at, p.version, p.createdby_id, p.lastupdatedby_id, p.emailinvitesubject, u.id AS prid, u.first_name AS prac_first_name, u.last_name AS prac_last_name, p.costcode as costcode
   FROM mr.miroprojects p, app_user u
  WHERE p.createdby_id = u.id;
 
