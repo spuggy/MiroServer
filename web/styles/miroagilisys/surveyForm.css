@@ -1,0 +1,142 @@
+table1 tbody td input.smallButton {
+	font-size: 50%;
+}
+
+.table2 {
+	border: 2px solid #900;;
+	border-collapse: collapse;;
+	width: 100%
+}
+
+.table2 td {
+	vertical-align: top;;
+	background: #F0F0F0;
+	padding: 3px;;  
+	border: 1px solid #000
+}
+
+.table2 td.right {
+	width: 100px;;
+	text-align: right;;
+	vertical-align: top;;
+	padding: 3px;;
+	border: 1px solid #000
+}
+
+.table2 th {
+	text-align: left;;
+	border: 1px solid #000
+}
+
+
+
+.table2 thead th {
+	color: #fff;;
+	font-size: 145%;;
+	background: #900 url("images/sprites.gif") repeat-x 0 -1300px;;
+	padding: 10px 6px
+}
+
+.table2 tbody th {
+	color: #fff;;
+	font-size: 115%;;
+	background: #88b8db url("images/sprites.gif") repeat-x 0 -1400px;;
+	padding: 6px
+}
+
+.table2 tbody th.sub {
+	font-size: 100%;;
+	color: #000;;
+	background: #efefef url("images/sprites.gif") repeat-x 0 -1500px;;
+	padding: 6px
+}
+
+/* 'MORE' LINK - provides an accessible alternative to just using 'more' as a link at the end of paragraphs */
+a.qlink:link,a.qlink:visited,a.qlink:hover,a.qlink:active {
+	text-decoration: underline
+}
+
+#a.qlnk:hover {
+	background: transparent url("images/sprites.gif") 5px -400px
+}
+
+#
+.qlink span {
+	position: absolute;;
+	left: -9999px;;
+	width: 900px
+}
+
+#qEditPaneDiv99 {
+	background: #efefef;
+	border: 1px solid #666;
+	padding: 10px;
+	text-align: left;
+}
+
+#qEditPaneDiv {
+	color: #333;
+	padding: 15px 20px 20px;
+	border-top: 1px solid #d7d7d7;
+	margin: 0 0 1.5em;
+	background: #f6f6f6 url("images/featurebox_bg.gif") no-repeat 100% 100%;
+	width: 300px;
+}
+
+#qEditPaneDiv p,.featurebox h1,.featurebox h2,.featurebox h3,.featurebox h4,.featurebox h5,.featurebox h6 {
+	margin: 0 0.3em;;
+	border-bottom: 1px solid #c00;;
+	color: #c00
+}
+
+#qEditPaneDiv p {
+	border: none;;
+	margin: 0 0 1em;;
+	color: #444
+}
+
+#qEditPaneDiv a {
+	font-weight: bold
+}
+
+
+#qEditPaneDiv a:link {color:#c00} 
+#qEditPaneDiv a:visited {color:#c00} 
+#qEditPaneDiv a:hover,a:active {color:#069} 
+
+#QTxt {
+	width: 22em;
+	height: 10em
+}
+
+#title {
+	width: 22em;
+}
+
+#userNames {
+	width: 22em;
+}
+#visibility {
+	width: 12em;
+}
+
+
+
+#surveyDetail {
+	margin-top:10px ;
+	background: #F0F0F0;
+	padding:5px;
+}
+
+
+#surveyDetail th {
+	width:100px ;	
+}
+
+#surveyDetail td {
+	width:400px ;	
+}
+
+.qTxtLabel {
+	font-weight: bold;
+}

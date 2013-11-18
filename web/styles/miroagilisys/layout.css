@@ -1,0 +1,286 @@
+/* A CSS Framework by Mike Stenhouse of Content with Style */
+
+/* andreas01 - an open source xhtml/css website layout by Andreas Viklund (http://andreasviklund.com). Made for OSWD.org, free to use as-is for any purpose as long as the proper credits are given for the original design work. For design assistance and support, contact me through my website or through http://oswd.org/email.phtml?user=Andreas
+
+Version: 1.0
+(July 25, 2005) */
+
+/* SITE SPECIFIC LAYOUT */
+    body {
+     	background-color: #fbf6e1;
+        margin: 0;
+        padding: 0;
+        font: 76% Verdana, Tahoma, Arial, sans-serif;
+		min-width:760px;      
+    }
+    div#page {       
+        color: #303030;
+        margin: 0;
+        width: 100%;
+		min-width:800px;
+    }
+
+    div#content { 
+    
+        position: relative;
+        width: 100%;
+        text-align: left;
+        
+    }
+	
+    /* HEADER */
+        div#header {
+	background-color: #356AA0;
+	color: black;
+	clear: both;
+	padding: 0;
+	width: 100%;
+	background: #7c909c;
+           
+        }
+            div#switchLocale {
+                position: absolute;
+                right: 10px;
+            }
+            div#header h1 {
+               margin-left: 20px;
+			   text-indent:-1000px;
+			   background: url(images/header-logo.jpg) no-repeat 2px 2px;
+			   width:230px;
+			   height:60px;
+			   padding:2px;
+            }
+            div#header p {
+                float: right;
+                margin: -40px 10px 0 0;
+                color: #fff;
+                text-align: right;
+                font-size: 0.8em;
+                line-height: 1.2em;
+                font-weight: bold;
+            }
+            div>div#header p {
+                margin-right: 30px;
+            }
+        div#branding {
+            float: left;
+            width: 100%;
+            margin: 0;
+            padding: 10px 0 10px 0px;
+            text-align: left;
+        }
+		div#loginheader {
+		color: #fff;
+		font-weight: bold;
+		}
+		div#loginheader a{
+		color: #000;
+		text-decration: none
+		}
+		div#loginheader a:hover {
+		text-decration: underline;
+		}
+		
+    /* END HEADER */
+	
+	
+    
+    /* CONTENT */
+        div#content {
+            text-align: left;
+            padding: 0px;   
+			float:left;
+			width:80%; 
+			min-width:600px;      
+        }
+            div>div#content {
+                margin-left: 0px;
+            }
+            body#error #content {
+                margin-top: 20px;
+            }
+        /* MAIN */
+            div#main {
+	background-color: white;
+	width: 100%;
+	margin-left: 20px;
+	margin-top: 20px;
+	_margin-bottom: -10px; /*IE6 HACK (what else)to fix bottom gap */
+	background: #fff url(images/right-bg.gif) right repeat-y;
+            }
+			
+                div#main h1 {
+               		background-color: #bad7e8;
+					font-size: 20px;
+					color: #666;
+               		margin-right: 8px;  					
+  					padding:5px 0px 5px 10px;
+                }
+                div#main h2 {
+                    font-size: 1.3em;
+                    margin: 0 0 10px 0;
+                }
+                div#main img {
+                    padding: 1px;
+                    display: inline;
+                    background: #cccccc;
+                    border: 4px solid #f0f0f0;
+                }
+              div#main  #submain { 
+                padding: 15px 15px 20px 3px;
+              }
+			  div#mainFooter {
+			  	background:url(images/footer-bg.gif) bottom right no-repeat;
+				height:8px;
+				width:100%;
+				margin:0 0 0 20px;
+				clear:left;
+			}
+
+        /* END MAIN */
+
+        /* SIDEBAR */
+            div#sideBar {
+	float:right;
+	width:15%;
+	text-align:left;
+	margin: 10px 0 0 10px;
+	padding-top: 10px;
+	padding-right: 10px;
+	background-color: #FBF6E1;
+            }
+			
+			div#sideBar h1 {
+			font-size: 16px !important;
+			color: #666 !important;
+			display: block !important;
+			background: #bad7e8;
+			padding-left: 10px;
+			}
+			
+			
+			
+			
+			.menubar a {
+			list-style: none;
+			margin-left: -20px; 
+			padding-left: 10px;
+			pading-top: 2px;
+			text-decoration: none;
+			}
+				
+			.menubar2 {
+			margin-left: 0px;
+			list-style: none;
+			}
+			.menubar2 a {
+			list-style: none;
+			padding-left: 10px;
+			text-decoration: underline;
+			}
+			.menubar2 a:hover {
+			text-decoration: none;
+			}	
+
+
+			
+			
+        /* END SUB */
+        
+    /* END CONTENT */
+    
+    
+    /* FOOTER */
+        div#footer {
+            clear: both;
+            margin: 0 auto;
+            padding: 10px 0 20px 0;           
+            width: 100%px;
+            text-align: left;            
+            color: #808080;
+            font-size: 0.9em;
+        }
+
+            div#footer a {
+                color: #808080;
+                text-decoration: none;
+            }
+
+            div#footer a:hover {
+                text-decoration: underline;
+            }
+
+            div#footer p {
+                margin: 0;
+            }
+            div#footer span.left, div#footer span.right {
+                display: block;
+                text-align: center;
+                float: none;
+                margin: 5px;
+            }
+    /* END FOOTER */
+
+    /* MISC LAYOUT CLASSES */
+    .left {
+        margin: 10px 10px 5px 0;
+        float: left;
+    }
+
+    .right {
+        margin: 10px 0 5px 10px;
+        float: right;
+    }
+
+    .textright {
+        text-align: right;
+    }
+
+    .center {
+        text-align: center;
+    }
+
+    .small {
+        font-size: 0.8em;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .hide {
+        display: none;
+    }
+   
+    #lookupItemList ul {
+   		margin-top: 20px;
+   		padding: 0px;
+    }
+    
+    #lookupItemList li
+	{
+	display: inline;
+	list-style-type: none;
+	padding-right: 10px;
+	}
+    
+    
+    
+    
+    /* END MISC LAYOUT CLASSES */
+
+/* END LAYOUT */
+#page #sideBar #sidebar-nav {
+background: none;
+list-style: none;
+}
+#page #content #main #submain #surveyList .odd .title a {
+	color: #666666;
+}
+#page #sideBar li {
+	margin:0 0 0 5px;
+	padding:0 0 0 15px;
+}
+#page #sideBar #sidebar-nav li {
+	background:url(images/sidebar_arrows.gif) no-repeat 0 6px;
+}

@@ -7,7 +7,7 @@
 <div id="branding">
    <h1><a href="<c:url value="/"/>"><fmt:message key="webapp.name"/></a></h1>
 	<c:if test="${pageContext.request.remoteUser != null}">
-        <p><fmt:message key="user.status"/> <authz:authentication operation="fullName"/> | <a href="logout.jsp"><fmt:message key="user.logout"/></a></p>
+        <p><authz:authentication operation="fullName"/> <a href="logout.jsp"><fmt:message key="user.logout"/></a></p>
     </c:if>
 </div>
 <hr />
