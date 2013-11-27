@@ -194,10 +194,12 @@
 
     <c:when test="${param.from == 'list' or param.method == 'Add'}">
 
+
+
     <li>
         <mobriz4server:label styleClass="desc" key="user.department"/>
         <form:errors path="department" cssClass="fieldError"/>
-		<form:select path="department" id="departmen">
+		<form:select path="department" id="department">
 			<form:options items="${departments}"  />
 		</form:select>
 
@@ -240,16 +242,19 @@
     </c:when>
     <c:when test="${not empty user.username}">
     <li>
+
+        I am a profile
+
         <strong><mobriz4server:label key="user.roles"/></strong>
         <c:forEach var="role" items="${user.roleList}" varStatus="status">
             <c:out value="${role.label}"/><c:if test="${!status.last}">,</c:if>
             <input type="hidden" name="userRoles" value="<c:out value="${role.label}"/>"/>
         </c:forEach>
-        <strong>department</strong>
         <form:hidden path="enabled"/>
         <form:hidden path="accountExpired"/>
         <form:hidden path="accountLocked"/>
         <form:hidden path="credentialsExpired"/>
+        <form:hidden path="department"/>
     </li>
     </c:when>
 </c:choose>
