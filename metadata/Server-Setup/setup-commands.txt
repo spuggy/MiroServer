@@ -4,3 +4,9 @@ ln -s /home/webadmin/miro-assessment.com/miro-reports /opt/tomcat5/webapps/mirot
 
 
 unlink /opt/tomcat5/webapps/mirotest/miro/out
+
+
+ln -s /home/webadmin/miro-assessment.com/miro-reports
+
+
+ln -s /miro-reports /home/webadmin/miro-assessment.com/miro-reports
