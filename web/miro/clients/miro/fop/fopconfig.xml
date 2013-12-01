@@ -1,0 +1,12 @@
+<fop version="1.0">
+
+
+<renderers>
+    <renderer mime="application/pdf">
+      <fonts>
+        <directory>/Users/Richard/documents/workspace-copy/miroreport/fonts</directory>
+       </fonts>
+    </renderer>
+</renderers>
+
+</fop>
