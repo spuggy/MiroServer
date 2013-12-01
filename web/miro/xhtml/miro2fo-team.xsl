@@ -121,7 +121,7 @@
 	<xsl:template match="/html/body/div[@id = '0' ]">
 		<fo:page-sequence master-reference="noheader"  force-page-count="no-force">
 			<fo:flow flow-name="xsl-region-body" >
-			 	<fo:block margin-left="100px" padding-top="690px">
+			 	<fo:block margin-left="50px" padding-top="150px">
 					<xsl:apply-templates />
 				</fo:block>
 			</fo:flow>
@@ -160,7 +160,9 @@
             <fo:block  line-height="12pt" >
                 &#169; MiRo Psychometrics Ltd 2012
             </fo:block>
-
+            <fo:block  line-height="12pt" >
+                Agilisys-MiRo Confidential #DATEOFREPORT
+            </fo:block>
 
 
         </fo:block>

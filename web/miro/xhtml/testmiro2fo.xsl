@@ -147,7 +147,7 @@
 
 
                     <fo:block font-size="9pt" line-height="12pt" >
-                        &#169; MiRo Psychometrics Ltd 2012  - Capita-MiRo Confidential, #DATEOFREPORT
+                        &#169; MiRo Psychometrics Ltd 2012  - Agilisys-MiRo Confidential, #DATEOFREPORT
                     </fo:block>
 
 
