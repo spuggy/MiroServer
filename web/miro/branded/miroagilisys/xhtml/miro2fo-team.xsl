@@ -171,7 +171,7 @@ miro2fo-team.xsl
 
 
 	<xsl:template match="banner">
-		<fo:block  color="#ffffff" font-size="20pt" line-height="25pt" space-after="10pt" font-weight="bold">
+		<fo:block  color="#004FA2" font-size="20pt" line-height="25pt" space-after="10pt" font-weight="bold">
 			<xsl:apply-templates select="*|text()" />
 		</fo:block>
 	</xsl:template>
