@@ -7,6 +7,7 @@
         <meta http-equiv="Pragma" content="no-cache"><!-- Prevents caching at the Proxy Server -->
         
         <meta http-equiv="Expires" content="0">
+		<meta name="robots" content="nofollow" />
         
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
         
