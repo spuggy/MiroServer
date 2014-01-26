@@ -219,6 +219,10 @@ Version: 1.0
                 float: none;
                 margin: 5px;
             }
+			div#footer a.homeurl {
+		 		font-size: 1.5em;
+			}
+			
     /* END FOOTER */
 
     /* MISC LAYOUT CLASSES */

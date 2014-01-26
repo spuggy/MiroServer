@@ -136,12 +136,17 @@
 				<include name="decorators/default.jsp"/>
 				<include name="common/footer.jsp"/>
 				<include name="common/taglibs.jsp"/>
+				<include name="login.jsp"/>
 			</fileset>
 	
             <filterset>
 				<filter token="APPNAME" value="${webapp.name}"/>
             	<filter token="APPVERSION" value="${webapp.version}"/>
                 <filter token="COPYRIGHT-YEAR" value="${copyright.year}"/>
+                <filter token="HOME-URL" value="${home.url}"/>
+                <filter token="HOME-DESC" value="${home.desc}"/>
+		
+
                 <filter token="BUILD-TIME" value="${build.timestamp} by ${user.name}"/>
             </filterset>
         </copy>

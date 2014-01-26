@@ -121,7 +121,7 @@
 	<xsl:template match="/html/body/div[@id = '0' ]">
 		<fo:page-sequence master-reference="noheader"  force-page-count="no-force">
 			<fo:flow flow-name="xsl-region-body" >
-			 	<fo:block margin-left="50px" padding-top="150px">
+			 	<fo:block margin-left="30px" padding-top="300px">
 					<xsl:apply-templates />
 				</fo:block>
 			</fo:flow>
@@ -170,7 +170,7 @@
 
 
 	<xsl:template match="banner">
-		<fo:block  color="#004FA2" font-size="20pt" line-height="25pt" space-after="10pt" font-weight="bold">
+		<fo:block  color="#3C0088" font-size="20pt" line-height="25pt" space-after="10pt" font-weight="bold">
 			<xsl:apply-templates select="*|text()" />
 		</fo:block>
 	</xsl:template>

@@ -43,7 +43,7 @@
 	
 <p><fmt:message key="login.passwordHint"/></p>
 	
-
+<p> <a href="@HOME-URL@">@HOME-DESC@</a></p>
 
 				  </div>
               </div>
