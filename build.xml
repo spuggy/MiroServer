@@ -137,6 +137,8 @@
 				<include name="common/footer.jsp"/>
 				<include name="common/taglibs.jsp"/>
 				<include name="login.jsp"/>
+				<include name="WEB-INF/web.xml"/>
+				
 			</fileset>
 	
             <filterset>
@@ -145,6 +147,9 @@
                 <filter token="COPYRIGHT-YEAR" value="${copyright.year}"/>
                 <filter token="HOME-URL" value="${home.url}"/>
                 <filter token="HOME-DESC" value="${home.desc}"/>
+                <filter token="CSS-THEME" value="${css.theme}"/>
+
+			
 		
 
                 <filter token="BUILD-TIME" value="${build.timestamp} by ${user.name}"/>
