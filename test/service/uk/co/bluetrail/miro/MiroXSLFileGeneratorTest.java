@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import java.io.File;
 import java.util.HashMap;
 
-public class TestMiroXSLFileGenerator extends TestCase {
+public class MiroXSLFileGeneratorTest extends TestCase {
 
 	private File baseDir;
 

@@ -5,7 +5,7 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-public class TestMiroStarChart extends TestCase {
+public class MiroStarChartTest extends TestCase {
 	
 	public void testGenerate() {
 		

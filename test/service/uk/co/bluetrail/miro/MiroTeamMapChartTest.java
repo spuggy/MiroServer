@@ -9,7 +9,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 import static org.mockito.Mockito.*;
 
-public class TestMiroTeamMapChart extends TestMiroTeamReport {
+public class MiroTeamMapChartTest extends TestMiroTeamReport {
 
 	
 	public void testCreate() {

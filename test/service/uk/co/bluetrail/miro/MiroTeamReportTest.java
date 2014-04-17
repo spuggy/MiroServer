@@ -14,7 +14,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
-public class TestMiroTeamReport extends TestCase {
+public class MiroTeamReportTest extends TestCase {
 
 	protected MiroTeam miroTeam;
 	protected File baseDir ;

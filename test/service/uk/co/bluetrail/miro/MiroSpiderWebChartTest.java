@@ -5,7 +5,7 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-public class TestMiroSpiderWebChart extends TestCase {
+public class MiroSpiderWebChartTest extends TestCase {
 
 	
 

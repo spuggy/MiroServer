@@ -5,7 +5,7 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-public class TestMiroTeamBarChart extends TestCase {
+public class MiroTeamBarChartTest extends TestCase {
 
 	public void testCreate() {
 		double[] barValues = { 50.0, 50.0, 0.0, 0.0 };

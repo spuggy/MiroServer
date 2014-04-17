@@ -2,7 +2,7 @@ package uk.co.bluetrail.miro;
 
 import junit.framework.*;
 
-public class TestMiroReportLevel extends junit.framework.TestCase {
+public class MiroReportLevelTest extends junit.framework.TestCase {
 	
 	//h;100;40;m;40;20;l;20;1;a;0;0
 
