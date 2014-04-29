@@ -1,11 +1,11 @@
 package uk.co.bluetrail.miro;
 
-import java.awt.Color;
-import java.io.File;
-
 import junit.framework.TestCase;
 
-public class TestMiroPieChartGenerator extends TestCase {
+import java.awt.*;
+import java.io.File;
+
+public class MiroPieChartGeneratorTest extends TestCase {
 	
 	
 	public void testCreatePie() {
@@ -25,7 +25,7 @@ public class TestMiroPieChartGenerator extends TestCase {
 		MiroPieChartGenerator pieChart = new MiroPieChartGenerator("Your MiRo Results Chart", pieValues,
 				pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,true,true);  
 
-		File filePath = new File("/Users/Richard/Documents/workspace-copy/MiroServer3/web/miro/out");
+		File filePath = new File("web/miro/out");
 		
 		
 		String fileName = "test_piechart.jpg" ;

@@ -1,19 +1,16 @@
 package uk.co.bluetrail.miro;
 
+import junit.framework.Assert;
+
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
-import junit.framework.Assert;
-import junit.framework.TestCase;
-import static org.mockito.Mockito.*;
-
-public class MiroTeamMapChartTest extends TestMiroTeamReport {
+public class MiroTeamMapChartTest extends MiroTeamReportTest {
 
 	
 	public void testCreate() {
-		
+
+        defaultTeam();
 		
 		ArrayList teamMapData = this.teamResults;
 		

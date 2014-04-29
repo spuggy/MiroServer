@@ -1,19 +1,15 @@
 package uk.co.bluetrail.miro;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 import uk.co.bluetrail.mobriz.model.*;
-import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
 import java.awt.*;
 import java.io.File;
-import java.util.*;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import java.util.HashMap;
+import java.util.HashSet;
 
 
-public class TestMiroReport extends TestCase {
+public class MiroReportTest extends TestCase {
 
 
     protected File baseDir ;

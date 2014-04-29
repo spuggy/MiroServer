@@ -1,16 +1,16 @@
 package uk.co.bluetrail.miro;
 
-import java.io.File;
-
 import junit.framework.TestCase;
 
-public class TestMiroDynamicContent extends TestCase {
+import java.io.File;
+
+public class MiroDynamicContentTest extends TestCase {
 
 	private File baseDir;
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		this.baseDir = new File("/Users/Richard/Documents/workspace-copy/MiroServer3/web/miro");
+		this.baseDir = new File("web/miro");
 	}
 	
 	public void testAdd() {

@@ -145,7 +145,7 @@ public class MiroTeamReportTest extends TestCase {
 
     }
 	
-	private void defaultTeam() {
+	protected void defaultTeam() {
 		
 		this.members = new HashSet(); ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
@@ -233,7 +233,7 @@ public class MiroTeamReportTest extends TestCase {
 			
 			mtr.buildReportPageList(miroTeam, plist, variables,imgNames);
 			
-			Assert.assertEquals("Number of pages is 8", 8,plist.size());
+			Assert.assertEquals("Number of pages is 12", 12,plist.size());
 			
 			
 			
@@ -249,11 +249,11 @@ public class MiroTeamReportTest extends TestCase {
 			
 			pe = plist.get(2);
 			
-			Assert.assertEquals("Page 16 has two elements", 16,pe.getLength());
+			Assert.assertEquals("Page 6 has one elements", 1,pe.getLength());
 			
 			pe = plist.get(3);
 			
-			Assert.assertEquals("Page 4 has two elements", 6,pe.getLength());
+			Assert.assertEquals("Page 4 has two elements", 7,pe.getLength());
 			
 			
 		} catch(Exception e) {
@@ -278,13 +278,15 @@ public class MiroTeamReportTest extends TestCase {
 	}
 	
 	public void testGetLevel() {
+        defaultTeam();
+
 		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
-		
+
 		mtr.setResults(this.teamResults);
 		
 		mtr.setTeam(miroTeam);
 		
-		try {
+//		try {
 			String m0 = mtr.getMode(0);
 			String m1 = mtr.getMode(1);
 			String m2 = mtr.getMode(2);
@@ -299,9 +301,9 @@ public class MiroTeamReportTest extends TestCase {
 			Assert.assertEquals("m3 is D ","D",m3);
 			
 			
-		} catch (Exception e) {
-			Assert.fail("generate threw exception " + e.getMessage());
-		} 
+//		} catch (Exception e) {
+//			Assert.fail("generate threw exception " + e.getMessage());
+//		}
 	}
 	
 	public void testDeBalance() {

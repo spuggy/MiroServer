@@ -1,6 +1,142 @@
+apply plugin:'java'
+
+
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+
+        }
+//        resources {
+//            srcDir 'src/resources'
+//        }
+    }
+    test {
+        java {
+            srcDir 'test'
+        }
+//        resources {
+//            srcDir 'src/resources'
+//        }
+    }
+}
+
+
+
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+
+configurations {
+    junitAnt
+}
+dependencies {
+
+
+    compile files('lib/displaytag-1.1/displaytag-1.1.jar')
+    compile files('lib/docx4j/antlr-2.7.7.jar')
+    compile files('lib/docx4j/antlr-runtime-3.3.jar')
+    compile files('lib/docx4j/avalon-framework-api-4.3.1.jar')
+    compile files('lib/docx4j/avalon-framework-impl-4.3.1.jar')
+    compile files('lib/docx4j/commons-codec-1.3.jar')
+    compile files('lib/docx4j/docx4j-2.8.0.jar')
+    compile files('lib/docx4j/jaxb-svg11-1.0.2.jar')
+    compile files('lib/docx4j/jaxb-xmldsig-core-1.0.0.jar')
+    compile files('lib/docx4j/jaxb-xslfo-1.0.1.jar')
+    compile files('lib/docx4j/poi-3.8.jar')
+    compile files('lib/docx4j/poi-scratchpad-3.8.jar')
+    compile files('lib/docx4j/serializer-2.7.1.jar')
+    compile files('lib/docx4j/stringtemplate-3.2.1.jar')
+    compile files('lib/docx4j/wmf2svg-0.9.0.jar')
+    compile files('lib/docx4j/xhtmlrenderer-1.0.0.jar')
+    compile files('lib/dwr-2.0.3/dwr.jar')
+    compile files('lib/fop/avalon-framework-4.2.0.jar')
+    compile files('lib/fop/batik-all-1.6.jar')
+    compile files('lib/fop/fop.jar')
+    compile files('lib/fop/itext-1.4.jar')
+    compile files('lib/fop/jcommon-1.0.17.jar')
+    compile files('lib/fop/jfreechart-1.0.14.jar')
+    compile files('lib/fop/serializer-2.7.0.jar')
+    compile files('lib/fop/xalan-2.7.0.jar')
+    compile files('lib/fop/xercesImpl-2.7.1.jar')
+    compile files('lib/fop/xml-apis-1.3.02.jar')
+    compile files('lib/fop/xmlgraphics-commons-1.4.jar')
+    compile files('lib/hibernate-3.2/hibernate3.jar')
+    compile files('lib/hibernate-3.2/lib/antlr-2.7.6.jar')
+    compile files('lib/hibernate-3.2/lib/asm.jar')
+    compile files('lib/hibernate-3.2/lib/cglib-2.1.3.jar')
+    compile files('lib/hibernate-3.2/lib/dom4j-1.6.1.jar')
+    compile files('lib/hibernate-3.2/lib/jta.jar')
+    compile files('lib/hibernate-3.2/lib/oscache-2.3.2.jar')
+    compile files('lib/jakarta-commons/commons-beanutils.jar')
+    compile files('lib/jakarta-commons/commons-collections.jar')
+    compile files('lib/jakarta-commons/commons-digester.jar')
+    compile files('lib/jakarta-commons/commons-fileupload.jar')
+    compile files('lib/jakarta-commons/commons-io-1.3.1.jar')
+    compile files('lib/jakarta-commons/commons-lang.jar')
+    compile files('lib/jakarta-commons/commons-logging-1.1.jar')
+    compile files('lib/jakarta-commons/commons-validator.jar')
+    compile files('lib/jakarta-commons/jakarta-oro.jar')
+    compile files('lib/jakarta-taglibs/standard-1.0.6/lib/jstl.jar')
+    compile files('lib/javamail-1.3.1/activation.jar')
+    compile files('lib/javamail-1.3.1/mail.jar')
+    compile files('lib/mockito/mockito-all-1.9.0.jar')
+    compile files('lib/postgresql-jdbc-8.1-405/postgresql-jdbc3-8.1-405.jar')
+    compile files('lib/servletapi-2.3/servletapi-2.3.jar')
+    compile files('lib/spring-2.0/acegi-security-1.0.2.jar')
+    compile files('lib/spring-2.0/antlr.jar')
+    compile files('lib/spring-2.0/aspectjweaver-1.5.2.jar')
+    compile files('lib/spring-2.0/commons-codec-1.3.jar')
+    compile files('lib/spring-2.0/ehcache-1.2.3.jar')
+    compile files('lib/spring-2.0/spring-mock.jar')
+    compile files('lib/spring-2.0/spring-modules-validation-0.5.jar')
+    compile files('lib/spring-2.0/spring.jar')
+    compile files('lib/struts-menu-2.4.2/struts-menu-2.4.2.jar')
+    compile files('lib/velocity-1.4/velocity-1.4.jar')
+    compile files('lib/velocity-1.4/velocity-tools-view-1.1.jar')
+
+
+    testCompile files('lib/mockito/mockito-all-1.9.0.jar')
+    testCompile files('lib/logging-log4j-1.2.11/dist/lib/log4j-1.2.11.jar')
+    testCompile files('lib/jakarta-commons/jakarta-oro.jar')
+    testCompile files('lib/dumbster-1.5/dumbster-1.5.jar')
+    testCompile files('lib/jmock-1.1.0/jmock-1.1.0.jar')
+
+    testCompile 'org.apache.ant:ant-junit:1.9.2'
+
+    junitAnt 'junit:junit:4.8.2'
+    junitAnt('org.apache.ant:ant-junit:1.9.2') {
+        transitive = false
+    }
+    junitAnt('org.apache.ant:ant-junit4:1.9.2') {
+        transitive = false
+    }
+}
+ant.taskdef(name: 'junit', classname: 'org.apache.tools.ant.taskdefs.optional.junit.JUnitTask',
+        classpath: configurations.junitAnt.asPath)
+
+ant.taskdef(name: 'junitreport', classname: 'org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator',
+        classpath: configurations.junitAnt.asPath)
+
+
 ant.importBuild 'build.xml'
 
 
-task hello() <<{
-    println "hello"
+
+
+task sampleTest(type: Test, dependsOn: testClasses) {
+    include '**/*Map*'
+}
+
+tasks.withType(Test) {
+    testLogging {
+        events 'started', 'passed'
+    }
 }

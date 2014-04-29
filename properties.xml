@@ -111,6 +111,7 @@
         <pathelement location="${commons-logging.jar}"/>
         <fileset dir="${spring.dir}" includes="*.jar"/>
     </path>
+
     <path id="dao.test.classpath">
         <path refid="dao.compile.classpath"/>
         <pathelement location="${dbunit.jar}"/>
@@ -135,6 +136,7 @@
         <fileset dir="${velocity.dir}" includes="*.jar"/>
     	<pathelement location="${mockito.jar}"/>
     </path>
+
     <path id="service.test.classpath">
         <path refid="service.compile.classpath"/>
         <pathelement location="${junit.jar}"/>
@@ -171,7 +173,6 @@
     <path id="web.test.classpath">
         <path refid="web.compile.classpath"/>
         <path refid="service.test.classpath"/>
-        <pathelement location="${strutstestcase.jar}"/>
         <fileset dir="${webtest.dir}/lib" includes="*.jar"/>
     </path>
 

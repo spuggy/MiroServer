@@ -558,8 +558,8 @@
 	                <filterset refid="variables.to.replace"/>
 	         </copy>
 
-            <junit printsummary="no" forkmode="once" errorProperty="test.failed" 
-                failureProperty="test.failed" fork="${junit.fork}" showoutput="${junit.showoutput}">
+            <junit printsummary="on" forkmode="once" errorProperty="test.failed"
+                failureProperty="test.failed" fork="${junit.fork}" showoutput="yes">
                 <jvmarg value="-Duser.language=en"/>
                 <classpath>
                     <!-- Instrumented classes - must be BEFORE the normal ones -->
@@ -903,7 +903,7 @@
         description="creates database and populates by calling other tasks"/>
         
     <!-- Remove classes directory for clean build -->
-    <target name="clean" description="Removes build artifacts">
+    <target name="cleanall" description="Removes build artifacts">
         <echo level="info">Cleaning build and distribution directories</echo>
 	 <echo message="ant.project.name: ${ant.project.name}" />
 	 <echo message="user.home: ${user.home}" />
@@ -915,63 +915,63 @@
         <delete dir="${coverage.dir}"/>
     </target>
 
-    <!-- =================================================================== -->
-    <!-- Create JavaDoc Documentation                                        -->
-    <!-- =================================================================== -->
-    <target name="javadoc" depends="java2html"
-        description="Generate JavaDoc API docs">
-        <javadoc
-            destdir="${build.dir}/docs/api"
-            packagenames="uk.co.bluetrail.mobriz.*"
-            author="true"
-            version="true"
-            windowtitle="${webapp.name} api"
-            doctitle="&lt;h1&gt;${webapp.name} javadocs for
-                version ${webapp.version}&lt;/h1&gt;"
-            bottom="Copyright &#169; 2002-${copyright.year}"
-            stylesheetfile="${build.dir}/docs/api/stylesheet.css">
+    <!--&lt;!&ndash; =================================================================== &ndash;&gt;-->
+    <!--&lt;!&ndash; Create JavaDoc Documentation                                        &ndash;&gt;-->
+    <!--&lt;!&ndash; =================================================================== &ndash;&gt;-->
+    <!--<target name="javadoc" depends="java2html"-->
+        <!--description="Generate JavaDoc API docs">-->
+        <!--<javadoc-->
+            <!--destdir="${build.dir}/docs/api"-->
+            <!--packagenames="uk.co.bluetrail.mobriz.*"-->
+            <!--author="true"-->
+            <!--version="true"-->
+            <!--windowtitle="${webapp.name} api"-->
+            <!--doctitle="&lt;h1&gt;${webapp.name} javadocs for-->
+                <!--version ${webapp.version}&lt;/h1&gt;"-->
+            <!--bottom="Copyright &#169; 2002-${copyright.year}"-->
+            <!--stylesheetfile="${build.dir}/docs/api/stylesheet.css">-->
 
-            <fileset dir="${src}">
-                <patternset refid="java.files.pattern"/>
-            </fileset>
-            <fileset dir="test">
-                <patternset refid="java.files.pattern"/>
-            </fileset>
+            <!--<fileset dir="${src}">-->
+                <!--<patternset refid="java.files.pattern"/>-->
+            <!--</fileset>-->
+            <!--<fileset dir="test">-->
+                <!--<patternset refid="java.files.pattern"/>-->
+            <!--</fileset>-->
 
-            <classpath refid="web.test.classpath"/>
-            <classpath>
-                <pathelement location="${jmock.jar}"/>
-                <pathelement location="${build.dir}/web/gen"/>
-            </classpath>
-            
-            <!-- XDoclet Tags -->
-            <tag name="hibernate.class" scope="all" description="Class:"/>
-            <tag name="hibernate.id" scope="all" description="Id:"/>
-            <tag name="hibernate.property" scope="all" description="Property:"/>
-            <tag name="jsp.tag" scope="all" description="JSP Tag:"/>
-            <tag name="jsp.attribute" scope="all" description="JSP Attribute:"/>
-            <tag name="struts.action" scope="all" description="Mapping:"/>
-            <tag name="struts.action-forward" scope="all" description="ActionForward:"/>
-            <tag name="struts.form" scope="all" description="Form Name:"/>
-            <tag name="struts.validator" scope="all" description="Validator:"/>
-            <tag name="struts.validator-args" scope="all" description="Validator Args:"/>
-            <tag name="struts.validator-var" scope="all" description="Validator Var:"/>
-            
-            <!-- Application frameworks -->
-            <link href="http://jakarta.apache.org/commons/lang/api"/>
-            <link href="http://struts.apache.org/struts-doc-1.2.9/api"/>
-            <link href="http://www.springframework.org/docs/api"/>
-            <link href="http://www.hibernate.org/hib_docs/api"/>
-            
-            <!-- Testing frameworks -->
-            <link href="http://www.junit.org/junit/javadoc/${junit.version}"/>
-            <link href="http://strutstestcase.sf.net/api/"/>
-            
-            <!-- SDKs -->
-            <link href="http://java.sun.com/j2se/1.4/docs/api/"/>
-            <link href="http://java.sun.com/j2ee/sdk_1.3/techdocs/api/"/>
-        </javadoc>
-    </target>
+            <!--<classpath refid="web.test.classpath"/>-->
+            <!--<classpath>-->
+                <!--<pathelement location="${jmock.jar}"/>-->
+                <!--<pathelement location="${build.dir}/web/gen"/>-->
+            <!--</classpath>-->
+            <!---->
+            <!--&lt;!&ndash; XDoclet Tags &ndash;&gt;-->
+            <!--<tag name="hibernate.class" scope="all" description="Class:"/>-->
+            <!--<tag name="hibernate.id" scope="all" description="Id:"/>-->
+            <!--<tag name="hibernate.property" scope="all" description="Property:"/>-->
+            <!--<tag name="jsp.tag" scope="all" description="JSP Tag:"/>-->
+            <!--<tag name="jsp.attribute" scope="all" description="JSP Attribute:"/>-->
+            <!--<tag name="struts.action" scope="all" description="Mapping:"/>-->
+            <!--<tag name="struts.action-forward" scope="all" description="ActionForward:"/>-->
+            <!--<tag name="struts.form" scope="all" description="Form Name:"/>-->
+            <!--<tag name="struts.validator" scope="all" description="Validator:"/>-->
+            <!--<tag name="struts.validator-args" scope="all" description="Validator Args:"/>-->
+            <!--<tag name="struts.validator-var" scope="all" description="Validator Var:"/>-->
+            <!---->
+            <!--&lt;!&ndash; Application frameworks &ndash;&gt;-->
+            <!--<link href="http://jakarta.apache.org/commons/lang/api"/>-->
+            <!--<link href="http://struts.apache.org/struts-doc-1.2.9/api"/>-->
+            <!--<link href="http://www.springframework.org/docs/api"/>-->
+            <!--<link href="http://www.hibernate.org/hib_docs/api"/>-->
+            <!---->
+            <!--&lt;!&ndash; Testing frameworks &ndash;&gt;-->
+            <!--<link href="http://www.junit.org/junit/javadoc/${junit.version}"/>-->
+            <!--<link href="http://strutstestcase.sf.net/api/"/>-->
+            <!---->
+            <!--&lt;!&ndash; SDKs &ndash;&gt;-->
+            <!--<link href="http://java.sun.com/j2se/1.4/docs/api/"/>-->
+            <!--<link href="http://java.sun.com/j2ee/sdk_1.3/techdocs/api/"/>-->
+        <!--</javadoc>-->
+    <!--</target>-->
 
     <!-- =================================================================== -->
     <!-- Create HTML versions of the Java code in this project               -->

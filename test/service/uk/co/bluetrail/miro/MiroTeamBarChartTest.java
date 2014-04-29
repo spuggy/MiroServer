@@ -1,9 +1,9 @@
 package uk.co.bluetrail.miro;
 
-import java.awt.Color;
-import java.io.File;
-
 import junit.framework.TestCase;
+
+import java.awt.*;
+import java.io.File;
 
 public class MiroTeamBarChartTest extends TestCase {
 
@@ -21,7 +21,7 @@ public class MiroTeamBarChartTest extends TestCase {
 		
 		
 		
-		File filePath = new File("/Users/Richard/Documents/workspace-copy/MiroServer3/web/miro");
+		File filePath = new File("web/miro");
 		
 		
 		uk.co.bluetrail.miro.MiroTeamBarChart barChart = new MiroTeamBarChart(filePath);
