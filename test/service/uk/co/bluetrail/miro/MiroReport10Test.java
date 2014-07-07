@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 
-public class MiroReportTest extends TestCase {
+public class MiroReport10Test extends TestCase {
 
 
     protected File baseDir ;
@@ -100,7 +100,7 @@ public class MiroReportTest extends TestCase {
         miroResponse.setMiroProject(miroProject);
 
         try {
-            miroReport.generateReport(miroResponse);
+            miroReport.generateReport(miroResponse,MiroReport.V10);
         } catch (Exception e) {
             fail("failed with " + e.getMessage());
         }
@@ -110,7 +110,7 @@ public class MiroReportTest extends TestCase {
 		
 	}
 
-    private MiroReport getMiroReport(String baseDirectory){
+    protected MiroReport getMiroReport(String baseDirectory){
 
 
         MiroReport miroReport = new MiroReport(new File(baseDirectory),this.engagedScore,this.excessScore,this.latentScore);
@@ -211,7 +211,7 @@ public class MiroReportTest extends TestCase {
         q = new Question() ; q.setId(59L); q.setShortname("11"); q.setQTxt("Q"); q.setJQuestion_id(60L); m.add(q);
         q = new Question() ; q.setId(60L); q.setShortname("4"); q.setQTxt("Q"); q.setJQuestion_id(61L); m.add(q);
         q = new Question() ; q.setId(61L); q.setShortname("11"); q.setQTxt("Q"); q.setJQuestion_id(62L); m.add(q);
-
+        q = new Question() ; q.setId(62L); q.setShortname("D-A"); q.setQTxt("tie"); q.setJQuestion_id(0L); m.add(q);
 
 
         survey.setQuestions(m);
@@ -219,8 +219,8 @@ public class MiroReportTest extends TestCase {
     }
 
 
-    private void populateMiroResponse(MiroResponse mr, User practitioner,
-                                      User candidate) {
+    protected void populateMiroResponse(MiroResponse mr, User practitioner,
+                                        User candidate) {
         mr.setPractitionerEmail(practitioner.getEmail());
         mr.setPractitionerName(practitioner.getFirstName() +" " + practitioner.getLastName());
         mr.setPractitionerTelNo(practitioner.getPhoneNumber());

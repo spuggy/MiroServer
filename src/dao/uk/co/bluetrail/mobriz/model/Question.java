@@ -664,7 +664,10 @@ public boolean isNew() {
 	 * @see uk.co.bluetrail.mobriz.model.BaseObject#equals(java.lang.Object)
 	 */
 	public boolean equals(Object o) {
-		if(id.compareTo((Long) o) == 0 ){
+
+        Question toQuestion = (Question) o  ;
+
+		if(id.compareTo(toQuestion.getId()) == 0 ){
 			return true; 
 		} else {
 			return false;

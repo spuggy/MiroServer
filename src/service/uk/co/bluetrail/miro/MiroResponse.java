@@ -1,22 +1,10 @@
 package uk.co.bluetrail.miro;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;  
+import org.apache.commons.logging.LogFactory;
+import uk.co.bluetrail.mobriz.model.*;
 
-import uk.co.bluetrail.mobriz.model.MiroProject;
-import uk.co.bluetrail.mobriz.model.Question;
-import uk.co.bluetrail.mobriz.model.Setting;
-import uk.co.bluetrail.mobriz.model.SurveyResponse;
-import uk.co.bluetrail.mobriz.model.Survey;
-import uk.co.bluetrail.mobriz.model.User;
-import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
+import java.util.*;
 
 /**
  * 
@@ -34,7 +22,8 @@ public class MiroResponse  {
 	 private MiroProject miroProject;
 	 private String miroReportName ;
 	 
-	 
+
+
 	 
 	 
 	 /**
@@ -66,8 +55,18 @@ public class MiroResponse  {
 
 	private String company;
 	private String webaddress;
-	
 
+
+    public int getTestVersion() {
+
+        if(this.surveyResponse.getAnswer_trail().length() > 62) {
+            return 11   ;
+        }  else {
+            return 10  ;
+        }
+
+
+    }
 	
 
 	/**
@@ -737,12 +736,6 @@ public class MiroResponse  {
 		return isEngaged(results[1]);
 	}
 
-	
 
-	
-
-	
-
-	
 
 }

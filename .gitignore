@@ -5,3 +5,4 @@ dist
 web/miro/out/
 velocity.log
 serializer.log
+testweb/node_modules/

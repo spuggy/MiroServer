@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>miroSurveyController02</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+
+
+    <script type="text/javascript" src="../../web/scripts/prototype-1.5.1.2.js"></script>
+    <script type="text/javascript" src="../../web/scripts/scriptaculous.js"></script>
+    <script type="text/javascript" src="../../web/scripts/global.js"></script>
+    <script type="text/javascript" src="../../web/scripts/dragdrop.js"></script>
+    <script type="text/javascript" src="../../web/scripts/effects.js"></script>
+    <script type="text/javascript" src="../../web/scripts/miroSurveyController/miroSurveyController02.js"></script>
+
+
+
+
+    <script>mocha.setup('bdd')</script>
+    <script>
+        function assert(expr, msg) {
+            if (!expr) throw new Error(msg || 'failed');
+        }
+    </script>
+    <script src="DWREngine_mock.js"></script>
+    <script src="miroSurveyController_test.js"></script>
+    <script>
+        onload = function(){
+            mocha.checkLeaks();
+            expect = chai.expect;
+            mocha.globals(['expect']);
+
+            var runner = mocha.run();
+
+        };
+    </script>
+</head>
+<body>
+<div id="mocha"></div>
+<hr/>
+</body>
+</html>

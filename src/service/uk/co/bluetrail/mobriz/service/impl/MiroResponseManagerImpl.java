@@ -322,7 +322,8 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
 		mr.setMiroProject(miroProject);  
 
-		miroReport.generateReport(mr);
+		miroReport.generateReport(mr,MiroReport.V10);
+        miroReport.generateReport(mr,MiroReport.V11);
 
 		sr.setAlertsProcessed(true);
 

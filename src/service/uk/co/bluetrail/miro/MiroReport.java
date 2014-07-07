@@ -30,6 +30,9 @@ import java.util.List;
 public class MiroReport {
     private final Log log = LogFactory.getLog(MiroReport.class);
 
+    public static int V11 = 11 ;
+    public static int V10 = 10 ;
+
 
     File baseDirectory;
 	MiroResponse mr ;
@@ -122,27 +125,64 @@ public class MiroReport {
 		this.latentScore = latentScore ;
 	}
 	
-	public void generateReport(MiroResponse mr) throws Exception{
+	public void generateReport(MiroResponse mr,int reportVersion) throws Exception{
 	
 		if(mr == null) {
 			log.error("The Miro response is null");
 		}
 
-		setupMr(mr);
-		
-		
-		
-		log.debug("Before Chart " + mr.toString());
-		this.generateChart();
-		log.debug("Before XMLReportFile " + mr.toString());
-		this.generateXMLReportFile();   
-		log.debug("Before PDF " + mr.toString());
-        this.generateXSLReportFile(mr.getMiroReportName());
-		MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr.getMiroReportName());
-		
-		
+        if(reportVersion==MiroReport.V10 && mr.getTestVersion() >=MiroReport.V10 ) {
+	        this.generateReportV10(mr);
+            return ;
+        }
+
+        if(reportVersion==MiroReport.V11 && mr.getTestVersion() >=MiroReport.V11)  {
+            this.generateReportV11(mr);
+            return   ;
+
+         }
+
+        throw new MiroException("Cannot produces a report for version " + reportVersion);
 
 	}
+
+
+    public void generateReportV11(MiroResponse mr) throws Exception{
+
+        if(mr == null) {
+            log.error("The Miro response is null");
+        }
+
+        setupMr(mr);
+
+
+
+    }
+
+    public void generateReportV10(MiroResponse mr) throws Exception{
+
+        if(mr == null) {
+            log.error("The Miro response is null");
+        }
+
+        setupMr(mr);
+
+
+
+        log.debug("Before Chart " + mr.toString());
+        this.generateChart();
+        log.debug("Before XMLReportFile " + mr.toString());
+        this.generateXMLReportFile();
+        log.debug("Before PDF " + mr.toString());
+        this.generateXSLReportFile(mr.getMiroReportName());
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr.getMiroReportName());
+
+
+
+    }
+
+
+
 
     private void generateXSLReportFile(String reportName) throws Exception{
 
