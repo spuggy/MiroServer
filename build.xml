@@ -861,7 +861,7 @@
     <!-- tables based on the mapping files                                   -->
     <!-- =================================================================== -->
 	
-	<target name="db-prepare" depends="clean,package-dao"
+	<target name="db-prepare" depends="antclean,package-dao"
         description="creates database tables">
         <taskdef name="schemaexport"
             classname="org.hibernate.tool.hbm2ddl.SchemaExportTask">
