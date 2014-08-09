@@ -297,7 +297,8 @@ MiroSurveyController.prototype = {
 		  	this.handleAjaxErrors(questionDTOs) ; 
 	   	   	return ; 
 	   	}
-   		
+
+
    		
    		
    		this.questions = new Object() ; 
@@ -305,7 +306,8 @@ MiroSurveyController.prototype = {
    		this.questionCount = 0 ;   		
    		for(var q in questionDTOs) {
    			questionDTO = questionDTOs[q] ; 
-   			this.questions[q] = questionDTO.QForm ; 
+   			this.questions[q] = questionDTO.QForm ;
+        console.log(JSON.stringify(questionDTO));
    			this.questionCount++;
    		}
    	   	
