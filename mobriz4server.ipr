@@ -351,9 +351,7 @@
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
   <component name="GradleSettings">
-    <option name="gradleHome" value="/usr/local/Cellar/gradle/1.2/libexec" />
     <option name="linkedProjectPath" value="$PROJECT_DIR$/build.gradle" />
-    <option name="preferLocalInstallationToWrapper" value="true" />
   </component>
   <component name="IdProvider" IDEtalkID="582155E7011F877EF1653A854B705B89" />
   <component name="InspectionProjectProfileManager">

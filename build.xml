@@ -803,7 +803,7 @@
             <equals arg1="${database.type}" arg2="sqlserver"/>
         </condition>
 
-        <property name="file" value="metadata/sql/testdb-data.xml"/>
+        <property name="file" value="testdata/testdb-data.xml"/>
         <dbunit driver="${database.driver_class}"
             supportBatchStatement="false" url="${database.url}"
             userid="${database.username}" password="${database.password}" useQualifiedTableNames="true">

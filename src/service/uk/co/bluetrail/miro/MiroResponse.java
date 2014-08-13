@@ -164,7 +164,7 @@ public class MiroResponse  {
 			mostAnswer = mostAnswers[1].trim();
 			leastAnswer = leastAnswers[1].trim();
 			
-			if(question.getQTxt().trim().toLowerCase().equals("tie")) {
+			if(question.getQMeta().trim().toLowerCase().equals("tie")) {
 				log.debug(this.surveyResponse.getId() + ": Ignoring tie breaker qid= " + question.getId() );
 				tieBreakers.put(question.getShortname(), mostAnswer);
 				isTieBreaker = true;
