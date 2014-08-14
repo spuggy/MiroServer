@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/scripts/dragdrop.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/scripts/effects.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/scripts/miroSurveyController02.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/scripts/miroSurveyController/miroSurveyController03.js'/>"></script>
 
 <script type="text/javascript">
 var testInProgress = false ; 
@@ -89,6 +89,7 @@ You will be able to edit your answers as you go but once you click on the finish
 		<div id="qNum"></div><br/>
 		<div id="leastPrompt">Which word <b>LEAST</b> describes you?</div>
 		<div id="mostPrompt">Which word <b>MOST</b> describes you?</div>
+        <div id="miro11Prompt">Hey the new questions are next ... woot</div>
 		
 	</div>
 	</li>
