@@ -1,77 +1,24 @@
 package uk.co.bluetrail.miro;
 
-import junit.framework.TestCase;
+import junit.framework.Assert;
 import uk.co.bluetrail.mobriz.model.*;
 
-import java.awt.*;
-import java.io.File;
-import java.util.HashMap;
 import java.util.HashSet;
 
 
-public class MiroReport10Test extends TestCase {
 
 
-    protected File baseDir ;
-    protected Setting miroLetters;
-    protected String baseDirPath ;
-    protected User prac;
-    protected HashMap modeNames;
-    protected int testOffset;
-    protected int engagedScore ;
-    protected int latentScore ;
-    protected double miroGraphAdjustment  ;
-    protected int excessScore;
+public class MiroReport11Test extends MiroReport10Test  {
 
 
-	
-	/* (non-Javadoc)
-	 * @see junit.framework.TestCase#setUp()
-	 */
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		
+    public void initTestData(MiroResponse miroResponse) {
 
-        this.testOffset = 32;
-        this.engagedScore = 31;
-        this.latentScore =  8 ;
-        this.miroGraphAdjustment= 0.75 ;
-		this.excessScore = 55;
-
-		miroLetters = new Setting();
-		
-		miroLetters.setSettingValue("D;E;A;O");
-
-
-		
-		prac = new User();
-		
-		prac.setFirstName("Kenny");
-		prac.setLastName("Practitioner");
-		prac.setId(new Long(99));
-		prac.setAddress1("80 Sandringham Road");
-		prac.setCity("Swindon");
-        prac.setPhoneNumber("07961236235");
-        prac.setEmail("rspence@pac.com");
-		
-        this.baseDirPath =  "/miro-reports";
-
-		this.baseDir = new File(this.baseDirPath);
-		
-		
-	}
-	
-	public void testGenerate() {
-
-        MiroReport miroReport = getMiroReport(this.baseDirPath);
-
-        MiroResponse miroResponse = new MiroResponse();
 
         SurveyResponse surveyResponse  = new SurveyResponse();
         surveyResponse.setId(new Long(99));
-        surveyResponse.setAnswer_trail("Charming#E;Tolerant#O~Self-assured#D;Impulsive#E~Empathic#O;Competitive#D~Charismatic#E;Methodical#A ~Positive#E;Pioneering#D~Amiable#O;Sceptical#D~Good-natured#O;Unwavering#D~Affable#E;Adventurous#D~Playful#E;Demanding#D~Admirable#E;Forceful#D~Companionable#E;Self-sufficient#D~Kind-hearted#O;Orderly#A~Unconventional#E;Conventional#A~Gregarious#E;Level-headed#A~Open #E;No-nonsense #D~Friendly#E;Forthright#D~Big-hearted#O;Well-disciplined#A~Relaxed#O;Exacting#A~Gentle#O;Modest#A~Sophisticated#A;Compassionate#O~Popular#E;Eager#D~Optimistic#E;Risk taking#D~Open-minded#A;Self-confident#D~Respectful  #O;Definite #D~Unpredictable #E;Stable#O~Self-reliant#D;Restrained#A~Attentive#O;Diplomatic#A~Helpful#O;Determined#D~Contented#O;Restless#D~Perfectionist#A ;Impatient#D ");
-        surveyResponse.setQuestion_trail("33~34~35~36~37~38~39~40~41~42~43~44~45~46~47~48~49~50~51~52~53~54~55~56~57~58~59~60~61~62");
+        surveyResponse.setAnswer_trail("Charming#E;Tolerant#O~Self-assured#D;Impulsive#E~Empathic#O;Competitive#D~Charismatic#E;Methodical#A ~Positive#E;Pioneering#D~Amiable#O;Sceptical#D~Good-natured#O;Unwavering#D~Affable#E;Adventurous#D~Playful#E;Demanding#D~Admirable#E;Forceful#D~Companionable#E;Self-sufficient#D~Kind-hearted#O;Orderly#A~Unconventional#E;Conventional#A~Gregarious#E;Level-headed#A~Open #E;No-nonsense #D~Friendly#E;Forthright#D~Big-hearted#O;Well-disciplined#A~Relaxed#O;Exacting#A~Gentle#O;Modest#A~Sophisticated#A;Compassionate#O~Popular#E;Eager#D~Optimistic#E;Risk taking#D~Open-minded#A;Self-confident#D~Respectful  #O;Definite #D~Unpredictable #E;Stable#O~Self-reliant#D;Restrained#A~Attentive#O;Diplomatic#A~Helpful#O;Determined#D~Contented#O;Restless#D~Perfectionist#A;Impatient#D~~true#plus~true#plus~true#minus~true#minus~true#plus~false#plus~false#plus~true#minus~false#plus~true#plus~false#plus~true#plus~false#plus~true#plus~false#plus~false#plus~false#plus~true#plus~false#plus");
+        
+        surveyResponse.setQuestion_trail("33~34~35~36~37~38~39~40~41~42~43~44~45~46~47~48~49~50~51~52~53~54~55~56~57~58~59~60~61~62~63~64~65~66~67~68~69~70~71~72~73~74~75~76~77~78~79~80~81~82~83");
 
         User candidate = new User();
 
@@ -83,64 +30,69 @@ public class MiroReport10Test extends TestCase {
 
 
         Survey survey = new Survey();
+
+
+        miroResponse.init(survey,surveyResponse, this.miroLetters,this.testOffset);
+
         survey.setId(0L);
         survey.setFirstQuestion_id(33L);
         initQuestions(survey);
 
-        miroResponse.init(survey,surveyResponse, this.miroLetters,this.testOffset);
+        System.out.println("arse");
 
-        MiroProject miroProject = new MiroProject();
 
         User practitioner = this.prac;
 
         candidate.setResponse_id(surveyResponse.getId());
         populateMiroResponse(miroResponse,practitioner,candidate) ;
 
-
+        MiroProject miroProject = new MiroProject();
         miroResponse.setMiroProject(miroProject);
+    }
+
+
+    public void testGenerate() {
+        MiroReport MiroReport = getMiroReport(this.baseDirPath);
+
+        MiroResponse miroResponse = new MiroResponse();
+
+        initTestData(miroResponse);
 
         try {
-            miroReport.generateReport(miroResponse,MiroReport.V10);
+            MiroReport.generateReport(miroResponse,MiroReport.V11);
         } catch (Exception e) {
             fail("failed with " + e.getMessage());
         }
 
 
-		
-		
-	}
-
-    protected MiroReport getMiroReport(String baseDirectory){
-
-
-        MiroReport miroReport = new MiroReport(new File(baseDirectory),this.engagedScore,this.excessScore,this.latentScore);
-
-        HashMap modes = new HashMap();
-        modes.put("E", "Energising Mode");
-        modes.put("D", "Driving Mode");
-        modes.put("A", "Analysing Mode");
-        modes.put("O", "Organising Mode");
-
-        HashMap colors = new HashMap();
-        colors.put("E", Color.YELLOW);
-        colors.put("D", Color.RED);
-        colors.put("A", Color.BLUE);
-        colors.put("O", Color.GREEN );
-
-        miroReport.setModes(modes) ;
-        miroReport.setColors(colors);
-        miroReport.setEngagedText("Engaged");
-        miroReport.setDisEngagedText("Disengaged");
-        miroReport.setLatentText("Latent");
-        miroReport.setExcessText("Excess");
-        miroReport.setMiroGraphAdjustment(miroGraphAdjustment);
-        miroReport.setLabels2(new String[] { "Leading", "Supporting", "Supplementary","Dormant" });
-
-
-        return miroReport;
 
 
     }
+
+    public void testCalculateResults() {
+        MiroReport MiroReport = getMiroReport(this.baseDirPath);
+
+        MiroResponse miroResponse = new MiroResponse();
+
+        this.initTestData(miroResponse);
+
+
+
+        try {
+
+            miroResponse.forceCalculateResults();
+            Assert.assertEquals("extroIntro should be 13", 13, miroResponse.extroIntro);
+
+
+        } catch (Exception e) {
+            fail("failed with " + e.getMessage());
+        }
+
+
+
+
+    }
+
 
 
     protected void initQuestions(Survey survey) {
@@ -181,7 +133,6 @@ public class MiroReport10Test extends TestCase {
         q = new Question() ; q.setId(25L); q.setShortname("E-O"); q.setQMeta("tie"); q.setJQuestion_id(26L); m.add(q);
         q = new Question() ; q.setId(30L); q.setShortname("D-A"); q.setQMeta("tie"); q.setJQuestion_id(0L); m.add(q);
         q = new Question() ; q.setId(32L); q.setShortname("123"); q.setQMeta("23"); q.setJQuestion_id(0L); m.add(q);
-        q = new Question() ; q.setId(62L); q.setShortname("D-A"); q.setQMeta("tie"); q.setJQuestion_id(0L); m.add(q);
         q = new Question() ; q.setId(33L); q.setShortname("11"); q.setQMeta("Q"); q.setJQuestion_id(34L); m.add(q);
         q = new Question() ; q.setId(34L); q.setShortname("6"); q.setQMeta("Q"); q.setJQuestion_id(35L); m.add(q);
         q = new Question() ; q.setId(35L); q.setShortname("D-O"); q.setQMeta("tie"); q.setJQuestion_id(36L); m.add(q);
@@ -211,7 +162,27 @@ public class MiroReport10Test extends TestCase {
         q = new Question() ; q.setId(59L); q.setShortname("11"); q.setQMeta("Q"); q.setJQuestion_id(60L); m.add(q);
         q = new Question() ; q.setId(60L); q.setShortname("4"); q.setQMeta("Q"); q.setJQuestion_id(61L); m.add(q);
         q = new Question() ; q.setId(61L); q.setShortname("11"); q.setQMeta("Q"); q.setJQuestion_id(62L); m.add(q);
-        q = new Question() ; q.setId(62L); q.setShortname("D-A"); q.setQMeta("tie"); q.setJQuestion_id(0L); m.add(q);
+        q = new Question() ; q.setId(62L); q.setShortname("D-A"); q.setQMeta("tie"); q.setJQuestion_id(63L); m.add(q);
+        q = new Question() ; q.setId(63L); q.setShortname(""); q.setQMeta("Q11Inst"); q.setJQuestion_id(64L); m.add(q);
+        q = new Question() ; q.setId(64L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(65L); m.add(q);
+        q = new Question() ; q.setId(65L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(66L); m.add(q);
+        q = new Question() ; q.setId(66L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(67L); m.add(q);
+        q = new Question() ; q.setId(67L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(68L); m.add(q);
+        q = new Question() ; q.setId(68L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(69L); m.add(q);
+        q = new Question() ; q.setId(69L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(70L); m.add(q);
+        q = new Question() ; q.setId(70L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(71L); m.add(q);
+        q = new Question() ; q.setId(71L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(72L); m.add(q);
+        q = new Question() ; q.setId(72L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(73L); m.add(q);
+        q = new Question() ; q.setId(73L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(74L); m.add(q);
+        q = new Question() ; q.setId(74L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(75L); m.add(q);
+        q = new Question() ; q.setId(75L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(76L); m.add(q);
+        q = new Question() ; q.setId(76L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(77L); m.add(q);
+        q = new Question() ; q.setId(77L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(78L); m.add(q);
+        q = new Question() ; q.setId(78L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(79L); m.add(q);
+        q = new Question() ; q.setId(79L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(80L); m.add(q);
+        q = new Question() ; q.setId(80L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(81L); m.add(q);
+        q = new Question() ; q.setId(81L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(82L); m.add(q);
+        q = new Question() ; q.setId(82L); q.setShortname(""); q.setQMeta("Q11"); q.setJQuestion_id(0L); m.add(q);
 
 
         survey.setQuestions(m);
@@ -219,19 +190,7 @@ public class MiroReport10Test extends TestCase {
     }
 
 
-    protected void populateMiroResponse(MiroResponse mr, User practitioner,
-                                        User candidate) {
-        mr.setPractitionerEmail(practitioner.getEmail());
-        mr.setPractitionerName(practitioner.getFirstName() +" " + practitioner.getLastName());
-        mr.setPractitionerTelNo(practitioner.getPhoneNumber());
-        mr.setPractitionerAddress(new String[] {practitioner.getAddress1(),practitioner.getAddress2(),practitioner.getCity(),practitioner.getCounty(),practitioner.getPostcode()});
-        mr.setFirstName(candidate.getFirstName());
-        mr.setLastName(candidate.getLastName());
-        mr.setWebaddress(practitioner.getWebaddress());
-        mr.setCompany(practitioner.getCompany());
-        mr.setMiroReportName(candidate.getReportFileName());
 
-    }
 
 
 }

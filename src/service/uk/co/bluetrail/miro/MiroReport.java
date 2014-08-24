@@ -153,7 +153,17 @@ public class MiroReport {
             log.error("The Miro response is null");
         }
 
+
         setupMr(mr);
+
+        log.debug("Before Chart " + mr.toString());
+        this.generateChart();
+        log.debug("Before XMLReportFile " + mr.toString());
+        this.generateXMLReportFile();
+        log.debug("Before PDF " + mr.toString());
+        this.generateXSLReportFile(mr.getMiroReportName());
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr.getMiroReportName());
+
 
 
 

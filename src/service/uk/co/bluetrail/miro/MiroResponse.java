@@ -19,6 +19,7 @@ public class MiroResponse  {
 	 private Long testId = null;
 	 private int[] results = null;
 	 private String[] resultLetters = null;
+     public int extroIntro  = 0 ;
 	 private MiroProject miroProject;
 	 private String miroReportName ;
 	 
@@ -115,17 +116,21 @@ public class MiroResponse  {
 		
 	}
 
+    public void calculateResults() {
+
+        if(this.results!=null) {
+           return;
+        }  else {
+           this.forceCalculateResults();
+        }
+
+    }
 
 
 	
-	private void calculateResults() {
+	public void forceCalculateResults() {
 		
-		if(results!=null) {
-			return;
-		}
-		
-		
-		
+
 		resetMiroTotals();
 		
 		Question question = null;
@@ -153,7 +158,7 @@ public class MiroResponse  {
 		
 		boolean isTieBreaker = false;
 		
-		while (question != null) {
+		while (question != null && !question.getQMeta().equalsIgnoreCase("Q11Inst")) {
 	
 			rawAnswer = surveyResponse.getAnswer(question);
 	
@@ -221,7 +226,31 @@ public class MiroResponse  {
 		
 		populateResultArrays(resultMap,resultMapWorker);
 
-		log.debug("Finished calculating results ..");		
+
+        log.debug("calculating miro 11 results ..");
+        if(question != null) {
+            //jump over the intersticial page
+            question = (Question) survey.getQuestionMap().get(question.getJQuestion_id());
+        }
+
+        //now calculate miro11 results
+        while (question != null ) {
+
+            rawAnswer = surveyResponse.getAnswer(question);
+
+            String[] rawAnswers = rawAnswer.split("#");
+            String answer = rawAnswers[1];
+
+            if(answer.equalsIgnoreCase("plus")) {
+                extroIntro++ ;
+            } else {
+                extroIntro--;
+            }
+
+
+            question = (Question) survey.getQuestionMap().get(question.getJQuestion_id());
+        }
+        log.debug("Finished calculating results ..");
 	}
 	
 	

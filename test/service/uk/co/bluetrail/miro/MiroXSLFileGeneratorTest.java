@@ -1,4 +1,4 @@
-package uk.co.bluetrail.miro;
+package uk.co.bluetrail.service.miro;
 
 import junit.framework.TestCase;
 
@@ -26,7 +26,7 @@ public class MiroXSLFileGeneratorTest extends TestCase {
 
 
 		try {
-            MiroXSLFileGenerator.generate(this.baseDir, filename, "replace_report", strings);
+            uk.co.bluetrail.miro.MiroXSLFileGenerator.generate(this.baseDir, filename, "replace_report", strings);
 
         } catch(Exception e) {
 			fail("Exception creating file " + e.getMessage());

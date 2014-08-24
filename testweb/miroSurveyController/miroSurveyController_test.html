@@ -28,7 +28,6 @@
     <script src="DWREngine_mock.js"></script>
     <script src="miro_questions.1.0.js"></script>
     <script src="miro_questions.1.1.js"></script>
-    <script src="ajaxSurveyEditManager_mock.js"></script>
     <script src="miroSurveyController_test.js"></script>
     <script>
         onload = function(){
@@ -36,7 +35,8 @@
             expect = chai.expect;
             mocha.globals(['expect']);
 
-            var runner = mocha.run();
+            if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+            else { mocha.run(); }
 
         };
     </script>
