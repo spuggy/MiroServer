@@ -19,7 +19,8 @@ public class MiroResponse  {
 	 private Long testId = null;
 	 private int[] results = null;
 	 private String[] resultLetters = null;
-     public int extroIntro  = 0 ;
+     public  int extroIntro  = 0 ;
+     public String  extroIntroStr = null;
 	 private MiroProject miroProject;
 	 private String miroReportName ;
 	 
@@ -250,14 +251,46 @@ public class MiroResponse  {
 
             question = (Question) survey.getQuestionMap().get(question.getJQuestion_id());
         }
+
+        this.extroIntroStr = getExtraIntroStr(this.extroIntro) ;
+
         log.debug("Finished calculating results ..");
 	}
-	
-	
 
-	
+    public String getExtraIntroStr(int extroIntro) throws MiroException {
 
-	private int getTestOffset() {
+
+        if(extroIntro >= 0  &&  extroIntro  <= 5 )  {
+            return "LEX"  ;
+        }
+
+        if(extroIntro >= 6  &&  extroIntro  <= 14 )  {
+            return "MEX" ;
+        }
+
+        if(extroIntro >= 15  &&  extroIntro  <= 19 )  {
+            return "HEX";
+        }
+
+
+        if(extroIntro <= -1  &&  extroIntro   >=-5 )  {
+            return "LIN";
+        }
+
+        if(extroIntro <= -6  &&  extroIntro   >=-14 )  {
+            return "MIN";
+        }
+
+        if(extroIntro <= -15  &&  extroIntro   >=-19 )  {
+            return "HIN";
+        }
+
+        throw new MiroException("Could not find ExtraInto for value " + extroIntro);
+
+    }
+
+
+    private int getTestOffset() {
 		return testOffset;
 	}
 

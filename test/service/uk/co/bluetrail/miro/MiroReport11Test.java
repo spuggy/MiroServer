@@ -50,6 +50,25 @@ public class MiroReport11Test extends MiroReport10Test  {
         miroResponse.setMiroProject(miroProject);
     }
 
+    public void testGetExtraIntroStr () {
+
+        MiroResponse mr = new MiroResponse() ;
+
+
+        Assert.assertEquals(mr.getExtraIntroStr(0),"LEX") ;
+        Assert.assertEquals(mr.getExtraIntroStr(5),"LEX") ;
+        Assert.assertEquals(mr.getExtraIntroStr(6),"MEX") ;
+        Assert.assertEquals(mr.getExtraIntroStr(14),"MEX") ;
+        Assert.assertEquals(mr.getExtraIntroStr(15),"HEX") ;
+        Assert.assertEquals(mr.getExtraIntroStr(19),"HEX") ;
+        Assert.assertEquals(mr.getExtraIntroStr(-1),"LIN") ;
+        Assert.assertEquals(mr.getExtraIntroStr(-5),"LIN") ;
+        Assert.assertEquals(mr.getExtraIntroStr(-6),"MIN") ;
+        Assert.assertEquals(mr.getExtraIntroStr(-14),"MIN") ;
+        Assert.assertEquals(mr.getExtraIntroStr(-15),"HIN") ;
+        Assert.assertEquals(mr.getExtraIntroStr(-19),"HIN") ;
+
+    }
 
     public void testGenerate() {
         MiroReport MiroReport = getMiroReport(this.baseDirPath);
