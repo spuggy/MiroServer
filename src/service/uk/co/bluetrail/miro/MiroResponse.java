@@ -19,8 +19,8 @@ public class MiroResponse  {
 	 private Long testId = null;
 	 private int[] results = null;
 	 private String[] resultLetters = null;
-     public  int extroIntro  = 0 ;
-     public String  extroIntroStr = null;
+     public  int extroIntraValue = 0 ;
+     public String extroIntroStrata = null;
 	 private MiroProject miroProject;
 	 private String miroReportName ;
 	 
@@ -243,16 +243,16 @@ public class MiroResponse  {
             String answer = rawAnswers[1];
 
             if(answer.equalsIgnoreCase("plus")) {
-                extroIntro++ ;
+                extroIntraValue++ ;
             } else {
-                extroIntro--;
+                extroIntraValue--;
             }
 
 
             question = (Question) survey.getQuestionMap().get(question.getJQuestion_id());
         }
 
-        this.extroIntroStr = getExtraIntroStr(this.extroIntro) ;
+        this.extroIntroStrata = getExtraIntroStr(this.extroIntraValue) ;
 
         log.debug("Finished calculating results ..");
 	}
@@ -284,6 +284,7 @@ public class MiroResponse  {
         if(extroIntro <= -15  &&  extroIntro   >=-19 )  {
             return "HIN";
         }
+
 
         throw new MiroException("Could not find ExtraInto for value " + extroIntro);
 
@@ -601,12 +602,23 @@ public class MiroResponse  {
 //		page3	
 		pages.add(MiroPage.create("U4"));
 //		page4
-		if(this.isExcess(results[0])) {
-			pages.add(MiroPage.create(resultLetters[0]+"1.1"));
-		} else {
-			pages.add(MiroPage.create(resultLetters[0]+"1"));
-		}
-		
+
+        if(this.extroIntroStrata == null ) {
+            //assuming miro 1.0
+            if (this.isExcess(results[0])) {
+                pages.add(MiroPage.create(resultLetters[0] + "1.1"));
+            } else {
+                pages.add(MiroPage.create(resultLetters[0] + "1"));
+            }
+
+        } else {
+           // woo its miro 1.1
+            if (this.isExcess(results[0])) {
+                pages.add(MiroPage.create(resultLetters[0] + "1.1" + this.extroIntroStrata));
+            } else {
+                pages.add(MiroPage.create(resultLetters[0] + "1" + this.extroIntroStrata));
+            }
+        }
 	
 //		page5
 		if(this.isEngaged(results[1])) {

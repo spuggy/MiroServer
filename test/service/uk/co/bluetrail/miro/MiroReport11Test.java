@@ -100,7 +100,7 @@ public class MiroReport11Test extends MiroReport10Test  {
         try {
 
             miroResponse.forceCalculateResults();
-            Assert.assertEquals("extroIntro should be 13", 13, miroResponse.extroIntro);
+            Assert.assertEquals("extroIntraValue should be 13", 13, miroResponse.extroIntraValue);
 
 
         } catch (Exception e) {
