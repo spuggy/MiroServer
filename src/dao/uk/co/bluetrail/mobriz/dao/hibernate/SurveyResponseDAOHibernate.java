@@ -127,15 +127,13 @@ public class SurveyResponseDAOHibernate extends BaseDaoHibernate implements Surv
         
 	}
 
-	public List getSurveyResponsesGreaterThanId(final Survey survey,final Long id,final int limit) {
+	public List getSurveyResponsesGreaterThanId(final Long id,final int limit) {
 		 HibernateCallback callback = new HibernateCallback() {
 	 	     	public Object doInHibernate(Session session) throws HibernateException, SQLException {
 	 	         	 
 	 	             Criteria crit = session.createCriteria(SurveyResponse.class);
 	 	            
-	 	            
-	 	            crit.add(Expression.eq("survey_id",survey.getId()));
-	 	         
+
 	 	            crit.add(Expression.eq("deleted",false));
 	 	            	          
 	 	            crit.add(Expression.gt("id", id));

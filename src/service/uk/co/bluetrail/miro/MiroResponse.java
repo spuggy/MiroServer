@@ -6,6 +6,7 @@ import uk.co.bluetrail.mobriz.model.*;
 
 import java.util.*;
 
+
 /**
  * 
  * Wraps Mobriz Survey Response and calulates Results and pages
@@ -14,8 +15,9 @@ import java.util.*;
  *
  */
 public class MiroResponse  {
-	 private final Log log = LogFactory.getLog(MiroResponse.class);
 
+
+     private final Log log = LogFactory.getLog(MiroResponse.class);
 	 private Long testId = null;
 	 private int[] results = null;
 	 private String[] resultLetters = null;
@@ -23,10 +25,7 @@ public class MiroResponse  {
      public String extroIntroStrata = null;
 	 private MiroProject miroProject;
 	 private String miroReportName ;
-	 
 
-
-	 
 	 
 	 /**
 	 * 
@@ -46,7 +45,8 @@ public class MiroResponse  {
 	private int excessScore;
 	private int latentScore ;
 	private SurveyResponse surveyResponse;
-	private Survey survey;
+	private List <Survey> surveys;
+    private Survey survey ;
 	private LinkedHashMap mostMiroTotals;
 	private LinkedHashMap leastMiroTotals;
 	private Setting miroLetters;
@@ -57,6 +57,8 @@ public class MiroResponse  {
 
 	private String company;
 	private String webaddress;
+
+
 
 
     public int getTestVersion() {
@@ -528,11 +530,12 @@ public class MiroResponse  {
 	}
 
 	
-	public MiroResponse(Survey survey, SurveyResponse sr,Setting miroLetters, int testOffset) {
-		this.surveyResponse = sr ;
+	public MiroResponse(List<Survey> surveys, SurveyResponse sr,Setting miroLetters, int testOffset) {
+
+        this.surveyResponse = sr ;
 		this.miroLetters = miroLetters;
 		this.testOffset = testOffset;
-		this.survey = survey;
+		this.surveys = surveys;
 		this.testId = sr.getId();
 	}
 
@@ -603,23 +606,22 @@ public class MiroResponse  {
 		pages.add(MiroPage.create("U4"));
 //		page4
 
-        if(this.extroIntroStrata == null ) {
-            //assuming miro 1.0
-            if (this.isExcess(results[0])) {
-                pages.add(MiroPage.create(resultLetters[0] + "1.1"));
-            } else {
-                pages.add(MiroPage.create(resultLetters[0] + "1"));
-            }
-
+        if (this.isExcess(results[0])) {
+            pages.add(MiroPage.create(resultLetters[0] + "1.1"));
         } else {
-           // woo its miro 1.1
-            if (this.isExcess(results[0])) {
-                pages.add(MiroPage.create(resultLetters[0] + "1.1" + this.extroIntroStrata));
-            } else {
-                pages.add(MiroPage.create(resultLetters[0] + "1" + this.extroIntroStrata));
-            }
+            pages.add(MiroPage.create(resultLetters[0] + "1"));
         }
-	
+
+       // woo its miro 1.1
+        if(this.extroIntroStrata!=null) {
+          String key = this.getExtraIntroMappingKey();
+          if(key==null) {
+              throw new MiroException("could not find ExtroIntraMapping mapping key for " + key);
+          }
+          pages.add(MiroPage.create(key));
+
+        }
+
 //		page5
 		if(this.isEngaged(results[1])) {
 			pages.add(MiroPage.create(resultLetters[1]+"2" ));
@@ -679,7 +681,15 @@ public class MiroResponse  {
 		
 	}
 
-	public boolean isExcess(int i) {
+    public String getExtraIntroMappingKey() {
+
+        String comboKey = resultLetters[0] + resultLetters[1] + resultLetters[2] + this.extroIntroStrata  ;
+
+        return ExtroIntraMapping.get(comboKey);
+
+    }
+
+    public boolean isExcess(int i) {
 		if(i>=this.excessScore) {
 			return true;	
 		} else {
@@ -719,13 +729,28 @@ public class MiroResponse  {
 		this.survey = survey;
 	}
 
-	public void init(Survey survey, SurveyResponse sr, Setting miroLetters, int testOffset) {
+	public void init(List<Survey> surveys, SurveyResponse sr, Setting miroLetters, int testOffset) {
 		this.surveyResponse = sr ;
 		this.miroLetters = miroLetters;
 		this.testOffset = testOffset;
-		this.survey = survey;
+		this.surveys = surveys;
 		this.testId = sr.getId();
-	}
+
+
+        Iterator<Survey> itr = this.surveys.iterator();
+
+        while(itr.hasNext()) {
+            Survey s = itr.next() ;
+            if(s.getId().longValue() == (this.surveyResponse.getSurvey_id().longValue())) {
+                this.survey = s;
+            }
+        }
+
+        if(this.survey==null) {
+            throw new MiroException("Survey " + this.surveyResponse.getSurvey_id() + " not found");
+        }
+
+    }
 
 	public void setMiroProject(MiroProject miroProject) {
 		this.miroProject = miroProject;

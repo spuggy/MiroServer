@@ -1,17 +1,14 @@
 
 package uk.co.bluetrail.mobriz.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
-
-
-import uk.co.bluetrail.mobriz.model.Survey;
-import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.dao.OptionDAO;
 import uk.co.bluetrail.mobriz.dao.QuestionDAO;
 import uk.co.bluetrail.mobriz.dao.SurveyDAO;
+import uk.co.bluetrail.mobriz.model.Survey;
+import uk.co.bluetrail.mobriz.model.User;
+
+import java.util.List;
+import java.util.Vector;
 
 
 public interface SurveyManager extends Manager {
@@ -61,8 +58,7 @@ public interface SurveyManager extends Manager {
      * 
      * takes a survey that is in draft and sets it to published.
      * note - in version 2.0 this will copy the survey!
-     * 
-     * @param id - new survey id created
+     *
      * @return
      */
     public Long publishSurvey(Survey survey, User user) ; 
@@ -88,16 +84,7 @@ public interface SurveyManager extends Manager {
 	 * just save the survey - used for admin routines and batc processing
 	 */
 	public void saveSurvey(Survey survey) ;
-	
-	
-	/**
-	 * adds notes to image and zips them to a file
-	 * 
-	 * @param survey
-	 */
-	public void zipPhotos(Survey survey, ArrayList batchProcessResults, String filePath) throws Exception;
 
-	public void stampPhotos(Survey survey, ArrayList batchProcessResults, String filePath) throws Exception;
 	
 	public List getLiveSurveys();
 }

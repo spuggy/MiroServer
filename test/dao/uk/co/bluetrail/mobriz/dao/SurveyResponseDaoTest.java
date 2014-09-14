@@ -1,9 +1,8 @@
 package uk.co.bluetrail.mobriz.dao;
 
-import java.util.List;
-
-import uk.co.bluetrail.mobriz.model.Survey;
 import uk.co.bluetrail.mobriz.model.SurveyResponse;
+
+import java.util.List;
 
 /**
  * This class tests the current LookupDao implementation class
@@ -39,18 +38,6 @@ public class SurveyResponseDaoTest extends BaseDaoTestCase {
     }
     
     
-    public void testGetSurveyResponsesGreaterThanId(){
-    	
-    	Survey s = new Survey();
-    	s.setId(new Long(20));
-    	
-    	List srs = dao.getSurveyResponsesGreaterThanId(s, new Long(10),99);
-    	
-    	assertNotNull(srs);
-    	assertTrue(srs.size() > 0);
-    	
-    	SurveyResponse sr2 = (SurveyResponse) srs.get(0);
-    	assertTrue(sr2.getId().longValue() > 1L);
-    }
+
    
 }

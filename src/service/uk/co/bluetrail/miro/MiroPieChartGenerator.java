@@ -1,8 +1,4 @@
 package uk.co.bluetrail.miro;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
@@ -10,10 +6,16 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
-import org.jfree.chart.title.Title;
 import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
+import org.jfree.ui.RectangleInsets;
+import org.jfree.ui.VerticalAlignment;
 import org.jfree.util.Rotation;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  * PieChart generation using the input provided in main method Uses JFreeChat
@@ -39,10 +41,12 @@ public class MiroPieChartGenerator
 	private Color[] pieColors;
 
 	private String pieTitle;
+    private String pieSubTitle;
 	private Font titleFont = null;
 	
 	private boolean hideLegend = true;
 	private boolean hideTitle = true ;
+    private boolean hideSubTitle = true;
 	
 	
 	public void setTitleFont(Font f){
@@ -52,12 +56,13 @@ public class MiroPieChartGenerator
 	
 	
 	
-	public MiroPieChartGenerator(String pieTitle, int[] pieValues, String[] pieLabels1,
+	public MiroPieChartGenerator(String pieTitle, String pieSubTitle,int[] pieValues, String[] pieLabels1,
 			String[] pieLabels2, String[] pieLabels3, boolean[] pieExplode,
-			Color[] pieColors, boolean hideLegend, boolean hideTitle)
+			Color[] pieColors, boolean hideLegend, boolean hideTitle, boolean hideSubTitle)
 	{
 
 		this.pieTitle = pieTitle;
+        this.pieSubTitle = pieSubTitle;
 
 		this.pieValues = pieValues;
 		this.pieLabels1 = pieLabels1;
@@ -70,6 +75,7 @@ public class MiroPieChartGenerator
 		
 		this.hideLegend = hideLegend;
 		this.hideTitle = hideTitle;
+        this.hideSubTitle = hideSubTitle;
 
 	}
 
@@ -126,6 +132,15 @@ public class MiroPieChartGenerator
 		LegendTitle legend = jfreechart.getLegend();
 		legend.setPosition(RectangleEdge.LEFT);
 		legend.setVisible(!this.hideLegend);
+
+        if(!hideSubTitle && !this.pieSubTitle.equals("")) {
+            jfreechart.addSubtitle(new TextTitle(this.pieSubTitle,
+                    new Font("Dialog", Font.ITALIC, 14), Color.black,
+                    RectangleEdge.BOTTOM, HorizontalAlignment.CENTER,
+                    VerticalAlignment.TOP, new RectangleInsets(0.0, 0.0, 10.0, 0.0)));
+        }
+
+
 
 		// Message to be displayed when there is no data
 		pieplot.setNoDataMessage("No data available");
@@ -224,8 +239,8 @@ public class MiroPieChartGenerator
 		// String[] pieColors = { "yellow", "green", "blue", "red" };
 		Color[] pieColors = { Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED };
 
-		MiroPieChartGenerator pieChart = new MiroPieChartGenerator("Your MiRo Results Chart", pieValues,
-				pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,false,false);
+		MiroPieChartGenerator pieChart = new MiroPieChartGenerator("Your MiRo Results Chart", "A subtitile",pieValues,
+				pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,false,false,false);
 
 		pieChart.createPie("/users/richard/documents/", "demoPie.jpg");
 	}

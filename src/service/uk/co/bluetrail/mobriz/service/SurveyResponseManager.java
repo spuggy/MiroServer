@@ -1,12 +1,12 @@
 
 package uk.co.bluetrail.mobriz.service;
 
-import java.util.List;
-
+import uk.co.bluetrail.mobriz.dao.SurveyResponseDAO;
 import uk.co.bluetrail.mobriz.model.Survey;
 import uk.co.bluetrail.mobriz.model.SurveyResponse;
 import uk.co.bluetrail.mobriz.model.User;
-import uk.co.bluetrail.mobriz.dao.SurveyResponseDAO;
+
+import java.util.List;
 
 public interface SurveyResponseManager extends Manager {
 
@@ -50,13 +50,13 @@ public interface SurveyResponseManager extends Manager {
 	public List getResponsesByExample(SurveyResponse example);
 
 	
-	public List getUnstampedPhotoResponses(Survey survey);
 
-	public List getUnZippedResponses(Survey survey);
+
+
 	
 	public boolean processAlerts(SurveyResponse sr, List alerts, List trueAlerts);
 
-	public List getUnprocessedResponses(Survey survey, int alertDocLimit);
+
 	public List getSurveyResponses(Survey survey, User currentUser);
 
 

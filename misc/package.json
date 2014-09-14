@@ -1,0 +1,33 @@
+{
+  "author": "Richard Spence Krowd9",
+  "name": "websocketserver",
+  "description": "front end websocket server for yakayak",
+  "version": "0.0.1",
+  "dependencies": {
+    "ws": "0.4.31",
+    "express": "4.2.0",
+    "underscore": "1.6.0",
+    "log4js": "0.6.10",
+    "thrift": "0.9.1",
+    "request": "2.38.0",
+    "body-parser": "1.5.0",
+    "bluebird": "2.2.2",
+    "yakatak-protocol": "http://krowd9.bitbucket.org/packages/thrift/yakatak-protocol-0.4.0.tgz",
+    "backend-api": "http://krowd9.bitbucket.org/packages/thrift/backend-api-0.2.0.tgz",
+    "csv-parse": "0.0.5",
+    "hexy": "~0.2.6",
+    "node-uuid": "~1.4.1"
+  },
+  "devDependencies": {
+    "chai": "~1.7.2",
+    "mocha": "~1.12.0",
+    "sinon": "~1.7.3",
+    "mockery": "~1.4.0",
+    "istanbul": "~0.2.4",
+    "supertest": "0.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/krowd9/web-socket-server.git"
+  }
+}

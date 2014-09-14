@@ -3,9 +3,9 @@ package uk.co.bluetrail.miro;
 import junit.framework.Assert;
 import uk.co.bluetrail.mobriz.model.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-
-
+import java.util.List;
 
 
 public class MiroReport11Test extends MiroReport10Test  {
@@ -15,7 +15,9 @@ public class MiroReport11Test extends MiroReport10Test  {
 
 
         SurveyResponse surveyResponse  = new SurveyResponse();
-        surveyResponse.setId(new Long(99));
+        surveyResponse.setId(new Long(1));
+        surveyResponse.setSurvey_id(new Long(99));
+
         surveyResponse.setAnswer_trail("Charming#E;Tolerant#O~Self-assured#D;Impulsive#E~Empathic#O;Competitive#D~Charismatic#E;Methodical#A ~Positive#E;Pioneering#D~Amiable#O;Sceptical#D~Good-natured#O;Unwavering#D~Affable#E;Adventurous#D~Playful#E;Demanding#D~Admirable#E;Forceful#D~Companionable#E;Self-sufficient#D~Kind-hearted#O;Orderly#A~Unconventional#E;Conventional#A~Gregarious#E;Level-headed#A~Open #E;No-nonsense #D~Friendly#E;Forthright#D~Big-hearted#O;Well-disciplined#A~Relaxed#O;Exacting#A~Gentle#O;Modest#A~Sophisticated#A;Compassionate#O~Popular#E;Eager#D~Optimistic#E;Risk taking#D~Open-minded#A;Self-confident#D~Respectful  #O;Definite #D~Unpredictable #E;Stable#O~Self-reliant#D;Restrained#A~Attentive#O;Diplomatic#A~Helpful#O;Determined#D~Contented#O;Restless#D~Perfectionist#A;Impatient#D~~true#plus~true#plus~true#minus~true#minus~true#plus~false#plus~false#plus~true#minus~false#plus~true#plus~false#plus~true#plus~false#plus~true#plus~false#plus~false#plus~false#plus~true#plus~false#plus");
         
         surveyResponse.setQuestion_trail("33~34~35~36~37~38~39~40~41~42~43~44~45~46~47~48~49~50~51~52~53~54~55~56~57~58~59~60~61~62~63~64~65~66~67~68~69~70~71~72~73~74~75~76~77~78~79~80~81~82~83");
@@ -32,11 +34,14 @@ public class MiroReport11Test extends MiroReport10Test  {
         Survey survey = new Survey();
 
 
-        miroResponse.init(survey,surveyResponse, this.miroLetters,this.testOffset);
-
-        survey.setId(0L);
+        survey.setId(99L);
         survey.setFirstQuestion_id(33L);
         initQuestions(survey);
+
+        List<Survey> surveys = new ArrayList<Survey>() ;
+        surveys.add(survey);
+        miroResponse.init(surveys,surveyResponse, this.miroLetters,this.testOffset);
+
 
         System.out.println("arse");
 

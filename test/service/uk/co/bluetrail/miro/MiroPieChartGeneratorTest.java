@@ -22,8 +22,8 @@ public class MiroPieChartGeneratorTest extends TestCase {
 		// String[] pieColors = { "yellow", "green", "blue", "red" };
 		Color[] pieColors = { Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED };
 
-		MiroPieChartGenerator pieChart = new MiroPieChartGenerator("Your MiRo Results Chart", pieValues,
-				pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,true,true);  
+		MiroPieChartGenerator pieChart = new MiroPieChartGenerator("Your MiRo Results Chart", "Pivot Point, Extroverted intuition strongly expressed",pieValues,
+				pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors,false,false,false);
 
 		File filePath = new File("web/miro/out");
 		

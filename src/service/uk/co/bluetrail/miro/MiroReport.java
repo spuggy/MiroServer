@@ -51,9 +51,12 @@ public class MiroReport {
 	private String excessText;
 
 	private double miroGraphAdjustment;
-	
-	
-	
+	private HashMap<String,String> subTitles;
+
+
+    public void setSubTitles(HashMap subTitles) {
+        this.subTitles = subTitles;
+    }
 	
 	/**
 	 * @hibernate.property 
@@ -177,8 +180,6 @@ public class MiroReport {
 
         setupMr(mr);
 
-
-
         log.debug("Before Chart " + mr.toString());
         this.generateChart();
         log.debug("Before XMLReportFile " + mr.toString());
@@ -221,21 +222,44 @@ public class MiroReport {
 	}
 
 	private void generateChart() {
-		
-		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",false, true)  ;
+
+        this.mr = mr;
+
+        String subTitle = "";
+        if(this.subTitles != null && mr.extroIntroStrata != null)  {
+
+            String subTitleKey = mr.getExtraIntroMappingKey() ;
+            subTitle = subTitles.get(subTitleKey) ;
+
+            if(subTitle == null) {
+                throw new MiroException("Could not find subTitle for " + subTitleKey);
+            }
+
+        }
+
+		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",subTitle,false, true,false)  ;
 		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
-		
+
 	}
 	
-	public void generatePieChart(MiroResponse mr, String title, boolean hideLegend, boolean hideTitle) {
-		
+	public void generatePieChart(MiroResponse mr, String title,boolean hideLegend, boolean hideTitle, boolean hideSubTitle) {
+
 		this.mr = mr;
-	
-		MiroPieChartGenerator pieChart = this.getMiroPieChart(title, hideLegend,  hideTitle);
+
+        String subTitle = "";
+        if(this.subTitles != null && mr.extroIntroStrata != null)  {
+            if(this.subTitles.get(mr.extroIntroStrata)!=null) {
+                subTitle  = (String) this.subTitles.get(mr.extroIntroStrata) ;
+            }
+        }
+
+
+
+		MiroPieChartGenerator pieChart = this.getMiroPieChart(title, subTitle,hideLegend,  hideTitle,hideSubTitle);
 		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
 	}
 
-	private MiroPieChartGenerator getMiroPieChart(String pieTitle, boolean hideLegend, boolean hideTitle) {
+	private MiroPieChartGenerator getMiroPieChart(String pieTitle, String pieSubtitle,boolean hideLegend, boolean hideTitle,boolean hideSubTitle) {
 		
 		int resultsLen = mr.getResults().length;
 		String[] pieLabels1 = new String[resultsLen];
@@ -278,7 +302,7 @@ public class MiroReport {
 		}
 		
 		
-		return new MiroPieChartGenerator(pieTitle, mr.getResults(this.miroGraphAdjustment),pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors, hideLegend, hideTitle );
+		return new MiroPieChartGenerator(pieTitle, pieSubtitle,mr.getResults(this.miroGraphAdjustment),pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors, hideLegend, hideTitle,hideSubTitle );
 		
 		
 		
@@ -391,7 +415,7 @@ public class MiroReport {
 		setupMr(mr);
 		
 		
-		MiroPieChartGenerator pieChart = this.getMiroPieChart(title,false,false)  ;
+		MiroPieChartGenerator pieChart = this.getMiroPieChart(title,"",false,false,true)  ;
 		Font defFont = TextTitle.DEFAULT_FONT;
 		Font smallFont = new Font(defFont.getName(),defFont.getStyle(),10);
 				
@@ -429,5 +453,6 @@ public class MiroReport {
 		
 	}
 
-	
+
+
 }

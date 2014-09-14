@@ -1,11 +1,11 @@
 
 package uk.co.bluetrail.mobriz.dao;
 
-import java.util.List;
-
 import uk.co.bluetrail.mobriz.model.Survey;
 import uk.co.bluetrail.mobriz.model.SurveyResponse;
 import uk.co.bluetrail.mobriz.model.User;
+
+import java.util.List;
 
 public interface SurveyResponseDAO extends Dao {
 
@@ -47,7 +47,7 @@ public interface SurveyResponseDAO extends Dao {
 	
 	public List getSurveyResponsesByExample(final SurveyResponse surveyResponse) ;
 
-	public List getSurveyResponsesGreaterThanId(Survey survey, Long lastPhotoStampResponse_id,final int Limit);
+	public List getSurveyResponsesGreaterThanId(Long lastPhotoStampResponse_id,final int Limit);
 
 	public List getSurveyResponsesByExample(final SurveyResponse surveyResponse, final int Limit) ;
 	    

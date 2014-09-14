@@ -1,30 +1,21 @@
 package uk.co.bluetrail.mobriz.webapp.action;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.beanutils.BeanUtils;
-
-import uk.co.bluetrail.mobriz.Constants;
+import org.springframework.web.servlet.ModelAndView;
 import uk.co.bluetrail.mobriz.model.MiroProject;
-import uk.co.bluetrail.mobriz.model.Setting;
 import uk.co.bluetrail.mobriz.model.Survey;
 import uk.co.bluetrail.mobriz.model.User;
-import uk.co.bluetrail.mobriz.service.LookupDefManager;
 import uk.co.bluetrail.mobriz.service.MiroProjectManager;
-import uk.co.bluetrail.mobriz.service.SettingManager;
 import uk.co.bluetrail.mobriz.service.SurveyManager;
 import uk.co.bluetrail.mobriz.service.SurveyResponseManager;
 import uk.co.bluetrail.mobriz.service.UserManager;
 
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MiroSurveyController extends BaseController {
     private final Log log = LogFactory.getLog(MiroSurveyController.class);
@@ -63,7 +54,7 @@ public class MiroSurveyController extends BaseController {
         	return new ModelAndView("miroNoTestsToComplete");
         } 
         
-        
+        //this is where we change
         Survey survey = (Survey) surveys.get(0);
         
         User candidate = getCurrentUser();
