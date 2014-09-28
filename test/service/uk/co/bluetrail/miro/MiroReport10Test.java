@@ -101,20 +101,31 @@ public class MiroReport10Test extends TestCase {
     }
 
     public void testGenerate() {
-        MiroReport MiroReport = getMiroReport(this.baseDirPath);
+        MiroReport miroReport = getMiroReport(this.baseDirPath);
 
         MiroResponse miroResponse = new MiroResponse();
 
         initV10TestData(miroResponse);
 
         try {
-            MiroReport.generateReport(miroResponse,MiroResponse.Survey_id_Mirov10);
+            miroReport.generateReport(miroResponse,MiroResponse.Survey_id_Mirov10);
+
+            String reportFile = miroReport.getReportFilePath(miroResponse,MiroResponse.Survey_id_Mirov10) ;
+
+            File f = new File(reportFile);
+
+            if(!f.exists()) {
+                fail("pdf not created for " + reportFile);
+            }
+
         } catch (Exception e) {
             fail("failed with " + e.getMessage());
         }
 
 
     }
+
+
 
     public void testGenerateUnsupportedVersion() {
         MiroReport MiroReport = getMiroReport(this.baseDirPath);

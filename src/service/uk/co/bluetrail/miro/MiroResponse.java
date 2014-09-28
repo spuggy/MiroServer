@@ -810,9 +810,21 @@ public class MiroResponse  {
 		
 	}
 
+    public String getMiroReportName() {
+
+        return miroReportName;
+    }
+
 	
-	public String getMiroReportName() {
-		return miroReportName;
+	public String getMiroReportName(long reportVersion) {
+
+        if (reportVersion == MiroResponse.Survey_id_Mirov11) {
+
+            return miroReportName + "_v11";
+            } else  {
+             return miroReportName;
+
+            }
 	}
 
 	
@@ -875,7 +887,11 @@ public class MiroResponse  {
 		return isEngaged(results[1]);
 	}
 
-
+    /**
+     *
+     * @param version the version you want to know if it supports
+     * @return
+     */
     public boolean supportsVersion(Long version) {
 
          if(this.surveyResponse.getSurvey_id().longValue() >= version) {
@@ -885,4 +901,6 @@ public class MiroResponse  {
          }
 
     }
+
+
 }

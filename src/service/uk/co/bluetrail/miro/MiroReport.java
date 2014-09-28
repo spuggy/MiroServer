@@ -164,7 +164,7 @@ public class MiroReport {
         this.generateXMLReportFile();
         log.debug("Before PDF " + mr.toString());
         this.generateXSLReportFile(mr.getMiroReportName());
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr.getMiroReportName());
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory,mr,MiroResponse.Survey_id_Mirov11);
 
         return true;
 
@@ -189,7 +189,7 @@ public class MiroReport {
         this.generateXMLReportFile();
         log.debug("Before PDF " + mr.toString());
         this.generateXSLReportFile(mr.getMiroReportName());
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr.getMiroReportName());
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, MiroResponse.Survey_id_Mirov10);
 
         return true;
 
@@ -463,5 +463,9 @@ public class MiroReport {
 	}
 
 
+    public String getReportFilePath(MiroResponse miroResponse, Long version) {
 
+        return this.baseDirectory.getAbsolutePath()+"/out/"+miroResponse.getMiroReportName(version)+".pdf";
+
+    }
 }

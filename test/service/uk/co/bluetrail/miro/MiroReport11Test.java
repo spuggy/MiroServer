@@ -3,6 +3,7 @@ package uk.co.bluetrail.miro;
 import junit.framework.Assert;
 import uk.co.bluetrail.mobriz.model.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -76,14 +77,23 @@ public class MiroReport11Test extends MiroReport10Test  {
     }
 
     public void testGenerate() {
-        MiroReport MiroReport = getMiroReport(this.baseDirPath);
+        MiroReport miroReport = getMiroReport(this.baseDirPath);
 
         MiroResponse miroResponse = new MiroResponse();
 
         initTestData(miroResponse);
 
         try {
-            MiroReport.generateReport(miroResponse,MiroResponse.Survey_id_Mirov11);
+            miroReport.generateReport(miroResponse,MiroResponse.Survey_id_Mirov11);
+
+            String reportFile = miroReport.getReportFilePath(miroResponse,MiroResponse.Survey_id_Mirov11) ;
+
+            File f = new File(reportFile);
+
+            if(!f.exists()) {
+                fail("pdf not created for " + reportFile);
+            }
+
         } catch (Exception e) {
             fail("failed with " + e.getMessage());
         }
