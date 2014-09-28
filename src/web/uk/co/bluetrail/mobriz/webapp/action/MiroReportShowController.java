@@ -1,21 +1,10 @@
 package uk.co.bluetrail.mobriz.webapp.action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.beanutils.BeanUtils;
-
-import uk.co.bluetrail.mobriz.Constants;
-import uk.co.bluetrail.mobriz.model.MiroProject;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.servlet.ModelAndView;
 import uk.co.bluetrail.mobriz.model.SurveyException;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.MiroProjectManager;
@@ -23,9 +12,12 @@ import uk.co.bluetrail.mobriz.service.MiroResponseManager;
 import uk.co.bluetrail.mobriz.service.UserManager;
 import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MiroReportShowController extends BaseController {
     private final Log log = LogFactory.getLog(MiroReportShowController.class);
@@ -60,6 +52,8 @@ public class MiroReportShowController extends BaseController {
         if (log.isDebugEnabled()) {
             log.debug("entering 'handleRequest' method...");
         }
+
+        //TODO change to handle new and old ways  .. if you have the new version param then look for that else .. just get the old file name
 
         String id = request.getParameter("id");
         

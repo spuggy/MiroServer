@@ -17,7 +17,13 @@ import java.util.*;
 public class MiroResponse  {
 
 
-     private final Log log = LogFactory.getLog(MiroResponse.class);
+    public static Long Survey_id_Mirov11 = 5L;
+    public static Long Survey_id_Mirov10 = 4L;
+
+
+
+
+    private final Log log = LogFactory.getLog(MiroResponse.class);
 	 private Long testId = null;
 	 private int[] results = null;
 	 private String[] resultLetters = null;
@@ -60,18 +66,50 @@ public class MiroResponse  {
 
 
 
+    private static HashMap<String, String> mirov11_Variables = null;
+    private static HashMap<String, String> mirov10_Variables = null;
 
-    public int getTestVersion() {
+    static {
+        MiroResponse.mirov11_Variables = new HashMap<String, String>();
+        MiroResponse.mirov11_Variables.put("PAGENUMBER","14") ;
+        MiroResponse.mirov11_Variables.put("toc1","3") ;
+        MiroResponse.mirov11_Variables.put("toc2","4") ;
+        MiroResponse.mirov11_Variables.put("toc3","5") ;
+        MiroResponse.mirov11_Variables.put("toc4","13") ;
+        MiroResponse.mirov11_Variables.put("toc5","14") ;
 
-        if(this.surveyResponse.getAnswer_trail().length() > 62) {
-            return 11   ;
-        }  else {
-            return 10  ;
-        }
+
+        MiroResponse.mirov10_Variables = new HashMap<String, String>();
+        MiroResponse.mirov10_Variables.put("PAGENUMBER","13") ;
+        MiroResponse.mirov10_Variables.put("toc1","3") ;
+        MiroResponse.mirov10_Variables.put("toc2","4") ;
+        MiroResponse.mirov10_Variables.put("toc3","5") ;
+        MiroResponse.mirov10_Variables.put("toc4","12") ;
+        MiroResponse.mirov10_Variables.put("toc5","13") ;
+
 
 
     }
-	
+
+    public String getVariable(String key) {
+
+        String var = null;
+
+        if(this.surveyResponse.getSurvey_id().longValue()==MiroResponse.Survey_id_Mirov10) {
+           var = MiroResponse.mirov10_Variables.get(key) ;
+        } else {
+            var = MiroResponse.mirov11_Variables.get(key) ;
+        }
+
+        if(var==null) {
+            throw new MiroException("could not find variable " + key);
+        }
+
+        return var;
+
+    }
+
+
 
 	/**
 	 * @hibernate.property 
@@ -230,31 +268,33 @@ public class MiroResponse  {
 		populateResultArrays(resultMap,resultMapWorker);
 
 
-        log.debug("calculating miro 11 results ..");
-        if(question != null) {
-            //jump over the intersticial page
-            question = (Question) survey.getQuestionMap().get(question.getJQuestion_id());
-        }
-
-        //now calculate miro11 results
-        while (question != null ) {
-
-            rawAnswer = surveyResponse.getAnswer(question);
-
-            String[] rawAnswers = rawAnswer.split("#");
-            String answer = rawAnswers[1];
-
-            if(answer.equalsIgnoreCase("plus")) {
-                extroIntraValue++ ;
-            } else {
-                extroIntraValue--;
+        if(this.supportsVersion(MiroResponse.Survey_id_Mirov11)) {
+            log.debug("calculating miro 11 results ..");
+            if (question != null) {
+                //jump over the intersticial page
+                question = (Question) survey.getQuestionMap().get(question.getJQuestion_id());
             }
 
+            //now calculate miro11 results
+            while (question != null) {
 
-            question = (Question) survey.getQuestionMap().get(question.getJQuestion_id());
+                rawAnswer = surveyResponse.getAnswer(question);
+
+                String[] rawAnswers = rawAnswer.split("#");
+                String answer = rawAnswers[1];
+
+                if (answer.equalsIgnoreCase("plus")) {
+                    extroIntraValue++;
+                } else {
+                    extroIntraValue--;
+                }
+
+
+                question = (Question) survey.getQuestionMap().get(question.getJQuestion_id());
+            }
+
+            this.extroIntroStrata = getExtraIntroStr(this.extroIntraValue);
         }
-
-        this.extroIntroStrata = getExtraIntroStr(this.extroIntraValue) ;
 
         log.debug("Finished calculating results ..");
 	}
@@ -455,7 +495,7 @@ public class MiroResponse  {
 		
 	}
 
-		public String getFullName() {
+    public String getFullName() {
 			return firstName + " " + lastName ;
 		}	
 	
@@ -836,5 +876,13 @@ public class MiroResponse  {
 	}
 
 
+    public boolean supportsVersion(Long version) {
 
+         if(this.surveyResponse.getSurvey_id().longValue() >= version) {
+            return true;
+         } else {
+            return false ;
+         }
+
+    }
 }

@@ -3,12 +3,9 @@ package uk.co.bluetrail.miro;
 import junit.framework.TestCase;
 import uk.co.bluetrail.mobriz.model.*;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 
 public class MiroReport10Test extends TestCase {
@@ -63,16 +60,14 @@ public class MiroReport10Test extends TestCase {
 		
 		
 	}
-	
-	public void testGenerate() {
+
+    public void initV10TestData(MiroResponse miroResponse) {
 
         MiroReport miroReport = getMiroReport(this.baseDirPath);
 
-        MiroResponse miroResponse = new MiroResponse();
-
         SurveyResponse surveyResponse  = new SurveyResponse();
         surveyResponse.setId(new Long(1));
-        surveyResponse.setSurvey_id(new Long(99));
+        surveyResponse.setSurvey_id(MiroResponse.Survey_id_Mirov10);
         surveyResponse.setAnswer_trail("Charming#E;Tolerant#O~Self-assured#D;Impulsive#E~Empathic#O;Competitive#D~Charismatic#E;Methodical#A ~Positive#E;Pioneering#D~Amiable#O;Sceptical#D~Good-natured#O;Unwavering#D~Affable#E;Adventurous#D~Playful#E;Demanding#D~Admirable#E;Forceful#D~Companionable#E;Self-sufficient#D~Kind-hearted#O;Orderly#A~Unconventional#E;Conventional#A~Gregarious#E;Level-headed#A~Open #E;No-nonsense #D~Friendly#E;Forthright#D~Big-hearted#O;Well-disciplined#A~Relaxed#O;Exacting#A~Gentle#O;Modest#A~Sophisticated#A;Compassionate#O~Popular#E;Eager#D~Optimistic#E;Risk taking#D~Open-minded#A;Self-confident#D~Respectful  #O;Definite #D~Unpredictable #E;Stable#O~Self-reliant#D;Restrained#A~Attentive#O;Diplomatic#A~Helpful#O;Determined#D~Contented#O;Restless#D~Perfectionist#A ;Impatient#D ");
         surveyResponse.setQuestion_trail("33~34~35~36~37~38~39~40~41~42~43~44~45~46~47~48~49~50~51~52~53~54~55~56~57~58~59~60~61~62");
 
@@ -86,17 +81,16 @@ public class MiroReport10Test extends TestCase {
 
 
         Survey survey = new Survey();
-        survey.setId(99L);
+        survey.setId(MiroResponse.Survey_id_Mirov10);
         survey.setFirstQuestion_id(33L);
         initQuestions(survey);
 
-        List<Survey> surveys = new ArrayList<Survey>();
+        java.util.List<Survey> surveys = new ArrayList<Survey>();
 
         surveys.add(survey);
 
         miroResponse.init(surveys,surveyResponse, this.miroLetters,this.testOffset);
 
-        MiroProject miroProject = new MiroProject();
 
         User practitioner = this.prac;
 
@@ -104,18 +98,42 @@ public class MiroReport10Test extends TestCase {
         populateMiroResponse(miroResponse,practitioner,candidate) ;
 
 
-        miroResponse.setMiroProject(miroProject);
+    }
+
+    public void testGenerate() {
+        MiroReport MiroReport = getMiroReport(this.baseDirPath);
+
+        MiroResponse miroResponse = new MiroResponse();
+
+        initV10TestData(miroResponse);
 
         try {
-            miroReport.generateReport(miroResponse,MiroReport.V10);
+            MiroReport.generateReport(miroResponse,MiroResponse.Survey_id_Mirov10);
         } catch (Exception e) {
             fail("failed with " + e.getMessage());
         }
 
 
-		
-		
-	}
+    }
+
+    public void testGenerateUnsupportedVersion() {
+        MiroReport MiroReport = getMiroReport(this.baseDirPath);
+
+        MiroResponse miroResponse = new MiroResponse();
+
+        initV10TestData(miroResponse);
+
+        try {
+            MiroReport.generateReport(miroResponse,MiroResponse.Survey_id_Mirov11);
+            fail("should not get here this version is not supported");
+        } catch (Exception e) {
+            assertTrue(true);
+        }
+
+
+    }
+	
+
 
     protected MiroReport getMiroReport(String baseDirectory){
 

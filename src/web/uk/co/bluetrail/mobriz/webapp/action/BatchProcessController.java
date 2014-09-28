@@ -1,54 +1,22 @@
 package uk.co.bluetrail.mobriz.webapp.action;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.zip.ZipException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+import uk.co.bluetrail.miro.MiroResponse;
+import uk.co.bluetrail.mobriz.model.MiroTeam;
+import uk.co.bluetrail.mobriz.model.SurveyResponse;
+import uk.co.bluetrail.mobriz.service.*;
+import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.beanutils.BeanUtils;
-
-import uk.co.bluetrail.miro.MiroReport;
-import uk.co.bluetrail.miro.MiroResponse;
-import uk.co.bluetrail.mobriz.Constants;
-import uk.co.bluetrail.mobriz.model.Account;
-import uk.co.bluetrail.mobriz.model.MiroProject;
-import uk.co.bluetrail.mobriz.model.MiroTeam;
-import uk.co.bluetrail.mobriz.model.MobrizAlert;
-import uk.co.bluetrail.mobriz.model.Question;
-import uk.co.bluetrail.mobriz.model.Setting;
-import uk.co.bluetrail.mobriz.model.Survey;
-import uk.co.bluetrail.mobriz.model.SurveyResponse;
-import uk.co.bluetrail.mobriz.model.User;
-import uk.co.bluetrail.mobriz.service.AccountManager;
-import uk.co.bluetrail.mobriz.service.MailEngine;
-import uk.co.bluetrail.mobriz.service.MiroProjectManager;
-import uk.co.bluetrail.mobriz.service.MiroResponseManager;
-import uk.co.bluetrail.mobriz.service.MiroTeamManager;
-import uk.co.bluetrail.mobriz.service.MiroTeamReportManager;
-import uk.co.bluetrail.mobriz.service.MobrizAlertManager;
-import uk.co.bluetrail.mobriz.service.SurveyManager;
-import uk.co.bluetrail.mobriz.service.SurveyResponseManager;
-import uk.co.bluetrail.mobriz.service.UserManager;
-import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
-
-
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 public class BatchProcessController implements Controller {
 	 private final Log log = LogFactory.getLog(BatchProcessController.class);
@@ -90,7 +58,6 @@ public class BatchProcessController implements Controller {
 	}
 
 	/**
-	 * @param miroTeamManager the miroTeamManager to set
 	 */
 	public void setMiroTeamReportManager(MiroTeamReportManager miroTeamReportManager) {
 		this.miroTeamReportManager = miroTeamReportManager;
@@ -294,10 +261,7 @@ public class BatchProcessController implements Controller {
     
 	/**
      * Convenience message to send messages to users, includes app URL as footer.
-	 * @param filePath 
-     * @param user
-     * @param msg
-     * @param url
+	s
 	 * @throws MessagingException 
 	 * @throws MessagingException 
      */
@@ -316,11 +280,7 @@ public class BatchProcessController implements Controller {
     }
     
     /**
-     * Convenience message to send messages to users, includes app URL as footer.
-	 * @param filePath 
-     * @param user
-     * @param msg
-     * @param url
+     * Convenience message to send messages to users, includes app URL as footer.l
 	 * @throws MessagingException 
 	 * @throws MessagingException 
      */
@@ -350,7 +310,6 @@ public class BatchProcessController implements Controller {
 	}
 
 	/**
-	 * @param alertDocLimit the alertDocLimit to set
 	 */
 	public void setMiroDocLimit(int miroDocLimit) {
 		this.miroDocLimit = miroDocLimit;

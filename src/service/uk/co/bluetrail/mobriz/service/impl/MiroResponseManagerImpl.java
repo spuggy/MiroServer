@@ -347,11 +347,13 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         candidate.setResponse_id(sr.getId());
         populateMiroResponse(mr, practitioner, candidate);
 
-
         mr.setMiroProject(miroProject);
 
-        miroReport.generateReport(mr, MiroReport.V10);
-        miroReport.generateReport(mr, MiroReport.V11);
+        miroReport.generateReport(mr, MiroResponse.Survey_id_Mirov10)  ;
+
+        if(mr.supportsVersion(MiroResponse.Survey_id_Mirov11)) {
+            miroReport.generateReport(mr, MiroResponse.Survey_id_Mirov11);
+        }
 
         sr.setAlertsProcessed(true);
 

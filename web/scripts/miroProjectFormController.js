@@ -599,7 +599,8 @@ var candidateCellFuncs = [
       	 prefix =  "<div   id=\"cControls_" + cForm.id + "\" >" ;
       	
       } 
-     
+
+     //TODO add function that displays the
    	
    	  switch (cForm.reportStatus) {
 		case "0": controls = "<span class=\"status0\">email not sent</span>"; break;

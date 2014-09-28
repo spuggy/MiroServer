@@ -16,7 +16,7 @@ public class MiroReport11Test extends MiroReport10Test  {
 
         SurveyResponse surveyResponse  = new SurveyResponse();
         surveyResponse.setId(new Long(1));
-        surveyResponse.setSurvey_id(new Long(99));
+        surveyResponse.setSurvey_id(MiroResponse.Survey_id_Mirov11);
 
         surveyResponse.setAnswer_trail("Charming#E;Tolerant#O~Self-assured#D;Impulsive#E~Empathic#O;Competitive#D~Charismatic#E;Methodical#A ~Positive#E;Pioneering#D~Amiable#O;Sceptical#D~Good-natured#O;Unwavering#D~Affable#E;Adventurous#D~Playful#E;Demanding#D~Admirable#E;Forceful#D~Companionable#E;Self-sufficient#D~Kind-hearted#O;Orderly#A~Unconventional#E;Conventional#A~Gregarious#E;Level-headed#A~Open #E;No-nonsense #D~Friendly#E;Forthright#D~Big-hearted#O;Well-disciplined#A~Relaxed#O;Exacting#A~Gentle#O;Modest#A~Sophisticated#A;Compassionate#O~Popular#E;Eager#D~Optimistic#E;Risk taking#D~Open-minded#A;Self-confident#D~Respectful  #O;Definite #D~Unpredictable #E;Stable#O~Self-reliant#D;Restrained#A~Attentive#O;Diplomatic#A~Helpful#O;Determined#D~Contented#O;Restless#D~Perfectionist#A;Impatient#D~~true#plus~true#plus~true#minus~true#minus~true#plus~false#plus~false#plus~true#minus~false#plus~true#plus~false#plus~true#plus~false#plus~true#plus~false#plus~false#plus~false#plus~true#plus~false#plus");
         
@@ -34,7 +34,7 @@ public class MiroReport11Test extends MiroReport10Test  {
         Survey survey = new Survey();
 
 
-        survey.setId(99L);
+        survey.setId(MiroResponse.Survey_id_Mirov11);
         survey.setFirstQuestion_id(33L);
         initQuestions(survey);
 
@@ -83,7 +83,7 @@ public class MiroReport11Test extends MiroReport10Test  {
         initTestData(miroResponse);
 
         try {
-            MiroReport.generateReport(miroResponse,MiroReport.V11);
+            MiroReport.generateReport(miroResponse,MiroResponse.Survey_id_Mirov11);
         } catch (Exception e) {
             fail("failed with " + e.getMessage());
         }
@@ -92,6 +92,11 @@ public class MiroReport11Test extends MiroReport10Test  {
 
 
     }
+
+
+
+
+
 
     public void testCalculateResults() {
         MiroReport MiroReport = getMiroReport(this.baseDirPath);

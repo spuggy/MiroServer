@@ -28,11 +28,8 @@ import java.util.List;
  *
  */
 public class MiroReport {
+
     private final Log log = LogFactory.getLog(MiroReport.class);
-
-    public static int V11 = 11 ;
-    public static int V10 = 10 ;
-
 
     File baseDirectory;
 	MiroResponse mr ;
@@ -128,67 +125,73 @@ public class MiroReport {
 		this.latentScore = latentScore ;
 	}
 	
-	public void generateReport(MiroResponse mr,int reportVersion) throws Exception{
+	public boolean generateReport(MiroResponse mr,Long reportVersion) throws Exception{
 	
 		if(mr == null) {
 			log.error("The Miro response is null");
+            return false;
 		}
 
-        if(reportVersion==MiroReport.V10 && mr.getTestVersion() >=MiroReport.V10 ) {
-	        this.generateReportV10(mr);
-            return ;
+
+        if(reportVersion==MiroResponse.Survey_id_Mirov10) {
+           return this.generateReportV10(mr);
         }
 
-        if(reportVersion==MiroReport.V11 && mr.getTestVersion() >=MiroReport.V11)  {
-            this.generateReportV11(mr);
-            return   ;
-
-         }
+        if(reportVersion==MiroResponse.Survey_id_Mirov11) {
+            return this.generateReportV11(mr);
+        }
 
         throw new MiroException("Cannot produces a report for version " + reportVersion);
 
 	}
 
 
-    public void generateReportV11(MiroResponse mr) throws Exception{
+    private boolean generateReportV11(MiroResponse mr) throws Exception{
 
         if(mr == null) {
             log.error("The Miro response is null");
         }
 
-
         setupMr(mr);
 
+        if(!mr.supportsVersion(MiroResponse.Survey_id_Mirov11)) {
+            throw new MiroException(mr.getMiroReportName() + "does not support version v11");
+        }
+
         log.debug("Before Chart " + mr.toString());
-        this.generateChart();
+        this.generateChart(MiroResponse.Survey_id_Mirov11);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile();
         log.debug("Before PDF " + mr.toString());
         this.generateXSLReportFile(mr.getMiroReportName());
         MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr.getMiroReportName());
 
-
-
+        return true;
 
     }
 
-    public void generateReportV10(MiroResponse mr) throws Exception{
+    private boolean generateReportV10(MiroResponse mr) throws Exception{
 
         if(mr == null) {
             log.error("The Miro response is null");
+            return false ;
         }
 
         setupMr(mr);
 
+        if(!mr.supportsVersion(MiroResponse.Survey_id_Mirov10)) {
+            throw new MiroException(mr.getMiroReportName() + "does not support version v10");
+        }
+
         log.debug("Before Chart " + mr.toString());
-        this.generateChart();
+        this.generateChart(MiroResponse.Survey_id_Mirov10);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile();
         log.debug("Before PDF " + mr.toString());
         this.generateXSLReportFile(mr.getMiroReportName());
         MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr.getMiroReportName());
 
-
+        return true;
 
     }
 
@@ -206,7 +209,7 @@ public class MiroReport {
         String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
 
         HashMap<String,String> strings = new HashMap<String, String>();
-        strings.put("#PAGENUMBER","13");
+        strings.put("#PAGENUMBER",mr.getVariable("PAGENUMBER"));
         strings.put("#DATEOFREPORT",months[month] + " " + year);
 
         MiroXSLFileGenerator.generate(this.baseDirectory,"miro2fo.xsl",reportName,strings);
@@ -221,12 +224,12 @@ public class MiroReport {
 		
 	}
 
-	private void generateChart() {
+	private void generateChart(long reportVersion) {
 
         this.mr = mr;
 
         String subTitle = "";
-        if(this.subTitles != null && mr.extroIntroStrata != null)  {
+        if(this.subTitles != null && reportVersion >= MiroResponse.Survey_id_Mirov11)  {
 
             String subTitleKey = mr.getExtraIntroMappingKey() ;
             subTitle = subTitles.get(subTitleKey) ;
@@ -331,7 +334,13 @@ public class MiroReport {
 			variables.put("name2", mr.getFullName());
 			variables.put("v1", mr.getPractitionerName());
 			variables.put("reportFileName" , mr.getMiroReportName());
-			
+            variables.put("toc1",mr.getVariable("toc1"));
+            variables.put("toc1",mr.getVariable("toc1"));
+            variables.put("toc2",mr.getVariable("toc2"));
+            variables.put("toc3",mr.getVariable("toc3"));
+            variables.put("toc4",mr.getVariable("toc4"));
+            variables.put("toc5",mr.getVariable("toc5"));
+
 			StringBuffer sb = new StringBuffer();
 
 			int vName = 2;
