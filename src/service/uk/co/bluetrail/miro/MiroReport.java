@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jfree.chart.title.TextTitle;
 import org.xml.sax.SAXException;
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -133,11 +134,11 @@ public class MiroReport {
 		}
 
 
-        if(reportVersion==MiroResponse.Survey_id_Mirov10) {
+        if(reportVersion== Constants.Survey_id_Mirov10) {
            return this.generateReportV10(mr);
         }
 
-        if(reportVersion==MiroResponse.Survey_id_Mirov11) {
+        if(reportVersion==Constants.Survey_id_Mirov11) {
             return this.generateReportV11(mr);
         }
 
@@ -154,17 +155,17 @@ public class MiroReport {
 
         setupMr(mr);
 
-        if(!mr.supportsVersion(MiroResponse.Survey_id_Mirov11)) {
+        if(!mr.supportsVersion(Constants.Survey_id_Mirov11)) {
             throw new MiroException(mr.getMiroReportName() + "does not support version v11");
         }
 
         log.debug("Before Chart " + mr.toString());
-        this.generateChart(MiroResponse.Survey_id_Mirov11);
+        this.generateChart(Constants.Survey_id_Mirov11);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile();
         log.debug("Before PDF " + mr.toString());
         this.generateXSLReportFile(mr.getMiroReportName());
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory,mr,MiroResponse.Survey_id_Mirov11);
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory,mr,Constants.Survey_id_Mirov11);
 
         return true;
 
@@ -179,17 +180,17 @@ public class MiroReport {
 
         setupMr(mr);
 
-        if(!mr.supportsVersion(MiroResponse.Survey_id_Mirov10)) {
+        if(!mr.supportsVersion(Constants.Survey_id_Mirov10)) {
             throw new MiroException(mr.getMiroReportName() + "does not support version v10");
         }
 
         log.debug("Before Chart " + mr.toString());
-        this.generateChart(MiroResponse.Survey_id_Mirov10);
+        this.generateChart(Constants.Survey_id_Mirov10);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile();
         log.debug("Before PDF " + mr.toString());
         this.generateXSLReportFile(mr.getMiroReportName());
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, MiroResponse.Survey_id_Mirov10);
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov10);
 
         return true;
 
@@ -229,7 +230,7 @@ public class MiroReport {
         this.mr = mr;
 
         String subTitle = "";
-        if(this.subTitles != null && reportVersion >= MiroResponse.Survey_id_Mirov11)  {
+        if(this.subTitles != null && reportVersion >= Constants.Survey_id_Mirov11)  {
 
             String subTitleKey = mr.getExtraIntroMappingKey() ;
             subTitle = subTitles.get(subTitleKey) ;

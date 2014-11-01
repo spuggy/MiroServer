@@ -2,6 +2,7 @@ package uk.co.bluetrail.miro;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.*;
 
 import java.util.*;
@@ -16,9 +17,6 @@ import java.util.*;
  */
 public class MiroResponse  {
 
-
-    public static Long Survey_id_Mirov11 = 5L;
-    public static Long Survey_id_Mirov10 = 4L;
 
 
 
@@ -95,7 +93,7 @@ public class MiroResponse  {
 
         String var = null;
 
-        if(this.surveyResponse.getSurvey_id().longValue()==MiroResponse.Survey_id_Mirov10) {
+        if(this.surveyResponse.getSurvey_id().longValue()== Constants.Survey_id_Mirov10) {
            var = MiroResponse.mirov10_Variables.get(key) ;
         } else {
             var = MiroResponse.mirov11_Variables.get(key) ;
@@ -268,7 +266,7 @@ public class MiroResponse  {
 		populateResultArrays(resultMap,resultMapWorker);
 
 
-        if(this.supportsVersion(MiroResponse.Survey_id_Mirov11)) {
+        if(this.supportsVersion(Constants.Survey_id_Mirov11)) {
             log.debug("calculating miro 11 results ..");
             if (question != null) {
                 //jump over the intersticial page
@@ -818,7 +816,7 @@ public class MiroResponse  {
 	
 	public String getMiroReportName(long reportVersion) {
 
-        if (reportVersion == MiroResponse.Survey_id_Mirov11) {
+        if (reportVersion == Constants.Survey_id_Mirov11) {
 
             return miroReportName + "_v11";
             } else  {

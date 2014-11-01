@@ -21,11 +21,18 @@ public class MiroReportPDFGenerator {
 
     private final static Log log = LogFactory.getLog(MiroReportPDFGenerator.class);
 
+    public static void generatePDF(File baseDir, MiroResponse mr, Long miroVersion) {
+
+        String xslFileName = "miro2fo.xsl";
+
+        MiroReportPDFGenerator.PDFCreator(baseDir, mr.getMiroReportName(), xslFileName,mr.getMiroReportName(miroVersion));
+
+    }
 
     public static void generatePDF(File baseDir, String miroReportName, String xslFileName) throws Exception {
 
 
-        MiroReportPDFGenerator.PDFCreator(baseDir, miroReportName, xslFileName);
+        MiroReportPDFGenerator.PDFCreator(baseDir, miroReportName, xslFileName,null);
 
     }
 
@@ -34,11 +41,11 @@ public class MiroReportPDFGenerator {
 
         String xslFileName = "miro2fo.xsl";
 
-        MiroReportPDFGenerator.PDFCreator(baseDir, miroReportName, xslFileName);
+        MiroReportPDFGenerator.PDFCreator(baseDir, miroReportName, xslFileName,null);
 
     }
 
-    public static void PDFCreator(File baseDir, String miroReportName, String xslFileName) {
+    public static void PDFCreator(File baseDir, String miroReportName, String xslFileName, String miroReportNameVersion) {
 
 
         log.debug("Preparing..." + miroReportName);
@@ -58,7 +65,13 @@ public class MiroReportPDFGenerator {
             }
 
 
-            File pdffile = new File(baseDir, "out/" + miroReportName + ".pdf");
+            // if the alternate name with version is supplied use that .. means v11 at the end.
+            String miroReportFileName = miroReportName ;
+            if(miroReportNameVersion!=null) {
+                 miroReportFileName = miroReportNameVersion;
+            }
+
+            File pdffile = new File(baseDir, "out/" + miroReportFileName + ".pdf");
 
             log.debug("Input: XML (" + xmlfile + ")");
             log.debug("Stylesheet: " + xsltfile);
@@ -126,4 +139,6 @@ public class MiroReportPDFGenerator {
         log.debug("Success for ! " + miroReportName);
 
     }
+
+
 }

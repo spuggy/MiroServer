@@ -1,6 +1,7 @@
 package uk.co.bluetrail.miro;
 
 import junit.framework.Assert;
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.*;
 
 import java.io.File;
@@ -17,7 +18,7 @@ public class MiroReport11Test extends MiroReport10Test  {
 
         SurveyResponse surveyResponse  = new SurveyResponse();
         surveyResponse.setId(new Long(1));
-        surveyResponse.setSurvey_id(MiroResponse.Survey_id_Mirov11);
+        surveyResponse.setSurvey_id(Constants.Survey_id_Mirov11);
 
         surveyResponse.setAnswer_trail("Charming#E;Tolerant#O~Self-assured#D;Impulsive#E~Empathic#O;Competitive#D~Charismatic#E;Methodical#A ~Positive#E;Pioneering#D~Amiable#O;Sceptical#D~Good-natured#O;Unwavering#D~Affable#E;Adventurous#D~Playful#E;Demanding#D~Admirable#E;Forceful#D~Companionable#E;Self-sufficient#D~Kind-hearted#O;Orderly#A~Unconventional#E;Conventional#A~Gregarious#E;Level-headed#A~Open #E;No-nonsense #D~Friendly#E;Forthright#D~Big-hearted#O;Well-disciplined#A~Relaxed#O;Exacting#A~Gentle#O;Modest#A~Sophisticated#A;Compassionate#O~Popular#E;Eager#D~Optimistic#E;Risk taking#D~Open-minded#A;Self-confident#D~Respectful  #O;Definite #D~Unpredictable #E;Stable#O~Self-reliant#D;Restrained#A~Attentive#O;Diplomatic#A~Helpful#O;Determined#D~Contented#O;Restless#D~Perfectionist#A;Impatient#D~~true#plus~true#plus~true#minus~true#minus~true#plus~false#plus~false#plus~true#minus~false#plus~true#plus~false#plus~true#plus~false#plus~true#plus~false#plus~false#plus~false#plus~true#plus~false#plus");
         
@@ -35,7 +36,7 @@ public class MiroReport11Test extends MiroReport10Test  {
         Survey survey = new Survey();
 
 
-        survey.setId(MiroResponse.Survey_id_Mirov11);
+        survey.setId(Constants.Survey_id_Mirov11);
         survey.setFirstQuestion_id(33L);
         initQuestions(survey);
 
@@ -84,9 +85,9 @@ public class MiroReport11Test extends MiroReport10Test  {
         initTestData(miroResponse);
 
         try {
-            miroReport.generateReport(miroResponse,MiroResponse.Survey_id_Mirov11);
+            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov11);
 
-            String reportFile = miroReport.getReportFilePath(miroResponse,MiroResponse.Survey_id_Mirov11) ;
+            String reportFile = miroReport.getReportFilePath(miroResponse,Constants.Survey_id_Mirov11) ;
 
             File f = new File(reportFile);
 

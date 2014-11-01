@@ -3,6 +3,7 @@ package uk.co.bluetrail.mobriz.service.impl;
 import uk.co.bluetrail.miro.MiroReport;
 import uk.co.bluetrail.miro.MiroResponse;
 import uk.co.bluetrail.miro.MiroTeamPieChart;
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.dao.SurveyResponseDAO;
 import uk.co.bluetrail.mobriz.model.*;
 import uk.co.bluetrail.mobriz.service.*;
@@ -349,10 +350,10 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
         mr.setMiroProject(miroProject);
 
-        miroReport.generateReport(mr, MiroResponse.Survey_id_Mirov10)  ;
+        miroReport.generateReport(mr, Constants.Survey_id_Mirov10)  ;
 
-        if(mr.supportsVersion(MiroResponse.Survey_id_Mirov11)) {
-            miroReport.generateReport(mr, MiroResponse.Survey_id_Mirov11);
+        if(mr.supportsVersion(Constants.Survey_id_Mirov11)) {
+            miroReport.generateReport(mr, Constants.Survey_id_Mirov11);
         }
 
         sr.setAlertsProcessed(true);

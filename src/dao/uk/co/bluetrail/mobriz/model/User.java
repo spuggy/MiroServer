@@ -1,26 +1,13 @@
 package uk.co.bluetrail.mobriz.model;
 
-import java.io.Serializable;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.springframework.web.servlet.ModelAndView;
-
 import uk.co.bluetrail.mobriz.Constants;
-import uk.co.bluetrail.mobriz.model.BaseObject;
-import uk.co.bluetrail.mobriz.model.LabelValue;
-import uk.co.bluetrail.mobriz.model.Role;
-import uk.co.bluetrail.mobriz.model.User;
+
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * This class is used to generate Spring Validation rules
@@ -95,6 +82,24 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
 	private Long miroTeam_id ;
     private Date miroTeamAdded_on ;
 
+    /**
+     * @hibernate.property
+     * @return the default survey id for assessments for this practitioner
+     */
+    public String getDefault_survey_id() {
+        if(default_survey_id==null) {
+            return Constants.Survey_id_Mirov11.toString();
+        } else {
+            return default_survey_id;
+        }
+
+    }
+
+    public void setDefault_survey_id(String default_survey_id) {
+        this.default_survey_id = default_survey_id;
+    }
+
+    private String default_survey_id;
 
 
     /**
@@ -906,6 +911,6 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
 		
 	}
 
-	
-	
+
+
 }

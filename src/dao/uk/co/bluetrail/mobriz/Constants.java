@@ -12,7 +12,13 @@ package uk.co.bluetrail.mobriz;
  */
 public class Constants {
     //~ Static fields/initializers =============================================
-   
+
+
+    //named survey ids
+    public static final Long Survey_id_Mirov11 = 5L;
+    public static final Long Survey_id_Mirov10 = 4L;
+
+
     /** The name of the ResourceBundle used in this application */
     public static final String BUNDLE_KEY = "ApplicationResources";
 

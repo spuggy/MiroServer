@@ -48,21 +48,19 @@ public class MiroSurveyController extends BaseController {
             log.debug("entering 'handleRequest' method for MiroSurveyController...");
         }
 
-        List surveys = surveyManager.getLiveSurveys();
-        
-        if(surveys.size()==0) {
-        	return new ModelAndView("miroNoTestsToComplete");
-        } 
-        
-        //this is where we change
-        Survey survey = (Survey) surveys.get(0);
-        
         User candidate = getCurrentUser();
-        
         MiroProject miroProject = miroProjectManager.getMiroProject(candidate.getProject_id().toString());
-        
 		User practitioner = userManager.getUser(miroProject.getCreatedBy_id().toString());
-        
+
+        String survey_id = practitioner.getDefault_survey_id() ;
+
+        Survey survey = surveyManager.getSurvey(survey_id);
+
+
+        if(survey==null) {
+            return new ModelAndView("miroNoTestsToComplete");
+        }
+
         List surveyResponses = surveyResponseManager.getSurveyResponses(survey,this.getCurrentUser()) ;
         
         
@@ -71,9 +69,7 @@ public class MiroSurveyController extends BaseController {
       	model.put("candidate" , candidate) ;
       	model.put("practitioner" , practitioner) ;
           	
-		
-		
-        
+
         
         if(surveyResponses == null || surveyResponses.size() ==0 ) {
          
