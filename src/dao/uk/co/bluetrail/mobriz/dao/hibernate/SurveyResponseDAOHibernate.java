@@ -127,6 +127,28 @@ public class SurveyResponseDAOHibernate extends BaseDaoHibernate implements Surv
         
 	}
 
+    public List getUnprocessedResponses(final int limit) {
+
+        HibernateCallback callback = new HibernateCallback() {
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+
+                Criteria crit = session.createCriteria(SurveyResponse.class);
+
+                crit.add(Expression.eq("alertsProcessed",false));
+
+                crit.addOrder(Order.asc("id"));
+
+                crit.setFetchSize(limit);
+
+                return  crit.list();
+
+            }
+        };
+
+        return (List) getHibernateTemplate().execute(callback);
+    }
+
+
 	public List getSurveyResponsesGreaterThanId(final Long id,final int limit) {
 		 HibernateCallback callback = new HibernateCallback() {
 	 	     	public Object doInHibernate(Session session) throws HibernateException, SQLException {

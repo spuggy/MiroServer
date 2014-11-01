@@ -49,7 +49,6 @@ public class MiroResponse  {
 	private int excessScore;
 	private int latentScore ;
 	private SurveyResponse surveyResponse;
-	private List <Survey> surveys;
     private Survey survey ;
 	private LinkedHashMap mostMiroTotals;
 	private LinkedHashMap leastMiroTotals;
@@ -568,12 +567,12 @@ public class MiroResponse  {
 	}
 
 	
-	public MiroResponse(List<Survey> surveys, SurveyResponse sr,Setting miroLetters, int testOffset) {
+	public MiroResponse(Survey survey, SurveyResponse sr,Setting miroLetters, int testOffset) {
 
         this.surveyResponse = sr ;
 		this.miroLetters = miroLetters;
 		this.testOffset = testOffset;
-		this.surveys = surveys;
+		this.survey = survey;
 		this.testId = sr.getId();
 	}
 
@@ -767,22 +766,20 @@ public class MiroResponse  {
 		this.survey = survey;
 	}
 
-	public void init(List<Survey> surveys, SurveyResponse sr, Setting miroLetters, int testOffset) {
+	public void init(Survey survey, SurveyResponse sr, Setting miroLetters, int testOffset) {
 		this.surveyResponse = sr ;
 		this.miroLetters = miroLetters;
 		this.testOffset = testOffset;
-		this.surveys = surveys;
+		this.survey = survey;
 		this.testId = sr.getId();
 
 
-        Iterator<Survey> itr = this.surveys.iterator();
 
-        while(itr.hasNext()) {
-            Survey s = itr.next() ;
-            if(s.getId().longValue() == (this.surveyResponse.getSurvey_id().longValue())) {
-                this.survey = s;
-            }
+
+        if(this.survey.getId().longValue() != (this.surveyResponse.getSurvey_id().longValue())) {
+            throw new MiroException("survey id does not match response survey id");
         }
+
 
         if(this.survey==null) {
             throw new MiroException("Survey " + this.surveyResponse.getSurvey_id() + " not found");

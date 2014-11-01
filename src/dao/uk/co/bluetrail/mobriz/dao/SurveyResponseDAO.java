@@ -9,6 +9,9 @@ import java.util.List;
 
 public interface SurveyResponseDAO extends Dao {
 
+
+    public List getUnprocessedResponses(final int Limit);
+
     /**
      * Retrieves all of the surveyResponses
      */

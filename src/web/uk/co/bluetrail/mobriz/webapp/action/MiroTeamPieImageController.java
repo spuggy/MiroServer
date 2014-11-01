@@ -1,20 +1,16 @@
 package uk.co.bluetrail.mobriz.webapp.action;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.OutputStream;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.web.servlet.ModelAndView;
+import uk.co.bluetrail.mobriz.service.MiroResponseManager;
+import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.web.servlet.ModelAndView;
-
-import uk.co.bluetrail.mobriz.service.MiroResponseManager;
-import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
+import java.awt.image.BufferedImage;
+import java.io.OutputStream;
 
 public class MiroTeamPieImageController extends BaseController {
 
@@ -27,8 +23,7 @@ public class MiroTeamPieImageController extends BaseController {
 	
 	
 
-	public ModelAndView handleRequest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView handleRequest(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		
 		
 		String idString = request.getParameter("ids") ;

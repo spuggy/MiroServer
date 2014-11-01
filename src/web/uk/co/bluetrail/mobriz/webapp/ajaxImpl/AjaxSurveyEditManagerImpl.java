@@ -3,76 +3,36 @@
  */
 package uk.co.bluetrail.mobriz.webapp.ajaxImpl;
 
-import java.sql.Timestamp;
-import java.text.MessageFormat;
-
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
-import org.apache.commons.validator.ValidatorResources;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.StringTokenizer;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.validator.*;
+import org.apache.commons.validator.ValidatorResources;
 import org.springframework.context.MessageSource;
-import org.springframework.validation.Errors;
 import org.springmodules.validation.commons.DefaultBeanValidator;
-
-
 import uk.co.bluetrail.mobriz.Constants;
-import uk.co.bluetrail.mobriz.model.Constraint;
-import uk.co.bluetrail.mobriz.model.Option;
-import uk.co.bluetrail.mobriz.model.Question;
-import uk.co.bluetrail.mobriz.model.Survey;
-import uk.co.bluetrail.mobriz.model.SurveyElement;
-import uk.co.bluetrail.mobriz.model.SurveyResponse;
-import uk.co.bluetrail.mobriz.model.User;
-import uk.co.bluetrail.mobriz.service.ConstraintManager;
-import uk.co.bluetrail.mobriz.service.MiroResponseManager;
-import uk.co.bluetrail.mobriz.service.OptionManager;
-import uk.co.bluetrail.mobriz.service.QuestionManager;
-import uk.co.bluetrail.mobriz.service.SurveyManager;
-import uk.co.bluetrail.mobriz.service.SurveyResponseManager;
-import uk.co.bluetrail.mobriz.service.UserManager;
+import uk.co.bluetrail.mobriz.model.*;
+import uk.co.bluetrail.mobriz.service.*;
 import uk.co.bluetrail.mobriz.serviceDTO.QuestionServiceDTO;
-import uk.co.bluetrail.mobriz.util.ConvertUtil;
-import uk.co.bluetrail.mobriz.util.CurrencyConverter;
-import uk.co.bluetrail.mobriz.util.DateConverter;
-import uk.co.bluetrail.mobriz.util.SurveyElementUtil;
-import uk.co.bluetrail.mobriz.util.TimestampConverter;
+import uk.co.bluetrail.mobriz.util.*;
+import uk.co.bluetrail.mobriz.webapp.ajax.AjaxSurveyEditManager;
+import uk.co.bluetrail.mobriz.webapp.ajaxDTO.QuestionAjaxDTO;
 import uk.co.bluetrail.mobriz.webapp.form.ConstraintForm;
 import uk.co.bluetrail.mobriz.webapp.form.OptionForm;
 import uk.co.bluetrail.mobriz.webapp.form.QuestionForm;
 import uk.co.bluetrail.mobriz.webapp.form.SurveyForm;
-
-import uk.co.bluetrail.mobriz.webapp.ajax.*;
-import uk.co.bluetrail.mobriz.webapp.ajaxDTO.QuestionAjaxDTO;
-
-import uk.ltd.getahead.dwr.WebContext;  
+import uk.ltd.getahead.dwr.WebContext;
 import uk.ltd.getahead.dwr.WebContextFactory;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.*;
 //
   
 
@@ -833,7 +793,8 @@ public class AjaxSurveyEditManagerImpl implements AjaxSurveyEditManager{
 			}
 			
 		} catch (Exception e) {
-		
+
+            log.error(e);
 			return Constants.MIRO_EXCEPTION;
 		}
 		

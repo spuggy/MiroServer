@@ -73,9 +73,6 @@ describe('miroSurveyController', function () {
 
     it('run ok survey', function () {
 
-
-
-
       var msc = new MiroSurveyController(4, 33);
       ajaxSurveyEditManager.questions =  g_miro_questions_1_0;
       ajaxSurveyEditManager.status =  MIRO_OK;

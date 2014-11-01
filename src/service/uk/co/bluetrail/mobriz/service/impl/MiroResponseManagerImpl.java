@@ -18,7 +18,6 @@ import java.util.List;
 
 public class MiroResponseManagerImpl extends BaseManager implements MiroResponseManager {
 
-    protected List<Survey> surveys;
     protected Setting miroLetters;
     protected SettingManager settingManager;
     private UserManager userManager;
@@ -112,7 +111,9 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
         setup();
 
-        MiroResponse mr = new MiroResponse(surveys, sr, this.miroLetters, this.testOffset);
+        Survey survey = surveyManager.getSurvey(sr.getSurvey_id().toString());
+
+        MiroResponse mr = new MiroResponse(survey, sr, this.miroLetters, this.testOffset);
 
         return mr.isValid();
 
@@ -120,20 +121,6 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
 
     protected void setup() {
-
-        if (surveys != null) {
-            return; //setou must be done!!
-        }
-
-        this.surveys = surveyManager.getLiveSurveys();
-
-        if (surveys.size() == 0) {
-            log.error("Cannot find a survey!!!!!");
-            throw new RuntimeException("Cannot find a survey!!!!");
-        }
-
-
-        //survey = (Survey) surveys.get(0);
 
 
         miroLetters = settingManager.getSettingByName("MIRO_LETTERS");
@@ -168,13 +155,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
     }
 
 
-    public List getSurveyResponsesGreaterThanId(Long last_id, int limit) {
 
-        this.setup();
-
-        return this.surveyResponseDAO.getSurveyResponsesGreaterThanId(last_id, limit);
-
-    }
 
     public String getRawResults(SurveyResponse sr, MiroResponse mr, String baseDirectory) throws Exception {
 
@@ -183,7 +164,10 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
         this.setup();
 
-        mr.init(surveys, sr, this.miroLetters, this.testOffset);
+        Survey survey = surveyManager.getSurvey(sr.getSurvey_id().toString());
+
+
+        mr.init(survey, sr, this.miroLetters, this.testOffset);
 
         User candidate = sr.getUser();
 
@@ -242,11 +226,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
     public List getUnprocessedMiroResponses(int miroDocLimit) {
 
-        this.setup();
-
-        SurveyResponse example = new SurveyResponse();
-        example.setAlertsProcessed(false);
-        return this.surveyResponseDAO.getSurveyResponsesByExample(example, miroDocLimit);
+        return this.surveyResponseDAO.getUnprocessedResponses(miroDocLimit);
 
     }
 
@@ -336,7 +316,9 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
         this.setup();
 
-        mr.init(surveys, sr, this.miroLetters, this.testOffset);
+        Survey survey = surveyManager.getSurvey(sr.getSurvey_id().toString());
+
+        mr.init(survey, sr, this.miroLetters, this.testOffset);
 
 
         User candidate = sr.getUser();
@@ -459,11 +441,17 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
         MiroTeamPieChart miroTeamPieChart = new MiroTeamPieChart(teamPieWidth, teamPieHeight, this.thumbNailPieWidth, this.thumbNailPieHeight);
 
+
+        Survey survey = null;
+
         while (itr.hasNext()) {
             user = (User) itr.next();
             sr = surveyResponseDAO.getSurveyResponse(user.getResponse_id());
+
+            survey = surveyManager.getSurvey(sr.getSurvey_id().toString());
+
             mr = new MiroResponse();
-            mr.init(surveys, sr, this.miroLetters, this.testOffset);
+            mr.init(survey, sr, this.miroLetters, this.testOffset);
             try {
                 BufferedImage bi = miroReport.getThumbnailPie(user.getFullName(), mr, this.thumbNailPieWidth, this.thumbNailPieHeight);
                 miroTeamPieChart.add(bi);
@@ -509,6 +497,8 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         TeamMapDTO teamMapDTO = null;
         ArrayList teamMapData = new ArrayList();
 
+        Survey survey = null ;
+
         while (itr.hasNext()) {
             candidate = (User) itr.next();
 
@@ -516,8 +506,12 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
 
             sr = surveyResponseDAO.getSurveyResponse(candidate.getResponse_id());
+
+            survey = surveyManager.getSurvey(sr.getSurvey_id().toString());
+
+
             mr = new MiroResponse();
-            mr.init(surveys, sr, this.miroLetters, this.testOffset);
+            mr.init(survey, sr, this.miroLetters, this.testOffset);
             teamMapDTO = new TeamMapDTO();
             try {
                 teamMapDTO = new TeamMapDTO();

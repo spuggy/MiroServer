@@ -40,7 +40,7 @@ INSERT INTO mr.questions VALUES (170, 171, 'You generally have control over your
 INSERT INTO mr.questions VALUES (171, 172, 'After a long day working or socialising with others you feel the need to get away and be alone for a while', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
 INSERT INTO mr.questions VALUES (172, 173, 'You don’t speak very loudly as a rule', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
 INSERT INTO mr.questions VALUES (173, 174, 'The more people you speak to, the better you feel', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
-INSERT INTO mr.questions VALUES (174, 175, 'You\’d probably prefer to curl up with a good book than go to a party', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
+INSERT INTO mr.questions VALUES (174, 175, 'You''d probably prefer to curl up with a good book than go to a party', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
 INSERT INTO mr.questions VALUES (175, 176, 'You enjoy being the centre of attention', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
 INSERT INTO mr.questions VALUES (176, 177, 'You like to insulate yourself from outside noises', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
 INSERT INTO mr.questions VALUES (177, 178, 'You feel quite at home in a crowd', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
@@ -48,7 +48,7 @@ INSERT INTO mr.questions VALUES (178, 179, 'You tend to sit at the back or at th
 INSERT INTO mr.questions VALUES (179, 180, 'You''d rather meet with two or three people than with a large group', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
 INSERT INTO mr.questions VALUES (180, 181, 'You prefer to spend your time alone or peacefully with your family', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
 INSERT INTO mr.questions VALUES (181, 182, 'You are usually the first to react to the phone ringing or someone coming to the door', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
-INSERT INTO mr.questions VALUES (182, 100, 'You don’t get excited easily', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
+INSERT INTO mr.questions VALUES (182, 0, 'You don’t get excited easily', 5, 5, 61539, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11');
 INSERT INTO mr.questions VALUES (163, 164, 'Hey the new questions are next', 3, 5, 61538, '2008-10-30 19:38:23.307', '2014-08-02 21:54:56.374', 3, false, true, false, '', 0, 0, 0, 'Q11Inst');
 
 INSERT INTO mr.options VALUES (318, 0, 'Loyal#A', 105, 47632, '2008-07-07 10:30:32.319', '2008-07-07 10:30:32.319', 1, false, NULL, 0, 0);
