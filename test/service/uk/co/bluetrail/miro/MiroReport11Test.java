@@ -5,9 +5,7 @@ import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.*;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 
 public class MiroReport11Test extends MiroReport10Test  {
@@ -40,9 +38,8 @@ public class MiroReport11Test extends MiroReport10Test  {
         survey.setFirstQuestion_id(33L);
         initQuestions(survey);
 
-        List<Survey> surveys = new ArrayList<Survey>() ;
-        surveys.add(survey);
-        miroResponse.init(surveys,surveyResponse, this.miroLetters,this.testOffset);
+
+        miroResponse.init(survey,surveyResponse, this.miroLetters,this.testOffset);
 
 
         System.out.println("arse");
