@@ -1,33 +1,30 @@
 package uk.co.bluetrail.mobriz.webapp.action;
 
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.acegisecurity.Authentication;
 import org.acegisecurity.AuthenticationTrustResolver;
 import org.acegisecurity.AuthenticationTrustResolverImpl;
-import org.acegisecurity.context.SecurityContextHolder;
 import org.acegisecurity.context.SecurityContext;
-
+import org.acegisecurity.context.SecurityContextHolder;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.Role;
 import uk.co.bluetrail.mobriz.model.Setting;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.RoleManager;
 import uk.co.bluetrail.mobriz.service.SettingManager;
-import uk.co.bluetrail.mobriz.service.UserManager;
 import uk.co.bluetrail.mobriz.service.UserExistsException;
+import uk.co.bluetrail.mobriz.service.UserManager;
 import uk.co.bluetrail.mobriz.util.StringUtil;
 import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
-import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-import java.util.ArrayList;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Implementation of <strong>SimpleFormController</strong> that interacts with
@@ -261,8 +258,16 @@ public class UserFormController extends BaseFormController {
 		
 			String[] departments = departmentSetting.getSettingValues();
     		refData.put("departments" , departments) ;
-			
-		} catch(Exception e) {
+
+            Map< String, String > miroVersions = new HashMap<String, String>();
+            miroVersions.put(Constants.Survey_id_Mirov10.toString(),"1.0");
+            miroVersions.put(Constants.Survey_id_Mirov11.toString(),"1.1");
+
+            refData.put("miroVersions",miroVersions) ;
+
+
+
+        } catch(Exception e) {
 			throw new RuntimeException("Could not create MIRO_DEPARTMENTS from the setting - missing?");
 		}
 

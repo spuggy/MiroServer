@@ -1,5 +1,6 @@
 package uk.co.bluetrail.miro;
 
+import com.lowagie.text.pdf.PdfReader;
 import junit.framework.TestCase;
 import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.*;
@@ -117,10 +118,14 @@ public class MiroReport10Test extends TestCase {
                 fail("pdf not created for " + fileName);
             }
 
-            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov11);
+            PdfReader pdfReader = new PdfReader(fileName);
+            int numOfPages = pdfReader.getNumberOfPages();
+
+            assertEquals(13,numOfPages);
 
 
         } catch (Exception e) {
+            e.printStackTrace();
             fail("failed with " + e.getMessage());
         }
 

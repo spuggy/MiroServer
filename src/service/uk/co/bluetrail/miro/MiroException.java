@@ -19,7 +19,7 @@ public class MiroException extends RuntimeException {
 	}
 
 	public String toString() {
-		if(e != null) {
+		if(e == null) {
 			return "MIRO_ERROR: " + eMessage;
 		} else {
 			return "MIRO_ERROR: " + eMessage + " - " + e.toString();

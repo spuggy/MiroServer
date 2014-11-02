@@ -206,7 +206,15 @@
 
     </li>
 
+        <li>
+            <mobriz4server:label styleClass="desc" key="user.default_survey_id"/>
+            <form:errors path="default_survey_id" cssClass="fieldError"/>
+            <form:select path="default_survey_id" id="default_survey_id">
+                <form:options items="${miroVersions}"/>
+            </form:select>
 
+
+        </li>
 
     <li>
         <fieldset>
@@ -288,5 +296,3 @@ function onFormSubmit(theForm) {
 
 <v:javascript formName="user" staticJavascript="false"/>
 <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
-</li>
-</ul>
