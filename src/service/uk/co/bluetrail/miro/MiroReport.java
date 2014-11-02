@@ -162,7 +162,7 @@ public class MiroReport {
         log.debug("Before Chart " + mr.toString());
         this.generateChart(Constants.Survey_id_Mirov11);
         log.debug("Before XMLReportFile " + mr.toString());
-        this.generateXMLReportFile();
+        this.generateXMLReportFile(Constants.Survey_id_Mirov11);
         log.debug("Before PDF " + mr.toString());
         this.generateXSLReportFile(mr.getMiroReportName());
         MiroReportPDFGenerator.generatePDF(this.baseDirectory,mr,Constants.Survey_id_Mirov11);
@@ -187,7 +187,7 @@ public class MiroReport {
         log.debug("Before Chart " + mr.toString());
         this.generateChart(Constants.Survey_id_Mirov10);
         log.debug("Before XMLReportFile " + mr.toString());
-        this.generateXMLReportFile();
+        this.generateXMLReportFile(Constants.Survey_id_Mirov10);
         log.debug("Before PDF " + mr.toString());
         this.generateXSLReportFile(mr.getMiroReportName());
         MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov10);
@@ -320,11 +320,11 @@ public class MiroReport {
 	 * @throws ParserConfigurationException 
 	 * 
 	 */
-	private void generateXMLReportFile() throws ParserConfigurationException, SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
+	private void generateXMLReportFile(long reportVersion) throws ParserConfigurationException, SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
 		
 			log.info("Generating " + mr.getFullName() + "_" + mr.getTestId());
 		
-			List<MiroPage> pages = mr.getReportPageList();
+			List<MiroPage> pages = mr.getReportPageList(reportVersion);
 			
 			//Image Map
 			Map<String, String> variables = new HashMap<String, String>();

@@ -623,7 +623,7 @@ public class MiroResponse  {
 	
 	
 
-	public List<MiroPage> getReportPageList() {
+	public List<MiroPage> getReportPageList(long reportVersion) {
 	
 		MiroPageElement[]pageItems = null;
 		
@@ -649,8 +649,7 @@ public class MiroResponse  {
             pages.add(MiroPage.create(resultLetters[0] + "1"));
         }
 
-       // woo its miro 1.1
-        if(this.extroIntroStrata!=null) {
+        if(reportVersion==Constants.Survey_id_Mirov11 && this.extroIntroStrata!=null) {
           String key = this.getExtraIntroMappingKey();
           if(key==null) {
               throw new MiroException("could not find ExtroIntraMapping mapping key for " + key);
