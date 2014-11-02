@@ -109,13 +109,16 @@ public class MiroReport10Test extends TestCase {
         try {
             miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov10);
 
-            String reportFile = miroReport.getReportFilePath(miroResponse,Constants.Survey_id_Mirov10) ;
+            String fileName = this.baseDirPath + "/out/Roger_Test_1.pdf";
 
-            File f = new File(reportFile);
+            File f = new File(fileName);
 
             if(!f.exists()) {
-                fail("pdf not created for " + reportFile);
+                fail("pdf not created for " + fileName);
             }
+
+            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov11);
+
 
         } catch (Exception e) {
             fail("failed with " + e.getMessage());

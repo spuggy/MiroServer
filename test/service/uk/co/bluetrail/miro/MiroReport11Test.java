@@ -82,14 +82,25 @@ public class MiroReport11Test extends MiroReport10Test  {
         initTestData(miroResponse);
 
         try {
-            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov11);
 
-            String reportFile = miroReport.getReportFilePath(miroResponse,Constants.Survey_id_Mirov11) ;
+            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov10);
 
-            File f = new File(reportFile);
+            String fileName = this.baseDirPath + "/out/Roger_Test_1.pdf";
+
+            File f = new File(fileName);
 
             if(!f.exists()) {
-                fail("pdf not created for " + reportFile);
+                fail("pdf not created for " + fileName);
+            }
+
+            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov11);
+
+            fileName = this.baseDirPath + "/out/Roger_Test_1_v11.pdf";
+
+            f = new File(fileName);
+
+            if(!f.exists()) {
+                fail("pdf not created for " + fileName);
             }
 
         } catch (Exception e) {
