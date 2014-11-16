@@ -600,7 +600,7 @@ var candidateCellFuncs = [
       	
       } 
 
-     //TODO add function that displays the
+     //TODO add function that displays the POPUP SELECTION
    	
    	  switch (cForm.reportStatus) {
 		case "0": controls = "<span class=\"status0\">email not sent</span>"; break;
