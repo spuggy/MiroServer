@@ -88,6 +88,8 @@ public class MiroResponse  {
 
     }
 
+
+
     public String getVariable(String key) {
 
         String var = null;
@@ -566,6 +568,10 @@ public class MiroResponse  {
 		// TODO Auto-generated constructor stub
 	}
 
+
+    public MiroResponse(SurveyResponse sr) {
+        this.surveyResponse = sr ;
+    }
 	
 	public MiroResponse(Survey survey, SurveyResponse sr,Setting miroLetters, int testOffset) {
 

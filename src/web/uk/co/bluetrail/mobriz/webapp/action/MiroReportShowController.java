@@ -5,10 +5,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.ModelAndView;
+import uk.co.bluetrail.miro.MiroResponse;
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.SurveyException;
+import uk.co.bluetrail.mobriz.model.SurveyResponse;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.MiroProjectManager;
 import uk.co.bluetrail.mobriz.service.MiroResponseManager;
+import uk.co.bluetrail.mobriz.service.SurveyResponseManager;
 import uk.co.bluetrail.mobriz.service.UserManager;
 import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 
@@ -24,10 +28,16 @@ public class MiroReportShowController extends BaseController {
     private MiroProjectManager miroProjectManager = null;
 	private UserManager userManager;
 	private MiroResponseManager miroResponseManager;
+    private SurveyResponseManager surveyResponseManager ;
 
-	
-	
-	
+    public SurveyResponseManager getSurveyResponseManager() {
+        return surveyResponseManager;
+    }
+
+    public void setSurveyResponseManager(SurveyResponseManager surveyResponseManager) {
+        this.surveyResponseManager = surveyResponseManager;
+    }
+
     /**
 	 * @param miroResponseManager the miroResponseManager to set
 	 */
@@ -60,30 +70,45 @@ public class MiroReportShowController extends BaseController {
         User user = null;
         
         if (!StringUtils.isEmpty(id)) {
-          
 			user = userManager.getUser(id.toString());
         } else {
-        	log.error("no id");
+            throw new SurveyException("no id supplied");
         }
         
         String reportLocation = miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request));
-        
-        String filename = reportLocation + "/out/" + user.getReportFileName()+".pdf";
+
+        SurveyResponse surveyResponse = surveyResponseManager.getSurveyResponse(user.getResponse_id().toString());
+
+        if(surveyResponse==null) {
+            throw new SurveyException("no surveyResponse  found for " + user.getResponse_id().toString());
+        }
+
+
+        MiroResponse mr = new MiroResponse(surveyResponse);
+        mr.setFirstName(user.getFirstName());
+        mr.setLastName(user.getLastName());
+        mr.setMiroReportName(user.getReportFileName());
+
+        String filename = null ;
+
+        //TODO this needs to do a selection for either
+        if(surveyResponse.getSurvey_id().longValue()== Constants.Survey_id_Mirov11) {
+            filename = reportLocation + "/out/" + mr.getMiroReportName(Constants.Survey_id_Mirov11) + ".pdf";
+        } else {
+            filename = reportLocation + "/out/" + mr.getMiroReportName(Constants.Survey_id_Mirov10)+ ".pdf";
+        }
+
 		File file = new File(filename);
-		
+
 		if(!file.exists()) {
-			filename = reportLocation + "/out/" +user.getOldReportFileName()+".pdf";
-			file = new File(filename);			
-		}
-		
-		if(!file.exists()) {
-			log.error("report file does not exist for  id="+id );
-			throw new SurveyException("Report file does not exist!");
+			log.error("report file does not exist for  " + filename );
+			throw new SurveyException("Report file does not exist! " + filename);
 		}
 		
 		byte[] content = this.getBytesFromFile(file);
 
-		
+
+        //TODO FIX THIS FIEL NAME ... well make it select
 		
 		String mimetype = request.getSession().getServletContext().getMimeType(filename);
 		response.setContentType(mimetype);
