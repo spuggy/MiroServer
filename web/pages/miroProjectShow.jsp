@@ -8,16 +8,16 @@
 <head>
 
 	<meta name="menu" content="MiroProjectMenu" />
-	<content tag="navname">
-	Surveys
-	</content>
 
 	<title><fmt:message key="miroProjectDetail.title" />
 	</title>
 
+    <script type="text/javascript" src="<c:url value='/scripts/prototype-1.5.1.2.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
 
 
-	<script type="text/javascript"
+
+    <script type="text/javascript"
 		src="<c:url value='/dwr/interface/ajaxMiroProjectManager.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>

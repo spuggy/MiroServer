@@ -5,7 +5,13 @@
 	<content tag="heading">
 	<fmt:message key="miroTeamPie.heading" />
 	</content>
-	<link rel="stylesheet" type="text/css" media="all"
+
+
+    <script type="text/javascript" src="<c:url value='/scripts/prototype-1.5.1.2.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
+
+
+    <link rel="stylesheet" type="text/css" media="all"
 		href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>" />
 	<meta name="menu" content="MiroProjectMenu" />
 	<link rel="stylesheet" type="text/css" media="all"
