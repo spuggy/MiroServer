@@ -12,8 +12,8 @@
 	<title><fmt:message key="miroProjectDetail.title" />
 	</title>
 
-    <script type="text/javascript" src="<c:url value='/scripts/prototype-1.5.1.2.js'/>"></script>
-    <script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/scripts/jquery-1.11.1.min.js'/>"></script>
+
 
 
 

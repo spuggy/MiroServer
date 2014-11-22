@@ -86,7 +86,6 @@ describe('miroSurveyController', function () {
         msc.nextButton();
         x[2].checked = true;
       }
-      expect(document.getElementById("finish").style.display).equals("");
 
 
       msc.finishButton();
