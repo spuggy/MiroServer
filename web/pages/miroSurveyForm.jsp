@@ -5,13 +5,12 @@
 
 	<link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>" />
 
-		
+
 	<script type="text/javascript" src="<c:url value='/dwr/interface/ajaxSurveyEditManager.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/scripts/dragdrop.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/scripts/effects.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/scripts/miroSurveyController/miroSurveyController03.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/scripts/jquery-1.11.1.min.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/scripts/miro/miroSurveyController03.js'/>"></script>
 
 <script type="text/javascript">
 var testInProgress = false ; 

@@ -14,20 +14,12 @@
 
     <script type="text/javascript" src="<c:url value='/scripts/jquery-1.11.1.min.js'/>"></script>
 
-
-
-
-    <script type="text/javascript"
-		src="<c:url value='/dwr/interface/ajaxMiroProjectManager.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/dwr/interface/ajaxMiroProjectManager.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='/scripts/miroProjectFormController.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/scripts/miro/miroProjectFormController02.js'/>"></script>
 
-	<script type="text/javascript"
-		src="<c:url value='/scripts/dragdrop.js'/>"></script>
-	<script type="text/javascript"
-		src="<c:url value='/scripts/effects.js'/>"></script>
+
 
 	<script type="text/javascript">
 

@@ -74,21 +74,21 @@ function timeOutHandler() {
 
  
 
-var MiroProjectFormController = Class.create();
+var MiroProjectFormController = function(pid) {
+
+  this.pid = pid;
+
+  DWREngine.setErrorHandler(errorHandler);
+  DWREngine.setTextHtmlHandler(sessionExpireHandler);
+  DWREngine.setWarningHandler(timeOutHandler);
+  DWREngine.setTimeout(30000); //30 secs;
+
+}
 
 //defining the rest of the class implmentation
 MiroProjectFormController.prototype = {
 
-   initialize:function(pid) {
-		
-		this.pid = pid;
-		 
-		DWREngine.setErrorHandler(errorHandler);
-		DWREngine.setTextHtmlHandler(sessionExpireHandler);
-		DWREngine.setWarningHandler(timeOutHandler);
-		DWREngine.setTimeout(30000); //30 secs;
-		
-   }, 
+
    
     buyReportButtonClicked:function(id) {
    		
@@ -168,18 +168,18 @@ MiroProjectFormController.prototype = {
    		scRowCount=0;
    	
   	 	if(miroProjectDTOs==null)  {
-		  	Element.hide("shoppingCartUI")  
+		  	$("#shoppingCartUI").hide();
 	   	   	return ; 
 	   	}
    	
    		
    		if(miroProjectDTOs.length ==0)  {
-		  	Element.hide("shoppingCartUI") 
+		  	$("#shoppingCartUI").hide();
 	   	   	return ; 
 	   	}
    		
    	
-   		Element.show("shoppingCartUI");   
+   		$("#shoppingCartUI").show();
 	   	dwr.util.setEscapeHtml(false);
 	   	DWRUtil.removeAllRows("shoppingCartTableBody");
    		DWRUtil.addRows( "shoppingCartTableBody",miroProjectDTOs , shoppingCartCellFuncs,shoppingCartTRCRCreators);
@@ -189,7 +189,7 @@ MiroProjectFormController.prototype = {
    
    selectAllSendEmail:function(){
    		var check ="";
-   		if($("cSelectAllSendEmail").checked) {
+   		if($("#cSelectAllSendEmail").checked) {
    			check= true;
    		} else {
    			check=false;
@@ -198,7 +198,7 @@ MiroProjectFormController.prototype = {
    		var checkBox="";
    		for(i=0;i<this.candidates.length;i++){
    			try {
-   			checkBox = $("cSendEmail_"+this.candidates[i].id);
+   			checkBox = $("#cSendEmail_"+this.candidates[i].id);
    			checkBox.checked = check; 
    			} catch(e) {
    				
@@ -218,7 +218,7 @@ MiroProjectFormController.prototype = {
    		
    		for(i=0;i<this.candidates.length;i++){
    			try{
-   			checkBox = $("cSendEmail_"+this.candidates[i].id);
+   			checkBox = $("#cSendEmail_"+this.candidates[i].id);
   
    			if(checkBox.checked==true) {
    				
@@ -234,8 +234,8 @@ MiroProjectFormController.prototype = {
 			return;
 		}   	
    	
-   		Element.show("sendEmailReportUI");
-   		Element.show("sendEmailReportUISpinner");   
+   		$("#sendEmailReportUI").show();
+   		$("#sendEmailReportUISpinner").show();
    	
    	
    		//the bind stuff is all beacuse javascript can do some weird stuff with this.function) calls
@@ -248,16 +248,16 @@ MiroProjectFormController.prototype = {
       
    sendInviteEmailsCallBack:function(report) {
    	
-   		Element.show("sendEmailReportUI");
-   		Element.hide("sendEmailReportUISpinner");   
-   		Element.show("sendEmailReportUITable");   
+   		$("#sendEmailReportUI").show();
+   		$("#sendEmailReportUISpinner").hide();
+   		$("#sendEmailReportUITable").show();
    		  
    		  
 	   	dwr.util.setEscapeHtml(false);
 	   	DWRUtil.removeAllRows("sendEmailReportTableBody");
    		DWRUtil.addRows( "sendEmailReportTableBody",report , sendMailCellFuncs);
 	   	
-   		$("cSelectAllSendEmail").checked = false;
+   		$("#cSelectAllSendEmail").checked = false;
    		this.selectAllSendEmail();
    	
    		this.loadCandidates();   	
@@ -265,32 +265,32 @@ MiroProjectFormController.prototype = {
    },
    
    clearSendMailButtonClicked:function() {
-   		Element.hide("sendEmailReportUI");      	
+   		$("#sendEmailReportUI").hide();
    },
    
    addNewClicked:function() {
    	
-   	 Element.show("addNewPanel")
-      $("iFirstName_new").focus();
+   	 $("#addNewPanel").show();
+      $("#iFirstName_new").focus();
    
     },
     delCand:function(id) {
   		
   		
 									
-	var firstName = $("iFirstName_"+id);
-	var lastName = $("iLastName_"+id);
-	var email =  $("iEmail_"+id);			
+	var firstName = $("#iFirstName_"+id);
+	var lastName = $("#iLastName_"+id);
+	var email =  $("#iEmail_"+id);
 		
 	
 	
-	if (!confirm("Are you sure you want to delete " + firstName.value + " " + lastName.value +"?")){
+	if (!confirm("Are you sure you want to delete " + firstName.val() + " " + lastName.val() +"?")){
 		return false
 	}
 	
    		
-   	Element.hide("iSavePanel_"+id);   
-    Element.show("formSpinner_"+id);
+   	$("#iSavePanel_"+id).hide();
+    $("#formSpinner_"+id).show();
       	
       	
       	
@@ -303,8 +303,8 @@ MiroProjectFormController.prototype = {
     
     deleteCandidateCallBack:function(dto) {
    	
-   		Element.show("iSavePanel_new");   
-      	Element.hide("formSpinner_new");
+   		$("#iSavePanel_new").show();
+      	$("#formSpinner_new").hide();
    		
    	
    		if(dto.status != 0 ){
@@ -313,8 +313,8 @@ MiroProjectFormController.prototype = {
    		}    	
    	
    	
-      	 frm =  $("addNewForm");
-   	  	frm.reset();
+      	frm =  $("#addNewForm");
+   	  	frm[0].reset();
    	  	
    	  	this.loadCandidates();
    	
@@ -336,13 +336,13 @@ MiroProjectFormController.prototype = {
   		
   		
 									
-	var firstName = $("iFirstName_"+id);
-	var lastName = $("iLastName_"+id);
-	var email =  $("iEmail_"+id);			
+	var firstName = $("#iFirstName_"+id)  ;
+	var lastName = $("#iLastName_"+id) ;
+	var email =  $("#iEmail_"+id);
 		
 	
 	
-	if ((firstName.value==null)||(firstName.value.trim()=="")){
+	if ((firstName.val()==null)||(firstName.val().trim()=="")){
 		alert("First Name is required") ; 
 		firstName.focus();
 		return false
@@ -350,19 +350,19 @@ MiroProjectFormController.prototype = {
 	
 	
 	
-	if ((lastName.value==null)||(lastName.value.trim()=="")){
+	if ((lastName.val()==null)||(lastName.val().trim()=="")){
 		alert("Last Name is required") ; 
 		lastName.focus();
 		return false
 	}
 	
-	if ((email.value==null)||(email.value.trim()=="")){
+	if ((email.val()==null)||(email.val().trim()=="")){
 		alert("Email is Required");
 		email.focus();
 		return false
 	}
 		
-	if (echeck(email.value)==false){
+	if (echeck(email.val())==false){
 		email.focus();
 		alert("Please enter a valid email address");
 		return false
@@ -371,15 +371,15 @@ MiroProjectFormController.prototype = {
   		
   			      
    		var dto = new Object() ;
-   		frm =  $("addNewForm");
+   		frm =  $("#addNewForm");
    		dto.id=id;
-   		dto.firstName = firstName.value.trim();
-   		dto.lastName =   lastName.value.trim();
-   		dto.emailAddress =  email.value.trim();
+   		dto.firstName = firstName.val().trim();
+   		dto.lastName =   lastName.val().trim();
+   		dto.emailAddress =  email.val().trim();
    		dto.project_id = this.pid;
    		
-   		Element.hide("iSavePanel_"+id);   
-      	Element.show("formSpinner_"+id);
+   		$("#iSavePanel_"+id).hide();
+      $("#formSpinner_"+id).show();
       	
       	
       	
@@ -395,8 +395,8 @@ MiroProjectFormController.prototype = {
     
     saveCandidateCallBack:function(dto) {
    	
-   		Element.show("iSavePanel_new");   
-      	Element.hide("formSpinner_new");
+   		$("#iSavePanel_new").show();
+      $("#formSpinner_new").hide();
    		
    	
    		if(dto.status != 0 ){
@@ -404,8 +404,8 @@ MiroProjectFormController.prototype = {
    		}    	
    	
    	
-      	frm =  $("addNewForm");
-   	  	frm.reset();
+      	frm =  $("#addNewForm");
+   	  	frm[0].reset();
    	  	
    	  	this.loadCandidates();
    	
@@ -416,10 +416,10 @@ MiroProjectFormController.prototype = {
     
     cancelAddNewClicked:function() {
    			
-   	  frm =  $("addNewForm");
-   	  frm.reset();
+   	  frm =  $("#addNewForm");
+   	  frm[0].reset();
  
-      Element.hide("addNewPanel");
+      $("#addNewPanel").hide();
    
    	
   
@@ -435,7 +435,7 @@ MiroProjectFormController.prototype = {
    loadCandidates:function() {
    	
    	
-   		Element.show("formSpinner_cand");
+   		$("#formSpinner_cand").show();
    
    			
    
@@ -467,7 +467,7 @@ MiroProjectFormController.prototype = {
    		
    		rowCount = 0 ;
    	
-   		Element.hide("formSpinner_cand");
+   		$("#formSpinner_cand").hide();
    
    	
    	
@@ -477,12 +477,12 @@ MiroProjectFormController.prototype = {
 	   	}
 	   	
 	   	if(miroProjectDTOs.length ==0)  {
-		  	Element.hide("candidatesListUI") 
-		  	Element.show("welcommess");
+		  	$("#candidatesListUI").hide();
+		  	$("#welcommess").show();
 	   	   	return ; 
 	   	}
 	   	
-	   	Element.hide("welcommess");
+	   	$("#welcommess").hide();
 	   	
 	   	this.candidates = new Array();
 	   	
@@ -492,7 +492,7 @@ MiroProjectFormController.prototype = {
    		
    		
    		
-	    Element.show("candidatesListUI");   
+	    $("#candidatesListUI").show();
 	   	dwr.util.setEscapeHtml(false);
 	   	DWRUtil.removeAllRows("candidatesTableBody");
    		DWRUtil.addRows( "candidatesTableBody",miroProjectDTOs , candidateCellFuncs,candidateTRCRCreators);
@@ -537,29 +537,29 @@ MiroProjectFormController.prototype = {
    toggleCandEdit:function(id,showEdits) {
    	
    		if(showEdits) {
-   		Element.hide("cFirstName_"+id); 
-  	    Element.hide("cLastName_"+id); 
-  	    Element.hide("cEmail_"+id);   
-  	    Element.hide("cSendEmail_"+id);   
-  	    Element.hide("cEditPanel_"+id); 
+   		$("#cFirstName_"+id).hide();
+  	    $("#cLastName_"+id).hide();
+  	    $("#cEmail_"+id).hide();
+  	    $("#cSendEmail_"+id).hide();
+  	    $("#cEditPanel_"+id).hide();
   	     
-  	    Element.show("iFirstName_"+id); 
-  	    Element.show("iLastName_"+id); 
-  	    Element.show("iEmail_"+id);  
-  	    Element.show("iSavePanel_"+id);
+  	    $("#iFirstName_"+id).show();
+  	    $("#iLastName_"+id).show();
+  	    $("#iEmail_"+id).show();
+  	    $("#iSavePanel_"+id).show();
   
   	    $("iFirstName_"+id).focus()
    		} else {
-   			Element.show("cFirstName_"+id); 
-  	    Element.show("cLastName_"+id); 
-  	    Element.show("cEmail_"+id);   
-  	    Element.show("cSendEmail_"+id);   
-  	    Element.show("cEditPanel_"+id); 
+   			$("#cFirstName_"+id).show();
+  	    $("#cLastName_"+id).show();
+  	    $("#cEmail_"+id).show();
+  	    $("#cSendEmail_"+id).show();
+  	    $("#cEditPanel_"+id).show();
   	     
-  	    Element.hide("iFirstName_"+id); 
-  	    Element.hide("iLastName_"+id); 
-  	    Element.hide("iEmail_"+id);  
-  	    Element.hide("iSavePanel_"+id);
+  	    $("#iFirstName_"+id).hide();
+  	    $("#iLastName_"+id).hide();
+  	    $("#iEmail_"+id).hide();
+  	    $("#iSavePanel_"+id).hide();
    		} 
    	
    },
