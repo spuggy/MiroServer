@@ -12,6 +12,19 @@ public class MiroCandidateAjaxDTO {
 	private String errorMessage;
 	private boolean testComplete;
 	private String creditBalance;
+    private String survey_id ;
+
+
+
+    public String getSurvey_id() {
+        return survey_id;
+    }
+
+    public void setSurvey_id(String survey_id) {
+        this.survey_id = survey_id;
+    }
+
+
 	
 	
 	
@@ -96,16 +109,22 @@ public class MiroCandidateAjaxDTO {
 	public MiroCandidateAjaxDTO() {
 		
 	}
-	
-	public MiroCandidateAjaxDTO(Long id, Long project_id,String firstName, String lastName, String emailAddress, int status) {
-		this.id = id.toString();
-		this.project_id = project_id.toString();
-		this.firstName = firstName.toString();
-		this.lastName = lastName.toString();
-		this.emailAddress = emailAddress.toString();
-		this.reportStatus = status+"";
-		
-	}
+
+    public MiroCandidateAjaxDTO(Object[] obj) {
+
+        this.id = obj[0] + "";
+        this.project_id = obj[1] + "";
+        this.firstName = obj[2] + "";
+        this.lastName = obj[3] + "";
+        this.emailAddress = obj[4] + "";
+        this.reportStatus = obj[5] + "";
+        this.survey_id = obj[6] + "";
+
+
+    }
+
+
+
 	/**
 	 * @return the emailAddress
 	 */

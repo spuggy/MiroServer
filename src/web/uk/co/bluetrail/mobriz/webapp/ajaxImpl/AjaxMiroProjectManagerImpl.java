@@ -1,41 +1,26 @@
 package uk.co.bluetrail.mobriz.webapp.ajaxImpl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.acegisecurity.context.SecurityContext;
 import org.acegisecurity.context.SecurityContextHolder;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.mail.SimpleMailMessage;
-
 import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.MiroProject;
 import uk.co.bluetrail.mobriz.model.Role;
-import uk.co.bluetrail.mobriz.model.Setting;
 import uk.co.bluetrail.mobriz.model.SurveyResponse;
 import uk.co.bluetrail.mobriz.model.User;
-import uk.co.bluetrail.mobriz.service.MailEngine;
-import uk.co.bluetrail.mobriz.service.MiroProjectManager;
-import uk.co.bluetrail.mobriz.service.RoleManager;
-import uk.co.bluetrail.mobriz.service.SurveyResponseManager;
-import uk.co.bluetrail.mobriz.service.UserExistsException;
-import uk.co.bluetrail.mobriz.service.UserManager;
-import uk.co.bluetrail.mobriz.util.StringUtil;
+import uk.co.bluetrail.mobriz.service.*;
 import uk.co.bluetrail.mobriz.webapp.ajax.AjaxMiroProjectManager;
 import uk.co.bluetrail.mobriz.webapp.ajaxDTO.MiroCandidateAjaxDTO;
 import uk.co.bluetrail.mobriz.webapp.ajaxDTO.ShoppingCartDTO;
 import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 import uk.ltd.getahead.dwr.WebContext;
 import uk.ltd.getahead.dwr.WebContextFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 
@@ -118,7 +103,7 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 	
 	public MiroCandidateAjaxDTO[] getCandidates(String projectId) throws Exception{  
 		
-		List users = userManager.getProjectUsers(projectId);
+		List users = userManager.getCandidates(projectId) ;
 		
 		Iterator itr = users.iterator();
 		
@@ -127,16 +112,17 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 		List surveyResponses = null ;
 		
 		MiroCandidateAjaxDTO[] candidates = new MiroCandidateAjaxDTO[users.size()];
-		
+
 		User user = null;
 		
 		for(int i = 0 ; i < candidates.length;i++){
-			user = (User) users.get(i);
-			candidates[i]= new MiroCandidateAjaxDTO(user.getId(),user.getProject_id(),user.getFirstName(),user.getLastName(),user.getEmail(),user.getStatus());  
+            Object[] obj = (Object[]) itr.next();
+
+            candidates[i]= new MiroCandidateAjaxDTO(obj);
 				
 		}
-		
-		
+
+
 		return candidates;
 	}
 	
@@ -421,7 +407,8 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
     }
 
 	public ShoppingCartDTO addToCart(String id) {
-		
+
+        /*
 		ShoppingCartDTO shoppingCartDTO = getShoppingCart();
 		
 		try {
@@ -463,7 +450,10 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 				shoppingCartDTO.setStatus(User.INVALID_REPORT);
 				return shoppingCartDTO;
 			}
-		
+
+		*/
+
+        return null;
 		
 		
 	}

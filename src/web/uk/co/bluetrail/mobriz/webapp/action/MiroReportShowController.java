@@ -66,7 +66,8 @@ public class MiroReportShowController extends BaseController {
         //TODO change to handle new and old ways  .. if you have the new version param then look for that else .. just get the old file name
 
         String id = request.getParameter("id");
-        
+        String version = request.getParameter("version");
+
         User user = null;
         
         if (!StringUtils.isEmpty(id)) {
@@ -74,7 +75,11 @@ public class MiroReportShowController extends BaseController {
         } else {
             throw new SurveyException("no id supplied");
         }
-        
+
+        if (StringUtils.isEmpty(version)) {
+            throw new SurveyException("no version supplied");
+        }
+
         String reportLocation = miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request));
 
         SurveyResponse surveyResponse = surveyResponseManager.getSurveyResponse(user.getResponse_id().toString());
@@ -90,12 +95,19 @@ public class MiroReportShowController extends BaseController {
         mr.setMiroReportName(user.getReportFileName());
 
         String filename = null ;
+        String fileVersion = "";
 
-        //TODO this needs to do a selection for either
-        if(surveyResponse.getSurvey_id().longValue()== Constants.Survey_id_Mirov11) {
+
+        if(surveyResponse.getSurvey_id().longValue()== Constants.Survey_id_Mirov11 && version.equals("v11")) {
+
             filename = reportLocation + "/out/" + mr.getMiroReportName(Constants.Survey_id_Mirov11) + ".pdf";
+            fileVersion = "_v11";
+            log.debug("downloading v11 from " + filename);
+
         } else {
             filename = reportLocation + "/out/" + mr.getMiroReportName(Constants.Survey_id_Mirov10)+ ".pdf";
+            fileVersion = "";     //leave blank as old version had none on it.
+            log.debug("downloading v10 from " + filename);
         }
 
 		File file = new File(filename);
@@ -108,13 +120,13 @@ public class MiroReportShowController extends BaseController {
 		byte[] content = this.getBytesFromFile(file);
 
 
-        //TODO FIX THIS FIEL NAME ... well make it select
+        //TODO FIX THIS FILE NAME ... well make it select
 		
 		String mimetype = request.getSession().getServletContext().getMimeType(filename);
 		response.setContentType(mimetype);
 		response.setContentLength(content.length);
 		String[] fnameBits = file.getName().split("_");
-		response.setHeader("Content-Disposition","attachment; filename=\"" + fnameBits[0] + "_" +  fnameBits[1] +".pdf\"");
+		response.setHeader("Content-Disposition","attachment; filename=\"" + fnameBits[0] + "_" +  fnameBits[1] + fileVersion + ".pdf\"");
 		
 		FileCopyUtils.copy(content , response.getOutputStream());
 		return null;

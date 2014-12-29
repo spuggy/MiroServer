@@ -48,6 +48,10 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
     boolean deleted ;
     protected Long response_id = new Long(0);
     protected int creditBalance = 0 ;
+
+
+
+    protected SurveyResponse surveyResponse;
     
     
     //address stuff
@@ -113,6 +117,8 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
     public void setMiroTeamAdded_on(Date miroTeamAdded_on) {
         this.miroTeamAdded_on = miroTeamAdded_on;
     }
+
+
 
 
 	/**

@@ -21,7 +21,7 @@
         <!-- Test for Tomcat 5.0.x -->
         <available classname="org.apache.catalina.ant.SessionsTask" property="tomcat5">
             <classpath>
-                <pathelement path="${tomcat.home}/server/lib/catalina-ant.jar"/>
+                <pathelement path="${tomcat.home}/lib/catalina-ant.jar"/>
             </classpath>
         </available>
 
@@ -341,8 +341,9 @@
         </webdoclet>
     </target>
 
-    <!-- Simple alias to package-web -->
+    <!-- Simple alias to package-web
     <target name="war" depends="package-web" description="alias for package-web"/>
+    -->
 
     <target name="package-web" depends="compile-web,compile-jsp" description="Package WAR">
         <!-- If Servlet 2.4, uncomment the <dispatcher> elements in filter-mappings -->
@@ -1194,7 +1195,9 @@
     <!-- ============================================================== -->
     <taskdef file="${ant-contrib.dir}/tomcatTasks.properties">
         <classpath>
-            <fileset dir="${tomcat.home}/server/lib" includes="catalina-ant*.jar"/>
+            <fileset dir="${tomcat.home}/lib" includes="catalina-ant*.jar"/>
+            <fileset dir="${tomcat.home}/lib" includes="tomcat-util.jar"/>
+
         </classpath>
     </taskdef>
     <target name="install" description="Install application in Tomcat"

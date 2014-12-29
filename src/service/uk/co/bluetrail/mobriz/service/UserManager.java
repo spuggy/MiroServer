@@ -1,11 +1,11 @@
 package uk.co.bluetrail.mobriz.service;
 
-import java.util.List;
-
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import uk.co.bluetrail.mobriz.dao.UserDao;
 import uk.co.bluetrail.mobriz.model.Role;
 import uk.co.bluetrail.mobriz.model.User;
+
+import java.util.List;
 
 
 
@@ -81,4 +81,6 @@ public interface UserManager {
 	public List getUsers(String[] userIds);
 
 	public void saveAsPurchased(Long id, Long srid) throws UserExistsException;
+
+    public List getCandidates(String project_id);
 }

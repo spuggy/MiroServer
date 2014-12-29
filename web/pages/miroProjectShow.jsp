@@ -13,7 +13,7 @@
 	</title>
 
     <script type="text/javascript" src="<c:url value='/scripts/jquery-1.11.1.min.js'/>"></script>
-
+    <script type="text/javascript" src="<c:url value='/scripts/jquery-ui-1.10.4.min.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/dwr/interface/ajaxMiroProjectManager.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
@@ -40,9 +40,33 @@ function initPage(){
 
 	<link rel="stylesheet" type="text/css" media="all"
 		href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="<c:url value='/styles/overcast/jquery-ui-1.10.4.min.css'/>" />
+
+
+
 
 </head>
 <body onLoad="initPage()">
+
+<div id="downloadreport" style="display:none" title="Miro Report Download">
+
+    <p>We now have two versions of the MiRo report you can download.</p>
+
+    <p>The older 1.0 version or the new 1.1 version with the extra nobby bits</p>
+
+    <ul >
+        <li>
+            <p><a id="miro11download" href="#">New MiRo 1.1 Report</a></p>
+        </li>
+        <li>
+            <p><a id="miro10download" href="#">Old MiRo 1.0 Report</a></p>
+        </li>
+     </ul>
+
+</div>
+
+
 	<ul >
 	
 

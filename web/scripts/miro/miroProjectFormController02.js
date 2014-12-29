@@ -1,3 +1,9 @@
+MIROV10  = "4"
+MIROV11  = "5"
+
+
+
+
 String.prototype.trim = function () {
     return this.replace(/^\s*/, "").replace(/\s*$/, "");
 }
@@ -88,6 +94,35 @@ var MiroProjectFormController = function(pid) {
 //defining the rest of the class implmentation
 MiroProjectFormController.prototype = {
 
+  showReportDownloadDialog:function(id,survey_id) {
+
+    var url = "miroReportShow.html"
+    var v10url = url+"?version=v10&id="
+    var v11url = url+"?version=v11&id="
+
+    //this is a v10 response so you can only load the v10 survey so go do it and don't show dialog
+    if(survey_id == MIROV10) {
+       window.location = v10url + id;
+       return  ;
+    }
+
+    $( "#miro11download" ).click(function() {
+      window.location = v11url + id;
+      $('#downloadreport').dialog( "close" );
+    });
+
+    $( "#miro10download" ).click(function() {
+      window.location = v10url + id;
+      $('#downloadreport').dialog( "close" );
+    });
+
+
+    $('#downloadreport').dialog({
+      modal: true
+    });
+
+
+   },
 
    
     buyReportButtonClicked:function(id) {
@@ -607,7 +642,7 @@ var candidateCellFuncs = [
 		case "10": controls = "<span class=\"status10\">email sent</span>"; break;
 		case "20": controls = "<span class=\"status10\">email sent</span>"; break; //make it the same as the batch will get there soon.
 		case "30":  controls = "<a href=\"#\" onclick=\"mpfc.buyReportButtonClicked(" + cForm.id + ")\" /><span class=\"status30\">Buy Report</span></a>" ; break
-		case "40":  controls = "<a href=\"miroReportShow.html?id=" + cForm.id + "\" /><span class=\"status40\">download <img src=\"images/pdf.gif\" /></span></a>"; break; 
+		case "40":  controls = "<a href=\"#\" onclick=\"mpfc.showReportDownloadDialog(" + cForm.id + ","+cForm.survey_id +")\" /><span class=\"status40\">Download <img src=\"images/pdf.gif\" /></span></a>" ; break
 		
 		default: controls = "unknown status!!"; break; 
 		;

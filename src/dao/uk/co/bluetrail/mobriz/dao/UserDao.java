@@ -1,10 +1,10 @@
 package uk.co.bluetrail.mobriz.dao;
 
-import java.util.List;
-
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import uk.co.bluetrail.mobriz.model.User;
+
+import java.util.List;
 
 /**
  * User Data Access Object (Dao) interface.
@@ -69,4 +69,8 @@ public interface UserDao extends Dao {
 
 
 	public List getUsers(Long[] userIds);
+
+    public List getSurveyNamedQuery(String queryName,String[] fieldNames, Object[] objects) ;
+
+
 }

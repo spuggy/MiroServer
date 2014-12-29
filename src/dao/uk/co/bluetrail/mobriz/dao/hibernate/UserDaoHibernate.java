@@ -223,6 +223,14 @@ public class UserDaoHibernate extends BaseDaoHibernate implements UserDao, UserD
 	        };
 	        return (List) getHibernateTemplate().execute(callback);
 	}
-    	
+
+
+    public List getSurveyNamedQuery(String queryName,String[] fieldNames, Object[] objects) {
+
+        List  namedQueryResults = getHibernateTemplate().findByNamedQueryAndNamedParam(queryName,  fieldNames, objects);
+
+        return namedQueryResults;
+
+    }
     	
 }

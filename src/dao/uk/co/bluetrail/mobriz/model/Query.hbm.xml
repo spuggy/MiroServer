@@ -49,8 +49,20 @@
 
     </sql-query>
 
+  <sql-query name="findUsersAndSurveyIdsForProject">
+
+    <![CDATA[
 
 
+  SELECT u.id ,u.project_id,u.first_name,u.last_name,u.email,u.status, r.survey_id
+  FROM app_user u
+  LEFT JOIN mr.responses r
+  ON u.response_id = r.id
+  WHERE u.project_id = :project_id AND u.deleted = false
+  ORDER BY u.id desc
+                       ]]>
+
+  </sql-query>
 
 </hibernate-mapping>
 

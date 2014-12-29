@@ -1,16 +1,12 @@
 package uk.co.bluetrail.mobriz.service.impl;
 
-import java.util.List;
-
 import org.acegisecurity.userdetails.UsernameNotFoundException;
-
-import uk.co.bluetrail.mobriz.Constants;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.orm.ObjectRetrievalFailureException;
 import uk.co.bluetrail.mobriz.dao.MiroTransactionDao;
 import uk.co.bluetrail.mobriz.dao.UserDao;
-import uk.co.bluetrail.mobriz.model.MiroProject;
 import uk.co.bluetrail.mobriz.model.MiroTransaction;
 import uk.co.bluetrail.mobriz.model.Role;
-import uk.co.bluetrail.mobriz.model.SurveyException;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.UserExistsException;
 import uk.co.bluetrail.mobriz.service.UserManager;
@@ -18,9 +14,7 @@ import uk.co.bluetrail.mobriz.util.RandomString;
 import uk.co.bluetrail.mobriz.util.StringUtil;
 import uk.co.bluetrail.mobriz.util.SurveyElementUtil;
 
-
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.orm.ObjectRetrievalFailureException;
+import java.util.List;
 
 
 /**
@@ -258,4 +252,16 @@ public class UserManagerImpl extends BaseManager implements UserManager {
 		this.saveUser(u);
 		
 	}
+
+
+    public List getCandidates(String project_id_str) {
+
+
+        Long project_id = new Long(project_id_str);
+
+        String[] fieldNames =  new String[] {"project_id"} ;
+        Object[] objects = new Object[] {project_id};
+
+        return dao.getSurveyNamedQuery("findUsersAndSurveyIdsForProject",fieldNames,objects );
+    }
 }
