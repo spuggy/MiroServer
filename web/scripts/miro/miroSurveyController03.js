@@ -387,17 +387,19 @@ MiroSurveyController.prototype = {
       var OForm = OForms[i];
 
       if (!isFirstPage && OForm.OText == firstAnswer) {
-        return;
+        //do not add tos list
+      }  else {
+
+        if (OForm.OText == answer) {
+          checked = "checked";
+        } else {
+          checked = "";
+        }
+        bits = OForm.OText.split(SEP);
+        htmlStr = htmlStr + '<input type="radio" name="qOptions" value="' + OForm.OText + '"  ' + checked + '/>' + bits[0] + '<br/>';
       }
 
-      if (OForm.OText == answer) {
-        checked = "checked";
-      } else {
-        checked = "";
-      }
 
-      bits = OForm.OText.split(SEP);
-      htmlStr = htmlStr + '<input type="radio" name="qOptions" value="' + OForm.OText + '"  ' + checked + '/>' + bits[0] + '<br/>';
 
     };
     return htmlStr;

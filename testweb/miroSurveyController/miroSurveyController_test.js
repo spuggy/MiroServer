@@ -36,22 +36,24 @@ describe('miroSurveyController', function () {
       msc.startButton();
 
 
-      for (var i = 0; i < 59; i++) {
+      for (var i = 0; i < 30; i++) {
         var x = document.getElementsByName('qOptions');
         x[1].checked = true;
         msc.nextButton();
+        x = document.getElementsByName('qOptions');
+        expect(x.length).equals(3);
+
         x[2].checked = true;
+        msc.nextButton();
       }
 
       expect(document.getElementById("miro11Prompt").style.display).equals("");
 
       msc.nextButton();
 
-      for (var i = 0; i < 2; i++) {
-        var x = document.getElementsByName('qOptions');
-        x[1].checked = true;
-        msc.nextButton();
-      }
+      var x = document.getElementsByName('qOptions');
+      x[1].checked = true;
+      msc.nextButton();
 
       expect(document.getElementById("finish").style.display).equals("");
 
@@ -80,13 +82,22 @@ describe('miroSurveyController', function () {
       msc.startButton();
 
 
-      for (var i = 0; i < 59; i++) {
+      for (var i = 0; i < 29; i++) {
         var x = document.getElementsByName('qOptions');
         x[1].checked = true;
         msc.nextButton();
+        x = document.getElementsByName('qOptions');
+        expect(x.length).equals(3);
         x[2].checked = true;
+        msc.nextButton();
       }
 
+      var x = document.getElementsByName('qOptions');
+      x[1].checked = true;
+      msc.nextButton();
+      x = document.getElementsByName('qOptions');
+      expect(x.length).equals(3);
+      x[2].checked = true;
 
       msc.finishButton();
 
@@ -104,12 +115,22 @@ describe('miroSurveyController', function () {
       msc.startButton();
 
 
-      for (var i = 0; i < 59; i++) {
+      for (var i = 0; i < 29; i++) {
         var x = document.getElementsByName('qOptions');
         x[1].checked = true;
         msc.nextButton();
+        x = document.getElementsByName('qOptions');
+        expect(x.length).equals(3);
         x[2].checked = true;
+        msc.nextButton();
       }
+
+      var x = document.getElementsByName('qOptions');
+      x[1].checked = true;
+      msc.nextButton();
+      x = document.getElementsByName('qOptions');
+      expect(x.length).equals(3);
+      x[2].checked = true;
 
       msc.finishButton();
 
