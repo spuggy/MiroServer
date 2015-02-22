@@ -251,30 +251,32 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         modes.put("O", "Organising Mode");
 
         HashMap<String, String> subTitles = new HashMap<String, String>();
-        subTitles.put("SLEX", "SLEX subitle");
-        subTitles.put("NLEX", "NLEX subitle");
-        subTitles.put("TLEX", "TLEX subitle");
-        subTitles.put("FLEX", "FLEX subitle");
-        subTitles.put("SMEX", "SMEX subitle");
-        subTitles.put("NMEX", "NMEX subitle");
-        subTitles.put("TMEX", "TMEX subitle");
-        subTitles.put("FMEX", "FMEX subitle");
-        subTitles.put("SHEX", "SHEX subitle");
-        subTitles.put("NHEX", "NHEX subitle");
-        subTitles.put("THEX", "THEX subitle");
-        subTitles.put("FHEX", "FHEX subitle");
-        subTitles.put("SLIN", "SLIN subitle");
-        subTitles.put("NLIN", "NLIN subitle");
-        subTitles.put("TLIN", "TLIN subitle");
-        subTitles.put("FLIN", "FLIN subitle");
-        subTitles.put("SMIN", "SMIN subitle");
-        subTitles.put("NMIN", "NMIN subitle");
-        subTitles.put("TMIN", "TMIN subitle");
-        subTitles.put("FMIN", "FMIN subitle");
-        subTitles.put("SHIN", "SHIN subitle");
-        subTitles.put("NHIN", "NHIN subitle");
-        subTitles.put("THIN", "THIN subitle");
-        subTitles.put("FHIN", "FHIN subitle");
+
+        subTitles.put("SLEX", "Pivoting on Extroverted Sensing (Slightly expressed)");
+        subTitles.put("NLEX", "Pivoting on Extroverted iNtuition (Slightly expressed)");
+        subTitles.put("TLEX", "Pivoting on Extroverted Thinking (Slightly expressed)");
+        subTitles.put("FLEX", "Pivoting on Extroverted Feeling (Slightly expressed)");
+        subTitles.put("SMEX", "Pivoting on Extroverted Sensing (Moderately expressed)");
+        subTitles.put("NMEX", "Pivoting on Extroverted iNtuition (Moderately expressed)");
+        subTitles.put("TMEX", "Pivoting on Extroverted Thinking (Moderately expressed)");
+        subTitles.put("FMEX", "Pivoting on Extroverted Feeling (Moderately expressed)");
+        subTitles.put("SHEX", "Pivoting on Extroverted Sensing (Strongly expressed)");
+        subTitles.put("NHEX", "Pivoting on Extroverted iNtuition (Strongly expressed)");
+        subTitles.put("THEX", "Pivoting on Extroverted Thinking (Strongly expressed)");
+        subTitles.put("FHEX", "Pivoting on Extroverted Feeling (Strongly expressed)");
+        subTitles.put("SLIN", "Pivoting on Introverted Sensing (Slightly expressed)");
+        subTitles.put("NLIN", "Pivoting on Introverted iNtuition (Slightly expressed)");
+        subTitles.put("TLIN", "Pivoting on Introverted Thinking (Slightly expressed)");
+        subTitles.put("FLIN", "Pivoting on Introverted Feeling (Slightly expressed)");
+        subTitles.put("SMIN", "Pivoting on Introverted Sensing (Moderately expressed)");
+        subTitles.put("NMIN", "Pivoting on Introverted iNtuition (Moderately expressed)");
+        subTitles.put("TMIN", "Pivoting on Introverted Thinking (Moderately expressed)");
+        subTitles.put("FMIN", "Pivoting on Introverted Feeling (Moderately expressed)");
+        subTitles.put("SHIN", "Pivoting on Introverted Sensing (Strongly expressed)");
+        subTitles.put("NHIN", "Pivoting on Introverted iNtuition (Strongly expressed)");
+        subTitles.put("THIN", "Pivoting on Introverted Thinking (Strongly expressed)");
+        subTitles.put("FHIN", "Pivoting on Introverted Feeling (Strongly expressed)");
+
 
 
         HashMap colors = new HashMap();
