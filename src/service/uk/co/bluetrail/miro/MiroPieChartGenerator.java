@@ -6,6 +6,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
+import org.jfree.chart.util.DefaultShadowGenerator;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
@@ -125,6 +126,12 @@ public class MiroPieChartGenerator
 		
 		JFreeChart jfreechart = ChartFactory.createPieChart(pieTitle,piedataset, true, true, false);  
 		PiePlot pieplot = (PiePlot) jfreechart.getPlot();
+
+
+        DefaultShadowGenerator dsg = new DefaultShadowGenerator(1,Color.white,1,1,1);
+
+        pieplot.setShadowGenerator(dsg);
+
 		// Sets bachgroung color of chart to white
 		jfreechart.setBackgroundPaint(Color.white);
 		pieplot.setBackgroundPaint(Color.WHITE);

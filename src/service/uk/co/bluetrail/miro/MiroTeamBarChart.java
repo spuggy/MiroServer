@@ -22,6 +22,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.util.DefaultShadowGenerator;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
@@ -142,10 +143,14 @@ public class MiroTeamBarChart {
             final CategoryPlot plot = chart.getCategoryPlot();
             BarRenderer renderer = new CustomRenderer(barColors);
             plot.setRenderer(renderer);
-            
-            
-            
-            //make all the ticks and labels invisisble
+
+
+            DefaultShadowGenerator dsg = new DefaultShadowGenerator(1,Color.white,1,1,1);
+
+            plot.setShadowGenerator(dsg);
+
+
+        //make all the ticks and labels invisisble
             renderer.setItemMargin(-1);
             plot.setRangeGridlinesVisible(false);
             plot.setBackgroundPaint(Color.WHITE);

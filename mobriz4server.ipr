@@ -553,6 +553,9 @@
     <option name="pos5" value="162" />
     <option name="pos6" value="707" />
   </component>
+  <component name="ThriftCompiler">
+    <compilers />
+  </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
   </component>
@@ -1496,4 +1499,3 @@
     </library>
   </component>
 </project>
-
