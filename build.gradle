@@ -3,7 +3,7 @@ apply plugin:'java'
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
-webAppSourceDirectory="dist/webapps"
+//webAppSourceDirectory="dist/webapps"
 
 
 sourceSets {
@@ -61,7 +61,7 @@ dependencies {
     compile files('lib/fop/avalon-framework-4.2.0.jar')
     compile files('lib/fop/batik-all-1.6.jar')
     compile files('lib/fop/fop.jar')
-    compile files('lib/fop/itext-1.4.jar')
+    compile files('lib/fop/itext-4.2.1jar')
     compile files('lib/fop/jcommon-1.0.17.jar')
     compile files('lib/fop/jfreechart-1.0.14.jar')
     compile files('lib/fop/serializer-2.7.0.jar')

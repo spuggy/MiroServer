@@ -827,9 +827,9 @@
       <JAVADOC />
       <SOURCES />
     </library>
-    <library name="itext-1.4">
+    <library name="itext-4.2.1">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/fop/itext-1.4.jar!/" />
+        <root url="jar://$PROJECT_DIR$/lib/fop/itext-4.2.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
