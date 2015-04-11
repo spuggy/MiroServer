@@ -129,7 +129,7 @@ MiroProjectFormController.prototype = {
    		
    	
    		
-    	if(!confirm("By clicking \"OK\" you agree to purchase this assessment report and will be charged accordingly. Do you wish to continue?")) {
+    	if(!confirm("By clicking \"OK\" you are agreeing to buy this report. Do you wish to continue?")) {
     		return;
    		}
    		

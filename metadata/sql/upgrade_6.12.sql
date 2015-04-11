@@ -1,0 +1,1 @@
+UPDATE mr.questions set qtxt = 'That’s 30 questions down and just 20 to go. Please answer true or false' where id = 163;

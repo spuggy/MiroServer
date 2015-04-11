@@ -701,47 +701,47 @@
         <ant antfile="test/web/web-tests.xml" target="${testcase}"/>
     </target>
 
-    <!-- =================================================================== -->
-    <!--            Run Canoo WebTests using Cargo                           -->
-    <!-- =================================================================== -->
-    <target name="test-jsp" if="tomcat.home" depends="war,check-debug"
-        description="Runs Canoo WebTests using Cargo">
-         
-        <taskdef resource="cargo.tasks">
-            <classpath>
-                <fileset dir="${cargo.dir}" includes="*.jar"/>
-            </classpath>
-        </taskdef> 
+    <!--&lt;!&ndash; =================================================================== &ndash;&gt;-->
+    <!--&lt;!&ndash;            Run Canoo WebTests using Cargo                           &ndash;&gt;-->
+    <!--&lt;!&ndash; =================================================================== &ndash;&gt;-->
+    <!--<target name="test-jsp" if="tomcat.home" depends="war,check-debug"-->
+        <!--description="Runs Canoo WebTests using Cargo">-->
+         <!---->
+        <!--<taskdef resource="cargo.tasks">-->
+            <!--<classpath>-->
+                <!--<fileset dir="${cargo.dir}" includes="*.jar"/>-->
+            <!--</classpath>-->
+        <!--</taskdef> -->
 
-        <echo>running canoo tests at:
-              http://${tomcat.server}:${http.port}/${webapp.name}</echo>
+        <!--<echo>running canoo tests at:-->
+              <!--http://${tomcat.server}:${http.port}/${webapp.name}</echo>-->
 
-        <if>
-            <isset property="tomcat5"/>
-            <then><property name="cargoId" value="tomcat5x"/></then>
-            <else><property name="cargoId" value="tomcat4x"/></else>
-        </if>
-        
-        <echo message="Starting ${cargoId}..."/>
-        <cargo containerId="${cargoId}" id="${cargoId}" home="${tomcat.home}" action="start"
-            output="${test.dir}/cargo.log" wait="false">
-            <configuration home="${test.dir}/${cargoId}">
-                <property name="cargo.logging" value="high"/>
-                <property name="cargo.servlet.port" value="${http.port}"/>
-                <!--<property name="cargo.jvmargs" value="${run.mobriz4server.test.debugargline}"/>-->
-                <deployable type="war" file="${webapp.dist}/${webapp.war}"/>
-            </configuration>   
-        </cargo>
+        <!--<if>-->
+            <!--<isset property="tomcat5"/>-->
+            <!--<then><property name="cargoId" value="tomcat5x"/></then>-->
+            <!--<else><property name="cargoId" value="tomcat4x"/></else>-->
+        <!--</if>-->
+        <!---->
+        <!--<echo message="Starting ${cargoId}..."/>-->
+        <!--<cargo containerId="${cargoId}" id="${cargoId}" home="${tomcat.home}" action="start"-->
+            <!--output="${test.dir}/cargo.log" wait="false">-->
+            <!--<configuration home="${test.dir}/${cargoId}">-->
+                <!--<property name="cargo.logging" value="high"/>-->
+                <!--<property name="cargo.servlet.port" value="${http.port}"/>-->
+                <!--&lt;!&ndash;<property name="cargo.jvmargs" value="${run.mobriz4server.test.debugargline}"/>&ndash;&gt;-->
+                <!--<deployable type="war" file="${webapp.dist}/${webapp.war}"/>-->
+            <!--</configuration>   -->
+        <!--</cargo>-->
 
-        <antcall target="test-canoo"/>
+        <!--<antcall target="test-canoo"/>-->
 
-        <cargo refid="${cargoId}" action="stop"/>
-    </target>
+        <!--<cargo refid="${cargoId}" action="stop"/>-->
+    <!--</target>-->
 
     <!-- =================================================================== -->
     <!--            Run all tests (tomcat not running)                       -->
     <!-- =================================================================== -->
-    <target name="test-all" depends="test-dao,test-service,test-web,test-jsp"
+    <target name="test-all" depends="test-dao,test-service,test-web"
         description="runs all tests for dao, service, web and jsp">
         <antcall target="db-load"/>
     </target>

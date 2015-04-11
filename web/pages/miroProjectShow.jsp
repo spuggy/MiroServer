@@ -49,18 +49,16 @@ function initPage(){
 </head>
 <body onLoad="initPage()">
 
-<div id="downloadreport" style="display:none" title="Miro Report Download">
+<div id="downloadreport" style="display:none" title="Download MiRo Report">
 
-    <p>We now have two versions of the MiRo report you can download.</p>
-
-    <p>The older 1.0 version or the new 1.1 version with the extra nobby bits</p>
+    <p>Please choose which report you would like to download.</p>
 
     <ul >
         <li>
-            <p><a id="miro11download" href="#">New MiRo 1.1 Report</a></p>
+            <p><a id="miro11download" href="#"><b>MiRo Stage 2</b> (Coaching report)</a></p>
         </li>
         <li>
-            <p><a id="miro10download" href="#">Old MiRo 1.0 Report</a></p>
+            <p><a id="miro10download" href="#"><b>MiRo Stage 1</b> (Standard report)</a></p>
         </li>
      </ul>
 

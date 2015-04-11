@@ -46,26 +46,20 @@ window.onbeforeunload = warnOnUnload;
 <ul>
 <li>
 <div id="intro">
-<p>Once you click on the continue button you will be shown 30 multiple choice selections. Each is a set of descriptive words and each set contains 4 words.</p>
 
-<p>First choose the word that most describes you. This may on occasion prove difficult but try to be as honest as you can and think about how you actually are or what you actually do, rather than what you 
-think you ought to be or ought to do. You need to think of yourself in your current job or in current  social situations. 
-Of course the answer in each circumstance may be different but you must choose the answer that is truest for who you really are.</p>
+    <p>Once you click on "continue" you will be shown 50 questions.</p>
 
-<p><b>There are no 'right' or 'wrong' answers.</b></p>
+    <p>30 are multiple choice, single word selections and you must choose the one that most describes you and the one that least describes you. Sometimes they may all seem to fit or all not fit, go with your first instinct or think about what someone who knows you well might say.</p>
 
-<p>Next you will be offered the three remaining choices and you must choose the one that least applies to you. Once again try to be as honest as you can. </p>
+    <p>The next 20 are "true" or "false" statements.</p>
 
-<p>Try to avoid false modesty or answering as you think you should in order to create a 
-good impression of your self. If you really can't choose, your instinct is often more reliable 
-than too much thought. Remember the more honest you are the more valuable the results will be for you.</p> 
+    <p>The more honest you are the more accurate and so the more useful your results will be.</p>
 
-<p>Once all the sets have been completed the system will inform you that the form is 
-complete. Your results will then be sent to you by e-mail or handed to you at your coaching session or team event.</p>
+    <p><b>There are no "right" or "wrong" answers and no-one will see your responses.</b></p>
 
-<p>There is no time limit but you should try and complete the assessment within 15 minutes if at all possible. 
-You will be able to edit your answers as you go but once you click on the finish button you will not be able to
- return to the assessment or take a new one without a new log in.</p>
+    <p>There is no time limit but you should try and complete the assessment within 15 minutes if at all possible. You will be able to edit your answers as you go but once you click on the finish button you will not be able to return to the assessment or take a new one without a new log in.</p>
+
+    <p>The practitioner who sent out your log in will receive the resulting report and then pass it on to you. If you have any questions please call or email your registered MiRo practitioner or contact support@miro-assessment.com</p>
 
 
 <form id="startForm"> <input type="button" id="start" value="Start my assessment" onClick="startMiroTest()"/></form>
