@@ -30,7 +30,8 @@ public class PieChart extends Handler {
         try {
 
 
-           table.setWidths(new int[]{1, 1});
+
+            table.setWidths(new int[]{2, 1});
            //table.setWidthPercentage(100);
 
             Node row = node.getFirstChild();

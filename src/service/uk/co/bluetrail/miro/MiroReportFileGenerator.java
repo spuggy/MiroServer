@@ -8,30 +8,24 @@ package uk.co.bluetrail.miro;
  *
  */
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.w3c.dom.*;
-
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class MiroReportFileGenerator {
 
@@ -44,8 +38,8 @@ public class MiroReportFileGenerator {
 	private Element htmlElement = null;
 	private Element bodyElement = null;
 	private File baseDirectory = null;
-	private String srcFilename = "mirosource.xhtml";
-	private String srcFolder = "xhtml";
+	private String srcFilename = "mirosource11.xhtml";
+	private String srcFolder = "miro2/xhtml";
 	private String outputFolder = "out";
 
 	private String dynamicFileName;

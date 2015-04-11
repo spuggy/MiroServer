@@ -241,7 +241,7 @@ public class MiroReport {
 
         }
 
-		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",subTitle,false, true,false)  ;
+		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",subTitle,true, true,false)  ;
 		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
 
 	}
@@ -383,10 +383,10 @@ public class MiroReport {
 			// Image Map
 			Map<String, String> imgNames = new HashMap<String, String>();
 			imgNames.put("graph", this.baseDirectory.getAbsolutePath() + "/out/" +this.getChartName());
-			imgNames.put("imgU1", this.baseDirectory.getAbsolutePath() + "/images/" + "U1.png");
-			imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/images/" + "U3.png");
-			imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/images/"  + "U2.png");
-			imgNames.put("imgU6", this.baseDirectory.getAbsolutePath()+ "/images/"  + "U6.png");
+			imgNames.put("imgU1", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U1.jpg");
+			imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U3.jpg");
+			imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/miro2/images/"  + "U2.jpg");
+			imgNames.put("imgU6", this.baseDirectory.getAbsolutePath()+ "/miro2/images/"  + "U6.jpg");
 		
 			
 			if(miroReportFileGenerator==null){

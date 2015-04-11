@@ -643,6 +643,7 @@ public class MiroResponse  {
 
         //page1
 		pages.add(MiroPage.create("U2"));
+        pages.add(MiroPage.create("U2a"));
 //		page2
 		pages.add(MiroPage.create("U3"));
 //		page3	

@@ -278,12 +278,16 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         subTitles.put("FHIN", "Pivoting on Introverted Feeling (Strongly expressed)");
 
 
+        Color miroYellow = Color.decode("#FBC827");
+        Color miroGreen  =  Color.decode("#44B449");
+        Color miroBlue =   Color.decode("#42ADD5");
+        Color miroRed =   Color.decode("#D53E34");
 
         HashMap colors = new HashMap();
-        colors.put("E", Color.YELLOW);
-        colors.put("D", Color.RED);
-        colors.put("A", Color.BLUE);
-        colors.put("O", Color.GREEN);
+        colors.put("E", miroYellow);
+        colors.put("D", miroRed);
+        colors.put("A", miroBlue);
+        colors.put("O", miroGreen);
 
         miroReport.setSubTitles(subTitles);
         miroReport.setModes(modes);
