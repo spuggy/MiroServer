@@ -22,7 +22,7 @@ public class Handler {
          this.node = node;
     }
 
-    protected String Strip(String str) {
+    protected String strip(String str) {
 
         if(str != null) {
             return str.replaceAll(System.getProperty("line.separator"), "").replaceAll("\\s+", " ");

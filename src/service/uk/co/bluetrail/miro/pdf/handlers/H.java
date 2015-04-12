@@ -43,7 +43,7 @@ public class H extends Handler {
 
             if(text != null) {
 
-                Paragraph p =new Paragraph(Strip(text),f) ;
+                Paragraph p =new Paragraph(strip(text),f) ;
                 p.setSpacingAfter((4-size)*context.spacingAfter);
                 p.setLeading(f.getSize() + context.leading);
 

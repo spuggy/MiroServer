@@ -59,7 +59,7 @@ public class P extends Handler {
                         } else {
                             String text = childNode.getTextContent();
                             if (text != null) {
-                                text = Strip(text);
+                                text = strip(text);
                                 Phrase ph = new Phrase(text, f);
                                 p.add(ph);
                             }

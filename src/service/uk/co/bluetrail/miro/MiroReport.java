@@ -40,6 +40,7 @@ public class MiroReport {
 	String disEngagedText = null;
 	HashMap colors = null;
 	MiroReportFileGenerator miroReportFileGenerator ;
+    HashMap<String, String> legendMap;
 
 	private int engagedScore;
 	private int excessScore;
@@ -387,8 +388,34 @@ public class MiroReport {
 			imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U3.jpg");
 			imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/miro2/images/"  + "U2.jpg");
 			imgNames.put("imgU6", this.baseDirectory.getAbsolutePath()+ "/miro2/images/"  + "U6.jpg");
-		
-			
+
+
+             //add pie images
+             String[] resultLetters = mr.getResultLetters() ;
+             for(int l = 0 ; l < resultLetters.length;l++ ) {
+                 String resultLetter = resultLetters[l];
+                 String id = "miropie_img_leg" + (l+1);
+
+                 String legImageName = this.getMiroPieChartLegendValue(resultLetter+"img")  ;
+                 if(legImageName!=null) {
+                     imgNames.put(id, this.baseDirectory.getAbsolutePath()+ "/miro2/images/"  + legImageName);
+                 }
+
+                 id = "miropie_txt_leg" + (l+1);
+                 String miropieTxt = this.getMiroPieChartLegendValue(resultLetter+"text") ;
+                 if(miropieTxt!=null) {
+                     variables.put(id,miropieTxt);
+                 }
+
+                 id = "miropie_subtxt_leg" + (l+1);
+                 String miropieSubTxt = this.getMiroPieChartLegendValue(resultLetter+"subText") ;
+                 if(miropieTxt!=null) {
+                     variables.put(id,miropieSubTxt);
+                 }
+
+
+             }
+
 			if(miroReportFileGenerator==null){
 				miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory);
 			}
@@ -397,10 +424,69 @@ public class MiroReport {
 		
 	}
 
-	/*
-	 * genrates name for the miro chart ;
-	 * 
-	 */	
+    private String getMiroPieChartLegendValue(String key) {
+
+        if(this.legendMap ==null) {
+
+            //Images for the pie chart legend
+            this.legendMap = new HashMap<String, String>();
+            legendMap.put("Aimg","analysing_mode_leg.png");
+            legendMap.put("Eimg", "energising_mode_leg.png");
+            legendMap.put("Dimg", "driving_mode_leg.png");
+            legendMap.put("Oimg", "organising_mode_leg.png");
+
+
+            int resultsLen = mr.getResults().length;
+            String[] pieLabels1 = new String[resultsLen];
+            String[] pieLabels2 = new String[resultsLen];
+            String[] pieLabels3 = new String[resultsLen];
+            boolean[] pieExplode = new boolean[resultsLen];
+
+            boolean[] attached = mr.getResultsAttached();
+            pieLabels2 = this.getLabels2();
+
+            String[] resultLetters = mr.getResultLetters();
+            int[] results = mr.getResults();
+
+            for(int i = 0 ; i < resultsLen ; i++) {
+
+                String letter = resultLetters[i];
+
+                pieLabels1[i] = (String) modes.get(resultLetters[i]);
+
+
+                if(attached[i]){
+                    pieExplode[i] = false;
+                    if(mr.isExcess(results[i])){
+                        pieLabels3[i] = this.getExcessText();
+                    } else {
+                        pieLabels3[i] = this.getEngagedText();
+                    }
+                } else {
+                    pieExplode[i] = true;
+                    if(mr.isLatent(results[i])) {
+                        pieLabels3[i] = this.getLatentText();
+                    } else {
+                        pieLabels3[i] = this.getDisEngagedText();
+                    }
+
+                }
+
+                legendMap.put(letter + "text",  pieLabels1[i]);
+                legendMap.put(letter + "subText", pieLabels2[i] + " " + pieLabels3[i]);
+
+            }
+
+
+        }
+
+        return legendMap.get(key);
+    }
+
+    /*
+     * genrates name for the miro chart ;
+     *
+     */
 	private String getChartName() {
 		
 		return mr.getMiroReportName()+".jpg";

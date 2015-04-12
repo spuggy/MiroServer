@@ -76,7 +76,8 @@ public class TOC extends Handler {
         } else {
             if(node.getNodeName()=="td") {
                 PdfPCell cell;
-                cell = new PdfPCell(new Phrase(node.getTextContent(),context.getFont("TOCCOMPANYFONT")));
+                String text = strip(node.getTextContent());
+                cell = new PdfPCell(new Phrase(text,context.getFont("TOCCOMPANYFONT")));
 
                 if(cellCount % 2 ==0) {
                     cell.setHorizontalAlignment(Element.ALIGN_RIGHT | Element.ALIGN_TOP);

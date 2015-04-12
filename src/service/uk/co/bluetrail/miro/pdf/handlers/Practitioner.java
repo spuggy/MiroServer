@@ -31,17 +31,16 @@ public class Practitioner extends Handler {
                 p.setIndentationLeft(0);
                 p.setSpacingAfter(context.spacingAfter);
                 p.setLeading(f.getSize() + context.leading);
-                System.out.println(node.getNodeName());
+
 
                 NodeList childList = node.getChildNodes();
                 if (childList != null && childList.getLength() > 0) {
                     for (int c = 0; c < childList.getLength(); c++) {
                         Node childNode = childList.item(c);
                         if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                            System.out.println(childNode.getNodeName());
                             String text = childNode.getTextContent();
                             if (text != null && text.trim().length() > 0 ) {
-                                text = Strip(text);
+                                text = strip(text);
                                 Phrase ph = new Phrase(text, f);
                                 p.add(ph);
                                 p.add(Chunk.NEWLINE);

@@ -25,7 +25,7 @@ public class B extends Handler {
             String text = node.getTextContent();
 
             if(text != null) {
-                Phrase p =new Phrase(Strip(text),f) ;
+                Phrase p =new Phrase(strip(text),f) ;
                 return p;
             }
 

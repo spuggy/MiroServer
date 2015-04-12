@@ -40,7 +40,7 @@ public class Ul extends Handler {
                     Node childNode = childList.item(c);
                     if (childNode.getNodeType() == Node.ELEMENT_NODE) {
                         if(childNode.getNodeName()=="li") {
-                            ListItem item = new ListItem(Strip(childNode.getTextContent()),f);
+                            ListItem item = new ListItem(strip(childNode.getTextContent()),f);
                             item.setSpacingAfter(0f);
                             item.setLeading(f.getSize() + context.leading);
                             list.add(item);

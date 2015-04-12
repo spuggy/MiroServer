@@ -78,6 +78,8 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
     private void privateGeneratePDF(File baseDir, String miroReportName, String miroReportNameVersion) {
 
 
+        this.pagenumber = 0;
+
         try {
 
             // Setup input and output files
@@ -126,7 +128,8 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             Font frontCompanyFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL);
             Font footerFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 8, Font.NORMAL);
             Font tocCompanyFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL);
-
+            Font legTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
+            Font legSubTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 8, Font.NORMAL);
 
             try {
 
@@ -142,6 +145,9 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
                 context.addFont("FOOTERFONT", footerFont);
                 context.addFont("TOCCOMPANYFONT", tocCompanyFont);
                 context.addFont("FIRSTPAGEFONT", firstPageFont);
+                context.addFont("LEGTEXTFONT", legTextFont);
+                context.addFont("LEGSUBTEXTFONT", legSubTextFont);
+
 
             } catch (Exception e) {
                 throw new uk.co.bluetrail.miro.pdf.util.MiroException(e.getMessage());

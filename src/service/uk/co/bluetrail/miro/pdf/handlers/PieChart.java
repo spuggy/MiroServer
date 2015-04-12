@@ -1,13 +1,14 @@
 package uk.co.bluetrail.miro.pdf.handlers;
 
-import com.lowagie.text.Element;
-import com.lowagie.text.Image;
-import com.lowagie.text.Paragraph;
+import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import uk.co.bluetrail.miro.pdf.util.Context;
+
+import java.util.HashMap;
 
 /**
  * Created by richard on 20/03/15.
@@ -15,8 +16,7 @@ import uk.co.bluetrail.miro.pdf.util.Context;
 public class PieChart extends Handler {
 
 
-
-    int cellCount = 1 ;
+    int cellCount = 1;
 
     public PieChart(Node node) {
         super(node);
@@ -30,85 +30,81 @@ public class PieChart extends Handler {
         try {
 
 
+            HashMap<String,Node> legendMap = new HashMap<String,Node>();
 
-            table.setWidths(new int[]{2, 1});
-           //table.setWidthPercentage(100);
-
-            Node row = node.getFirstChild();
-            while(row!=null) {
-                if(row.getNodeType()==Node.ELEMENT_NODE) {
-                    NodeList childList = row.getChildNodes();
-                    if (childList != null && childList.getLength() > 0) {
-                        for (int c = 0; c < childList.getLength(); c++) {
-                            Node childNode = childList.item(c);
-                            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                                handleTableNode(context,table,childNode);
-                            }
+            NodeList childList = node.getChildNodes();
+            if (childList != null && childList.getLength() > 0) {
+                for (int c = 0; c < childList.getLength(); c++) {
+                    Node childNode = childList.item(c);
+                    if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+                        NamedNodeMap attr = childNode.getAttributes();
+                        Node id = attr.getNamedItem("id");
+                        if(node!=null) {
+                            legendMap.put(id.getNodeValue(),childNode) ;
                         }
                     }
                 }
-                row = row.getNextSibling();
             }
 
 
+
+
+            //build the table
+            table.setWidths(new int[]{2, 1});
+            //table.setWidthPercentage(100);
+            Node chartNode = legendMap.get("graph");
+            if(chartNode!=null) {
+                Img chartImgHandler = new Img(chartNode);
+                Image chartImage = (Image) chartImgHandler .getContent(context) ;
+                PdfPCell cell = new PdfPCell(chartImage);
+                cell.setBorder(2);
+                cell.setVerticalAlignment(Cell.ALIGN_TOP);
+                table.addCell(cell);
+            }
+
+
+            Font legTextFont = context.getFont("LEGTEXTFONT") ;
+            Font legSubTextFont = context.getFont("LEGSUBTEXTFONT");
+
+            PdfPTable legTable = new PdfPTable(2);
+            legTable.setWidths(new int[]{1, 3});
+            for(int i = 1 ; i < 5;i++) {
+                Node legImgNode = legendMap.get("miropie_img_leg"+i);
+                Node legTextNode = legendMap.get("miropie_txt_leg"+i);
+                Node legSubTextNode = legendMap.get("miropie_subtxt_leg"+i);
+                if(legImgNode!=null) {
+                    Img legImg = new Img(legImgNode);
+                    PdfPCell cell = new PdfPCell((Image) legImg.getContent(context));
+                    cell.setRowspan(2);
+                    cell.setBorder(0);
+                    legTable.addCell(cell);
+                }
+
+                if(legTextNode!=null) {
+                    PdfPCell cell = new PdfPCell(new Phrase(legTextNode.getTextContent(),legTextFont));
+                    cell.setBorder(0);
+                    legTable.addCell(cell);
+                }
+
+                if(legSubTextNode!=null) {
+                    PdfPCell cell = new PdfPCell(new Phrase(legSubTextNode.getTextContent(),legSubTextFont));
+                    cell.setBorder(0);
+                    legTable.addCell(cell);
+                }
+            }
+
+            PdfPCell cell = new PdfPCell(legTable);
+            cell.setVerticalAlignment(Cell.ALIGN_CENTER);
+            cell.setBorder(0);
+            table.addCell(cell);
+
+
         } catch (Exception e) {
-          return new Paragraph("");
+            return new Paragraph("");
         }
         return table;
     }
 
-    private void handleTableNode(Context context,PdfPTable table, Node node) {
-
-
-        if(node == null) {
-            return;
-        }
-
-
-        NodeList childList = node.getChildNodes() ;
-        for (int c = 0; c < childList.getLength(); c++) {
-            Node childNode = childList.item(c);
-            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                if(childNode.getNodeName().toLowerCase()=="img") {
-                    PdfPCell cell;
-                    Img img = new Img(childNode);
-                    cell = new PdfPCell((Image)img.getContent(context));
-                    if(cellCount==1) {
-                        cell.setRowspan(4);
-                    }
-                    cell.setBorder(0);
-                    table.addCell(cell);
-                    cellCount++;
-                }
-            }
-        }
-
-
-//
-//        if (node.getNodeType() != Node.ELEMENT_NODE) {
-//            handleTableNode(context,table,node.getNextSibling());
-//        }
-//
-//        if(node.getNodeName()=="tr") {
-//            handleTableNode(context,table,node.getFirstChild());
-//        } else {
-//            if(node.getNodeName()=="td") {
-//                PdfPCell cell;
-//                cell = new PdfPCell(new Phrase(node.getTextContent(),context.getFont("TOCCOMPANYFONT")));
-//
-//                if(cellCount % 2 ==0) {
-//                    cell.setHorizontalAlignment(Element.ALIGN_RIGHT | Element.ALIGN_TOP);
-//                } else {
-//                    cell.setHorizontalAlignment(Element.ALIGN_LEFT | Element.ALIGN_TOP);
-//                }
-//                cell.setBorder(0);
-//                table.addCell(cell);
-//                cellCount++;
-//                handleTableNode(context,table,node.getNextSibling());
-//            }
-//        }
-//
-}
 
 
 }

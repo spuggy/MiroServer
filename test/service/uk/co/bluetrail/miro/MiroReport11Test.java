@@ -42,10 +42,6 @@ public class MiroReport11Test extends MiroReport10Test  {
 
         miroResponse.init(survey,surveyResponse, this.miroLetters,this.testOffset);
 
-
-        System.out.println("arse");
-
-
         User practitioner = this.prac;
 
         candidate.setResponse_id(surveyResponse.getId());

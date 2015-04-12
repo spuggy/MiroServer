@@ -54,6 +54,8 @@ public class HandlerFactory {
             return new FourIcons(node);
         } else if (name.equals("p") && className.equals("practitioner")) {
             return new Practitioner(node);
+        } else if (name.equals("p") && className.equals("miropie")) {
+            return new PieChart(node);
         } else if (name.equals("p")) {
             return new P(node);
         } else if (name.equals("h1")) {
@@ -64,8 +66,6 @@ public class HandlerFactory {
             return new H(node, 4);
         } else if (name.equals("table") && className.equals("toc")) {
             return new TOC(node);
-        } else if (name.equals("table") && className.equals("miropie")) {
-            return new PieChart(node);
         } else {
             return new DefaultHandler(node);
         }
