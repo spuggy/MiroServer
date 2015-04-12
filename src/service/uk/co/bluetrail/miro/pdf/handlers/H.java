@@ -57,7 +57,7 @@ public class H extends Handler {
                             p.add(getInlineImage(context, context.filePath + "/miro2/images/organising_mode_icon.jpg")) ;
                         } else if (clazz.getNodeValue().equals("energising_mode")) {
                             p.add(getInlineImage(context,context.filePath + "/miro2/images/energising_mode_icon.jpg")) ;
-                        } else if (clazz.getNodeValue().equals("analyser_mode")) {
+                        } else if (clazz.getNodeValue().equals("analysing_mode")) {
                             p.add(getInlineImage(context,context.filePath + "/miro2/images/analyser_mode_icon.jpg")) ;
                         } else if (clazz.getNodeValue().equals("driving_mode")) {
                             p.add(getInlineImage(context,context.filePath + "/miro2/images/driving_mode_icon.jpg")) ;
