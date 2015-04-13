@@ -72,8 +72,8 @@ public class MiroResponse  {
         MiroResponse.mirov11_Variables.put("toc1","3") ;
         MiroResponse.mirov11_Variables.put("toc2","5") ;
         MiroResponse.mirov11_Variables.put("toc3","6") ;
-        MiroResponse.mirov11_Variables.put("toc4","13") ;
-        MiroResponse.mirov11_Variables.put("toc5","14") ;
+        MiroResponse.mirov11_Variables.put("toc4","14") ;
+        MiroResponse.mirov11_Variables.put("toc5","15") ;
 
 
         MiroResponse.mirov10_Variables = new HashMap<String, String>();
@@ -81,8 +81,8 @@ public class MiroResponse  {
         MiroResponse.mirov10_Variables.put("toc1","3") ;
         MiroResponse.mirov10_Variables.put("toc2","5") ;
         MiroResponse.mirov10_Variables.put("toc3","6") ;
-        MiroResponse.mirov10_Variables.put("toc4","14") ;
-        MiroResponse.mirov10_Variables.put("toc5","15") ;
+        MiroResponse.mirov10_Variables.put("toc4","13") ;
+        MiroResponse.mirov10_Variables.put("toc5","14") ;
 
 
 
