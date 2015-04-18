@@ -19,8 +19,7 @@ public class FourIcons extends Handler {
     private Image getInlineImage(Context context,String name) throws BadElementException, IOException {
         Image img1 = Image.getInstance(name);
         img1.setAlignment(Image.RIGHT | Image.TEXTWRAP );
-        //TODO hardwired image shit here
-        //img1.scaleToFit(92f*context.imageConstant,127*context.imageConstant);
+        img1.scaleToFit(248f*context.imageConstant,366f*context.imageConstant);
 
         return img1;
     }
@@ -39,16 +38,16 @@ public class FourIcons extends Handler {
 
         try {
             PdfPCell cell;
-            cell = new PdfPCell(getInlineImage(context, context.filePath + "/miro2/images/driving-four-logos.jpg"));
+            cell = new PdfPCell(getInlineImage(context, context.filePath + "/miro2/images/driving_mode_icon_cover_page.png"));
             cell.setBorder(0);
             table.addCell(cell);
-            cell = new PdfPCell(getInlineImage(context, context.filePath + "/miro2/images/energising-four-logos.jpg"));
+            cell = new PdfPCell(getInlineImage(context, context.filePath + "/miro2/images/energising_mode_icon_cover_page.png"));
             cell.setBorder(0);
             table.addCell(cell);
-            cell = new PdfPCell(getInlineImage(context, context.filePath + "/miro2/images/analysing-four-logos.jpg"));
+            cell = new PdfPCell(getInlineImage(context, context.filePath + "/miro2/images/analyser_mode_icon_cover_page.png"));
             cell.setBorder(0);
             table.addCell(cell);
-            cell = new PdfPCell(getInlineImage(context, context.filePath + "/miro2/images/organising-four-logos.jpg"));
+            cell = new PdfPCell(getInlineImage(context, context.filePath + "/miro2/images/organising-four-logos_cover_page.png"));
             cell.setBorder(0);
             table.addCell(cell);
 

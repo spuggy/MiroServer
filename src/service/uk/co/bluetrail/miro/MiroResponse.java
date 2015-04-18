@@ -282,6 +282,9 @@ public class MiroResponse  {
                 String[] rawAnswers = rawAnswer.split("#");
                 String answer = rawAnswers[1];
 
+                //TODO split these into two values
+                //extroValue and intraValue
+
                 if (answer.equalsIgnoreCase("plus")) {
                     extroIntraValue++;
                 } else {

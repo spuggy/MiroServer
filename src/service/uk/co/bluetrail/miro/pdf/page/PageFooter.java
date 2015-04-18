@@ -83,7 +83,7 @@ public class PageFooter {
         canvas.addTemplate(totalPageTemplate, x + offset, pageNum_y);
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        String miroFooterText = "\u00A9 MiRo Psychometrics Ltd " + year  ;
+        String miroFooterText = context.miroFooterTxt + year  ;
         Phrase miroFooterPhrase = new Phrase(miroFooterText,f);
 
         ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, miroFooterPhrase, x + 425f, pageNum_y, 0);

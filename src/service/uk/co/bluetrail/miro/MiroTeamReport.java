@@ -312,7 +312,7 @@ public class MiroTeamReport {
 		variables.put("id", miroTeam.getId().toString());
 		variables.put("v1", miroTeam.getPractitionerName());
 		
-		variables.put("team_report_name" , miroTeam.getMiroTeamName());
+		variables.put("name" , miroTeam.getMiroTeamName());
 		variables.put("reportFileName" , miroTeam.getMiroTeamNameFileName(""));
 
 

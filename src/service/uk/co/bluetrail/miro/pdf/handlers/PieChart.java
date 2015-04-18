@@ -26,6 +26,7 @@ public class PieChart extends Handler {
     public Element getContent(Context context) {
 
         PdfPTable table = new PdfPTable(2);
+        table.setWidthPercentage(100);
 
         try {
 
@@ -51,7 +52,7 @@ public class PieChart extends Handler {
 
             //build the table
             table.setWidths(new int[]{2, 1});
-            //table.setWidthPercentage(100);
+
             Node chartNode = legendMap.get("graph");
             if(chartNode!=null) {
                 Img chartImgHandler = new Img(chartNode);
@@ -75,6 +76,7 @@ public class PieChart extends Handler {
                 if(legImgNode!=null) {
                     Img legImg = new Img(legImgNode);
                     PdfPCell cell = new PdfPCell((Image) legImg.getContent(context));
+                    cell.setPadding(4f);
                     cell.setRowspan(2);
                     cell.setBorder(0);
                     legTable.addCell(cell);
@@ -82,6 +84,7 @@ public class PieChart extends Handler {
 
                 if(legTextNode!=null) {
                     PdfPCell cell = new PdfPCell(new Phrase(legTextNode.getTextContent(),legTextFont));
+                    cell.setPaddingTop(4f);
                     cell.setBorder(0);
                     legTable.addCell(cell);
                 }

@@ -28,6 +28,8 @@ public class Context {
     public float marginLeft = 56f, marginRight = 56f, marginTop = 84f, marginBottom = 56f;
     public float leading = 3f;
     public float imageConstant = 0.48f;
+    public float listIndentationRight = 50f;
+    public String miroFooterTxt = "\u00A9 MiRo Psychometrics Ltd ";
 
 
     public Context(String filePath) {

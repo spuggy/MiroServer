@@ -28,10 +28,8 @@ public class PageHeader {
               * and pass those new numbers to scaleAbsolute()
               */
 
-
-
              Image img1 = Image.getInstance(context.filePath + "/miro2/images/mirologo_header.png");
-             img1.scaleAbsolute(153f * 0.48f, 66f * 0.48f);
+             img1.scaleAbsolute(154f * 0.48f, 66f * 0.48f);
              float x = (20f / 210f) * pageWidth;  //rough proportions from original doc
 
              img1.setAbsolutePosition(x, miroImage_y);

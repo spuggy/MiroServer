@@ -24,7 +24,7 @@ public class H extends Handler {
         img1.setAlignment(Image.RIGHT | Image.TEXTWRAP );
         img1.setBorder(10);
 
-        img1.scaleToFit(248f*context.imageConstant,248f*context.imageConstant);
+        img1.scaleToFit(251f*context.imageConstant,251f*context.imageConstant);
 
         return img1;
     }
@@ -54,13 +54,13 @@ public class H extends Handler {
                     if (clazz != null) {
                         //TODO should we get hard wired images out of here
                         if (clazz.getNodeValue().equals("organising_mode")) {
-                            p.add(getInlineImage(context, context.filePath + "/miro2/images/organising_mode_icon.jpg")) ;
+                            p.add(getInlineImage(context, context.filePath + "/miro2/images/organising_mode_icon.png")) ;
                         } else if (clazz.getNodeValue().equals("energising_mode")) {
-                            p.add(getInlineImage(context,context.filePath + "/miro2/images/energising_mode_icon.jpg")) ;
+                            p.add(getInlineImage(context,context.filePath + "/miro2/images/energising_mode_icon.png")) ;
                         } else if (clazz.getNodeValue().equals("analysing_mode")) {
-                            p.add(getInlineImage(context,context.filePath + "/miro2/images/analyser_mode_icon.jpg")) ;
+                            p.add(getInlineImage(context,context.filePath + "/miro2/images/analyser_mode_icon.png")) ;
                         } else if (clazz.getNodeValue().equals("driving_mode")) {
-                            p.add(getInlineImage(context,context.filePath + "/miro2/images/driving_mode_icon.jpg")) ;
+                            p.add(getInlineImage(context,context.filePath + "/miro2/images/driving_mode_icon.png")) ;
                         }
                     }
                 }

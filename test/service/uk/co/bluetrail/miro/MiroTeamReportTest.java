@@ -274,7 +274,8 @@ public class MiroTeamReportTest extends TestCase {
 			mtr.generateReport(miroTeam);
 		} catch (Exception e) {
 			Assert.fail("generate threw exception " + e.getMessage());
-		} 
+            e.printStackTrace();
+		}
 	}
 	
 	public void testGetLevel() {

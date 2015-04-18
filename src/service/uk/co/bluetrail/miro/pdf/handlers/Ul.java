@@ -25,12 +25,12 @@ public class Ul extends Handler {
 
             p.setFirstLineIndent(0);
             p.setIndentationLeft(0);
+            p.setIndentationRight(context.listIndentationRight);
             p.setSpacingAfter(context.spacingAfter);
 
 
             List list = new List();
             list.setListSymbol(context.listSymbol + " ");
-            //list.setIndentationLeft(context.listIndentation);
             list.setAutoindent(true);
 
 

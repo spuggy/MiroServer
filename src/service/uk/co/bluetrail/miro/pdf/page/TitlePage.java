@@ -7,12 +7,13 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.ColumnText;
 import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import uk.co.bluetrail.miro.pdf.util.Context;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by richard on 24/03/15.
@@ -23,18 +24,25 @@ public class TitlePage {
 
         Image img1 = Image.getInstance(context.filePath + "/miro2/images/mirologo-big.png");
         img1.setAlignment(Element.ALIGN_CENTER);
-        img1.scaleToFit(365f*context.imageConstant,183f*context.imageConstant);
-
-
+        img1.scaleToFit(313f*context.imageConstant,134f*context.imageConstant);
 
         NodeList childList = node.getChildNodes();
-        ArrayList<String> variables = new ArrayList<String>();
+        HashMap<String,String> variables = new HashMap<String, String>();
 
-        int idx = 0 ;
+        //loop over html and build map of nodes and text values
         for (int c = 0; c < childList.getLength(); c++) {
             Node childNode = childList.item(c);
             if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                variables.add(childNode.getTextContent());
+                NamedNodeMap attrMap = childNode.getAttributes();
+                if (attrMap != null) {
+                    int len = attrMap.getLength();
+                    for(int a = 0 ; a< len;a++) {
+                        Node attr = attrMap.item(a);
+                        if(attr!=null) {
+                            variables.put(attr.getNodeValue(), childNode.getTextContent());
+                        }
+                    }
+                }
             }
         }
 
@@ -49,23 +57,25 @@ public class TitlePage {
         img1.setAbsolutePosition(x,miroImage_y);
         pdfDocument.add(img1);
 
-        //your miro report with blue back ground
-        float yourmiroreport_y = pageHeight- ((125f/300f)*pageHeight);
-        float yourmiroreport_padding = 6f;
-        Chunk c = new Chunk("YOUR MIRO REPORT", context.getFont("FRONTBANNER"));
         PdfContentByte canvas = writer.getDirectContent();
-        canvas.saveState();
-        canvas.setColorStroke(context.getColor("FRONTBANNERBG"));
-        canvas.setColorFill(context.getColor("FRONTBANNERBG"));
-        canvas.rectangle(x-yourmiroreport_padding, yourmiroreport_y-(yourmiroreport_padding+2f), c.getWidthPoint() + (2*yourmiroreport_padding) , c.getFont().getSize()+(2*yourmiroreport_padding));
-        canvas.fillStroke();
-        canvas.restoreState();
-        c.setBackground(context.getColor("FRONTBANNERBG"));
-        ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(c), x, yourmiroreport_y, 0);
-
+        String reportType = variables.get("report_type");
+        if(reportType!=null) {
+            //your miro report with blue back ground
+            float yourmiroreport_y = pageHeight - ((125f / 300f) * pageHeight);
+            float yourmiroreport_padding = 6f;
+            Chunk c = new Chunk(reportType, context.getFont("FRONTBANNER"));
+            canvas.saveState();
+            canvas.setColorStroke(context.getColor("FRONTBANNERBG"));
+            canvas.setColorFill(context.getColor("FRONTBANNERBG"));
+            canvas.rectangle(x - yourmiroreport_padding, yourmiroreport_y - (yourmiroreport_padding + 2f), c.getWidthPoint() + (2 * yourmiroreport_padding), c.getFont().getSize() + (2 * yourmiroreport_padding));
+            canvas.fillStroke();
+            canvas.restoreState();
+            c.setBackground(context.getColor("FRONTBANNERBG"));
+            ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(c), x, yourmiroreport_y, 0);
+        }
 
         float name_y = pageHeight- ((150f/300f)*pageHeight);
-        String name = variables.get(3) ;
+        String name = variables.get("name") ;
         if(name != null) {
             Phrase namePhrase =  new Phrase(name, context.getFont("FRONTNAMEFONT"));
             ColumnText columnText = new ColumnText(canvas);
@@ -74,7 +84,7 @@ public class TitlePage {
         }
 
         float company_y = pageHeight- ((260f/300f)*pageHeight);
-        String company = variables.get(0) ;
+        String company = variables.get("report company_name") ;
         if(company != null) {
             Phrase companyPhrase =  new Phrase(company, context.getFont("FRONTCOMPANYFONT"));
             ColumnText columnText = new ColumnText(canvas);
@@ -83,7 +93,7 @@ public class TitlePage {
         }
 
         float title_y = company_y - (context.getFont("FRONTCOMPANYFONT").getSize());
-        String title = variables.get(1) ;
+        String title = variables.get("report_title") ;
         if(title != null) {
             Phrase titlePhrase =  new Phrase(title, context.getFont("H3"));
             ColumnText columnText = new ColumnText(canvas);
