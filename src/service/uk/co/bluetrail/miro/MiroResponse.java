@@ -711,11 +711,18 @@ public class MiroResponse  {
 			
 		//page9
 		pages.add(MiroPage.create( "U5" ));
-		
-		//page10
+
+
+        if(reportVersion==Constants.Survey_id_Mirov11) {
+            pages.add(MiroPage.create("barChartPage1"));
+            pages.add(MiroPage.create("barChartPage2"));
+        }
+
+
+        //page10
 		pages.add(MiroPage.create( "U6" ));
-		
-		
+
+
 		//page11
 		pages.add(MiroPage.create("U7" ));
 		

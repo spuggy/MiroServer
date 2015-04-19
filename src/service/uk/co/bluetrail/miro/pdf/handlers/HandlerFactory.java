@@ -41,8 +41,9 @@ public class HandlerFactory {
             }
 
         }
-
-        if (name.equals("ul")) {
+        if (name.equals("ul") && className.equals("population_bar_chart")) {
+            return new PopulationBarChart(node);
+        } else if (name.equals("ul")) {
             return new Ul(node);
         } else if (name.equals("b")) {
             return new B(node);

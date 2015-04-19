@@ -184,7 +184,7 @@ public class MiroPieChartGenerator
 
 			// Saves the generated chart as JPG file
 			ChartUtilities.saveChartAsJPEG(new File( filePath + seperator + fileName), jfreechart,
-					600, 400);
+					750, 500);
 			
 
 		}
