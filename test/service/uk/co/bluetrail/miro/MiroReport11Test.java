@@ -109,15 +109,12 @@ public class MiroReport11Test extends MiroReport10Test  {
             pdfReader = new PdfReader(fileName);
             numOfPages = pdfReader.getNumberOfPages();
 
-            assertEquals(15,numOfPages);
+            assertEquals(17,numOfPages);
 
 
         } catch (Exception e) {
             fail("failed with " + e.getMessage());
         }
-
-
-
 
     }
 

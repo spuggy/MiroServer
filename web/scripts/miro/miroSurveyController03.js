@@ -239,6 +239,7 @@ MiroSurveyController.prototype = {
 
     $("#qNum").text( "Question " + this.qNo + " of " + this.questionCount) ;
     $("#miro11Prompt").text(qForm.QTxt);
+    $("#miro11Prompt").show();
 
     $("#leastPrompt").hide();
     $("#mostPrompt").hide();
@@ -272,6 +273,8 @@ MiroSurveyController.prototype = {
   showCurrentMiro10Question: function () {
 
     var self = this;
+
+    $("#miro11Prompt").hide();
 
     if (this.isFirstPage()) {
       $("#mostPrompt").show();

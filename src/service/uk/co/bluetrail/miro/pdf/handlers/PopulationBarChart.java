@@ -31,6 +31,7 @@ public class PopulationBarChart extends Handler {
 
         Paragraph p = new Paragraph();
         p.setSpacingAfter(context.spacingAfter*4);
+        p.setSpacingBefore(context.spacingAfter);
 
         try {
 
@@ -143,7 +144,7 @@ public class PopulationBarChart extends Handler {
             if (valStr != null) {
                 Image img1 = Image.getInstance(context.filePath + "/miro2/images/right_bar.png");
                 float val = Float.parseFloat(valStr);
-                img1.scaleAbsolute(val, 20f);
+                img1.scaleAbsolute(val, 40f);
                 PdfPCell cell;
                 cell = new PdfPCell(img1);
                 cell.setHorizontalAlignment(Element.ALIGN_LEFT);
@@ -176,7 +177,7 @@ public class PopulationBarChart extends Handler {
             if (valStr != null) {
                 Image img1 = Image.getInstance(context.filePath + "/miro2/images/left_bar.png");
                 float val = Float.parseFloat(valStr);
-                img1.scaleAbsolute(val, 20f);
+                img1.scaleAbsolute(val, 40f);
                 PdfPCell cell;
                 cell = new PdfPCell(img1);
                 cell.setHorizontalAlignment(Element.ALIGN_RIGHT);

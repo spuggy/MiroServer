@@ -26,6 +26,8 @@ public class MiroResponse  {
 	 private int[] results = null;
 	 private String[] resultLetters = null;
      public  int extroIntraValue = 0 ;
+     public  int extroValue = 0 ;
+     public  int intraValue = 0 ;
      public String extroIntroStrata = null;
 	 private MiroProject miroProject;
 	 private String miroReportName ;
@@ -286,9 +288,11 @@ public class MiroResponse  {
                 //extroValue and intraValue
 
                 if (answer.equalsIgnoreCase("plus")) {
+                    this.extroValue++ ;
                     extroIntraValue++;
                 } else {
                     extroIntraValue--;
+                    this.intraValue++;
                 }
 
 
@@ -912,6 +916,7 @@ public class MiroResponse  {
          }
 
     }
+
 
 
 }

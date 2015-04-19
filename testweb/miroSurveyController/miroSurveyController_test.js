@@ -47,9 +47,12 @@ describe('miroSurveyController', function () {
         msc.nextButton();
       }
 
-      expect(document.getElementById("miro11Prompt").style.display).equals("");
+      //expect(document.getElementById("miro11Prompt").style.display).equals("");
 
       msc.nextButton();
+
+
+
 
       var x = document.getElementsByName('qOptions');
       x[1].checked = true;

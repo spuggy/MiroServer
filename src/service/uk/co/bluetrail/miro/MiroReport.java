@@ -18,145 +18,140 @@ import java.util.*;
 import java.util.List;
 
 
-
-
-
 /**
- * 
  * generates miro report
- * 
- * @author Richard
  *
+ * @author Richard
  */
 public class MiroReport {
 
     private final Log log = LogFactory.getLog(MiroReport.class);
 
     File baseDirectory;
-	MiroResponse mr ;
-	HashMap modes = null;
-	String[] labels2 = null;
-	String engagedText = null;
-	String disEngagedText = null;
-	HashMap colors = null;
-	MiroReportFileGenerator miroReportFileGenerator ;
+    MiroResponse mr;
+    HashMap modes = null;
+    String[] labels2 = null;
+    String engagedText = null;
+    String disEngagedText = null;
+    HashMap colors = null;
+    MiroReportFileGenerator miroReportFileGenerator;
     HashMap<String, String> legendMap;
 
-	private int engagedScore;
-	private int excessScore;
-	private int latentScore;
+    private int engagedScore;
+    private int excessScore;
+    private int latentScore;
 
-	private String latentText;
-	private String excessText;
+    private String latentText;
+    private String excessText;
 
-	private double miroGraphAdjustment;
-	private HashMap<String,String> subTitles;
+    private double miroGraphAdjustment;
+    private HashMap<String, String> subTitles;
 
 
     public void setSubTitles(HashMap subTitles) {
         this.subTitles = subTitles;
     }
-	
-	/**
-	 * @hibernate.property 
-	 * @return the excessText
-	 */
-	public String getExcessText() {
-		return excessText;
-	}
 
-	/**
-	 * @param excessText the excessText to set
-	 */
-	public void setExcessText(String excessText) {
-		this.excessText = excessText;
-	}
+    /**
+     * @return the excessText
+     * @hibernate.property
+     */
+    public String getExcessText() {
+        return excessText;
+    }
 
-	/**
-	 * @hibernate.property 
-	 * @return the latentText
-	 */
-	public String getLatentText() {
-		return latentText;
-	}
+    /**
+     * @param excessText the excessText to set
+     */
+    public void setExcessText(String excessText) {
+        this.excessText = excessText;
+    }
 
-	public String getDisEngagedText() {
-		return disEngagedText;
-	}
+    /**
+     * @return the latentText
+     * @hibernate.property
+     */
+    public String getLatentText() {
+        return latentText;
+    }
 
-	public void setDisEngagedText(String disEngagedText) {
-		this.disEngagedText = disEngagedText;
-	}
+    public String getDisEngagedText() {
+        return disEngagedText;
+    }
 
-	public HashMap getColors() {
-		return colors;
-	}
+    public void setDisEngagedText(String disEngagedText) {
+        this.disEngagedText = disEngagedText;
+    }
 
-	public void setColors(HashMap colors) {
-		this.colors = colors;
-	}
+    public HashMap getColors() {
+        return colors;
+    }
 
-	public String getEngagedText() {
-		return engagedText;
-	}
-    
-	public void setEngagedText(String engagedText) {
-		this.engagedText = engagedText;
-	}
+    public void setColors(HashMap colors) {
+        this.colors = colors;
+    }
 
-	public String[] getLabels2() {
-		return labels2;
-	}
+    public String getEngagedText() {
+        return engagedText;
+    }
 
-	public void setLabels2(String[] labels2) {
-		this.labels2 = labels2;
-	}
+    public void setEngagedText(String engagedText) {
+        this.engagedText = engagedText;
+    }
 
-	public HashMap getModes() {
-		return modes;
-	}
+    public String[] getLabels2() {
+        return labels2;
+    }
 
-	public void setModes(HashMap modes) {
-		this.modes = modes;
-	}
+    public void setLabels2(String[] labels2) {
+        this.labels2 = labels2;
+    }
 
-	public MiroReport(File baseDirectory, int engagedScore,int excessScore, int latentScore){
-		this.baseDirectory = baseDirectory;
-		this.engagedScore = engagedScore;
-		this.excessScore = excessScore;
-		this.latentScore = latentScore ;
-	}
-	
-	public boolean generateReport(MiroResponse mr,Long reportVersion) throws Exception{
-	
-		if(mr == null) {
-			log.error("The Miro response is null");
+    public HashMap getModes() {
+        return modes;
+    }
+
+    public void setModes(HashMap modes) {
+        this.modes = modes;
+    }
+
+    public MiroReport(File baseDirectory, int engagedScore, int excessScore, int latentScore) {
+        this.baseDirectory = baseDirectory;
+        this.engagedScore = engagedScore;
+        this.excessScore = excessScore;
+        this.latentScore = latentScore;
+    }
+
+    public boolean generateReport(MiroResponse mr, Long reportVersion) throws Exception {
+
+        if (mr == null) {
+            log.error("The Miro response is null");
             return false;
-		}
-
-
-        if(reportVersion== Constants.Survey_id_Mirov10) {
-           return this.generateReportV10(mr);
         }
 
-        if(reportVersion==Constants.Survey_id_Mirov11) {
+
+        if (reportVersion == Constants.Survey_id_Mirov10) {
+            return this.generateReportV10(mr);
+        }
+
+        if (reportVersion == Constants.Survey_id_Mirov11) {
             return this.generateReportV11(mr);
         }
 
         throw new MiroException("Cannot produces a report for version " + reportVersion);
 
-	}
+    }
 
 
-    private boolean generateReportV11(MiroResponse mr) throws Exception{
+    private boolean generateReportV11(MiroResponse mr) throws Exception {
 
-        if(mr == null) {
+        if (mr == null) {
             log.error("The Miro response is null");
         }
 
         setupMr(mr);
 
-        if(!mr.supportsVersion(Constants.Survey_id_Mirov11)) {
+        if (!mr.supportsVersion(Constants.Survey_id_Mirov11)) {
             throw new MiroException(mr.getMiroReportName() + "does not support version v11");
         }
 
@@ -166,22 +161,22 @@ public class MiroReport {
         this.generateXMLReportFile(Constants.Survey_id_Mirov11);
         log.debug("Before PDF " + mr.toString());
         this.generateXSLReportFile(mr.getMiroReportName());
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory,mr,Constants.Survey_id_Mirov11);
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov11);
 
         return true;
 
     }
 
-    private boolean generateReportV10(MiroResponse mr) throws Exception{
+    private boolean generateReportV10(MiroResponse mr) throws Exception {
 
-        if(mr == null) {
+        if (mr == null) {
             log.error("The Miro response is null");
-            return false ;
+            return false;
         }
 
         setupMr(mr);
 
-        if(!mr.supportsVersion(Constants.Survey_id_Mirov10)) {
+        if (!mr.supportsVersion(Constants.Survey_id_Mirov10)) {
             throw new MiroException(mr.getMiroReportName() + "does not support version v10");
         }
 
@@ -198,9 +193,7 @@ public class MiroReport {
     }
 
 
-
-
-    private void generateXSLReportFile(String reportName) throws Exception{
+    private void generateXSLReportFile(String reportName) throws Exception {
 
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
@@ -208,229 +201,320 @@ public class MiroReport {
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
 
-        String[] months = {"January","February","March","April","May","June","July","August","September","October","November","December"};
+        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
-        HashMap<String,String> strings = new HashMap<String, String>();
-        strings.put("#PAGENUMBER",mr.getVariable("PAGENUMBER"));
-        strings.put("#DATEOFREPORT",months[month] + " " + year);
+        HashMap<String, String> strings = new HashMap<String, String>();
+        strings.put("#PAGENUMBER", mr.getVariable("PAGENUMBER"));
+        strings.put("#DATEOFREPORT", months[month] + " " + year);
 
-        MiroXSLFileGenerator.generate(this.baseDirectory,"miro2fo.xsl",reportName,strings);
+        MiroXSLFileGenerator.generate(this.baseDirectory, "miro2fo.xsl", reportName, strings);
 
     }
 
     private void setupMr(MiroResponse mr) {
-		this.mr = mr;
-		this.mr.setEngagedScore(this.engagedScore);
-		this.mr.setExcessScore(this.excessScore);
-		this.mr.setLatentScore(this.latentScore);
-		
-	}
+        this.mr = mr;
+        this.mr.setEngagedScore(this.engagedScore);
+        this.mr.setExcessScore(this.excessScore);
+        this.mr.setLatentScore(this.latentScore);
 
-	private void generateChart(long reportVersion) {
+    }
+
+    private void generateChart(long reportVersion) {
 
         this.mr = mr;
 
         String subTitle = "";
-        if(this.subTitles != null && reportVersion >= Constants.Survey_id_Mirov11)  {
+        if (this.subTitles != null && reportVersion >= Constants.Survey_id_Mirov11) {
 
-            String subTitleKey = mr.getExtraIntroMappingKey() ;
-            subTitle = subTitles.get(subTitleKey) ;
+            String subTitleKey = mr.getExtraIntroMappingKey();
+            subTitle = subTitles.get(subTitleKey);
 
-            if(subTitle == null) {
+            if (subTitle == null) {
                 throw new MiroException("Could not find subTitle for " + subTitleKey);
             }
 
         }
 
-		MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart",subTitle,true, true,false)  ;
-		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
+        MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart", subTitle, true, true, false);
+        pieChart.createPie(this.baseDirectory.getAbsolutePath() + "/out/", this.getChartName());
 
-	}
-	
-	public void generatePieChart(MiroResponse mr, String title,boolean hideLegend, boolean hideTitle, boolean hideSubTitle) {
+    }
 
-		this.mr = mr;
+    public void generatePieChart(MiroResponse mr, String title, boolean hideLegend, boolean hideTitle, boolean hideSubTitle) {
+
+        this.mr = mr;
 
         String subTitle = "";
-        if(this.subTitles != null && mr.extroIntroStrata != null)  {
-            if(this.subTitles.get(mr.extroIntroStrata)!=null) {
-                subTitle  = (String) this.subTitles.get(mr.extroIntroStrata) ;
+        if (this.subTitles != null && mr.extroIntroStrata != null) {
+            if (this.subTitles.get(mr.extroIntroStrata) != null) {
+                subTitle = (String) this.subTitles.get(mr.extroIntroStrata);
             }
         }
 
 
+        MiroPieChartGenerator pieChart = this.getMiroPieChart(title, subTitle, hideLegend, hideTitle, hideSubTitle);
+        pieChart.createPie(this.baseDirectory.getAbsolutePath() + "/out/", this.getChartName());
+    }
 
-		MiroPieChartGenerator pieChart = this.getMiroPieChart(title, subTitle,hideLegend,  hideTitle,hideSubTitle);
-		pieChart.createPie(this.baseDirectory.getAbsolutePath()+"/out/",this.getChartName());
-	}
+    private MiroPieChartGenerator getMiroPieChart(String pieTitle, String pieSubtitle, boolean hideLegend, boolean hideTitle, boolean hideSubTitle) {
 
-	private MiroPieChartGenerator getMiroPieChart(String pieTitle, String pieSubtitle,boolean hideLegend, boolean hideTitle,boolean hideSubTitle) {
-		
-		int resultsLen = mr.getResults().length;
-		String[] pieLabels1 = new String[resultsLen];
-		String[] pieLabels2 = new String[resultsLen];
-		String[] pieLabels3 = new String[resultsLen];
-		boolean[] pieExplode = new boolean[resultsLen];
-		Color[] pieColors = new Color[resultsLen];
-		
-		boolean[] attached = mr.getResultsAttached();
-		pieLabels2 = this.getLabels2();
-		
-		String[] resultLetters = mr.getResultLetters();
-		int[] results = mr.getResults();
-		
-		for(int i = 0 ; i < resultsLen ; i++) {
-		
-			pieLabels1[i] = (String) modes.get(resultLetters[i]);   
-			
-			
-			if(attached[i]){
-				pieExplode[i] = false;
-				if(mr.isExcess(results[i])){
-					pieLabels3[i] = this.getExcessText();	
-				} else {
-					pieLabels3[i] = this.getEngagedText();	
-				}
-			} else {
-				pieExplode[i] = true;
-				if(mr.isLatent(results[i])) {
-					pieLabels3[i] = this.getLatentText();
-				} else {
-					pieLabels3[i] = this.getDisEngagedText();
-				}
-				
-			}
-			
-			
-			pieColors[i] = (Color) colors.get(resultLetters[i]);   
-			
-		}
-		
-		
-		return new MiroPieChartGenerator(pieTitle, pieSubtitle,mr.getResults(this.miroGraphAdjustment),pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors, hideLegend, hideTitle,hideSubTitle );
-		
-		
-		
-	}
+        int resultsLen = mr.getResults().length;
+        String[] pieLabels1 = new String[resultsLen];
+        String[] pieLabels2 = new String[resultsLen];
+        String[] pieLabels3 = new String[resultsLen];
+        boolean[] pieExplode = new boolean[resultsLen];
+        Color[] pieColors = new Color[resultsLen];
 
-	/**
-	 * @throws TransformerException 
-	 * @throws TransformerFactoryConfigurationError 
-	 * @throws IOException 
-	 * @throws SAXException 
-	 * @throws ParserConfigurationException 
-	 * 
-	 */
-	private void generateXMLReportFile(long reportVersion) throws ParserConfigurationException, SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
-		
-			log.info("Generating " + mr.getFullName() + "_" + mr.getTestId());
-		
-			List<MiroPage> pages = mr.getReportPageList(reportVersion);
-			
-			//Image Map
-			Map<String, String> variables = new HashMap<String, String>();
-			variables.put("id", mr.getTestId().toString());
-			variables.put("firstname", mr.getFirstName());
-			variables.put("lastname", mr.getLastName());
-			variables.put("name", mr.getFullName());
-			variables.put("name2", mr.getFullName());
-			variables.put("v1", mr.getPractitionerName());
-			variables.put("reportFileName" , mr.getMiroReportName());
-            variables.put("toc1",mr.getVariable("toc1"));
-            variables.put("toc1",mr.getVariable("toc1"));
-            variables.put("toc2",mr.getVariable("toc2"));
-            variables.put("toc3",mr.getVariable("toc3"));
-            variables.put("toc4",mr.getVariable("toc4"));
-            variables.put("toc5",mr.getVariable("toc5"));
+        boolean[] attached = mr.getResultsAttached();
+        pieLabels2 = this.getLabels2();
 
-			StringBuffer sb = new StringBuffer();
+        String[] resultLetters = mr.getResultLetters();
+        int[] results = mr.getResults();
 
-			int vName = 2;
-			
-			if(!mr.getCompany().trim().equals("")){
-				variables.put("v"+vName++, mr.getCompany());
-			}
-			
-			String[] alines = mr.getPractitionerAddress();
-			
-			
-			for(int i = 0 ; i < alines.length;i++){
-				if(alines[i] != null && !alines[i].trim().equals("")){
-					variables.put("v"+vName++, alines[i]);
-				}
-				variables.put("v"+vName++, " ");
-				
-			}
-			
-			
-			
-			
-			if(!mr.getPractitionerTelNo().trim().equals("")){
-				variables.put("v"+vName++, "Tel: "+  mr.getPractitionerTelNo());
-			}
-			
-			if(!mr.getPractitionerEmail().trim().equals("")){
-				
-				variables.put("v"+vName++,"Email: "+ mr.getPractitionerEmail());
-				
-			}
-			
-			if(!mr.getWebaddress().trim().equals("")){
-				variables.put("v"+vName++,"Web: "+mr.getWebaddress());
-			}
-			
-			
-			
-			// Image Map
-			Map<String, String> imgNames = new HashMap<String, String>();
-			imgNames.put("graph", this.baseDirectory.getAbsolutePath() + "/out/" +this.getChartName());
-			imgNames.put("imgU1", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U1.png");
-			imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U3.png");
-			imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/miro2/images/"  + "U2.png");
-			imgNames.put("imgU6", this.baseDirectory.getAbsolutePath()+ "/miro2/images/"  + "U6.png");
+        for (int i = 0; i < resultsLen; i++) {
+
+            pieLabels1[i] = (String) modes.get(resultLetters[i]);
 
 
-             //add pie images
-             String[] resultLetters = mr.getResultLetters() ;
-             for(int l = 0 ; l < resultLetters.length;l++ ) {
-                 String resultLetter = resultLetters[l];
-                 String id = "miropie_img_leg" + (l+1);
+            if (attached[i]) {
+                pieExplode[i] = false;
+                if (mr.isExcess(results[i])) {
+                    pieLabels3[i] = this.getExcessText();
+                } else {
+                    pieLabels3[i] = this.getEngagedText();
+                }
+            } else {
+                pieExplode[i] = true;
+                if (mr.isLatent(results[i])) {
+                    pieLabels3[i] = this.getLatentText();
+                } else {
+                    pieLabels3[i] = this.getDisEngagedText();
+                }
 
-                 String legImageName = this.getMiroPieChartLegendValue(resultLetter+"img")  ;
-                 if(legImageName!=null) {
-                     imgNames.put(id, this.baseDirectory.getAbsolutePath()+ "/miro2/images/"  + legImageName);
-                 }
-
-                 id = "miropie_txt_leg" + (l+1);
-                 String miropieTxt = this.getMiroPieChartLegendValue(resultLetter+"text") ;
-                 if(miropieTxt!=null) {
-                     variables.put(id,miropieTxt);
-                 }
-
-                 id = "miropie_subtxt_leg" + (l+1);
-                 String miropieSubTxt = this.getMiroPieChartLegendValue(resultLetter+"subText") ;
-                 if(miropieTxt!=null) {
-                     variables.put(id,miropieSubTxt);
-                 }
+            }
 
 
-             }
+            pieColors[i] = (Color) colors.get(resultLetters[i]);
 
-			if(miroReportFileGenerator==null){
-				miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory);
-			}
-			miroReportFileGenerator.generate(pages, variables, imgNames);
-			
-		
-	}
+        }
+
+
+        return new MiroPieChartGenerator(pieTitle, pieSubtitle, mr.getResults(this.miroGraphAdjustment), pieLabels1, pieLabels2, pieLabels3, pieExplode, pieColors, hideLegend, hideTitle, hideSubTitle);
+
+
+    }
+
+    /**
+     * @throws TransformerException
+     * @throws TransformerFactoryConfigurationError
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     */
+    private void generateXMLReportFile(long reportVersion) throws ParserConfigurationException, SAXException, IOException, TransformerFactoryConfigurationError, TransformerException {
+
+        log.info("Generating " + mr.getFullName() + "_" + mr.getTestId());
+
+        List<MiroPage> pages = mr.getReportPageList(reportVersion);
+
+        //Image Map
+        Map<String, String> variables = new HashMap<String, String>();
+        variables.put("id", mr.getTestId().toString());
+        variables.put("firstname", mr.getFirstName());
+        variables.put("lastname", mr.getLastName());
+        variables.put("name", mr.getFullName());
+        variables.put("name2", mr.getFullName());
+        variables.put("v1", mr.getPractitionerName());
+        variables.put("reportFileName", mr.getMiroReportName());
+        variables.put("toc1", mr.getVariable("toc1"));
+        variables.put("toc1", mr.getVariable("toc1"));
+        variables.put("toc2", mr.getVariable("toc2"));
+        variables.put("toc3", mr.getVariable("toc3"));
+        variables.put("toc4", mr.getVariable("toc4"));
+        variables.put("toc5", mr.getVariable("toc5"));
+
+        StringBuffer sb = new StringBuffer();
+
+        int vName = 2;
+
+        if (!mr.getCompany().trim().equals("")) {
+            variables.put("v" + vName++, mr.getCompany());
+        }
+
+        String[] alines = mr.getPractitionerAddress();
+
+
+        for (int i = 0; i < alines.length; i++) {
+            if (alines[i] != null && !alines[i].trim().equals("")) {
+                variables.put("v" + vName++, alines[i]);
+            }
+            variables.put("v" + vName++, " ");
+
+        }
+
+
+        if (!mr.getPractitionerTelNo().trim().equals("")) {
+            variables.put("v" + vName++, "Tel: " + mr.getPractitionerTelNo());
+        }
+
+        if (!mr.getPractitionerEmail().trim().equals("")) {
+
+            variables.put("v" + vName++, "Email: " + mr.getPractitionerEmail());
+
+        }
+
+        if (!mr.getWebaddress().trim().equals("")) {
+            variables.put("v" + vName++, "Web: " + mr.getWebaddress());
+        }
+
+
+        // Image Map
+        Map<String, String> imgNames = new HashMap<String, String>();
+        imgNames.put("graph", this.baseDirectory.getAbsolutePath() + "/out/" + this.getChartName());
+        imgNames.put("imgU1", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U1.png");
+        imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U3.png");
+        imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U2.png");
+        imgNames.put("imgU6", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U6.png");
+
+
+        //add pie images
+        String[] resultLetters = mr.getResultLetters();
+        for (int l = 0; l < resultLetters.length; l++) {
+            String resultLetter = resultLetters[l];
+            String id = "miropie_img_leg" + (l + 1);
+
+            String legImageName = this.getMiroPieChartLegendValue(resultLetter + "img");
+            if (legImageName != null) {
+                imgNames.put(id, this.baseDirectory.getAbsolutePath() + "/miro2/images/" + legImageName);
+            }
+
+            id = "miropie_txt_leg" + (l + 1);
+            String miropieTxt = this.getMiroPieChartLegendValue(resultLetter + "text");
+            if (miropieTxt != null) {
+                variables.put(id, miropieTxt);
+            }
+
+            id = "miropie_subtxt_leg" + (l + 1);
+            String miropieSubTxt = this.getMiroPieChartLegendValue(resultLetter + "subText");
+            if (miropieTxt != null) {
+                variables.put(id, miropieSubTxt);
+            }
+
+
+        }
+
+        //add miro population chart value
+        if(reportVersion == Constants.Survey_id_Mirov11) {
+            addMiroPopulationChartValues(variables);
+        }
+
+
+        if (miroReportFileGenerator == null) {
+            miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory);
+        }
+        miroReportFileGenerator.generate(pages, variables, imgNames);
+
+
+    }
+
+    private int adjustToPercent(int val,int total) {
+
+        if(val == 0 || total ==0) {
+            return 0;
+        }
+
+
+        double x = ((double)val/(double) total) * 100;
+
+        return  (int)x;
+
+    }
+
+    private String str(int v) {
+         return String.valueOf(v);
+    }
+
+    private int safeDiv(int a,int b) {
+
+        if(a == 0 || b ==0) {
+            return 0;
+        }
+
+        double v = (double)a/(double) b ;
+
+        return  (int) v;
+    }
+
+    private void addMiroPopulationChartValues(Map<String, String> variables) {
+
+        int miroAdjustment = 50;
+        int intExAdjustment = 20;
+
+        variables.put("leadershipBar_1lv", str(adjustToPercent(getLetterScore("D"), miroAdjustment)));
+        variables.put("leadershipBar_1rv", str(adjustToPercent(getLetterScore("O"), miroAdjustment)));
+        variables.put("leadershipBar_2lv", str(adjustToPercent(getLetterScore("E"), miroAdjustment)));
+        variables.put("leadershipBar_2rv", str(adjustToPercent(getLetterScore("A"), miroAdjustment)));
+        variables.put("leadershipBar_3lv", str(adjustToPercent(mr.intraValue, intExAdjustment)));
+        variables.put("leadershipBar_3rv", str(adjustToPercent(mr.extroValue, intExAdjustment)));
+
+        //TODO BOB to supply
+        variables.put("pmBar_1lv", "0");
+        variables.put("pmBar_1rv", "0");
+        variables.put("pmBar_2lv",str(adjustToPercent(getLetterScore("A") + safeDiv(getLetterScore("O"),2),miroAdjustment)));
+        variables.put("pmBar_2rv", str(adjustToPercent(getLetterScore("D") + safeDiv(getLetterScore("E"),2),miroAdjustment)));
+        variables.put("pmBar_3lv", str(adjustToPercent(getLetterScore("E") + safeDiv(getLetterScore("O"),2),miroAdjustment)));
+        variables.put("pmBar_3rv", str(adjustToPercent(getLetterScore("D") + safeDiv(getLetterScore("A"),2),miroAdjustment)));
+
+
+        variables.put("negInfluBar_1lv", str(adjustToPercent(mr.intraValue, intExAdjustment)));
+        variables.put("negInfluBar_1rv", str(adjustToPercent(mr.extroValue, intExAdjustment)));
+        variables.put("negInfluBar_2lv", str(adjustToPercent(getLetterScore("E"), miroAdjustment)));
+        variables.put("negInfluBar_2rv", str(adjustToPercent(getLetterScore("A"), miroAdjustment)));
+        variables.put("negInfluBar_3lv", str(adjustToPercent(getLetterScore("O"), miroAdjustment)));
+        variables.put("negInfluBar_3rv", str(adjustToPercent(getLetterScore("D"), miroAdjustment)));
+
+
+        variables.put("manChangeBar_1lv", str(adjustToPercent(getLetterScore("D") + safeDiv(getLetterScore("E"),2),miroAdjustment)));
+        variables.put("manChangeBar_1rv", str(adjustToPercent(getLetterScore("A") + safeDiv(getLetterScore("O"),2),miroAdjustment)));
+        variables.put("manChangeBar_2lv", str(adjustToPercent(getLetterScore("D") + safeDiv(getLetterScore("A"),2),miroAdjustment)));
+        variables.put("manChangeBar_2rv", str(adjustToPercent(getLetterScore("E") + safeDiv(getLetterScore("O"),2),miroAdjustment)));
+        variables.put("manChangeBar_3lv", str(adjustToPercent(mr.extroValue, intExAdjustment)));
+        variables.put("manChangeBar_3rv", str(adjustToPercent(mr.intraValue, intExAdjustment)));
+
+
+
+
+    }
+
+    private int getLetterScore(String letter) {
+
+        try {
+            int[] results = mr.getResults();
+            String[] letters = mr.getResultLetters();
+
+            for (int i = 0; i < results.length; i++) {
+
+                if(letters[i].equalsIgnoreCase(letter)) {
+                    return results[i];
+                }
+
+            }
+
+        } catch(Exception e) {
+           System.out.println("getLetterScore:" + e.getMessage());
+        }
+
+        return 0;
+
+    }
 
     private String getMiroPieChartLegendValue(String key) {
 
-        if(this.legendMap ==null) {
+        if (this.legendMap == null) {
 
             //Images for the pie chart legend
             this.legendMap = new HashMap<String, String>();
-            legendMap.put("Aimg","analysing_mode_leg.png");
+            legendMap.put("Aimg", "analysing_mode_leg.png");
             legendMap.put("Eimg", "energising_mode_leg.png");
             legendMap.put("Dimg", "driving_mode_leg.png");
             legendMap.put("Oimg", "organising_mode_leg.png");
@@ -448,23 +532,23 @@ public class MiroReport {
             String[] resultLetters = mr.getResultLetters();
             int[] results = mr.getResults();
 
-            for(int i = 0 ; i < resultsLen ; i++) {
+            for (int i = 0; i < resultsLen; i++) {
 
                 String letter = resultLetters[i];
 
                 pieLabels1[i] = (String) modes.get(resultLetters[i]);
 
 
-                if(attached[i]){
+                if (attached[i]) {
                     pieExplode[i] = false;
-                    if(mr.isExcess(results[i])){
+                    if (mr.isExcess(results[i])) {
                         pieLabels3[i] = this.getExcessText();
                     } else {
                         pieLabels3[i] = this.getEngagedText();
                     }
                 } else {
                     pieExplode[i] = true;
-                    if(mr.isLatent(results[i])) {
+                    if (mr.isLatent(results[i])) {
                         pieLabels3[i] = this.getLatentText();
                     } else {
                         pieLabels3[i] = this.getDisEngagedText();
@@ -472,7 +556,7 @@ public class MiroReport {
 
                 }
 
-                legendMap.put(letter + "text",  pieLabels1[i]);
+                legendMap.put(letter + "text", pieLabels1[i]);
                 legendMap.put(letter + "subText", pieLabels2[i] + " " + pieLabels3[i]);
 
             }
@@ -487,72 +571,70 @@ public class MiroReport {
      * genrates name for the miro chart ;
      *
      */
-	private String getChartName() {
-		
-		return mr.getMiroReportName()+".jpg";
-	}
+    private String getChartName() {
 
-	public void setLatentText(String latentText) {
-		this.latentText = latentText;
-		
-	}
+        return mr.getMiroReportName() + ".jpg";
+    }
 
-	public void setMiroGraphAdjustment(double miroGraphAdjustment) {
-		this.miroGraphAdjustment = miroGraphAdjustment;
-		
-	}
+    public void setLatentText(String latentText) {
+        this.latentText = latentText;
 
-	public BufferedImage getThumbnailPie(String title,MiroResponse mr, int  thumbNailPieWidth, int thumbNailPieHeight)  throws Exception {
-		  
-		if(mr == null) {
-			log.error("The Miro response is null");
-		}
+    }
 
-		setupMr(mr);
-		
-		
-		MiroPieChartGenerator pieChart = this.getMiroPieChart(title,"",false,false,true)  ;
-		Font defFont = TextTitle.DEFAULT_FONT;
-		Font smallFont = new Font(defFont.getName(),defFont.getStyle(),10);
-				
-		pieChart.setTitleFont(smallFont);
-		return pieChart.getThumbnailPie(thumbNailPieWidth, thumbNailPieHeight);
-		
-		
-		
-	}
-	
-	public void  setTeamMapData(TeamMapDTO teamMapDTO,MiroResponse mr) {
-		
-		if(mr == null) {
-			log.error("The Miro response is null");
-		}
+    public void setMiroGraphAdjustment(double miroGraphAdjustment) {
+        this.miroGraphAdjustment = miroGraphAdjustment;
 
-		this.setupMr(mr);
-		
-		String[] resultLetters = mr.getResultLetters();
-		int[] results = mr.getResults();
-		boolean[] attached = mr.getResultsAttached();
-		
-		String leadingModeDesc = (String) modes.get(resultLetters[0]);  
-		String secondaryModeDesc = (String) modes.get(resultLetters[1]);  
-		
-		teamMapDTO.setLeadingModeText(leadingModeDesc);
-		teamMapDTO.setLeadingMode(resultLetters[0]);
-		
-		if(attached[1]) {
-			teamMapDTO.setSecondaryModeText(secondaryModeDesc);
-			teamMapDTO.setSecondaryMode(resultLetters[1]);
-		} 
-		
-		
-		
-	}
+    }
+
+    public BufferedImage getThumbnailPie(String title, MiroResponse mr, int thumbNailPieWidth, int thumbNailPieHeight) throws Exception {
+
+        if (mr == null) {
+            log.error("The Miro response is null");
+        }
+
+        setupMr(mr);
+
+
+        MiroPieChartGenerator pieChart = this.getMiroPieChart(title, "", false, false, true);
+        Font defFont = TextTitle.DEFAULT_FONT;
+        Font smallFont = new Font(defFont.getName(), defFont.getStyle(), 10);
+
+        pieChart.setTitleFont(smallFont);
+        return pieChart.getThumbnailPie(thumbNailPieWidth, thumbNailPieHeight);
+
+
+    }
+
+    public void setTeamMapData(TeamMapDTO teamMapDTO, MiroResponse mr) {
+
+        if (mr == null) {
+            log.error("The Miro response is null");
+        }
+
+        this.setupMr(mr);
+
+        String[] resultLetters = mr.getResultLetters();
+        int[] results = mr.getResults();
+        boolean[] attached = mr.getResultsAttached();
+
+        String leadingModeDesc = (String) modes.get(resultLetters[0]);
+        String secondaryModeDesc = (String) modes.get(resultLetters[1]);
+
+        teamMapDTO.setLeadingModeText(leadingModeDesc);
+        teamMapDTO.setLeadingMode(resultLetters[0]);
+
+        if (attached[1]) {
+            teamMapDTO.setSecondaryModeText(secondaryModeDesc);
+            teamMapDTO.setSecondaryMode(resultLetters[1]);
+        }
+
+
+    }
 
 
     public String getReportFilePath(MiroResponse miroResponse, Long version) {
 
-        return this.baseDirectory.getAbsolutePath()+"/out/"+miroResponse.getMiroReportName(version)+".pdf";
+        return this.baseDirectory.getAbsolutePath() + "/out/" + miroResponse.getMiroReportName(version) + ".pdf";
 
     }
 }
