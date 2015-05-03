@@ -10,24 +10,26 @@ import uk.co.bluetrail.miro.pdf.util.Context;
  */
 public class Ul extends Handler {
 
+    private Font f = null;
+
+    public Ul(Node node, Font f) {
+
+        super(node);
+        this.f = f;
+
+    }
 
     public Ul(Node node) {
         super(node);
     }
 
-    @Override
-    public Element getContent(Context context) {
+    public List getList(Context context) {
 
-        Font f = context.getFont("P") ;
+        if (f == null) {
+            f = context.getFont("P");
+        }
 
-        Paragraph p = new Paragraph();
         if (node != null) {
-
-            p.setFirstLineIndent(0);
-            p.setIndentationLeft(0);
-            p.setIndentationRight(context.listIndentationRight);
-            p.setSpacingAfter(context.spacingAfter);
-
 
             List list = new List();
             list.setListSymbol(context.listSymbol + " ");
@@ -39,21 +41,39 @@ public class Ul extends Handler {
                 for (int c = 0; c < childList.getLength(); c++) {
                     Node childNode = childList.item(c);
                     if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                        if(childNode.getNodeName()=="li") {
-                            ListItem item = new ListItem(strip(childNode.getTextContent()),f);
+                        if (childNode.getNodeName() == "li") {
+                            ListItem item = new ListItem(strip(childNode.getTextContent()), f);
                             item.setSpacingAfter(0f);
                             item.setLeading(f.getSize() + context.leading);
                             list.add(item);
                         }
                     }
                 }
-                p.add(list);
-                return p;
+
             }
-
-
+            return list;
         }
+
+        return null;
+
+    }
+
+    @Override
+    public Element getContent(Context context) {
+
+        List list = getList(context) ;
+        Paragraph p = new Paragraph();
+
+        if(list!=null) {
+            p.setFirstLineIndent(0);
+            p.setIndentationLeft(0);
+            p.setIndentationRight(context.listIndentationRight);
+            p.setSpacingAfter(context.spacingAfter);
+            p.add(list);
+        }
+
         return p;
+
     }
 
 }

@@ -8,16 +8,19 @@ import java.io.File;
 public class MiroTeamBarChartTest extends TestCase {
 
 	public void testCreate() {
-		double[] barValues = { 50.0, 50.0, 0.0, 0.0 };
+		double[] barValues = { 50.0, 50.0, 25.0, 40.0 };
 		  
 		double[] barLevels = { 100.0, 38.0, 18.0, 0.0 };    
 		
 		String[] levelLabels = {"", "High","Medium", "Low" };
-		
-		
-		Color[] barColors = { Color.YELLOW, Color.GREEN, Color.BLUE, Color.RED };
-		
-		String[] barLabels = {"Energising","Organising","Analysing","Driving"};
+
+
+
+        MiroConstants constants = MiroConstants.getInstance();
+
+        Color[] barColors = { constants.miroYellow, constants.miroGreen, constants.miroBlue, constants.miroRed };
+
+        String[] barLabels = {"Energising","Organising","Analysing","Driving"};
 		
 		
 		

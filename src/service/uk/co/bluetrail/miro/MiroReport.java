@@ -27,6 +27,10 @@ public class MiroReport {
 
     private final Log log = LogFactory.getLog(MiroReport.class);
 
+    private static int LEFT = 0;
+    private static int RIGHT = 1;
+
+
     File baseDirectory;
     MiroResponse mr;
     HashMap modes = null;
@@ -36,6 +40,7 @@ public class MiroReport {
     HashMap colors = null;
     MiroReportFileGenerator miroReportFileGenerator;
     HashMap<String, String> legendMap;
+    HashMap<String, int[]> jpValueMap;
 
     private int engagedScore;
     private int excessScore;
@@ -457,10 +462,9 @@ public class MiroReport {
         variables.put("leadershipBar_3lv", str(adjustToPercent(mr.intraValue, intExAdjustment)));
         variables.put("leadershipBar_3rv", str(adjustToPercent(mr.extroValue, intExAdjustment)));
 
-        //TODO BOB to supply
-        variables.put("pmBar_1lv", "0");
-        variables.put("pmBar_1rv", "0");
-        variables.put("pmBar_2lv",str(adjustToPercent(getLetterScore("A") + safeDiv(getLetterScore("O"),2),miroAdjustment)));
+        variables.put("pmBar_1lv", str(adjustToPercent(getJPValues(LEFT),miroAdjustment)));
+        variables.put("pmBar_1rv", str(adjustToPercent(getJPValues(RIGHT),miroAdjustment)));
+        variables.put("pmBar_2lv",str(adjustToPercent(getLetterScore("A") + safeDiv(getLetterScore("O"), 2), miroAdjustment)));
         variables.put("pmBar_2rv", str(adjustToPercent(getLetterScore("D") + safeDiv(getLetterScore("E"),2),miroAdjustment)));
         variables.put("pmBar_3lv", str(adjustToPercent(getLetterScore("E") + safeDiv(getLetterScore("O"),2),miroAdjustment)));
         variables.put("pmBar_3rv", str(adjustToPercent(getLetterScore("D") + safeDiv(getLetterScore("A"),2),miroAdjustment)));
@@ -481,8 +485,102 @@ public class MiroReport {
         variables.put("manChangeBar_3lv", str(adjustToPercent(mr.extroValue, intExAdjustment)));
         variables.put("manChangeBar_3rv", str(adjustToPercent(mr.intraValue, intExAdjustment)));
 
+    }
+
+    private int getJPValues(int position) {
+
+        if(this.jpValueMap == null) {
+            this.jpValueMap = new HashMap<String, int[]>();
+            jpValueMap.put("DEAOEX",new int[]{3,4,1,2});
+            jpValueMap.put("DEAOIN",new int[]{1,3,2,4});
+            jpValueMap.put("DEOAEX",new int[]{3,4,1,2});
+            jpValueMap.put("DEOAIN",new int[]{1,3,2,4});
+            jpValueMap.put("DOAEEX",new int[]{1,3,2,4});
+            jpValueMap.put("DOAEIN",new int[]{2,4,1,3});
+            jpValueMap.put("DOEAEX",new int[]{2,4,1,3});
+            jpValueMap.put("DOEAIN",new int[]{1,3,2,4});
+            jpValueMap.put("DAOEEX",new int[]{1,2,3,4});
+            jpValueMap.put("DAOEIN",new int[]{2,4,1,3});
+            jpValueMap.put("DAEOEX",new int[]{1,2,3,4});
+            jpValueMap.put("DAEOIN",new int[]{2,4,1,3});
+            jpValueMap.put("EDOAEX",new int[]{3,4,1,2});
+            jpValueMap.put("EDOAIN",new int[]{1,3,2,4});
+            jpValueMap.put("EDAOEX",new int[]{3,4,1,2});
+            jpValueMap.put("EDAOIN",new int[]{1,3,2,4});
+            jpValueMap.put("EODAEX",new int[]{1,2,3,4});
+            jpValueMap.put("EODAIN",new int[]{2,4,1,3});
+            jpValueMap.put("EOADEX",new int[]{1,2,3,4});
+            jpValueMap.put("EOADIN",new int[]{2,4,1,3});
+            jpValueMap.put("EADOEX",new int[]{2,4,1,3});
+            jpValueMap.put("EADOIN",new int[]{1,3,2,4});
+            jpValueMap.put("EAODEX",new int[]{1,3,2,4});
+            jpValueMap.put("EAODIN",new int[]{2,4,1,3});
+            jpValueMap.put("ODEAEX",new int[]{1,3,2,4});
+            jpValueMap.put("ODEAIN",new int[]{2,4,1,3});
+            jpValueMap.put("ODAEEX",new int[]{2,4,1,3});
+            jpValueMap.put("ODAEIN",new int[]{1,3,2,4});
+            jpValueMap.put("OEODEX",new int[]{1,2,3,4});
+            jpValueMap.put("OEODIN",new int[]{2,4,1,3});
+            jpValueMap.put("OEADEX",new int[]{1,3,2,4});
+            jpValueMap.put("OEADIN",new int[]{2,4,1,3});
+            jpValueMap.put("OADEEX",new int[]{3,4,1,2});
+            jpValueMap.put("OADEIN",new int[]{1,3,2,4});
+            jpValueMap.put("OAEDEX",new int[]{3,4,1,2});
+            jpValueMap.put("OAEDIN",new int[]{1,3,2,4});
+            jpValueMap.put("ADEOEX",new int[]{1,2,3,4});
+            jpValueMap.put("ADEOIN",new int[]{2,4,1,3});
+            jpValueMap.put("ADOEEX",new int[]{1,2,3,4});
+            jpValueMap.put("ADOEIN",new int[]{2,4,1,3});
+            jpValueMap.put("AEDOEX",new int[]{1,3,2,4});
+            jpValueMap.put("AEDOIN",new int[]{2,4,1,3});
+            jpValueMap.put("AEODEX",new int[]{2,4,1,3});
+            jpValueMap.put("AEODIN",new int[]{1,3,2,4});
+            jpValueMap.put("AODEEX",new int[]{3,4,1,2});
+            jpValueMap.put("AODEIN",new int[]{1,3,2,4});
+            jpValueMap.put("AOEDEX",new int[]{3,4,1,2});
+            jpValueMap.put("AOEDIN",new int[]{1,2,3,4});
+        }
+
+        try {
+
+            String[] results = mr.getResultLetters();
+            StringBuffer keyBuf = new StringBuffer();
+            for (int i = 0; i < results.length; i++) {
+                keyBuf.append(results[i]);
+            }
+
+            String key = keyBuf.toString();
 
 
+            if (mr.extroValue > mr.intraValue) {
+                key = key + "EX";
+            } else {
+                key = key + "IN";
+            }
+
+            int[] values = jpValueMap.get(key);    // 0 and 1 are left values 2,3 are right values
+            int[] resultValues = mr.getResults();
+            if (values == null) {
+                return 0;
+            } else {
+                if (position == RIGHT) {
+                    int v1 = resultValues[values[2] - 1];
+                    int v2 = resultValues[values[3] - 1];
+                    double v = (v1 + v2) * 0.5;
+                    return ((int) v) ;
+                } else {
+                    int v1 = resultValues[values[0] - 1];
+                    int v2 = resultValues[values[1] - 1];
+                    double v = (v1 + v2) * 0.5;
+                    return ((int) v) ;
+                }
+            }
+
+        } catch (Exception ex) {
+            System.out.println("getJPValues: " + ex.getMessage());
+        }
+
+        return 0;
 
     }
 

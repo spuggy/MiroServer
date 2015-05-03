@@ -1,5 +1,6 @@
 package uk.co.bluetrail.mobriz.service.impl;
 
+import uk.co.bluetrail.miro.MiroConstants;
 import uk.co.bluetrail.miro.MiroReport;
 import uk.co.bluetrail.miro.MiroResponse;
 import uk.co.bluetrail.miro.MiroTeamPieChart;
@@ -9,12 +10,10 @@ import uk.co.bluetrail.mobriz.model.*;
 import uk.co.bluetrail.mobriz.service.*;
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.*;
-import java.util.List;
 
 public class MiroResponseManagerImpl extends BaseManager implements MiroResponseManager {
 
@@ -278,16 +277,13 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         subTitles.put("FHIN", "Pivoting on Introverted Feeling (Strongly expressed)");
 
 
-        Color miroYellow = Color.decode("#FBC827");
-        Color miroGreen  =  Color.decode("#44B449");
-        Color miroBlue =   Color.decode("#42ADD5");
-        Color miroRed =   Color.decode("#D53E34");
+        MiroConstants constants = MiroConstants.getInstance();
 
         HashMap colors = new HashMap();
-        colors.put("E", miroYellow);
-        colors.put("D", miroRed);
-        colors.put("A", miroBlue);
-        colors.put("O", miroGreen);
+        colors.put("E", constants.miroYellow);
+        colors.put("D", constants.miroRed);
+        colors.put("A", constants.miroBlue);
+        colors.put("O", constants.miroGreen);
 
         miroReport.setSubTitles(subTitles);
         miroReport.setModes(modes);

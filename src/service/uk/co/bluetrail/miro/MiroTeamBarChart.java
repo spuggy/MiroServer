@@ -1,36 +1,23 @@
 package uk.co.bluetrail.miro;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Paint;
-import java.io.File;
-import java.io.IOException;
-
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.CategoryTextAnnotation;
 import org.jfree.chart.axis.CategoryAnchor;
-import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.labels.ItemLabelAnchor;
-import org.jfree.chart.labels.ItemLabelPosition;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.ValueMarker;
 import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.chart.renderer.category.CategoryItemRenderer;
-import org.jfree.chart.util.DefaultShadowGenerator;
-import org.jfree.data.category.CategoryDataset;
+import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DatasetUtilities;
-import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.Layer;
-import org.jfree.ui.RectangleEdge;
-import org.jfree.ui.RefineryUtilities;
 import org.jfree.ui.TextAnchor;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * A bar chart that uses a custom renderer to display different colors within a series.
@@ -101,18 +88,20 @@ public class MiroTeamBarChart {
     	 { 
     	    this.colors = colors;
     	 }
-    	 public Paint getItemPaint(final int row, final int column) 
-    	 { 
+    	 public Paint getItemPaint(final int row, final int column)
+    	 {
     		 // make the first columen transparent and force to 100% to make the chart 100% high
     		 //leave transparent so we can see high med low
     	     if(column == 0 ) {
     	    	 return new Color(0,0,0,0);
     	     } else {
-    		 
-    		  return (this.colors[column-1]); 
+
+    		  return (this.colors[column-1]);
     	     }
-    	 } 
-    	}
+    	 }
+
+
+        }
     	
     	
     	DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -142,13 +131,13 @@ public class MiroTeamBarChart {
             // get a reference to the plot for further customisation...
             final CategoryPlot plot = chart.getCategoryPlot();
             BarRenderer renderer = new CustomRenderer(barColors);
-            plot.setRenderer(renderer);
+            renderer.setShadowVisible(false);
+            renderer.setDrawBarOutline(false);
+            renderer.setBarPainter(new StandardBarPainter());
 
 
-            DefaultShadowGenerator dsg = new DefaultShadowGenerator(1,Color.white,1,1,1);
 
-            plot.setShadowGenerator(dsg);
-
+             plot.setRenderer(renderer);
 
         //make all the ticks and labels invisisble
             renderer.setItemMargin(-1);

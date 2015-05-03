@@ -65,11 +65,15 @@ public class HandlerFactory {
             return new H(node,3);
         } else if (name.equals("h4")) {
             return new H(node, 4);
+        } else if (name.equals("table") && className.equals("pie_and_bullets")) {
+            return new PieAndBullets(node);
         } else if (name.equals("table") && className.equals("toc")) {
             return new TOC(node);
         } else {
             return new DefaultHandler(node);
         }
+
+
 
     }
 

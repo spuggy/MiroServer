@@ -270,6 +270,11 @@ public class MiroPieChartGenerator
 		JFreeChart jfreechart = ChartFactory.createPieChart(pieTitle,
 				piedataset,false, true, false);  
 		PiePlot pieplot = (PiePlot) jfreechart.getPlot();
+
+        DefaultShadowGenerator dsg = new DefaultShadowGenerator(1,Color.white,1,1,1);
+
+        pieplot.setShadowGenerator(dsg);
+
 		// Sets bachgroung color of chart to white
 		jfreechart.setBackgroundPaint(Color.white);
 		

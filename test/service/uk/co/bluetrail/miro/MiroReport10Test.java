@@ -5,7 +5,6 @@ import junit.framework.TestCase;
 import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.*;
 
-import java.awt.*;
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -164,16 +163,13 @@ public class MiroReport10Test extends TestCase {
         modes.put("A", "Analysing Mode");
         modes.put("O", "Organising Mode");
 
-        Color miroYellow = Color.decode("#FBC827");
-        Color miroGreen  =  Color.decode("#44B449");
-        Color miroBlue =   Color.decode("#42ADD5");
-        Color miroRed =   Color.decode("#D53E34");
+        MiroConstants constants = MiroConstants.getInstance();
 
         HashMap colors = new HashMap();
-        colors.put("E", miroYellow);
-        colors.put("D", miroRed);
-        colors.put("A", miroBlue);
-        colors.put("O", miroGreen);
+        colors.put("E", constants.miroYellow);
+        colors.put("D", constants.miroRed);
+        colors.put("A", constants.miroBlue);
+        colors.put("O", constants.miroGreen);
 
         HashMap<String, String> subTitles = new HashMap<String, String>();
 

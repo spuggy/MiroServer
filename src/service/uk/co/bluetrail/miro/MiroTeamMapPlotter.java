@@ -1,13 +1,8 @@
 package uk.co.bluetrail.miro;
 
-import java.util.ArrayList;
-import java.util.EmptyStackException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Stack;
-
 import uk.co.bluetrail.mobriz.serviceDTO.TeamMapDTO;
+
+import java.util.*;
 
 
 public class MiroTeamMapPlotter{
@@ -94,7 +89,7 @@ public class MiroTeamMapPlotter{
 
 	public String getBacgroundImage() {
 		
-		return  "/images/teammapbackground.png";
+		return  "/images/miro2/teammapbackground.png";
 	}
 
 	public String[] getInitialsArray() {

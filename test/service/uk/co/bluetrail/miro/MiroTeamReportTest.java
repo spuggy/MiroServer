@@ -146,10 +146,11 @@ public class MiroTeamReportTest extends TestCase {
     }
 	
 	protected void defaultTeam() {
-		
+
+
 		this.members = new HashSet(); ;   //a piule of mrs
 		this.teamResults = new ArrayList(); // a pile of uerDTOS
-		addTeamMember("Richard","Spence","O","A",2000);
+		addTeamMember("Roger","Test","O","A",1);
 		addTeamMember("Johnny","Doodah","O","E",3000);
 		addTeamMember("Edward","Spence","O","A",4000);
 		addTeamMember("Tracy","Harding","O","A",5000);

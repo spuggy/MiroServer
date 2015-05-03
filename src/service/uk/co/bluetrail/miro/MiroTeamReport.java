@@ -172,9 +172,7 @@ public class MiroTeamReport {
 	
 
 	private void generateDynamicContent() throws IOException {
-		
-		
-		
+
 		MiroDynamicContentFileGenerator f = new MiroDynamicContentFileGenerator(this.baseDirectory,this.miroTeam.getMiroTeamNameFileName("_dynamic.xhtml"));
 		
 		if(this.miroTeam.getCommentary()==null || this.miroTeam.getCommentary().equals("")) {
@@ -227,12 +225,14 @@ public class MiroTeamReport {
 		desc.put("O", "Organising");
 		desc.put("A", "Analysing");
 		desc.put("D","Driving");
-		
+
+        MiroConstants constants = MiroConstants.getInstance();
+
 		Color[] c = new Color[4];
-		colors.put("E",Color.YELLOW);
-		colors.put("O", Color.GREEN);
-		colors.put("A", Color.BLUE);
-		colors.put("D",Color.RED);
+		colors.put("E",constants.miroYellow);
+		colors.put("O", constants.miroGreen);
+		colors.put("A", constants.miroBlue);
+		colors.put("D",constants.miroRed);
 		
 		String[] levelLabels = new String[4] ;
 		levelLabels[0] = "" ;
@@ -291,16 +291,16 @@ public class MiroTeamReport {
 		
 		
 		
-		imgNames.put("4dperformer", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/4DPerformer.jpg");
-		imgNames.put("miromodel", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/miro-model.png" );
-		imgNames.put("communications", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/communication.jpg" );
-		imgNames.put("decisionmaking", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/decisionmaking.jpg" );
-		imgNames.put("relationships", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/relationships.jpg" );
-		imgNames.put("change", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/change.jpg" );
+		imgNames.put("4dperformer", this.baseDirectory.getAbsolutePath() + "/miro2/images/4DPerformer.png");
+		imgNames.put("miromodel", this.baseDirectory.getAbsolutePath() + "/miro2/images/u2.png" );
+//		imgNames.put("communications", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/communication.jpg" );
+//		imgNames.put("decisionmaking", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/decisionmaking.jpg" );
+//		imgNames.put("relationships", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/relationships.jpg" );
+//		imgNames.put("change", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/change.jpg" );
 		
 	
-		imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/images/"  + "U2.png");
-		imgNames.put("imgU6", this.baseDirectory.getAbsolutePath() + "/images/"  + "U6.png");
+		imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/miro2/images/"  + "U2.png");
+		imgNames.put("imgU6", this.baseDirectory.getAbsolutePath() + "/miro2/images/"  + "U6.png");
 	   
 		
 		

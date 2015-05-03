@@ -71,10 +71,10 @@ public class PopulationBarChart extends Handler {
             barTable.setWidthPercentage(100);
 
             for(int l=1; l < 4;l++) {
-                addBarLeftText(l+"tl", barTable, variables,context);
-                addBarLeftImage(l+"lv", barTable, variables,context);
-                addBarRightImage(l+"rv" , barTable, variables,context);
-                addBarRightText(l+"tr", barTable, variables,context);
+                addBarLeftText(l, barTable, variables,context);
+                addBarLeftImage(l, barTable, variables, context);
+                addBarRightImage(l, barTable, variables,context);
+                addBarRightText(l, barTable, variables,context);
             }
 
             p.add(barTable);
@@ -85,17 +85,19 @@ public class PopulationBarChart extends Handler {
         return p;
     }
 
-    private void addBarLeftText(String varName, PdfPTable barTable, HashMap<String, String> variables, Context context) {
+    private void addBarLeftText(int barNum, PdfPTable barTable, HashMap<String, String> variables, Context context) {
 
 
 
         String id = variables.get("id");
-        String text = variables.get(id + "_" + varName);
+        String text = variables.get(id + "_" + barNum + "tl");
+        String debug = "  [" + variables.get(id + "_" + barNum + "lv") + "]";
+
         Font f = context.getFont("FOOTERFONT") ;
 
         if(text !=null) {
             PdfPCell cell;
-            cell = new PdfPCell(new Phrase(text,f));
+            cell = new PdfPCell(new Phrase(text + debug,f));
             cell.setBorder(0);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setPadding(4f);
@@ -111,15 +113,16 @@ public class PopulationBarChart extends Handler {
 
     }
 
-    private void addBarRightText(String varName, PdfPTable barTable, HashMap<String, String> variables,Context context) {
+    private void addBarRightText(int barNum, PdfPTable barTable, HashMap<String, String> variables,Context context) {
 
         String id = variables.get("id");
-        String text = variables.get(id + "_" + varName);
-        Font f = context.getFont("FOOTERFONT") ;
+        String text = variables.get(id + "_" + barNum + "tr");
+        String debug = "  [" + variables.get(id + "_" + barNum + "rv") + "]";
 
+        Font f = context.getFont("FOOTERFONT") ;
         if(text !=null) {
             PdfPCell cell;
-            cell = new PdfPCell(new Phrase(text,f));
+            cell = new PdfPCell(new Phrase(text + debug,f));
             cell.setBorder(0);
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             cell.setPadding(4f);
@@ -134,10 +137,10 @@ public class PopulationBarChart extends Handler {
 
     }
 
-    private void addBarRightImage(String varName, PdfPTable barTable, HashMap<String, String> variables,Context context) {
+    private void addBarRightImage(int barNum, PdfPTable barTable, HashMap<String, String> variables,Context context) {
 
         String id = variables.get("id");
-        String valStr = variables.get(id + "_" + varName);
+        String valStr = variables.get(id + "_" + barNum + "rv");
 
         try {
 
@@ -168,9 +171,10 @@ public class PopulationBarChart extends Handler {
 
     }
 
-    private void addBarLeftImage(String varName, PdfPTable barTable, HashMap<String, String> variables,Context context) {
+    private void addBarLeftImage(int barNum, PdfPTable barTable, HashMap<String, String> variables,Context context) {
+
         String id = variables.get("id");
-        String valStr = variables.get(id + "_" + varName);
+        String valStr = variables.get(id + "_" + barNum + "lv");
 
         try {
 
