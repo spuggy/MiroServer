@@ -45,13 +45,15 @@ public class HandlerFactory {
             return new PopulationBarChart(node);
         } else if (name.equals("ul")) {
             return new Ul(node);
+        } else if (name.equals("b") && className.equals("firstpage")) {
+            return new B(node, "FIRSTPAGEFONTBOLD");
         } else if (name.equals("b")) {
             return new B(node);
         } else if (name.equals("img")) {
             return new Img(node);
         } else if (name.equals("p") && className.equals("firstpage")) {
-            return new P(node,"FIRSTPAGEFONT");
-        } else if (name.equals("p") && className.equals("fouricons")) {
+            return new P(node, "FIRSTPAGEFONT");
+        }  else if (name.equals("p") && className.equals("fouricons")) {
             return new FourIcons(node);
         } else if (name.equals("p") && className.equals("practitioner")) {
             return new Practitioner(node);

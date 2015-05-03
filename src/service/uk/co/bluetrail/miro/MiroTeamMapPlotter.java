@@ -89,7 +89,7 @@ public class MiroTeamMapPlotter{
 
 	public String getBacgroundImage() {
 		
-		return  "/images/miro2/teammapbackground.png";
+		return  "/miro2/images/teammapbackground.png";
 	}
 
 	public String[] getInitialsArray() {

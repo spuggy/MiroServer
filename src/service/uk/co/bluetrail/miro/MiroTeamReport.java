@@ -370,7 +370,7 @@ public class MiroTeamReport {
 		
 		
 		if(miroReportFileGenerator==null){
-			miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miroteamreportsource.xhtml",this.miroTeam.getMiroTeamNameFileName("_dynamic.xhtml"));
+			miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miroteamreportsource11.xhtml",this.miroTeam.getMiroTeamNameFileName("_dynamic.xhtml"));
 		}
 		miroReportFileGenerator.generate(pages, variables, imgNames);
 		
@@ -393,7 +393,7 @@ public class MiroTeamReport {
 
         pages.add(MiroPage.create("TOC"));
 		pages.add(MiroPage.create("intro_text_page"));
-		
+        pages.add(MiroPage.create("intro_text_page2"));
 		
 		int maxPieCount = 3;
 		int pieCount = 0;

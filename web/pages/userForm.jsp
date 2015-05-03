@@ -1,6 +1,10 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
+    <script type="text/javascript" src="<c:url value='/scripts/prototype-1.5.1.2.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/scripts/global.js'/>"></script>
+
     <title><fmt:message key="userProfile.title"/></title>
     <content tag="heading"><fmt:message key="userProfile.heading"/></content>
     <c:choose>

@@ -50,7 +50,7 @@ public class PageFooter {
 
         float pageHeight = pdfDocument.getPageSize().getHeight();
         float pageWidth = pdfDocument.getPageSize().getWidth();
-        float footerStart_y = pageHeight - ((280f / 300f) * pageHeight);
+        float footerStart_y = pageHeight - ((285f / 300f) * pageHeight);
 
 
         float x = (20f / 210f) * pageWidth ;  //rough proportions from original doc
@@ -69,7 +69,7 @@ public class PageFooter {
         Phrase pageNumTextPhrase = new Phrase(pageNumText,f);
 
 
-        float pageNum_y = footerStart_y - f.getSize() - 2f;
+        float pageNum_y = footerStart_y - f.getSize() - 4f;
         ColumnText.showTextAligned(canvas, Element.ALIGN_CENTER, pageNumTextPhrase, x + 12f, pageNum_y, 0);
 
 

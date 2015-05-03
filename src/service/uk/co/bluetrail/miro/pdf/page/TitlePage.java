@@ -24,7 +24,9 @@ public class TitlePage {
 
         Image img1 = Image.getInstance(context.filePath + "/miro2/images/mirologo-big.png");
         img1.setAlignment(Element.ALIGN_CENTER);
-        img1.scaleToFit(313f*context.imageConstant,134f*context.imageConstant);
+        img1.scaleToFit(413f*context.imageConstant,234f*context.imageConstant);
+
+
 
         NodeList childList = node.getChildNodes();
         HashMap<String,String> variables = new HashMap<String, String>();

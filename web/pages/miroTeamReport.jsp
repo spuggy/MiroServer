@@ -3,7 +3,8 @@
 <title><fmt:message key="miroTeamMap.title" />
 </title>
 <head>
-<script type="text/javascript"
+    <script type="text/javascript" src="<c:url value='/scripts/jquery-1.11.1.min.js'/>"></script>
+    <script type="text/javascript"
 		src="<c:url value='/scripts/selectbox.js'/>"></script>
 	<link rel="stylesheet" type="text/css" media="all"
 		href="<c:url value='/styles/${appConfig["csstheme"]}/miroPickList.css'/>" />
@@ -12,19 +13,19 @@
 
 function bigCommentary() {
 
-	$('biggercommentary').addClassName('hideme');
-	$('smallercommentary').removeClassName('hideme');
-	$('commentary').removeClassName('small_comments');
-	$('commentary').addClassName('big_comments');
+	$('#biggercommentary').addClass('hideme');
+	$('#smallercommentary').removeClass('hideme');
+	$('#commentary').removeClass('small_comments');
+	$('#commentary').addClass('big_comments');
 
 }
 
 function smallCommentary() {
 
-	$('biggercommentary').removeClassName('hideme');
-	$('smallercommentary').addClassName('hideme');
-	$('commentary').addClassName('small_comments');
-	$('commentary').removeClassName('big_comments');
+	$('#biggercommentary').removeClass('hideme');
+	$('#smallercommentary').addClass('hideme');
+	$('#commentary').addClass('small_comments');
+	$('#commentary').removeClass('big_comments');
 
 }
 
@@ -67,7 +68,7 @@ function smallCommentary() {
 				<fmt:message key="miroTeamMap.instructions" />
 			</p>
 			
-			<p><br/><input type="button" value="edit team members" onclick="$('teamBuilder').show()"/>
+			<p><br/><input type="button" value="edit team members" onclick="$('#teamBuilder').show()"/>
 			<input type="button" value="re-select projects" onclick="location='miroTeamList.html';"/>
 			
 
@@ -136,7 +137,7 @@ function smallCommentary() {
 					</tr>
 					<tr>
 						<td colspan="3" id="miroProjectsSubmitButton" >
-							<input type="button" value="Hide team builder" onclick="$('teamBuilder').hide()"/>
+							<input type="button" value="Hide team builder" onclick="$('#teamBuilder').hide()"/>
 							<input type="submit"  class="button" name="recalc_chart" value="recalc" />	
 						</td>
 					</tr>
@@ -206,7 +207,7 @@ function smallCommentary() {
        
         if (bSave) {
       		 if(form["miroTeamName"].value== "") {
-      			$('teamBuilder').show();
+      			$('#teamBuilder').show();
       		 	alert("Please supply a value for the Team Name");
       		 	return false; 
       		 

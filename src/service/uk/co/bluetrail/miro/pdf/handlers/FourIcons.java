@@ -19,7 +19,7 @@ public class FourIcons extends Handler {
     private Image getInlineImage(Context context,String name) throws BadElementException, IOException {
         Image img1 = Image.getInstance(name);
         img1.setAlignment(Image.RIGHT | Image.TEXTWRAP );
-        img1.scaleToFit(248f*context.imageConstant,366f*context.imageConstant);
+        img1.scaleToFit(186f*context.imageConstant,275f*context.imageConstant);
 
         return img1;
     }
