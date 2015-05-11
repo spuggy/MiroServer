@@ -51,6 +51,15 @@ public class Context {
 
     }
 
+    public void addColor(String name,Color color) {
+
+        this.colourMap.put(name,color);
+
+    }
+
+
+
+
     public Color getColor(String name) {
 
         Color c = colourMap.get(name) ;

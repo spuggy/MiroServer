@@ -85,7 +85,7 @@ public class TOC extends Handler {
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT | Element.ALIGN_TOP);
                 }
                 cell.setBorder(0);
-                cell.setPadding(4f);
+                cell.setPadding(8f);
                 table.addCell(cell);
                 cellCount++;
                 handleTableNode(context,table,node.getNextSibling());

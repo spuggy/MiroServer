@@ -93,14 +93,15 @@ public class PopulationBarChart extends Handler {
         String text = variables.get(id + "_" + barNum + "tl");
         String debug = "  [" + variables.get(id + "_" + barNum + "lv") + "]";
 
-        Font f = context.getFont("FOOTERFONT") ;
+        Font f = context.getFont("BARTEXTFONT") ;
 
         if(text !=null) {
             PdfPCell cell;
             cell = new PdfPCell(new Phrase(text + debug,f));
             cell.setBorder(0);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
-            cell.setPadding(4f);
+            cell.setPadding(8f);
+            cell.setFixedHeight(80f);
             cell.setBorderWidthLeft(0f);
             cell.setBorderWidthTop(0f);
             cell.setBorderWidthBottom(1f);
@@ -119,14 +120,15 @@ public class PopulationBarChart extends Handler {
         String text = variables.get(id + "_" + barNum + "tr");
         String debug = "  [" + variables.get(id + "_" + barNum + "rv") + "]";
 
-        Font f = context.getFont("FOOTERFONT") ;
+        Font f = context.getFont("BARTEXTFONT") ;
         if(text !=null) {
             PdfPCell cell;
             cell = new PdfPCell(new Phrase(text + debug,f));
             cell.setBorder(0);
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
-            cell.setPadding(4f);
+            cell.setPadding(8f);
             //cell.setBorderWidthLeft(2f);
+            cell.setFixedHeight(80f);
             cell.setBorderWidthTop(0f);
             cell.setBorderWidthBottom(1f);
             cell.setBorderColorBottom(Color.lightGray);

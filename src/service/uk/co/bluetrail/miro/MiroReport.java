@@ -41,6 +41,7 @@ public class MiroReport {
     MiroReportFileGenerator miroReportFileGenerator;
     HashMap<String, String> legendMap;
     HashMap<String, int[]> jpValueMap;
+    HashMap<String, String> mbtimap ;
 
     private int engagedScore;
     private int excessScore;
@@ -338,6 +339,8 @@ public class MiroReport {
         variables.put("toc4", mr.getVariable("toc4"));
         variables.put("toc5", mr.getVariable("toc5"));
 
+
+
         StringBuffer sb = new StringBuffer();
 
         int vName = 2;
@@ -408,9 +411,16 @@ public class MiroReport {
 
         }
 
+        variables.put("mbti", this.getMBTIValue());
+
         //add miro population chart value
         if(reportVersion == Constants.Survey_id_Mirov11) {
             addMiroPopulationChartValues(variables);
+            variables.put("report_type", "YOUR MIRO COACHING REPORT");
+            variables.put("report_type_colour", "MIRORED");
+        } else {
+            variables.put("report_type", "YOUR MIRO REPORT");
+            variables.put("report_type_colour", "MIROBLUE");
         }
 
 
@@ -452,7 +462,7 @@ public class MiroReport {
 
     private void addMiroPopulationChartValues(Map<String, String> variables) {
 
-        int miroAdjustment = 50;
+        int miroAdjustment = 66;
         int intExAdjustment = 20;
 
         variables.put("leadershipBar_1lv", str(adjustToPercent(getLetterScore("D"), miroAdjustment)));
@@ -484,6 +494,91 @@ public class MiroReport {
         variables.put("manChangeBar_2rv", str(adjustToPercent(getLetterScore("E") + safeDiv(getLetterScore("O"),2),miroAdjustment)));
         variables.put("manChangeBar_3lv", str(adjustToPercent(mr.extroValue, intExAdjustment)));
         variables.put("manChangeBar_3rv", str(adjustToPercent(mr.intraValue, intExAdjustment)));
+
+    }
+
+    private String getMBTIValue() {
+
+        if(this.mbtimap ==null) {
+            this.mbtimap = new HashMap<String,String>();
+
+            mbtimap.put("DEAOEX","ENTP");
+            mbtimap.put("DEAOIN","INTJ");
+            mbtimap.put("DEOAEX","ENTP");
+            mbtimap.put("DEOAIN","INTJ");
+            mbtimap.put("DOAEEX","ENTJ");
+            mbtimap.put("DOAEIN","INTP");
+            mbtimap.put("DOEAEX","ENTP");
+            mbtimap.put("DOEAIN","INTJ");
+            mbtimap.put("DAOEEX","ENTJ");
+            mbtimap.put("DAOEIN","INTP");
+            mbtimap.put("DAEOEX","ENTJ");
+            mbtimap.put("DAEOIN","INTP");
+            mbtimap.put("EDOAEX","ENFP");
+            mbtimap.put("EDOAIN","INFJ");
+            mbtimap.put("EDAOEX","ENFP");
+            mbtimap.put("EDAOIN","INFJ");
+            mbtimap.put("EODAEX","ENFJ");
+            mbtimap.put("EODAIN","INFP");
+            mbtimap.put("EOADEX","ENFJ");
+            mbtimap.put("EOADIN","INFP");
+            mbtimap.put("EADOEX","ENFP");
+            mbtimap.put("EADOIN","INFJ");
+            mbtimap.put("EAODEX","ENFJ");
+            mbtimap.put("EAODIN","INFP");
+            mbtimap.put("ODEAEX","ESFJ");
+            mbtimap.put("ODEAIN","ISFP");
+            mbtimap.put("ODAEEX","ESFP");
+            mbtimap.put("ODAEIN","ISFJ");
+            mbtimap.put("OEODEX","ESFJ");
+            mbtimap.put("OEODIN","ISFP");
+            mbtimap.put("OEADEX","ESFJ");
+            mbtimap.put("OEADIN","ISFP");
+            mbtimap.put("OADEEX","ESFP");
+            mbtimap.put("OADEIN","ISFJ");
+            mbtimap.put("OAEDEX","ESFP");
+            mbtimap.put("OAEDIN","ISFJ");
+            mbtimap.put("ADEOEX","ESTJ");
+            mbtimap.put("ADEOIN","ISTP");
+            mbtimap.put("ADOEEX","ESTJ");
+            mbtimap.put("ADOEIN","ISTP");
+            mbtimap.put("AEDOEX","ESTJ");
+            mbtimap.put("AEDOIN","ISTP");
+            mbtimap.put("AEODEX","ESTP");
+            mbtimap.put("AEODIN","ISTJ");
+            mbtimap.put("AODEEX","ESTP");
+            mbtimap.put("AODEIN","ISTJ");
+            mbtimap.put("AOEDEX","ESTP");
+            mbtimap.put("AOEDIN","ISTJ");
+            
+        }
+
+        try {
+
+            String[] results = mr.getResultLetters();
+            StringBuffer keyBuf = new StringBuffer();
+            for (int i = 0; i < results.length; i++) {
+                keyBuf.append(results[i]);
+            }
+
+            String key = keyBuf.toString();
+
+
+            if (mr.extroValue > mr.intraValue) {
+                key = key + "EX";
+            } else {
+                key = key + "IN";
+            }
+
+            String mbtiValue = mbtimap.get(key);    // 0 and 1 are left values 2,3 are right values
+
+            return mbtiValue;
+
+        } catch (Exception ex) {
+            System.out.println("getJPValues: " + ex.getMessage());
+        }
+
+        return "";
 
     }
 

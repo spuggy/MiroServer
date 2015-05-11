@@ -120,8 +120,8 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             Font h1Font = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 44, Font.NORMAL);
             Font h3Font = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL);
             Font h4Font = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 13, Font.NORMAL);
-            Font firstPageFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 12, Font.NORMAL);
-            Font firstPageFontBold = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 12, Font.BOLD);
+            Font firstPageFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 14, Font.NORMAL);
+            Font firstPageFontBold = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 14, Font.BOLD);
             Font pFontBold = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 75 Bold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
             Font pFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
             Font frontBannerFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL, Color.white);
@@ -131,6 +131,7 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             Font tocCompanyFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL);
             Font legTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
             Font legSubTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 8, Font.NORMAL);
+            Font barTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
 
             try {
 
@@ -140,10 +141,14 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
                 context.addFont("P", pFont);
                 context.addFont("PBOLD", pFontBold);
                 context.addFont("FRONTBANNER", frontBannerFont);
-                context.addColor("FRONTBANNERBG", "#43ADD5");
+                context.addColor("MIROBLUE", MiroConstants.getInstance().miroBlue);
+                context.addColor("MIRORED", MiroConstants.getInstance().miroRed);
+                context.addColor("MIROGREEN", MiroConstants.getInstance().miroGreen);
+                context.addColor("MIROYELLOW", MiroConstants.getInstance().miroYellow);
                 context.addFont("FRONTNAMEFONT", frontNameFont);
                 context.addFont("FRONTCOMPANYFONT", frontCompanyFont);
                 context.addFont("FOOTERFONT", footerFont);
+                context.addFont("BARTEXTFONT", barTextFont);
                 context.addFont("TOCCOMPANYFONT", tocCompanyFont);
                 context.addFont("FIRSTPAGEFONT", firstPageFont);
                 context.addFont("FIRSTPAGEFONTBOLD", firstPageFontBold);

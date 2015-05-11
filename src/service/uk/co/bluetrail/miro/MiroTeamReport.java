@@ -326,7 +326,6 @@ public class MiroTeamReport {
 
 
 
-
 		System.out.println(variables.get("commentary"));
 		
 

@@ -61,18 +61,20 @@ public class TitlePage {
 
         PdfContentByte canvas = writer.getDirectContent();
         String reportType = variables.get("report_type");
-        if(reportType!=null) {
+        String reportTypeColour = variables.get("report_type_colour");
+        if(reportType!=null && reportTypeColour!=null) {
             //your miro report with blue back ground
             float yourmiroreport_y = pageHeight - ((125f / 300f) * pageHeight);
             float yourmiroreport_padding = 6f;
             Chunk c = new Chunk(reportType, context.getFont("FRONTBANNER"));
             canvas.saveState();
-            canvas.setColorStroke(context.getColor("FRONTBANNERBG"));
-            canvas.setColorFill(context.getColor("FRONTBANNERBG"));
+            Color bg = context.getColor(reportTypeColour);
+            canvas.setColorStroke(bg);
+            canvas.setColorFill(bg);
             canvas.rectangle(x - yourmiroreport_padding, yourmiroreport_y - (yourmiroreport_padding + 2f), c.getWidthPoint() + (2 * yourmiroreport_padding), c.getFont().getSize() + (2 * yourmiroreport_padding));
             canvas.fillStroke();
             canvas.restoreState();
-            c.setBackground(context.getColor("FRONTBANNERBG"));
+            c.setBackground(bg);
             ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, new Phrase(c), x, yourmiroreport_y, 0);
         }
 
