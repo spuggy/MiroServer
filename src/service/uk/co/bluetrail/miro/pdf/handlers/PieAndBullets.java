@@ -19,12 +19,13 @@ public class PieAndBullets extends Handler{
     public Element getContent(Context context) {
 
         PdfPTable table = new PdfPTable(2);
-        table.setSpacingAfter(context.spacingAfter);
-        table.setSpacingBefore(context.spacingAfter);
+
 
         try {
 
             table.setWidthPercentage(100);
+            table.setWidths(new int[]{1, 2});
+            table.setSpacingBefore(context.spacingAfter);
 
             NodeList childList = node.getChildNodes();
             Node trNode = null;
@@ -81,7 +82,8 @@ public class PieAndBullets extends Handler{
                     Img img = new Img(node);
                     PdfPCell cell = new PdfPCell((Image) img.getContent(context));
                     cell.setBorder(0);
-                    cell.setPadding(4f);
+                    cell.setPaddingTop(5f);
+                    cell.setHorizontalAlignment(Element.ALIGN_LEFT);
                     cell.setBorderWidthLeft(0f);
                     cell.setBorderWidthTop(1f);
                     cell.setBorderWidthBottom(0f);
@@ -91,11 +93,11 @@ public class PieAndBullets extends Handler{
                 }
             } else if (node.getNodeName()=="ul") {
                 try {
-                    Ul ul = new Ul(node);
+                    Ul ul = new Ul(node,context.getFont("PSMALL"));
                     PdfPCell cell = new PdfPCell();
                     cell.addElement(ul.getList(context));
                     cell.setBorder(0);
-                    cell.setPadding(4f);
+                    cell.setPaddingLeft(40f);
                     cell.setBorderWidthLeft(0f);
                     cell.setBorderWidthTop(1f);
                     cell.setBorderWidthBottom(0f);
@@ -112,18 +114,3 @@ public class PieAndBullets extends Handler{
 }
 
 
-/**
- PdfPCell cell;
- String text = strip(node.getTextContent());
- cell = new PdfPCell(new Phrase(text,context.getFont("TOCCOMPANYFONT")));
-
- if(cellCount % 2 ==0) {
- cell.setHorizontalAlignment(Element.ALIGN_RIGHT | Element.ALIGN_TOP);
- } else {
- cell.setHorizontalAlignment(Element.ALIGN_LEFT | Element.ALIGN_TOP);
- }
- cell.setBorder(0);
- table.addCell(cell);
- cellCount++;
- handleTableNode(context,table,node.getNextSibling());
- */

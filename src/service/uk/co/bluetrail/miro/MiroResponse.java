@@ -70,12 +70,12 @@ public class MiroResponse  {
 
     static {
         MiroResponse.mirov11_Variables = new HashMap<String, String>();
-        MiroResponse.mirov11_Variables.put("PAGENUMBER","14") ;
+        MiroResponse.mirov11_Variables.put("PAGENUMBER","17") ;
         MiroResponse.mirov11_Variables.put("toc1","3") ;
         MiroResponse.mirov11_Variables.put("toc2","5") ;
         MiroResponse.mirov11_Variables.put("toc3","6") ;
-        MiroResponse.mirov11_Variables.put("toc4","14") ;
-        MiroResponse.mirov11_Variables.put("toc5","15") ;
+        MiroResponse.mirov11_Variables.put("toc4","16") ;
+        MiroResponse.mirov11_Variables.put("toc5","17") ;
 
 
         MiroResponse.mirov10_Variables = new HashMap<String, String>();
@@ -92,11 +92,11 @@ public class MiroResponse  {
 
 
 
-    public String getVariable(String key) {
+    public String getVariable(String key, long reportVersion) {
 
         String var = null;
 
-        if(this.surveyResponse.getSurvey_id().longValue()== Constants.Survey_id_Mirov10) {
+        if(reportVersion== Constants.Survey_id_Mirov10) {
            var = MiroResponse.mirov10_Variables.get(key) ;
         } else {
             var = MiroResponse.mirov11_Variables.get(key) ;

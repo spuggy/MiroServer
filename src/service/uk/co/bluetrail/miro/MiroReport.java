@@ -165,8 +165,6 @@ public class MiroReport {
         this.generateChart(Constants.Survey_id_Mirov11);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile(Constants.Survey_id_Mirov11);
-        log.debug("Before PDF " + mr.toString());
-        this.generateXSLReportFile(mr.getMiroReportName());
         MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov11);
 
         return true;
@@ -190,8 +188,6 @@ public class MiroReport {
         this.generateChart(Constants.Survey_id_Mirov10);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile(Constants.Survey_id_Mirov10);
-        log.debug("Before PDF " + mr.toString());
-        this.generateXSLReportFile(mr.getMiroReportName());
         MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov10);
 
         return true;
@@ -199,23 +195,6 @@ public class MiroReport {
     }
 
 
-    private void generateXSLReportFile(String reportName) throws Exception {
-
-        Date date = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        int month = cal.get(Calendar.MONTH);
-        int year = cal.get(Calendar.YEAR);
-
-        String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-
-        HashMap<String, String> strings = new HashMap<String, String>();
-        strings.put("#PAGENUMBER", mr.getVariable("PAGENUMBER"));
-        strings.put("#DATEOFREPORT", months[month] + " " + year);
-
-        MiroXSLFileGenerator.generate(this.baseDirectory, "miro2fo.xsl", reportName, strings);
-
-    }
 
     private void setupMr(MiroResponse mr) {
         this.mr = mr;
@@ -229,19 +208,9 @@ public class MiroReport {
 
         this.mr = mr;
 
-        String subTitle = "";
-        if (this.subTitles != null && reportVersion >= Constants.Survey_id_Mirov11) {
 
-            String subTitleKey = mr.getExtraIntroMappingKey();
-            subTitle = subTitles.get(subTitleKey);
 
-            if (subTitle == null) {
-                throw new MiroException("Could not find subTitle for " + subTitleKey);
-            }
-
-        }
-
-        MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart", subTitle, true, true, false);
+        MiroPieChartGenerator pieChart = this.getMiroPieChart("Your MiRo Results Chart", "", true, true, true);
         pieChart.createPie(this.baseDirectory.getAbsolutePath() + "/out/", this.getChartName());
 
     }
@@ -250,15 +219,8 @@ public class MiroReport {
 
         this.mr = mr;
 
-        String subTitle = "";
-        if (this.subTitles != null && mr.extroIntroStrata != null) {
-            if (this.subTitles.get(mr.extroIntroStrata) != null) {
-                subTitle = (String) this.subTitles.get(mr.extroIntroStrata);
-            }
-        }
 
-
-        MiroPieChartGenerator pieChart = this.getMiroPieChart(title, subTitle, hideLegend, hideTitle, hideSubTitle);
+        MiroPieChartGenerator pieChart = this.getMiroPieChart(title, "", hideLegend, hideTitle, hideSubTitle);
         pieChart.createPie(this.baseDirectory.getAbsolutePath() + "/out/", this.getChartName());
     }
 
@@ -332,12 +294,14 @@ public class MiroReport {
         variables.put("name2", mr.getFullName());
         variables.put("v1", mr.getPractitionerName());
         variables.put("reportFileName", mr.getMiroReportName());
-        variables.put("toc1", mr.getVariable("toc1"));
-        variables.put("toc1", mr.getVariable("toc1"));
-        variables.put("toc2", mr.getVariable("toc2"));
-        variables.put("toc3", mr.getVariable("toc3"));
-        variables.put("toc4", mr.getVariable("toc4"));
-        variables.put("toc5", mr.getVariable("toc5"));
+        variables.put("toc1", mr.getVariable("toc1",reportVersion));
+        variables.put("toc1", mr.getVariable("toc1",reportVersion));
+        variables.put("toc2", mr.getVariable("toc2",reportVersion));
+        variables.put("toc3", mr.getVariable("toc3",reportVersion));
+        variables.put("toc4", mr.getVariable("toc4",reportVersion));
+        variables.put("toc5", mr.getVariable("toc5",reportVersion));
+
+
 
 
 
@@ -418,6 +382,20 @@ public class MiroReport {
             addMiroPopulationChartValues(variables);
             variables.put("report_type", "YOUR MIRO COACHING REPORT");
             variables.put("report_type_colour", "MIRORED");
+
+            //lexmex
+
+            if (this.subTitles != null) {
+                String subTitleKey = mr.getExtraIntroMappingKey();
+                if(subTitleKey!=null) {
+                    String subTitle = subTitles.get(subTitleKey);
+                    if (subTitle != null) {
+                        variables.put("lexmexpiesubtitle", subTitle);
+                    }
+                }
+
+            }
+
         } else {
             variables.put("report_type", "YOUR MIRO REPORT");
             variables.put("report_type_colour", "MIROBLUE");

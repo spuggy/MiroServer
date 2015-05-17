@@ -8,10 +8,8 @@ import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.chart.util.DefaultShadowGenerator;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.ui.HorizontalAlignment;
 import org.jfree.ui.RectangleEdge;
 import org.jfree.ui.RectangleInsets;
-import org.jfree.ui.VerticalAlignment;
 import org.jfree.util.Rotation;
 
 import java.awt.*;
@@ -134,18 +132,21 @@ public class MiroPieChartGenerator
 
 		// Sets bachgroung color of chart to white
 		jfreechart.setBackgroundPaint(Color.white);
+        jfreechart.setPadding(new RectangleInsets(-75.0, -75.0, -75.0, -75.0));
+
+
 		pieplot.setBackgroundPaint(Color.WHITE);
 		// To make legend display in Left side of Chart
 		LegendTitle legend = jfreechart.getLegend();
 		legend.setPosition(RectangleEdge.LEFT);
 		legend.setVisible(!this.hideLegend);
 
-        if(!hideSubTitle && !this.pieSubTitle.equals("")) {
-            jfreechart.addSubtitle(new TextTitle(this.pieSubTitle,
-                    new Font("Dialog", Font.ITALIC, 14), Color.black,
-                    RectangleEdge.BOTTOM, HorizontalAlignment.CENTER,
-                    VerticalAlignment.TOP, new RectangleInsets(0.0, 0.0, 10.0, 0.0)));
-        }
+//        if(!hideSubTitle && !this.pieSubTitle.equals("")) {
+//            jfreechart.addSubtitle(new TextTitle(this.pieSubTitle,
+//                    new Font("Dialog", Font.ITALIC, 14), Color.black,
+//                    RectangleEdge.BOTTOM, HorizontalAlignment.CENTER,
+//                    VerticalAlignment.TOP, new RectangleInsets(0.0, 0.0, 10.0, 0.0)));
+//        }
 
 
 
@@ -173,18 +174,18 @@ public class MiroPieChartGenerator
 		// To avoid label display in chart
 		pieplot.setLabelGenerator(null);
 
+
 		try
 		{
 
 			// path seperator('/' or '\'). java will choose automatically based
 			// on OS(Win/Lynx)
 			char seperator = File.separatorChar;
-			System.out.println("File saved under - " + 
-				filePath + fileName);
+			System.out.println("File saved under - " + filePath + fileName);
 
 			// Saves the generated chart as JPG file
 			ChartUtilities.saveChartAsJPEG(new File( filePath + seperator + fileName), jfreechart,
-					750, 500);
+					650, 400);
 			
 
 		}

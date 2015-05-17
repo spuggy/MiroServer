@@ -14,17 +14,21 @@ public class H extends Handler {
 
     private int size = 3;
 
+
     public H(Node node,int size) {
         super(node);
         this.size = size;
     }
+
+
+
 
     private Image getInlineImage(Context context,String name) throws BadElementException, IOException {
         Image img1 = Image.getInstance(name);
         img1.setAlignment(Image.RIGHT | Image.TEXTWRAP );
         img1.setBorder(10);
 
-        img1.scaleToFit(251f*context.imageConstant,251f*context.imageConstant);
+        img1.scaleToFit(167f*context.imageConstant,167f*context.imageConstant);
 
         return img1;
     }
@@ -52,16 +56,29 @@ public class H extends Handler {
                 if (attr != null) {
                     Node clazz = attr.getNamedItem("class");
                     if (clazz != null) {
-                        //TODO should we get hard wired images out of here
-                        if (clazz.getNodeValue().equals("organising_mode")) {
-                            p.add(getInlineImage(context, context.filePath + "/miro2/images/organising_mode_icon.png")) ;
-                        } else if (clazz.getNodeValue().equals("energising_mode")) {
-                            p.add(getInlineImage(context,context.filePath + "/miro2/images/energising_mode_icon.png")) ;
-                        } else if (clazz.getNodeValue().equals("analysing_mode")) {
-                            p.add(getInlineImage(context,context.filePath + "/miro2/images/analyser_mode_icon.png")) ;
-                        } else if (clazz.getNodeValue().equals("driving_mode")) {
-                            p.add(getInlineImage(context,context.filePath + "/miro2/images/driving_mode_icon.png")) ;
+
+                        String className = clazz.getNodeValue();
+                        if(className!=null && className.startsWith("icon_")) {
+                            String[] bits = className.toLowerCase().split("_") ;
+                            char[] chars = bits[1].toCharArray();
+
+                            for(int i = chars.length-1 ; i > -1  ; i--) {
+                                if (chars[i]=='o') {
+                                    p.add(getInlineImage(context, context.filePath + "/miro2/images/organising_mode_icon.png")) ;
+                                } else if (chars[i]=='e') {
+                                    p.add(getInlineImage(context,context.filePath + "/miro2/images/energising_mode_icon.png")) ;
+                                } else if (chars[i]=='a') {
+                                    p.add(getInlineImage(context,context.filePath + "/miro2/images/analyser_mode_icon.png")) ;
+                                } else if (chars[i]=='d') {
+                                    p.add(getInlineImage(context, context.filePath + "/miro2/images/driving_mode_icon.png"));
+                                }
+                            }
+
+                        } else if(className.toLowerCase().equals("center")) {
+                            p.setAlignment(Element.ALIGN_CENTER);
                         }
+
+
                     }
                 }
 
@@ -72,7 +89,7 @@ public class H extends Handler {
 
         }
         } catch(Exception e) {
-            //ignore
+            System.out.println(e.toString() + " H element");
         }
 
         return new Paragraph("");

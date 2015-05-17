@@ -14,6 +14,7 @@ import uk.co.bluetrail.miro.pdf.util.Context;
 public class P extends Handler {
 
     public static String DEFAULT_FONT = "P" ;
+    public static String DEFAULT_BOLDFONT = "PBOLD";
 
     private String fontName = P.DEFAULT_FONT;
 

@@ -120,7 +120,7 @@ public class MiroReport10Test extends TestCase {
             PdfReader pdfReader = new PdfReader(fileName);
             int numOfPages = pdfReader.getNumberOfPages();
 
-            assertEquals(13,numOfPages);
+            assertEquals(14,numOfPages);
 
 
         } catch (Exception e) {

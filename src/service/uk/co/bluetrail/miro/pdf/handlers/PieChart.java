@@ -51,7 +51,7 @@ public class PieChart extends Handler {
 
 
             //build the table
-            table.setWidths(new int[]{2, 1});
+            table.setWidths(new int[]{3, 1});
 
             Node chartNode = legendMap.get("graph");
             if(chartNode!=null) {

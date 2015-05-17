@@ -25,7 +25,7 @@ public class Context {
     public float listIndentation = 5f;
     public String listSpaceAfterSymbol = " ";
     public Rectangle pageSize = PageSize.A4 ;
-    public float marginLeft = 56f, marginRight = 56f, marginTop = 84f, marginBottom = 56f;
+    public float marginLeft = 56f, marginRight = 56f, marginTop = 56f, marginBottom = 56f;
     public float leading = 3f;
     public float imageConstant = 0.48f;
     public float listIndentationRight = 50f;

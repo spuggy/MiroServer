@@ -163,8 +163,7 @@ public class MiroTeamReport {
 		this.generateDynamicContent();
 		this.generateTeamSpiderWebChart();
 		this.generateXMLReportFile();
-        this.generateXSLReportFile(this.miroTeam.getMiroTeamNameFileName(""));
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
+         MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
 	//	MiroReportPDFGenerator.generatePDF(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""),"miro2fo-team.xsl");
 		//rem out .docx generation for now.
 		//MiroReportDocxGenerator.generateDocx(this.baseDirectory, this.miroTeam.getMiroTeamNameFileName(""));
@@ -293,10 +292,10 @@ public class MiroTeamReport {
 		
 		imgNames.put("4dperformer", this.baseDirectory.getAbsolutePath() + "/miro2/images/4DPerformer.png");
 		imgNames.put("miromodel", this.baseDirectory.getAbsolutePath() + "/miro2/images/u2.png" );
-//		imgNames.put("communications", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/communication.jpg" );
-//		imgNames.put("decisionmaking", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/decisionmaking.jpg" );
-//		imgNames.put("relationships", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/relationships.jpg" );
-//		imgNames.put("change", this.baseDirectory.getAbsolutePath() + "/images/miroteamreport/change.jpg" );
+		imgNames.put("communications", this.baseDirectory.getAbsolutePath() + "/miro2/images/communication.jpg" );
+		imgNames.put("decisionmaking", this.baseDirectory.getAbsolutePath() + "/miro2/images/decisionmaking.jpg" );
+		imgNames.put("relationships", this.baseDirectory.getAbsolutePath() + "/miro2/images/relationships.jpg" );
+		imgNames.put("change", this.baseDirectory.getAbsolutePath() + "/miro2/images/change.jpg" );
 		
 	
 		imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/miro2/images/"  + "U2.png");

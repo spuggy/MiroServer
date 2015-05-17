@@ -27,14 +27,21 @@ public class Img extends Handler {
                     Node src = attr.getNamedItem("src");
                     Node height = attr.getNamedItem("height");
                     Node width = attr.getNamedItem("width");
+                    Node vspace = attr.getNamedItem("vspace");
 
                     if (src != null && height !=null && width !=null) {
                         String val = src.getNodeValue();
                         if (val != null) {
                             Image img1 = Image.getInstance(val);
                             img1.setAlignment(Element.ALIGN_CENTER);
-                            img1.setSpacingAfter(context.spacingAfter);
-                            img1.setSpacingBefore(context.spacingAfter);
+
+                            if(vspace!=null) {
+                                Float f = Float.parseFloat(vspace.getNodeValue());
+                                img1.setSpacingBefore(f);
+                                img1.setSpacingAfter(2000f);
+                            } else {
+                                img1.setSpacingBefore(context.spacingAfter);
+                            }
                             img1.scaleToFit(Integer.parseInt(width.getNodeValue())*context.imageConstant,Integer.parseInt(height.getNodeValue())*context.imageConstant);
                             return img1;
                         }

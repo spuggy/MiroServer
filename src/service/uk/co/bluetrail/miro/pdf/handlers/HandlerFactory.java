@@ -67,6 +67,8 @@ public class HandlerFactory {
             return new H(node,3);
         } else if (name.equals("h4")) {
             return new H(node, 4);
+        } else if (name.equals("h2")) {
+            return new H(node, 2);
         } else if (name.equals("table") && className.equals("pie_and_bullets")) {
             return new PieAndBullets(node);
         } else if (name.equals("table") && className.equals("toc")) {

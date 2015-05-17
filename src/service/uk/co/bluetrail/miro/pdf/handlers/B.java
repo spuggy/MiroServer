@@ -11,7 +11,7 @@ import uk.co.bluetrail.miro.pdf.util.Context;
  */
 public class B extends Handler {
 
-    private String fontName = P.DEFAULT_FONT;
+    private String fontName = P.DEFAULT_BOLDFONT;
 
     public B(Node node) {
         super(node);
@@ -27,7 +27,7 @@ public class B extends Handler {
         Font f = context.getFont(fontName);
 
         if(f==null) {
-            context.getFont(P.DEFAULT_FONT) ;
+            context.getFont(P.DEFAULT_BOLDFONT) ;
         }
 
 

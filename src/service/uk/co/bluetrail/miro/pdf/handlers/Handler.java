@@ -16,8 +16,6 @@ abstract public class Handler {
         return new Paragraph("");
     }
 
-
-
     public Handler(Node node) {
          this.node = node;
     }
@@ -29,8 +27,6 @@ abstract public class Handler {
         } else {
             return str;
         }
-
-
     }
 
 
