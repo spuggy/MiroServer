@@ -224,7 +224,7 @@ MiroProjectFormController.prototype = {
    
    selectAllSendEmail:function(){
    		var check ="";
-   		if($("#cSelectAllSendEmail").checked) {
+   		if($("#cSelectAllSendEmail").is(':checked')) {
    			check= true;
    		} else {
    			check=false;
@@ -234,7 +234,7 @@ MiroProjectFormController.prototype = {
    		for(i=0;i<this.candidates.length;i++){
    			try {
    			checkBox = $("#cSendEmail_"+this.candidates[i].id);
-   			checkBox.checked = check; 
+        checkBox.prop( "checked", check );
    			} catch(e) {
    				
    			}
@@ -254,12 +254,11 @@ MiroProjectFormController.prototype = {
    		for(i=0;i<this.candidates.length;i++){
    			try{
    			checkBox = $("#cSendEmail_"+this.candidates[i].id);
-  
-   			if(checkBox.checked==true) {
-   				
-   				emailsToSend[c++] = this.candidates[i].id+"";
-   			}
-   			} catch(e) {
+
+        if(checkBox.is(':checked')) {
+          emailsToSend[c++] = this.candidates[i].id+"";
+        }
+      } catch(e) {
    				//do nowt
    			}
    		}
@@ -291,8 +290,8 @@ MiroProjectFormController.prototype = {
 	   	dwr.util.setEscapeHtml(false);
 	   	DWRUtil.removeAllRows("sendEmailReportTableBody");
    		DWRUtil.addRows( "sendEmailReportTableBody",report , sendMailCellFuncs);
-	   	
-   		$("#cSelectAllSendEmail").checked = false;
+      $("#cSelectAllSendEmail").prop( "checked", false);
+
    		this.selectAllSendEmail();
    	
    		this.loadCandidates();   	

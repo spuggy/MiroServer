@@ -17,7 +17,7 @@
     <script type="text/javascript" src="<c:url value='/dwr/interface/ajaxMiroProjectManager.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/scripts/miro/miroProjectFormController02.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/scripts/miro/miroProjectFormController03.js'/>"></script>
 
 
 
