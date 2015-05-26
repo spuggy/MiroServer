@@ -84,6 +84,7 @@ public class PieAndBullets extends Handler{
                     cell.setBorder(0);
                     cell.setPaddingTop(5f);
                     cell.setHorizontalAlignment(Element.ALIGN_LEFT);
+                    cell.setVerticalAlignment(Element.ALIGN_CENTER);
                     cell.setBorderWidthLeft(0f);
                     cell.setBorderWidthTop(1f);
                     cell.setBorderWidthBottom(0f);
@@ -97,6 +98,7 @@ public class PieAndBullets extends Handler{
                     PdfPCell cell = new PdfPCell();
                     cell.addElement(ul.getList(context));
                     cell.setBorder(0);
+                    cell.setPaddingTop(5f);
                     cell.setPaddingLeft(40f);
                     cell.setBorderWidthLeft(0f);
                     cell.setBorderWidthTop(1f);

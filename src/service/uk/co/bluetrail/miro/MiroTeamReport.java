@@ -317,11 +317,16 @@ public class MiroTeamReport {
 
         int piePages = getPiePageCount();
 
-        variables.put("toc1" , 4+piePages+"");
-        variables.put("toc2" , 5+piePages+"");
-        variables.put("toc3" , 6+piePages+"");
-        variables.put("toc4" , 7+piePages+"");
-        variables.put("toc5" , 9+piePages+"");
+        variables.put("toc1" , 3+"");
+        variables.put("toc2" , 5+"");
+        variables.put("toc3" , 5+piePages+"");
+
+        variables.put("toc4" , 6+piePages+"");
+
+        variables.put("toc5" , 7+piePages+"");
+
+        variables.put("toc6" , 8+piePages+"");
+        variables.put("toc7" , 10+piePages+"");
 
 
 

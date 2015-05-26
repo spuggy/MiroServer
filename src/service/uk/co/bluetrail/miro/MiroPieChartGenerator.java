@@ -132,7 +132,7 @@ public class MiroPieChartGenerator
 
 		// Sets bachgroung color of chart to white
 		jfreechart.setBackgroundPaint(Color.white);
-        jfreechart.setPadding(new RectangleInsets(-75.0, -75.0, -75.0, -75.0));
+        jfreechart.setPadding(new RectangleInsets(-50.0, -50.0, -50.0, -50.0));
 
 
 		pieplot.setBackgroundPaint(Color.WHITE);
