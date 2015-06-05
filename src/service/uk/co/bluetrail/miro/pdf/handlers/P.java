@@ -54,7 +54,7 @@ public class P extends Handler {
                     for (int c = 0; c < childList.getLength(); c++) {
                         Node childNode = childList.item(c);
                         if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Handler handler = HandlerFactory.instance().getHandler(childNode);
+                            Handler handler = HandlerFactory.instance().getHandler(childNode,null);
                             Element e = handler.getContent(context);
                             p.add(e);
                         } else {

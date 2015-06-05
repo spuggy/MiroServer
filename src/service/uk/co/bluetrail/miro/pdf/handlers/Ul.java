@@ -51,7 +51,7 @@ public class Ul extends Handler {
                                 for (int i = 0; i < liChildList.getLength(); i++) {
                                     Node liChildNode = liChildList.item(i);
                                     if (liChildNode.getNodeType() == Node.ELEMENT_NODE) {
-                                        Handler handler = HandlerFactory.instance().getHandler(liChildNode);
+                                        Handler handler = HandlerFactory.instance().getHandler(liChildNode,null);
                                         Element e = handler.getContent(context);
                                         ph.add(e);
                                     } else {

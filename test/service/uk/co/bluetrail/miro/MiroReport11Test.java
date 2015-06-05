@@ -55,19 +55,13 @@ public class MiroReport11Test extends MiroReport10Test  {
 
         MiroResponse mr = new MiroResponse() ;
 
-
-        Assert.assertEquals(mr.getExtraIntroStr(0),"LEX") ;
-        Assert.assertEquals(mr.getExtraIntroStr(5),"LEX") ;
-        Assert.assertEquals(mr.getExtraIntroStr(6),"MEX") ;
-        Assert.assertEquals(mr.getExtraIntroStr(14),"MEX") ;
-        Assert.assertEquals(mr.getExtraIntroStr(15),"HEX") ;
-        Assert.assertEquals(mr.getExtraIntroStr(19),"HEX") ;
-        Assert.assertEquals(mr.getExtraIntroStr(-1),"LIN") ;
-        Assert.assertEquals(mr.getExtraIntroStr(-5),"LIN") ;
-        Assert.assertEquals(mr.getExtraIntroStr(-6),"MIN") ;
-        Assert.assertEquals(mr.getExtraIntroStr(-14),"MIN") ;
-        Assert.assertEquals(mr.getExtraIntroStr(-15),"HIN") ;
-        Assert.assertEquals(mr.getExtraIntroStr(-19),"HIN") ;
+        Assert.assertEquals("HIN",mr.getExtraIntroStr(0,19)) ;
+        Assert.assertEquals("MIN",mr.getExtraIntroStr(5,14)) ;
+        Assert.assertEquals("HIN",mr.getExtraIntroStr(1,18)) ;
+        Assert.assertEquals("LIN",mr.getExtraIntroStr(9,10)) ;
+        Assert.assertEquals("LEX",mr.getExtraIntroStr(10,9)) ;
+        Assert.assertEquals("MEX",mr.getExtraIntroStr(13,6)) ;
+        Assert.assertEquals("HEX",mr.getExtraIntroStr(17,2)) ;
 
     }
 

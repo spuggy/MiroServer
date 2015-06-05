@@ -1,5 +1,6 @@
 package uk.co.bluetrail.miro.pdf.handlers;
 
+import com.lowagie.text.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -24,7 +25,7 @@ public class HandlerFactory {
 
     }
 
-    public Handler getHandler(Node node) {
+    public Handler getHandler(Node node,Document document) {
 
         if(node==null) {
             return new DefaultHandler(node);
@@ -71,8 +72,6 @@ public class HandlerFactory {
             return new H(node, 2);
         } else if (name.equals("table") && className.equals("pie_and_bullets")) {
             return new PieAndBullets(node);
-        } else if (name.equals("table") && className.equals("toc")) {
-            return new TOC(node);
         } else {
             return new DefaultHandler(node);
         }

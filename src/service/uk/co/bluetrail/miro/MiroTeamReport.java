@@ -291,7 +291,7 @@ public class MiroTeamReport {
 		
 		
 		imgNames.put("4dperformer", this.baseDirectory.getAbsolutePath() + "/miro2/images/4DPerformer.png");
-		imgNames.put("miromodel", this.baseDirectory.getAbsolutePath() + "/miro2/images/u2.png" );
+		imgNames.put("miromodel", this.baseDirectory.getAbsolutePath() + "/miro2/images/U2.png" );
 		imgNames.put("communications", this.baseDirectory.getAbsolutePath() + "/miro2/images/communication.jpg" );
 		imgNames.put("decisionmaking", this.baseDirectory.getAbsolutePath() + "/miro2/images/decisionmaking.jpg" );
 		imgNames.put("relationships", this.baseDirectory.getAbsolutePath() + "/miro2/images/relationships.jpg" );

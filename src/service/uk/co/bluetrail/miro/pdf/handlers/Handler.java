@@ -12,7 +12,7 @@ abstract public class Handler {
 
     protected Node node = null;
 
-    public Element getContent(Context context)  {
+    public Element getContent(Context context) {
         return new Paragraph("");
     }
 

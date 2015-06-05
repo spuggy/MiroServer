@@ -291,50 +291,49 @@ public class MiroResponse  {
                     this.extroValue++ ;
                     extroIntraValue++;
                 } else {
+					this.intraValue++;
                     extroIntraValue--;
-                    this.intraValue++;
+
                 }
 
 
                 question = (Question) survey.getQuestionMap().get(question.getJQuestion_id());
             }
 
-            this.extroIntroStrata = getExtraIntroStr(this.extroIntraValue);
+            this.extroIntroStrata = getExtraIntroStr(this.extroValue,this.intraValue);
         }
 
         log.debug("Finished calculating results ..");
 	}
 
-    public String getExtraIntroStr(int extroIntro) throws MiroException {
+    public String getExtraIntroStr(int extroValue,int intraValue) throws MiroException {
 
+		int attitude=0;
 
-        if(extroIntro >= 0  &&  extroIntro  <= 5 )  {
-            return "LEX"  ;
+		//Assert.assertEquals("LIN",mr.getExtraIntroStr(10,9)) ;
+
+		String suffix = "";
+		if(extroValue > intraValue) {
+			suffix = "EX";
+			attitude = extroValue;
+		}  else {
+			suffix = "IN";
+			attitude = intraValue ;
+		}
+		
+        if(attitude >= 9  &&  attitude  <= 12 )  {
+            return "L" + suffix  ;
         }
 
-        if(extroIntro >= 6  &&  extroIntro  <= 14 )  {
-            return "MEX" ;
+        if(attitude >= 13  &&  attitude  <= 16 )  {
+            return "M" + suffix ;
         }
 
-        if(extroIntro >= 15  &&  extroIntro  <= 19 )  {
-            return "HEX";
+        if(attitude >= 17  &&  attitude  <= 19 )  {
+            return "H" + suffix;
         }
 
-
-        if(extroIntro <= -1  &&  extroIntro   >=-5 )  {
-            return "LIN";
-        }
-
-        if(extroIntro <= -6  &&  extroIntro   >=-14 )  {
-            return "MIN";
-        }
-
-        if(extroIntro <= -15  &&  extroIntro   >=-19 )  {
-            return "HIN";
-        }
-
-
-        throw new MiroException("Could not find ExtraInto for value " + extroIntro);
+        throw new MiroException("Could not find ExtraInto for value " + extroValue + ", " + intraValue);
 
     }
 

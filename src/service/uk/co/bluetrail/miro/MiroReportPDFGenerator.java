@@ -1,11 +1,11 @@
 package uk.co.bluetrail.miro;
 
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.Rectangle;
-import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.PdfPageEventHelper;
-import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.*;
+import com.lowagie.text.pdf.draw.VerticalPositionMark;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
@@ -16,14 +16,18 @@ import uk.co.bluetrail.miro.pdf.handlers.Handler;
 import uk.co.bluetrail.miro.pdf.handlers.HandlerFactory;
 import uk.co.bluetrail.miro.pdf.page.PageFooter;
 import uk.co.bluetrail.miro.pdf.page.PageHeader;
+import uk.co.bluetrail.miro.pdf.page.TOC;
 import uk.co.bluetrail.miro.pdf.page.TitlePage;
 import uk.co.bluetrail.miro.pdf.util.Context;
+import uk.co.bluetrail.miro.pdf.util.TOCItem;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by richard on 20/03/15.
@@ -35,6 +39,7 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
     private Context context;
     private PageFooter pageFooter = new PageFooter();
     private PageHeader pageHeader = new PageHeader();
+    private TOC toc ;
 
 
     private final static Log log = LogFactory.getLog(MiroReportPDFGenerator.class);
@@ -164,6 +169,8 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
                 throw new uk.co.bluetrail.miro.pdf.util.MiroException(e.getMessage());
             }
 
+           final Map<String, PdfTemplate> tocPlaceHolders = new HashMap<String, PdfTemplate>();
+
 
             NodeList nodeList = document.getElementsByTagName("div");
             for (int i = 0; i < nodeList.getLength(); i++) {
@@ -171,20 +178,64 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
                 NamedNodeMap attributes = node.getAttributes();
                 Node id = attributes.getNamedItem("id");
 
-                if (id != null && id.getNodeValue().equals("0")) {
-                    TitlePage.draw(context, writer, pdfDocument, node);
-                } else {
-                    processPageElements(context, pdfDocument, node);
+                if (id != null)  {
+
+                    //0
+                    if(id.getNodeValue().equals("0")) {
+                        TitlePage.draw(context, writer, pdfDocument, node);
+                    }  else if(id.getNodeValue().equals("1")) {
+
+                        this.toc = new TOC(node,context);
+                        pdfDocument.add(this.toc.getHeader());
+
+                        ArrayList<TOCItem> tocItems = toc.getTocItems();
+                        Iterator<TOCItem> itr = tocItems.iterator();
+                        while(itr.hasNext()) {
+
+                            final TOCItem tocItem =  itr.next();
+                            pdfDocument.add(tocItem.element);
+
+                            // Add a placeholder for the page reference
+                            pdfDocument.add(new VerticalPositionMark() {
+                                @Override
+                                public void draw(final PdfContentByte canvas, final float llx, final float lly, final float urx, final float ury, final float y)
+                                {
+                                    final PdfTemplate createTemplate = canvas.createTemplate(50, 50);
+                                    tocPlaceHolders.put(tocItem.id,createTemplate);
+                                    canvas.addTemplate(createTemplate, urx - 50, y);
+                                }
+                            });
+                        }
+
+                    }  else {
+                        processPageElements(context, pdfDocument, node);
+                    }
+
                 }
 
                 pdfDocument.newPage();
             }
 
             pageFooter.addTotalPageNumbers(context, pagenumber - 1);
+            populateToc(tocPlaceHolders) ;
+
 
             pdfDocument.close();
         } catch (Exception e) {
             throw new uk.co.bluetrail.miro.pdf.util.MiroException(e.toString());
+        }
+    }
+
+    private void populateToc(Map<String, PdfTemplate> tocPlaceHolders) throws IOException, DocumentException {
+        Set keys = tocPlaceHolders.keySet()  ;
+        Iterator<String> itr = keys.iterator() ;
+        while(itr.hasNext()) {
+            String key = itr.next();
+            Integer pageNumber = toc.tocPageNumbers.get(key);
+            PdfTemplate template = tocPlaceHolders.get(key);
+            if (pageNumber != null && template !=null) {
+                toc.populateToc(context,template,pageNumber);
+            }
         }
     }
 
@@ -216,7 +267,10 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             Node childNode = childList.item(c);
 
             if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                Handler handler = HandlerFactory.instance().getHandler(childNode);
+                if(this.toc !=null) {
+                    toc.addPage(childNode,pagenumber) ;
+                }
+                Handler handler = HandlerFactory.instance().getHandler(childNode,pdfDocument) ;
                 pdfDocument.add(handler.getContent(context));
             }
 
