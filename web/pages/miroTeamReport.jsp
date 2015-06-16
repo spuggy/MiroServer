@@ -3,11 +3,21 @@
 <title><fmt:message key="miroTeamMap.title" />
 </title>
 <head>
-    <script type="text/javascript" src="<c:url value='/scripts/jquery-1.11.1.min.js'/>"></script>
     <script type="text/javascript"
 		src="<c:url value='/scripts/selectbox.js'/>"></script>
 	<link rel="stylesheet" type="text/css" media="all"
 		href="<c:url value='/styles/${appConfig["csstheme"]}/miroPickList.css'/>" />
+	<script type="text/javascript" src="<c:url value='/scripts/prototype-1.5.1.2.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>" />
+    <meta name="menu" content="MiroProjectMenu" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>" />
+    <script type="text/javascript"
+            src="<c:url value='/scripts/selectbox.js'/>"></script>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="<c:url value='/styles/${appConfig["csstheme"]}/miroPickList.css'/>" />
 
 <script type="text/javascript">
 
@@ -68,7 +78,7 @@ function smallCommentary() {
 				<fmt:message key="miroTeamMap.instructions" />
 			</p>
 			
-			<p><br/><input type="button" value="edit team members" onclick="$('#teamBuilder').show()"/>
+			<p><br/><input type="button" value="edit team members" onclick="$('teamBuilder').show()"/>
 			<input type="button" value="re-select projects" onclick="location='miroTeamList.html';"/>
 			
 

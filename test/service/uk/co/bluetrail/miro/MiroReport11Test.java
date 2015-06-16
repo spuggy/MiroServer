@@ -21,7 +21,10 @@ public class MiroReport11Test extends MiroReport10Test  {
 
         surveyResponse.setAnswer_trail("Charming#E;Tolerant#O~Self-assured#D;Impulsive#E~Empathic#O;Competitive#D~Charismatic#E;Methodical#A ~Positive#E;Pioneering#D~Amiable#O;Sceptical#D~Good-natured#O;Unwavering#D~Affable#E;Adventurous#D~Playful#E;Demanding#D~Admirable#E;Forceful#D~Companionable#E;Self-sufficient#D~Kind-hearted#O;Orderly#A~Unconventional#E;Conventional#A~Gregarious#E;Level-headed#A~Open #E;No-nonsense #D~Friendly#E;Forthright#D~Big-hearted#O;Well-disciplined#A~Relaxed#O;Exacting#A~Gentle#O;Modest#A~Sophisticated#A;Compassionate#O~Popular#E;Eager#D~Optimistic#E;Risk taking#D~Open-minded#A;Self-confident#D~Respectful  #O;Definite #D~Unpredictable #E;Stable#O~Self-reliant#D;Restrained#A~Attentive#O;Diplomatic#A~Helpful#O;Determined#D~Contented#O;Restless#D~Perfectionist#A;Impatient#D~~true#plus~true#plus~true#minus~true#minus~true#plus~false#plus~false#plus~true#minus~false#plus~true#plus~false#plus~true#plus~false#plus~true#plus~false#plus~false#plus~false#plus~true#plus~false#plus");
         
+
+  //bad bob one      surveyResponse.setAnswer_trail("Tolerant#O;Thorough#A~Understanding#O;Agreeable#A~Empathic#O;Self-starter#D ~Charismatic#E;Exacting#A~Positive#E;Pioneering#D~Loyal#A;Sceptical#D~Persuasive#E;Careful#A~Adventurous#D;Temperate#O~Playful#E;Demanding#D~Admirable#E;Precise#A~Companionable#E;Patient#O~Empathic#O;Meticulous#A~Unconventional#E;Conventional#A~Level-headed#A;Gregarious#E~Open #E;No-nonsense #D~Friendly#E;Accurate#A~Stubborn#D;Well-disciplined#A~Relaxed#O;Exacting#A~Modest#A;Influencing#E~Sophisticated#A;Good-mixer#E~Faithful#A;Popular#E~Optimistic#E;Analytical#A~Open-minded#A;Self-confident#D~Respectful  #O;Particular#A~Stable#O;Unpredictable #E~Self-reliant#D;Alert#O~Realistic#D;Sociable#E~Tolerant#A;Determined#D~Peaceable#A;Convincing#E~Detached#A ;Perfectionist#A ~null;N/A~null;false#minus~null;false#minus~null;true#minus~null;false#plus~null;false#minus~null;true#minus~null;false#plus~null;true#minus~null;false#plus~null;false#minus~null;true#minus~null;true#plus~null;true#minus~null;false#minus~null;true#minus~null;true#minus~null;true#minus~null;false#minus~null;true#minus");
         surveyResponse.setQuestion_trail("33~34~35~36~37~38~39~40~41~42~43~44~45~46~47~48~49~50~51~52~53~54~55~56~57~58~59~60~61~62~63~64~65~66~67~68~69~70~71~72~73~74~75~76~77~78~79~80~81~82~83");
+
 
         User candidate = new User();
 
@@ -76,9 +79,9 @@ public class MiroReport11Test extends MiroReport10Test  {
 
             miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov10);
 
-            String fileName = this.baseDirPath + "/out/Roger_Test_1.pdf";
+           String fileName = this.baseDirPath + "/out/Roger_Test_1.pdf";
 
-            File f = new File(fileName);
+           File f = new File(fileName);
 
             if(!f.exists()) {
                 fail("pdf not created for " + fileName);

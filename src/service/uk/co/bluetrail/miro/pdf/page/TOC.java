@@ -10,6 +10,7 @@ import org.w3c.dom.NodeList;
 import uk.co.bluetrail.miro.pdf.handlers.H;
 import uk.co.bluetrail.miro.pdf.handlers.Handler;
 import uk.co.bluetrail.miro.pdf.handlers.P;
+import uk.co.bluetrail.miro.pdf.handlers.SPAN;
 import uk.co.bluetrail.miro.pdf.util.Context;
 import uk.co.bluetrail.miro.pdf.util.TOCItem;
 
@@ -60,8 +61,8 @@ public class TOC {
                                 Handler h = new H(childNode,3);
                                 this.header = h.getContent(context);
                             } else {
-                                Handler p = new P(childNode) ;
-                                tocItems.add(new TOCItem(v,id.getNodeValue(),p.getContent(context)));
+                                Handler span = new SPAN(childNode) ;
+                                tocItems.add(new TOCItem(v,id.getNodeValue(),span.getContent(context)));
                             }
                         }
                     }

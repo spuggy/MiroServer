@@ -234,7 +234,7 @@ public class MiroTeamReportTest extends TestCase {
 			
 			mtr.buildReportPageList(miroTeam, plist, variables,imgNames);
 			
-			Assert.assertEquals("Number of pages is 12", 12,plist.size());
+			Assert.assertEquals("Number of pages is 13", 13,plist.size());
 			
 			
 			

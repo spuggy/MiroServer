@@ -106,12 +106,12 @@ public class ExtroIntraMapping {
         extroIntraMapping.put("ODAHIN","SHIN");
         extroIntraMapping.put("ODAMIN","SMIN");
         extroIntraMapping.put("ODALIN","SLIN");
-        extroIntraMapping.put("OEOHEX","FHEX");
-        extroIntraMapping.put("OEOMEX","FMEX");
-        extroIntraMapping.put("OEOLEX","FLEX");
-        extroIntraMapping.put("OEOHIN","FHIN");
-        extroIntraMapping.put("OEOMIN","FMIN");
-        extroIntraMapping.put("OEOLIN","FLIN");
+        extroIntraMapping.put("OEDHEX","FHEX");
+        extroIntraMapping.put("OEDMEX","FMEX");
+        extroIntraMapping.put("OEDLEX","FLEX");
+        extroIntraMapping.put("OEDHIN","FHIN");
+        extroIntraMapping.put("OEDMIN","FMIN");
+        extroIntraMapping.put("OEDLIN","FLIN");
         extroIntraMapping.put("OEAHEX","FHEX");
         extroIntraMapping.put("OEAMEX","FMEX");
         extroIntraMapping.put("OEALEX","FLEX");

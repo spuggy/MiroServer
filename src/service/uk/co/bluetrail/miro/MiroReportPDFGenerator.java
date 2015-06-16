@@ -1,8 +1,7 @@
 package uk.co.bluetrail.miro;
 
-import com.lowagie.text.DocumentException;
+import com.lowagie.text.*;
 import com.lowagie.text.Font;
-import com.lowagie.text.FontFactory;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.*;
 import com.lowagie.text.pdf.draw.VerticalPositionMark;
@@ -193,7 +192,7 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
                         while(itr.hasNext()) {
 
                             final TOCItem tocItem =  itr.next();
-                            pdfDocument.add(tocItem.element);
+                            pdfDocument.add(new Paragraph((Chunk)tocItem.element));
 
                             // Add a placeholder for the page reference
                             pdfDocument.add(new VerticalPositionMark() {
@@ -202,7 +201,7 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
                                 {
                                     final PdfTemplate createTemplate = canvas.createTemplate(50, 50);
                                     tocPlaceHolders.put(tocItem.id,createTemplate);
-                                    canvas.addTemplate(createTemplate, urx - 50, y);
+                                    canvas.addTemplate(createTemplate, urx - 200, y);
                                 }
                             });
                         }
