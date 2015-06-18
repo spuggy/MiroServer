@@ -7,6 +7,9 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import uk.co.bluetrail.miro.pdf.util.Context;
 
+import java.awt.color.ColorSpace;
+import java.awt.color.ICC_Profile;
+
 /**
  * Created by richard on 20/03/15.
  */
@@ -43,6 +46,8 @@ public class Img extends Handler {
                                 img1.setSpacingBefore(context.spacingAfter);
                             }
                             img1.scaleToFit(Integer.parseInt(width.getNodeValue())*context.imageConstant,Integer.parseInt(height.getNodeValue())*context.imageConstant);
+                            ICC_Profile icc = ICC_Profile.getInstance(ColorSpace.CS_sRGB);
+                            img1.tagICC(icc);
                             return img1;
                         }
                     }
