@@ -27,6 +27,22 @@ describe('miroSurveyController', function () {
 
   describe('miro 1.1', function () {
 
+    it('should make use enter a value', function () {
+
+      msc = new MiroSurveyController(4, 33);
+      ajaxSurveyEditManager.questions =  g_miro_questions_1_1;
+      ajaxSurveyEditManager.status =  MIRO_OK;
+
+      msc.startButton();
+      msc.nextButton();
+
+      expect(document.getElementById("prev").style.display).equals("none");
+
+
+    });
+
+
+
     it('run ok survey', function () {
 
       msc = new MiroSurveyController(4, 33);

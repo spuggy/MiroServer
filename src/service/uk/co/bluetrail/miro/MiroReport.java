@@ -440,7 +440,10 @@ public class MiroReport {
 
     private void addMiroPopulationChartValues(Map<String, String> variables) {
 
-        int miroAdjustment = 66;
+        int[] results = mr.getResults();
+        double adjustment = results[3] * this.miroGraphAdjustment;
+
+        int miroAdjustment = (int) (66 - adjustment);
         int intExAdjustment = 20;
 
         variables.put("leadershipBar_1lv", str(adjustToPercent(getLetterScore("D"), miroAdjustment)));
@@ -508,8 +511,8 @@ public class MiroReport {
             mbtimap.put("ODEAIN","ISFP");
             mbtimap.put("ODAEEX","ESFP");
             mbtimap.put("ODAEIN","ISFJ");
-            mbtimap.put("OEODEX","ESFJ");
-            mbtimap.put("OEODIN","ISFP");
+            mbtimap.put("OEDAEX","ESFJ");
+            mbtimap.put("OEDAIN","ISFP");
             mbtimap.put("OEADEX","ESFJ");
             mbtimap.put("OEADIN","ISFP");
             mbtimap.put("OADEEX","ESFP");
@@ -592,8 +595,8 @@ public class MiroReport {
             jpValueMap.put("ODEAIN",new int[]{2,4,1,3});
             jpValueMap.put("ODAEEX",new int[]{2,4,1,3});
             jpValueMap.put("ODAEIN",new int[]{1,3,2,4});
-            jpValueMap.put("OEODEX",new int[]{1,2,3,4});
-            jpValueMap.put("OEODIN",new int[]{2,4,1,3});
+            jpValueMap.put("OEDAEX",new int[]{1,2,3,4});
+            jpValueMap.put("OEDAIN",new int[]{2,4,1,3});
             jpValueMap.put("OEADEX",new int[]{1,3,2,4});
             jpValueMap.put("OEADIN",new int[]{2,4,1,3});
             jpValueMap.put("OADEEX",new int[]{3,4,1,2});
@@ -659,14 +662,17 @@ public class MiroReport {
 
     private int getLetterScore(String letter) {
 
+
+        double barMultiplier = 1.15;
+
         try {
-            int[] results = mr.getResults();
+            int[] results = mr.getResults(this.miroGraphAdjustment);
             String[] letters = mr.getResultLetters();
 
             for (int i = 0; i < results.length; i++) {
 
                 if(letters[i].equalsIgnoreCase(letter)) {
-                    return results[i];
+                    return (int) (results[i] *  barMultiplier);
                 }
 
             }

@@ -189,7 +189,7 @@ MiroSurveyController.prototype = {
 
     var answer = this.getAnswer();
 
-    if (answer == "") {
+    if (answer == "" || typeof answer == 'undefined') {
       return false;
     } else {
       return true;

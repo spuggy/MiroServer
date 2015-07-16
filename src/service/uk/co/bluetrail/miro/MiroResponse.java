@@ -880,6 +880,27 @@ public class MiroResponse  {
 		
 	}
 
+	public int[] getResultsFrigged(double miroGraphAdjustment) {
+
+
+
+		int[] tmpResults = new int[4];
+		tmpResults[0] = 66;
+		tmpResults[1] = 66;
+		tmpResults[2] = 66;
+		tmpResults[3] = 2;
+
+
+		int adjustment = (int) (tmpResults[3] * miroGraphAdjustment) ;
+
+		for(int i = 0 ; i < tmpResults.length ; i ++) {
+			tmpResults[i] = tmpResults[i] - adjustment;
+		}
+
+		return tmpResults;
+
+	}
+
 	public String toString() {
 		
 		int[] tmpResults = this.getResults();
