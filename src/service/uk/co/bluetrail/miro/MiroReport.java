@@ -380,7 +380,7 @@ public class MiroReport {
         //add miro population chart value
         if(reportVersion == Constants.Survey_id_Mirov11) {
             addMiroPopulationChartValues(variables);
-            variables.put("report_type", "YOUR MIRO COACHING REPORT");
+            variables.put("report_type", "YOUR MIRO ENHANCED REPORT");
             variables.put("report_type_colour", "MIRORED");
 
             //lexmex

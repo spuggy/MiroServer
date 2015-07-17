@@ -10,7 +10,7 @@
 	<script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
 	<script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/scripts/jquery-1.11.1.min.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/scripts/miro/miroSurveyController03.js'/>"></script>
+	<script type="text/javascript" src="<c:url value='/scripts/miro/miroSurveyController04.js'/>"></script>
 
 <script type="text/javascript">
 var testInProgress = false ; 

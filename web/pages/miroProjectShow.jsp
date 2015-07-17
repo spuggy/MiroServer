@@ -55,7 +55,7 @@ function initPage(){
 
     <ul >
         <li>
-            <p><a id="miro11download" href="#"><b>MiRo Stage 2</b> (Enhanched report)</a></p>
+            <p><a id="miro11download" href="#"><b>MiRo Stage 2</b> (Enhanced report)</a></p>
         </li>
         <li>
             <p><a id="miro10download" href="#"><b>MiRo Stage 1</b> (Standard report)</a></p>
