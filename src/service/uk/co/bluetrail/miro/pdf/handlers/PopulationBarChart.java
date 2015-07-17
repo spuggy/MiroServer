@@ -97,7 +97,7 @@ public class PopulationBarChart extends Handler {
 
         if(text !=null) {
             PdfPCell cell;
-            cell = new PdfPCell(new Phrase(text + debug,f));
+            cell = new PdfPCell(new Phrase(text,f));
             cell.setBorder(0);
             cell.setHorizontalAlignment(Element.ALIGN_LEFT);
             cell.setPadding(8f);
@@ -123,7 +123,7 @@ public class PopulationBarChart extends Handler {
         Font f = context.getFont("BARTEXTFONT") ;
         if(text !=null) {
             PdfPCell cell;
-            cell = new PdfPCell(new Phrase(text + debug,f));
+            cell = new PdfPCell(new Phrase(text,f));
             cell.setBorder(0);
             cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             cell.setPadding(8f);
