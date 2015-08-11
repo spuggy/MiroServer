@@ -396,7 +396,7 @@ MiroProjectFormController.prototype = {
 		return false
 	}
 		
-	if (echeck(email.val())==false){
+	if (echeck(email.val().trim())==false){
 		email.focus();
 		alert("Please enter a valid email address");
 		return false
