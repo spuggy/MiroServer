@@ -112,7 +112,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		HashMap model = new HashMap();
 
 		boolean showRecalcEditButtons = false;
-		boolean showTeamSaveCreateButtons = false ; 
+		boolean showTeamSaveCreateButtons = true ;
 		boolean showReportInprogressMessage = false ;
 		boolean showDownloadLink = false;
 		boolean showDeleteButton = true ;
@@ -131,11 +131,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		}*/
 
         showRecalcEditButtons = true;
-		
-		if(this.getCurrentUser().isTeamReportCreator()) {
-			showTeamSaveCreateButtons = true;
-		}
-		
+
 		if(mt.getTeamReportStatus()==MiroTeam.REPORT_REQUESTED) {
 			showReportInprogressMessage = true;
 		}
