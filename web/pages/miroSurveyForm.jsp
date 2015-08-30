@@ -47,11 +47,18 @@ window.onbeforeunload = warnOnUnload;
 <li>
 <div id="intro">
 
-    <p>Once you click on "continue" you will be shown 50 questions.</p>
+	<c:choose>
+		<c:when test="${isVersion11}">
+			<p>Once you click on "continue" you will be shown 50 questions.</p>
+			<p>30 are multiple choice, single word selections and you must choose the one that most describes you and the one that least describes you. Sometimes they may all seem to fit or all not fit, go with your first instinct or think about what someone who knows you well might say.</p>
+			<p>The next 20 are "true" or "false" statements.</p>
+		</c:when>
 
-    <p>30 are multiple choice, single word selections and you must choose the one that most describes you and the one that least describes you. Sometimes they may all seem to fit or all not fit, go with your first instinct or think about what someone who knows you well might say.</p>
-
-    <p>The next 20 are "true" or "false" statements.</p>
+		<c:otherwise>
+			<p>Once you click on "continue" you will be shown 30 questions.</p>
+			<p>Each question are multiple choice, single word selections and you must choose the one that most describes you and the one that least describes you. Sometimes they may all seem to fit or all not fit, go with your first instinct or think about what someone who knows you well might say.</p>
+		</c:otherwise>
+	</c:choose>
 
     <p>The more honest you are the more accurate and so the more useful your results will be.</p>
 

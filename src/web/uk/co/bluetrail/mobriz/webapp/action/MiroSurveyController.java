@@ -3,6 +3,7 @@ package uk.co.bluetrail.mobriz.webapp.action;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.MiroProject;
 import uk.co.bluetrail.mobriz.model.Survey;
 import uk.co.bluetrail.mobriz.model.User;
@@ -68,11 +69,11 @@ public class MiroSurveyController extends BaseController {
       	model.put("survey" , survey) ;
       	model.put("candidate" , candidate) ;
       	model.put("practitioner" , practitioner) ;
+        model.put("isVersion11",(survey.getId().longValue() == Constants.Survey_id_Mirov11) ? true:false );
           	
 
         
         if(surveyResponses == null || surveyResponses.size() ==0 ) {
-         
         	return new ModelAndView("miroSurveyForm", model);
         } else {
         	return new ModelAndView("miroTestComplete", model);
