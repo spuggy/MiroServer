@@ -222,15 +222,7 @@
 				return false;
 
 			} else {
-
-				if(bConfirm) {
-					return confirm("Only individuals addedd to a team report for the first time will be charged to your account. By clicking OK you agree to pay for the inclusion of these individuals. Do you wish to continue?");
-				} else {
-					return true;
-				}
-
-
-
+				return true;
 			}
 
 		}
