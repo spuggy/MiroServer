@@ -369,6 +369,28 @@
     <option name="LOCALE" />
     <option name="OPEN_IN_BROWSER" value="true" />
   </component>
+  <component name="LessManager">
+    <option name="lessProfileMap">
+      <map>
+        <entry key="0">
+          <value>
+            <LessProfile>
+              <option name="cssDirectories">
+                <list>
+                  <CssDirectory>
+                    <option name="path" value="$PROJECT_DIR$/web/miro2/miro/css" />
+                  </CssDirectory>
+                </list>
+              </option>
+              <option name="id" value="0" />
+              <option name="lessDirPath" value="$PROJECT_DIR$/less" />
+              <option name="name" value="Miro" />
+            </LessProfile>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="LogConsolePreferences">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />

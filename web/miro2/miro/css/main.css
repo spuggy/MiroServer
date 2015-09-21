@@ -1,0 +1,41 @@
+body { padding-top: 50px; }
+
+h1, h2, h3,
+h4, h5, h6 {
+    color: #6b6b6b;
+    font-family: "expressway", sans-serif;
+    font-weight: 400;
+    letter-spacing: 1px; }
+
+.miro-navbar {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.miro-main-padding {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.miro-subheader-padding {
+    padding-left: 60px;
+    padding-right: 40px;
+}
+
+#navbar  a {
+    font-size: 20px;
+    padding-bottom: 0.1em;
+    color: #292929;
+    text-decoration: none;
+    border-bottom: 2px dotted #d63f36;
+    white-space: normal;}
+
+#navbar a:hover,
+.active > a {
+    color: #2fa5d1;
+    border-color: #44aed6; }
+
+#navbar li { padding-right: 10px
+}
+
+
