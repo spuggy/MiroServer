@@ -169,7 +169,7 @@ function initPage(){
    </div>
 			<div class="table" id="candidatesListUI" style="display:none">
 
-				<table class="candidateTable" width="100%">
+				<table class="table table-condensed table-hover" width="100%">
 					<thead>
 						<tr>
 							<th>

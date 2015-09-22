@@ -40,7 +40,7 @@ if you have any questions, the information on the <a href="help.html">help page<
 <c:out value="${buttons}" escapeXml="false"/>
 
 <display:table name="miroProjectList" cellspacing="0" cellpadding="0" requestURI=""
-    id="miroProjectList" pagesize="50" class="table miroProjectList" export="false">
+    id="miroProjectList" pagesize="50" class="table table-condensed table-hover" export="false">
 
 <display:column property="projectTitle" escapeXml="true" sortable="true"  url="/showProject.html" paramId="id" paramProperty="id"
          titleKey="miroProject.projectTitle"/>
@@ -56,10 +56,6 @@ if you have any questions, the information on the <a href="help.html">help page<
     <display:setProperty name="paging.banner.items_name" value="Projects"/>
 </display:table>
 
-
-<script type="text/javascript">
-    highlightTableRows("miroProjectList");
-</script>
 
 </c:if>
 

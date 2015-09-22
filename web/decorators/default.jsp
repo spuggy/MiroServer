@@ -71,11 +71,12 @@
             <h1><decorator:getProperty property="page.heading"/></h1>
         </div>
     </div>
+    <div class="row">
+        <div id="miro-content" class="col-sm-8 miro-main-padding">
 
-    <div id="miro-content" class="miro-main-padding">
+            <decorator:body/>
 
-        <decorator:body/>
-
+        </div>
     </div>
 
 </div>
