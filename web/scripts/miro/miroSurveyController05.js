@@ -33,9 +33,9 @@ MiroSurveyController.prototype = {
 
 
   startButton: function () {
-    $("#miroInvalid").hide();
-    $("#intro").hide();
-    $("#loading").show();
+    Element.hide("miroInvalid");
+    Element.hide("intro");
+    Element.show("loading");
     this.getQuestions();
 
 
@@ -69,8 +69,8 @@ MiroSurveyController.prototype = {
       i++;
     }
 
-    $("#loading").show();
-    $("#miroForm").hide();
+    Element.show("loading");
+    Element.hide("miroForm");
 
     var cSubmitMiroResponseCallBack = this.submitMiroResponseCallBack.bind(this);
     ajaxSurveyEditManager.submitMiroResponse(this.sid, questionTrail, firstTrail, secondTrail, cSubmitMiroResponseCallBack);
@@ -82,32 +82,32 @@ MiroSurveyController.prototype = {
 
 
     if (rValue == MIRO_OK) {
-      $("#loading").hide();
-      $("#miroError").hide();
-      $("#miroThanks").show();
+      Element.hide("loading");
+      Element.hide("miroError");
+      Element.show("miroThanks");
       testInProgress = false;
       return;
     }
 
     if (rValue == MIRO_EXCEPTION) {
-      $("#loading").hide();
-      $("#miroForm").show();
+      Element.hide("loading");
+      Element.show("miroForm");
       this.showError("An error happened on the server, if this keeps happening please contact your support representitive");
       return;
     }
 
     if (rValue == MIRO_DUPE) {
-      $("#busy").hide();
+      Element.hide("busy");
       this.showError("We already have a reponse from you!");
-      $("#miroThanks").show();
+      Element.show("miroThanks");
       return;
     }
 
     if (rValue == MIRO_INVALID) {
 
-      $("#loading").hide();
-      $("#miroThanks").hide();
-      $("#miroInvalid").show();
+      Element.hide("loading");
+      Element.hide("miroThanks");
+      Element.show("miroInvalid");
       return;
     }
 
@@ -166,19 +166,26 @@ MiroSurveyController.prototype = {
   },
 
 
-  getAnswer: function () {
+  getAnswer:function() {
 
-    if(this.currentQuestionDTO.QForm.QMeta=="Q11Inst") {
-      return "N/A"
-    }
 
-    return $('input[name="qOptions"]:checked', '#miroForm').val()
+    var radioButtons = Form.getInputs('miroForm','radio', 'qOptions')
+    var answer= "" ;
+    radioButtons.each( function(radioButton){
+
+      if(radioButton.checked) {
+        answer =  radioButton.value;
+      }
+
+    });
+
+    return answer;
   },
 
   showError: function (eText) {
 
-    $("#miroError").text(eText);
-    $("#miroError").show();
+    Element.update("miroError", eText );
+    Element.show("miroError");
   },
 
 
@@ -237,34 +244,35 @@ MiroSurveyController.prototype = {
     var qForm = this.currentQuestionDTO.QForm;
     var self = this;
 
-    $("#qNum").text( "Question " + this.qNo + " of " + this.questionCount) ;
-    $("#miro11Prompt").text(qForm.QTxt);
-    $("#miro11Prompt").show();
 
-    $("#leastPrompt").hide();
-    $("#mostPrompt").hide();
+    Element.update("qNum","Question " + this.qNo + " of " + this.questionCount) ;
+    Element.update("miro11Prompt",qForm.QTxt);
+    Element.show("miro11Prompt");
+
+    Element.hide("leastPrompt");
+    Element.hide("mostPrompt");
 
     switch (qForm.QMeta) {
 
       case "Q11Inst" :
-        $("#miroQuestionRadio").hide();
-        $("#miro11Prompt").show();
-        $("#next").show();
-        $("#prev").hide();
-        $("#finish").hide();
+        Element.hide("miroQuestionRadio");
+        Element.show("miro11Prompt");
+        Element.show("next");
+        Element.hide("prev");
+        Element.hide("finish");
         break;
       case "Q11":
         var radioHtml = self.getRadioButtonHTML();
-        $("#miroQuestionRadio").html(radioHtml);
-        $("#miroQuestionRadio").show();
-        $("#miro11Prompt").show();
-        $("#next").show();
+        Element.update("miroQuestionRadio", radioHtml);
+        Element.show("miroQuestionRadio");
+        Element.show("miro11Prompt");
+        Element.show("next");
         if (this.isLastQuestion()) {
-          $("#finish").show();
-          $("#next").hide();
+          Element.show("finish");
+          Element.hide("next");
         } else {
-          $("#finish").hide();
-          $("#next").show();
+          Element.hide("finish");
+          Element.show("next");
         }
         break;
     }
@@ -274,42 +282,42 @@ MiroSurveyController.prototype = {
 
     var self = this;
 
-    $("#miro11Prompt").hide();
+    Element.hide("miro11Prompt");
 
     if (this.isFirstPage()) {
-      $("#mostPrompt").show();
-      $("#leastPrompt").hide();
+      Element.show("mostPrompt");
+      Element.hide("leastPrompt");
     } else {
-      $("#leastPrompt").show();
-      $("#mostPrompt").hide();
+      Element.show("leastPrompt");
+      Element.hide("mostPrompt");
     }
 
     var radioHtml =  self.getRadioButtonHTML();
 
-    $("#miroQuestionRadio").html(radioHtml);
-    $("#qNum").text("Question " + this.qNo + " of " + this.questionCount);
+    Element.update("miroQuestionRadio", radioHtml);
+    Element.update("qNum","Question " + this.qNo + " of " + this.questionCount);
 
-    $("#loading").hide();
-    $("#miroForm").show();
-    $("#miroError").hide();
+    Element.hide("loading");
+    Element.show("miroForm");
+    Element.hide("miroError");
 
     //show the correct Buttons
     if (this.isLastQuestion() && !this.isFirstPage()) {
-      $("#next").hide();
-      $("#prev").show();
-      $("#finish").show();
+      Element.hide("next");
+      Element.show("prev");
+      Element.show("finish");
     } else if (this.isFirstQuestion() && this.isFirstPage()) {
-      $("#next").show();
-      $("#prev").hide();
-      $("#finish").hide();
+      Element.show("next");
+      Element.hide("prev");
+      Element.hide("finish");
     } else if (this.isFirstPage()) {
-      $("#next").show();
-      $("#prev").hide();
-      $("#finish").hide();
+      Element.show("next");
+      Element.hide("prev");
+      Element.hide("finish");
     } else {
-      $("#next").show();
-      $("#prev").show();
-      $("#finish").hide();
+      Element.show("next");
+      Element.show("prev");
+      Element.hide("finish");
     }
 
   },
@@ -357,7 +365,7 @@ MiroSurveyController.prototype = {
 
     this.questionDTOs = questionDTOs;
 
-    $("#loading").hide();
+    Element.hide("loading");
 
     this.showFirstQuestion();
 
