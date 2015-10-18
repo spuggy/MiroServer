@@ -33,10 +33,36 @@ public class MiroProject extends BaseObject implements SurveyElement {
 	private Date updated_at = null;
 	private Long createdBy_id = null;
 	private Date created_on = null;
-	
+	protected boolean bccPractitioner; //send a bcc of invites email to the practitioner
 	private Integer version;
-	
-	
+	private User practitioner;
+
+	/**
+	 * @hibernate.property column="bcc_practitioner" type="yes_no"
+	 */
+	public boolean isBccPractitioner() {
+		return bccPractitioner;
+	}
+
+	public void setBccPractitioner(boolean bccPractitioner) {
+		this.bccPractitioner = bccPractitioner;
+	}
+
+
+	/**
+	 * @return Returns the practitioner. mapped in external matadata/dao file
+	 */
+	public User getPractitioner() {
+		return this.practitioner;
+	}
+
+	/**
+	 * @param practitioner
+	 *   The practitioner to set.
+	 */
+	public void setPractitioner(User practitioner) {
+		this.practitioner = practitioner;
+	}
 	
 	/**
 	 * @hibernate.property length="50" not-null="true"

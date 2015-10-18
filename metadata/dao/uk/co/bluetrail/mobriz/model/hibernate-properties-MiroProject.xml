@@ -1,0 +1,12 @@
+<many-to-one
+            name="practitioner"
+            class="uk.co.bluetrail.mobriz.model.User"
+            cascade="none"
+            outer-join="auto"
+            update="false"
+            insert="false"
+            column="createdBy_id"
+			lazy="false"
+/>
+        
+   

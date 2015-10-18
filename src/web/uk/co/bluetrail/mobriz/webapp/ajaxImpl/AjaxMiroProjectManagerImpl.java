@@ -216,6 +216,7 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 	
 		String newUserEmailSubject  = null;
         String newUserEmailMessage  = null;
+        String newUserEmailBCC = null;
         
         WebContext ctx = WebContextFactory.get();
 		HttpServletRequest request = ctx.getHttpServletRequest();
@@ -231,6 +232,10 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 				newUserEmailSubject  = miroProject.getEmailInviteSubject();
 
 			}
+            if(miroProject.getPractitioner()!=null){
+                newUserEmailBCC = miroProject.getPractitioner().getEmail();
+            }
+
 	        newUserEmailMessage  = miroProject.getEmailInviteText() ;
 	      
 		}
@@ -239,14 +244,10 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 		
 		if(user!=null) {
 			  // Send an account information e-mail
-			message.setSubject(newUserEmailSubject);
 
-			
 			try{
-	        	sendUserMessage(user, newUserEmailMessage, RequestUtil.getAppURL(request));
-	        	
-	        	
-	        	
+	        	sendUserMessage(user, newUserEmailSubject,newUserEmailMessage, newUserEmailBCC, RequestUtil.getAppURL(request));
+
 	        	if(user.getStatus()==User.INVITE_NOT_SENT) {
 	        		user.setStatus(User.INVITE_SENT);
 	        		userManager.saveUser(user);
@@ -369,28 +370,45 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;
 	}
-	
-	/**
+
+
+
+    /**
      * Convenience message to send messages to users, includes app URL as footer.
      * @param user
      * @param msg
      * @param url
 	 * @throws Exception 
      */
-    protected void sendUserMessage(User user, String msg, String url) throws Exception {
-      
-
-        message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+    protected void sendUserMessage(User user, String subject, String msg, String bcc, String url) throws Exception {
 
         Map model = new HashMap();
-        model.put("user", user);
 
-        // TODO: once you figure out how to get the global resource bundle in
-        // WebWork, then figure it out here too.  In the meantime, the Username
-        // and Password labels are hard-coded into the template. 
-        // model.put("bundle", getTexts());
-        model.put("message", msg);
-        model.put("applicationURL", url);
+        if(user != null) {
+            message.setTo(user.getFullName() + "<" + user.getEmail() + ">");
+            model.put("user", user);
+        }
+
+        if(subject !=null) {
+            message.setSubject(subject);
+        }
+
+        if(bcc != null) {
+            message.setBcc(bcc);
+        }
+
+        if(url!=null) {
+            model.put("applicationURL", url);
+        }
+
+        if(msg!=null) {
+            // TODO: once you figure out how to get the global resource bundle in
+            // WebWork, then figure it out here too.  In the meantime, the Username
+            // and Password labels are hard-coded into the template.
+            // model.put("bundle", getTexts());
+            model.put("message", msg);
+        }
+
         mailEngine.sendMessageWithExceptions(message, templateName, model);
     }
     

@@ -1,13 +1,5 @@
 package uk.co.bluetrail.mobriz.webapp.taglib;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.Field;
@@ -23,6 +15,13 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.RequestContext;
 import org.springmodules.validation.commons.ValidatorFactory;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.TagSupport;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -131,18 +130,7 @@ public class LabelTag extends TagSupport {
             label.append((requiredField) ? " <span class=\"req\">*</span>" : "");
             label.append((colon) ? ":" : "");
             label.append("</label>");
-            
-            if (validationError) {
-                label.append("<img class=\"validationWarning\" alt=\"");
-                label.append(getMessageSource().getMessage("icon.warning", null, locale));
-                label.append("\"");
 
-                String context = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
-
-                label.append("src=\"" + context);
-                label.append(getMessageSource().getMessage("icon.warning.img", null, locale));
-                label.append("\" />");
-            }
         }
 
         // Print the retrieved message to our output writer

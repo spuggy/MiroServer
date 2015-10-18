@@ -1,4 +1,4 @@
-body { padding-top: 50px; }
+body { padding-top: 5px; }
 
 h1, h2, h3,
 h4, h5, h6 {
@@ -38,4 +38,28 @@ h4, h5, h6 {
 #navbar li { padding-right: 10px
 }
 
+.page-header {
+    margin: 5px 0 20px;
+}
 
+/* miro project show styles */
+div#projlist {
+    padding-bottom: 20px;
+}
+
+div#iSavePanel_new {
+    padding-left: 5px;
+}
+
+.hidemeh {
+    display: none;
+}
+
+.fieldError {
+    font-weight: bold;
+    color: #d63f36;
+}
+
+.form-helper-padding {
+    padding-top: 20px;
+}

@@ -131,18 +131,7 @@ public class LabelTag extends TagSupport {
             label.append((requiredField) ? " <span class=\"req\">*</span>" : "");
             label.append((colon) ? ":" : "");
             label.append("</label>");
-            
-            if (validationError) {
-                label.append("<img class=\"validationWarning\" alt=\"");
-                label.append(getMessageSource().getMessage("icon.warning", null, locale));
-                label.append("\"");
 
-                String context = ((HttpServletRequest) pageContext.getRequest()).getContextPath();
-
-                label.append("src=\"" + context);
-                label.append(getMessageSource().getMessage("icon.warning.img", null, locale));
-                label.append("\" />");
-            }
         }
 
         // Print the retrieved message to our output writer
