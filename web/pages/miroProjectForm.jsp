@@ -11,7 +11,7 @@
 
 <spring:bind path="miroProject.*"> <c:if test="${not empty status.errorMessages}">
     <div class="row">
-        <div id="miro-content" class="col-sm-6">
+        <div id="miro-content" class="col-sm-12">
             <div class="alert alert-danger" role="alert">
                 <p><strong>Errors</strong></p>
                 <c:forEach var="error" items="${status.errorMessages}"> <c:out value="${error}" escapeXml="false"/><br/></c:forEach>
@@ -107,7 +107,7 @@
                     <li>USING ALL CAPS, WHICH IS LIKE SCREAMING AT THE TOP OF YOUR LUNGS VIA EMAIL (especially in the
                         subject line).</li>
                     <li>Sending invites to multiple recipients within the same company. That company's email filter
-                        often assumes it’s a spam attack.  Try sending one at a time or sending the invite from your own email account.  Use the "copy to " checkbox on the project form.
+                        often assumes it's a spam attack.  Try sending one at a time or sending the invite from your own email account.  Use the "copy to " checkbox on the project form.
                     </li>
                     <li>Using phrases like "Click here!" or "Once in a lifetime opportunity!"</li>
                     <li>Using the word "test" in the subject line.</li>
@@ -119,7 +119,7 @@
 
                 <h5>WHAT IF MY INVITES ARE STILL BEING SPAMMED?</h5>
 
-                <p>if your MiRo emails are being caught by spam filters make sure you have the <strong>Copy email invites</strong> checkbox set.  Thsi will
+                <p>If your MiRo emails are being caught by spam filters make sure you have the <strong>Copy email invites</strong> checkbox set.  This will
                 bcc you copies of your email invites to your inbox.  This means you will have a copy of the user credentials and be able to resend them from your
                 email account.</p>
 
@@ -135,7 +135,7 @@
             setPlaceHolder("projectTitle", "A short reference name for the project");
             setPlaceHolder("projectDescription", "Notes on your project so you can remember what it was for");
             setPlaceHolder("emailInviteSubject", "The subject line for your invite emails");
-            setPlaceHolder("emailInviteText", "The body of the invite email");
+            setPlaceHolder("emailInviteText", "The body of the invite email. Give the candidates more information about the project");
         }
     </script>
 

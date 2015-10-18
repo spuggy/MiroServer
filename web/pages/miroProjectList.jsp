@@ -34,12 +34,12 @@
 
             <display:table name="miroProjectList" cellspacing="0" cellpadding="0" requestURI="" id="miroProjectList" pagesize="50" class="table table-condensed table-hover" export="false">
                 <display:column property="projectTitle" escapeXml="true" url="/showProject.html" paramId="id" paramProperty="id" titleKey="miroProject.projectTitle"/>
+                <display:column property="costcode" escapeXml="true" titleKey="miroProject.costcode"/>
                 <display:column property="projectDescription" escapeXml="true" titleKey="miroProject.projectDescription"/>
                 <display:column property="created_on" headerClass="sortable" titleKey="surveyForm.created_on" decorator="uk.co.bluetrail.mobriz.webapp.util.ShortDateDecorator"/>
                 <display:setProperty name="paging.banner.item_name" value="Project"/>
                 <display:setProperty name="paging.banner.items_name" value="Projects"/>
                 <display:setProperty name="paging.banner.placement" value="bottom"/>
-
             </display:table>
 
 
