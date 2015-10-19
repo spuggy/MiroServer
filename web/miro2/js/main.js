@@ -17,3 +17,21 @@ function setPlaceHolder(fieldId,placeHolderValue) {
   $("#"+fieldId).attr("placeholder", placeHolderValue);
   return;
 }
+
+/*  This function is to select all options in a multi-valued <select> */
+function selectAll(elementId) {
+  var element = document.getElementById(elementId);
+  len = element.length;
+  if (len != 0) {
+    for (i = 0; i < len; i++) {
+      element.options[i].selected = true;
+    }
+  }
+}
+
+//picklist select all
+function onFormSubmit(theForm) {
+  selectAll('selectedProjects');
+  return true;
+}
+

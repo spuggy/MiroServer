@@ -63,3 +63,9 @@ div#iSavePanel_new {
 .form-helper-padding {
     padding-top: 20px;
 }
+
+table.pickList td select {
+    width:250px;
+    height:250px;
+
+}

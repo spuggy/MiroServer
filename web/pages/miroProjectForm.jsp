@@ -117,7 +117,7 @@
 
                 </ul>
 
-                <h5>WHAT IF MY INVITES ARE STILL BEING SPAMMED?</h5>
+                <h5>WHAT IF MY INVITES ARE STILL TREATED AS SPAM?</h5>
 
                 <p>If your MiRo emails are being caught by spam filters make sure you have the <strong>Copy email invites</strong> checkbox set.  This will
                 bcc you copies of your email invites to your inbox.  This means you will have a copy of the user credentials and be able to resend them from your
