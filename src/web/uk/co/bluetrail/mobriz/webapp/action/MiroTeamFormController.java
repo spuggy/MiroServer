@@ -5,6 +5,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.servlet.ModelAndView;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
+import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.MiroTeamManager;
 import uk.co.bluetrail.mobriz.webapp.form.MiroProjectSelectorForm;
 import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
@@ -22,7 +23,14 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 	}
 	
 	
-	
+
+	private boolean isNotBlank(String thing) {
+		if(thing == null || thing.trim().equals("")) {
+			return false;
+		}  else {
+			return true;
+		}
+	}
 	
 
 	
@@ -111,7 +119,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		
 		HashMap model = new HashMap();
 
-		boolean showRecalcEditButtons = false;
+		boolean showRecalcEditButtons = true;
 		boolean showTeamSaveCreateButtons = true ;
 		boolean showReportInprogressMessage = false ;
 		boolean showDownloadLink = false;
@@ -122,15 +130,11 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		}
 
 
-
-
         /*
         let people edit created reports
 		if(mt.getTeamReportStatus()==MiroTeam.REPORT_CREATED || mt.getId()==null) {
 			showRecalcEditButtons = true;
 		}*/
-
-        showRecalcEditButtons = true;
 
 		if(mt.getTeamReportStatus()==MiroTeam.REPORT_REQUESTED) {
 			showReportInprogressMessage = true;
@@ -156,6 +160,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		model.put("teamMapData", teamMapData);
 		model.put("allUsers", allUsersList);
 		model.put("teamUsers", usertoLabel(userList));
+		model.put("teamUsersPlain", toStringListWithCommas(userList));
 		model.put("selectedProjects", selectedProjects);
 		model.put("unselectedUserList", usertoLabel(unselectedUserList));
 		model.put("miroProjectSelectorForm", new MiroProjectSelectorForm());
@@ -171,6 +176,30 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		return model ;
 	}
 
+	private String toStringListWithCommas(List userList) {
+
+		if(userList==null) {
+			return "";
+		}
+
+		StringBuffer sb = new StringBuffer();
+		Iterator itr = userList.iterator()  ;
+		while(itr.hasNext()) {
+			User user = (User)  itr.next();
+			sb.append(user.getFirstName());
+			sb.append(" ");
+			sb.append(user.getLastName());
+			sb.append(", ");
+		}
+
+		if(sb.length()>0) {
+			return sb.substring(0,sb.length()-2).trim();
+		} else {
+			return sb.toString();
+		}
+
+	}
+
 	public ModelAndView onSubmit(HttpServletRequest request,
 			HttpServletResponse response, Object command, BindException errors)
 			throws Exception {
@@ -179,7 +208,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 
 		MiroTeam mt = new MiroTeam();
 		
-		if (request.getParameter("delete") != null) {
+		if (isNotBlank(miroProjectSelectorForm.getDelete()) ) {
 			 
 			this.miroTeamManager.removeMiroTeam(miroProjectSelectorForm.getId().toString());
             saveMessage(request, "Report deleted");
@@ -188,7 +217,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		}
 		
 		
-		if (request.getParameter("save") != null || request.getParameter("createteamreport") != null) {
+		if (isNotBlank(miroProjectSelectorForm.getSave())  || isNotBlank(miroProjectSelectorForm.getCreateteamreport()) ) {
 
 			if (miroProjectSelectorForm.getMiroTeamName() == null || miroProjectSelectorForm.getMiroTeamName().equals("")) {
 				errors.reject("miroProjectSelectorForm.noSelection","Please enter a name for the team");
@@ -207,7 +236,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 			mt.setMembers(new HashSet(members));
 			mt.setCommentary(miroProjectSelectorForm.getCommentary());
 			
-			if(request.getParameter("createteamreport") != null) {
+			if(isNotBlank(miroProjectSelectorForm.getCreateteamreport())) {
 				mt.setTeamReportStatus(MiroTeam.REPORT_REQUESTED);
 				saveMessage(request, "Team saved and report requested,  You will recieve an email alert when it has been generated");
 			} else {

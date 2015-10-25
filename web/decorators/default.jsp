@@ -73,6 +73,24 @@
    </div>
 </div>
 
+<div class="modal fade" id="confirmAlert">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="confirmAlertTitle" class="modal-title">Confirm?</h4>
+            </div>
+            <div class="modal-body">
+                <p id="confirmAlertBody"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmAlertCloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="confirmAlertOkButton" type="button" class="btn btn-primary">Ok</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/mirotest/miro2/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>

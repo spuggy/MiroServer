@@ -1,250 +1,225 @@
-<%@ include file="/common/taglibs.jsp"%>
+<%@ include file="/common/taglibs.jsp" %>
 
-<title><fmt:message key="miroTeamMap.title" />
+<title><fmt:message key="miroTeamMap.title"/>
 </title>
 <head>
-    <script type="text/javascript"
-		src="<c:url value='/scripts/selectbox.js'/>"></script>
-	<link rel="stylesheet" type="text/css" media="all"
-		href="<c:url value='/styles/${appConfig["csstheme"]}/miroPickList.css'/>" />
-	<script type="text/javascript" src="<c:url value='/scripts/prototype-1.5.1.2.js'/>"></script>
-	<script type="text/javascript" src="<c:url value='/scripts/scriptaculous.js'/>"></script>
-    <link rel="stylesheet" type="text/css" media="all"
-          href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>" />
-    <meta name="menu" content="MiroProjectMenu" />
-    <link rel="stylesheet" type="text/css" media="all"
-          href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>" />
-    <script type="text/javascript"
-            src="<c:url value='/scripts/selectbox.js'/>"></script>
-    <link rel="stylesheet" type="text/css" media="all"
-          href="<c:url value='/styles/${appConfig["csstheme"]}/miroPickList.css'/>" />
-
-	<script type="text/javascript">
-
-		function bigCommentary() {
-
-			$('biggercommentary').addClassName('hideme');
-			$('smallercommentary').removeClassName('hideme');
-			$('commentary').removeClassName('small_comments');
-			$('commentary').addClassName('big_comments');
-
-		}
-
-		function smallCommentary() {
-
-			$('biggercommentary').removeClassName('hideme');
-			$('smallercommentary').addClassName('hideme');
-			$('commentary').addClassName('small_comments');
-			$('commentary').removeClassName('big_comments');
-
-		}
-
-
-	</script>
-
+    <script type="text/javascript" src="/mirotest/miro2/js/selectbox.js"></script>
+    <script type="text/javascript" src="/mirotest/miro2/js/bootbox.min.js"></script>
 </head>
+<body onLoad="initPage()">
+
 <content tag="heading">
-	<fmt:message key="miroTeamReport.heading" />
+
+    <c:choose>
+        <c:when test="${miroTeam.miroTeamName==null}">
+            <fmt:message key="miroTeamReport.heading"/>
+        </c:when>
+        <c:otherwise>
+            <fmt:message key="miroTeamReport.heading"/>: <c:out value="${miroTeam.miroTeamName}"/>
+        </c:otherwise>
+    </c:choose>
+
+
 </content>
-<meta name="menu" content="MiroProjectMenu" />
+<meta name="menu" content="MiroProjectMenu"/>
 
 
+<div class="row">
+    <div class="col-sm-8">
 
-<ul>
+        <p>The team report images are displayed below.  If you would like to create a team report PDF complete the form and click "Save and create PDF".</p>
 
-	<li>
-		<form:form commandName="miroProjectSelectorForm" method="post" action="" id="miroProjectSelectorForm" onsubmit="return validateForm(this)">
+        <c:if test="${showReportInprogressMessage == true}">
+            <div class="alert alert-info">
+                The Team report is being generated - please check back shortly!
+            </div>
+        </c:if>
 
-			<c:if test="${showReportInprogressMessage == true}">
-				<div class="message" >
-					The Team report is being generated - please check back shortly!
-				</div>
-			</c:if>
+        <c:if test="${showDownloadLink == true}">
+            <div class="alert alert-info">
 
-			<c:if test="${showDownloadLink == true}">
-				<div class="message" >
+                <p>A report has been generated for this team. Click the link below to download.</p><br/>
 
-					<p>A report has been generated for this team.  Click the link below to download.</p>
-					<br/>
+                <a href="miroTeamReportShow.html?id=<c:out value="${miroTeam.id}" />"/><img src="miro2/miro/img/document_pdf.png"/></a>
+            </div>
+        </c:if>
 
-					<a href="miroTeamReportShow.html?id=<c:out value="${miroTeam.id}" />" /><img  src="images/pdf_large.png" /></a>
-				</div>
-			</c:if>
+        <hr/>
 
-			<c:if test="${showRecalcEditButtons == true}">
-
-				<div class="message" id="welcommes">
-					<p>
-						<fmt:message key="miroTeamMap.instructions" />
-					</p>
-
-					<p><br/><input type="button" value="edit team members" onclick="$('teamBuilder').show()"/>
-						<input type="button" value="re-select projects" onclick="location='miroTeamList.html';"/>
+        <div class="buttonPadding">
+            <button class="btn btn-primary" name="createTeamreportButton" id="createTeamreportButton"/>
+            Save and create PDF </button><c:if test="${showDeleteButton == true}">
+            <button class="btn btn-default" name="deleteReport" id="deleteReport">delete</button>
+        </c:if>
+        </div>
 
 
-						<c:if test="${showTeamSaveCreateButtons == true}">
-							<input type="submit" value="save team report" name="save" onclick="bSave=true;" />
+    </div>
+</div>
 
-							<c:if test="${showDeleteButton == true}">
-								<input type="submit" value="delete team map" name="delete" onclick="bDelete=true;"/>
-							</c:if>
+<div class="row">
+    <div class="col-sm-8">
+        <form:form commandName="miroProjectSelectorForm" method="post" action="" id="miroProjectSelectorForm">
 
-							<input type="submit" value="create team report" name="createteamreport" onclick="bSave=true;bConfirm=<c:out value="${confirmReportCreation}" />" />
+            <div class="modal fade" id="teamuserselector" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Select Candidates</h4>
+                        </div>
+                        <div class="modal-body form-group">
 
-						</c:if>
-					</p>
-
-
-
-					<p>
-						<br/>
-
-							<c:out value="${miroProjectSelectorForm.id}" />
-
-					<div id="teamBuilder" style="display: none">
+                            <p>Use the buttons remove or add a candidate</p>
 
 
-						<form:hidden path="id"/>
-						<form:hidden path="version"/>
+                            <table class="pickList">
+                                <tr>
+                                    <th class="pickLabel">
+                                        <mobriz4server:label key="miroProjectTeamsSelectorForm.notIncludedNames" colon="false" styleClass="required"/>
+                                    </th>
+                                    <td>&nbsp;</td>
+                                    <th class="pickLabel">
+                                        <mobriz4server:label key="miroProjectTeamsSelectorForm.includedNames" colon="false" styleClass="required"/>
+                                    </th>
+                                </tr>
+
+                                <c:set var="leftList" value="${unselectedUserList}" scope="request"/>
+                                <c:set var="rightList" value="${teamUsers}" scope="request"/>
+                                <c:import url="/common/pickList.jsp"> <c:param name="listCount" value="1"/>
+                                    <c:param name="leftId" value="selectedUserList"/>
+                                    <c:param name="rightId" value="teamUsers"/> </c:import>
+                                <tr>
+                                    <td colspan="3">&nbsp;</td>
+                                </tr>
+                            </table>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" id="teamuserselectorSubmitButton">
+                                    <fmt:message key="button.submit"/></button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form:hidden path="id"/> <form:hidden path="version"/> <input type="hidden" id="delete" name="delete"/>
+            <input type="hidden" id="save" name="save"/>
+            <input type="hidden" id="createteamreport" name="createteamreport"/>
+
+            <c:forEach var="project_id" items="${selectedProjects}" varStatus="status">
+                <input type="hidden" name="selectedProjects" value="<c:out value="${project_id}"/>"/> </c:forEach>
 
 
-						<mobriz4server:label styleClass="desc" key="miroteam.miroteamname"/>
-						<form:input path="miroTeamName" id="miroTeamName" cssClass="text large"/>
+            <div class="form-group">
+                <mobriz4server:label styleClass="control-label" key="miroteam.miroteamname"/>
+                <form:errors path="miroTeamName" cssClass="fieldError"/>
+                <form:input path="miroTeamName" id="miroTeamName" cssClass="form-control"/>
+            </div>
 
-						<div class="blockme"><mobriz4server:label styleClass="desc_inline" key="miroTeamMap.commentary"/> <a href="#" id="biggercommentary" onclick="bigCommentary()" class="bigger_box">(Make Bigger)</a><a id="smallercommentary" onclick="smallCommentary()" href="#" class="hideme smaller_box">(Make Smaller)</a></div>
-						<form:textarea path="commentary" id="commentary" cssClass="text small_comments"/>
-
-
-
-						<c:forEach var="project_id" items="${selectedProjects}" varStatus="status">
-							<input type="hidden" name="selectedProjects" value="<c:out value="${project_id}"/>" />
-						</c:forEach>
-
-						<fieldset class="pickList">
-							<legend>
-								<fmt:message key="miroProjectTeamsSelectorForm.selectTeam" />
-							</legend>
-							<table class="pickList">
-								<tr>
-									<th class="pickLabel">
-										<mobriz4server:label key="miroProjectTeamsSelectorForm.notIncludedNames" colon="false" styleClass="required" />
-									</th>
-									<td>&nbsp;</td>
-									<th class="pickLabel">
-										<mobriz4server:label key="miroProjectTeamsSelectorForm.includedNames" colon="false"	styleClass="required" />
-									</th>
-								</tr>
-
-								<c:set var="leftList" value="${unselectedUserList}" scope="request" />
-								<c:set var="rightList" value="${teamUsers}" scope="request" />
-								<c:import url="/common/pickList.jsp">
-									<c:param name="listCount" value="1" />
-									<c:param name="leftId" value="selectedUserList" />
-									<c:param name="rightId" value="teamUsers" />
-								</c:import>
-								<tr>
-									<td colspan="3">&nbsp;</td>
-								</tr>
-								<tr>
-									<td colspan="3" id="miroProjectsSubmitButton" >
-										<input type="button" value="Hide team builder" onclick="$('teamBuilder').hide()"/>
-										<input type="submit"  class="button" name="recalc_chart" value="recalc" />
-									</td>
-								</tr>
-							</table>
-						</fieldset>
+            <div class="form-group">
+                <mobriz4server:label styleClass="control-label" key="miroProjectTeamsSelectorForm.includedNames"/>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                            <c:out value="${teamUsersPlain}" escapeXml="false"/>
+                        <a class="btn btn-default btn-xs pull-right" id="teamSelectButton">edit</a>
+                    </div>
+                </div>
+            </div>
 
 
+            <div class="form-group">
+                <mobriz4server:label styleClass="control-label" key="miroTeamMap.commentary"/>
+                <form:errors path="commentary" cssClass="fieldError"/>
+                <form:textarea path="commentary" id="commentary" cssClass="form-control" rows="5"/>
+            </div>
 
 
-					</div>
-
-					</p>
-				</div>
-
-			</c:if>
+        </form:form>
 
 
-		</form:form>
-	</li>
-	<li>
-		<h2>
-			<fmt:message key="miroTeamMap.teamMapImageLeading" />
-		</h2>
-		<img src="<c:url value='/teamImage/teamMapImageLeading.jpg?engaged=false'/>"
-			 width="600" height="450" />
-	</li>
-	<li>
-		<h2>
-			<fmt:message key="miroTeamMap.teamMapImageEngaged" />
-		</h2>
-		<img src="<c:url value='/teamImage/teamMapImageEngaged.jpg?engaged=true'/>"
-			 width="600" height="450" />
-
-	</li>
-	<li>
-		<h2>
-			<fmt:message key="miroTeamMap.teamMapNames" />
-		</h2>
-		<display:table name="teamMapData" cellspacing="0" cellpadding="0"
-					   requestURI="" id="teamMapData" pagesize="500"
-					   class="table" export="false">
-
-			<display:column property="fullName" escapeXml="true"
-							titleKey="miroTeamMap.fullName" />
-			<display:column property="initials" escapeXml="true"
-							titleKey="miroTeamMap.initials" />
-			<display:column property="leadingMode" escapeXml="true"
-							titleKey="miroTeamMap.leadingMode" />
-			<display:column property="secondaryMode" escapeXml="true"
-							titleKey="miroTeamMap.secondaryMode" />
-
-			<display:setProperty name="paging.banner.item_name" value="Name" />
-			<display:setProperty name="paging.banner.items_name" value="Names" />
-		</display:table>
-	<li>
-</ul>
-
-<script type="text/javascript" language="Javascript1.1">
-
-	<!-- Begin
-
-	var bSave = false;
-
-	function validateForm(form) {
-
-		selectAll('teamUsers');
-
-		if (bSave) {
-			if(form["miroTeamName"].value== "") {
-				$('teamBuilder').show();
-				alert("Please supply a value for the Team Name");
-				return false;
-
-			} else {
-				return true;
-			}
-
-		}
-
-		if (bDelete) {
-
-			if(confirm("Are you sure you want to delete?")) {
-				return true;
-			} else {
-				return false;
-			}
-
-		}
-
-		return false;
-	}
+    </div>
+</div>
 
 
+<div class="row">
+    <div class="col-sm-8">
+        <hr/>
+        <h2>
+            <fmt:message key="miroTeamMap.teamMapImageLeading"/>
+        </h2>
+        <img src="<c:url value='/teamImage/teamMapImageLeading.jpg?engaged=false'/>" width="600" height="450"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+        <h2>
+            <fmt:message key="miroTeamMap.teamMapImageEngaged"/>
+        </h2>
+        <img src="<c:url value='/teamImage/teamMapImageEngaged.jpg?engaged=true'/>" width="600" height="450"/>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-8">
+        <h2>
+            <fmt:message key="miroTeamMap.teamMapNames"/>
+        </h2>
+        <display:table name="teamMapData" cellspacing="0" cellpadding="0" requestURI="" id="teamMapData" pagesize="500" class="table table-condensed" export="false">
+
+            <display:column property="fullName" escapeXml="true" titleKey="miroTeamMap.fullName"/>
+            <display:column property="initials" escapeXml="true" titleKey="miroTeamMap.initials"/>
+            <display:column property="leadingMode" escapeXml="true" titleKey="miroTeamMap.leadingMode"/>
+            <display:column property="secondaryMode" escapeXml="true" titleKey="miroTeamMap.secondaryMode"/>
+
+            <display:setProperty name="paging.banner.item_name" value="Name"/>
+            <display:setProperty name="paging.banner.items_name" value="Names"/> </display:table>
+    </div>
+</div>
+
+<script type="application/javascript">
+
+    function initPage() {
+        setPlaceHolder("miroTeamName", "The title of your report - will appear on the front page");
+        setPlaceHolder("commentary", "Addtional information that will appear at the end of the team report");
+
+        $('#teamSelectButton').click(function () {
+            $('#teamuserselector').modal('show')
+        });
+
+        $('#teamuserselectorSubmitButton').click(function () {
+            selectAll('teamUsers');
+            $('#miroProjectSelectorForm').submit();
+        });
+
+        $('#createTeamreportButton').click(function () {
+            selectAll('teamUsers');
+
+            if ($('#miroTeamName').val() == "") {
+                alert("Please supply a value for the Team Name");
+                return false;
+
+            } else {
+                $('#createteamreport').val("createteamreport");
+                $('#miroProjectSelectorForm').submit();
+            }
+
+        });
+
+        $('#deleteReport').click(function () {
+
+            miroConfirm("Are you sure you want to delete?", function (result) {
+                if (result == true) {
+                    $('#delete').val("delete");
+                    $('#miroProjectSelectorForm').submit();
+                }
+            });
+
+        });
 
 
-	//End -->
+    }
+
 </script>
 
-
-
+</body>

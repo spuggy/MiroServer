@@ -9,10 +9,34 @@ public class MiroProjectSelectorForm {
     String title;
     String miroTeamName;
     String commentary;
-    
-    
-    
-	
+	String delete;
+	String createteamreport;
+	String save;
+
+	public String getCreateteamreport() {
+		return createteamreport;
+	}
+
+	public void setCreateteamreport(String createteamreport) {
+		this.createteamreport = createteamreport;
+	}
+
+	public String getDelete() {
+		return delete;
+	}
+
+	public void setDelete(String delete) {
+		this.delete = delete;
+	}
+
+	public String getSave() {
+		return save;
+	}
+
+	public void setSave(String save) {
+		this.save = save;
+	}
+
 	/**
 	 * @hibernate.property 
 	 * @return the commentary

@@ -69,3 +69,7 @@ table.pickList td select {
     height:250px;
 
 }
+
+.buttonPadding {
+    padding-bottom: 10px;
+}

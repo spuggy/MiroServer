@@ -35,3 +35,20 @@ function onFormSubmit(theForm) {
   return true;
 }
 
+
+function miroConfirm(mess,callback) {
+  $("#confirmAlertBody").text(mess);
+
+  $('#confirmAlertCloseButton').click(function () {
+     callback(false);
+  });
+
+  $('#confirmAlertOkButton').click(function () {
+    callback(true);
+  });
+
+  $('#confirmAlert').modal('show')
+
+  return;
+};
+
