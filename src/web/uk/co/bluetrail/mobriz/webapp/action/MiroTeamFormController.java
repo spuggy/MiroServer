@@ -55,6 +55,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
                        
         } else {
         	mf = new MiroProjectSelectorForm();
+
         }
         
         return mf;
@@ -87,7 +88,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
             userList = new ArrayList(mt.getMembers());
     		allUsersList = userManager.getUsersByProjects(mt.getProjects());
     		unselectedUserList = subtract(userList,allUsersList);
-    		return doTeamMap(request,null,userList,allUsersList,unselectedUserList,mt);
+    		return doTeamMap(request,null,userList,allUsersList,unselectedUserList,mt,mf);
                        
         } 
         
@@ -113,7 +114,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 
 
 
-	private Map doTeamMap(HttpServletRequest request, String[] selectedProjects, List userList, List allUsersList,List unselectedUserList, MiroTeam mt) {
+	private Map doTeamMap(HttpServletRequest request, String[] selectedProjects, List userList, List allUsersList,List unselectedUserList, MiroTeam mt,MiroProjectSelectorForm miroProjectSelectorForm) {
 
 		List teamMapData = miroResponseManager.getTeamMap(miroResponseManager.getMiroReportPath(RequestUtil.getAppURL(request)), userList);
 		
@@ -163,7 +164,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 		model.put("teamUsersPlain", toStringListWithCommas(userList));
 		model.put("selectedProjects", selectedProjects);
 		model.put("unselectedUserList", usertoLabel(unselectedUserList));
-		model.put("miroProjectSelectorForm", new MiroProjectSelectorForm());
+		model.put("miroProjectSelectorForm", miroProjectSelectorForm);
 
 
 
@@ -206,8 +207,9 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 
 		MiroProjectSelectorForm miroProjectSelectorForm = (MiroProjectSelectorForm) command;
 
+		//copy over form stuff just in case they are altering team.
 		MiroTeam mt = new MiroTeam();
-		
+
 		if (isNotBlank(miroProjectSelectorForm.getDelete()) ) {
 			 
 			this.miroTeamManager.removeMiroTeam(miroProjectSelectorForm.getId().toString());
@@ -286,7 +288,7 @@ public class MiroTeamFormController extends MiroProjectSelectorFormController {
 			unselectedUserList = subtract(userList, allUsersList);
 		}
 
-		Map model = doTeamMap(request, selectedProjects, userList, allUsersList, unselectedUserList,mt);
+		Map model = doTeamMap(request, selectedProjects, userList, allUsersList, unselectedUserList,mt,miroProjectSelectorForm);
 		
 			
 			 
