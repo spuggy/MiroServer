@@ -6,7 +6,7 @@
         <fmt:message key="miroTeamReport.heading"/>
     </content>
 
-    <script type="text/javascript" src="/mirotest/miro2/js/selectbox.js"></script>
+    <script type="text/javascript" src="/mirotest/miro11style/js/selectbox.js"></script>
 
 </head>
 

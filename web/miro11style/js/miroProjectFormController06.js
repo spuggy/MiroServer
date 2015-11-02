@@ -538,10 +538,12 @@ MiroProjectFormController.prototype = {
 	   	if(miroProjectDTOs.length ==0)  {
 		  	$("#candidatesListUI").hide();
 		  	$("#welcommess").show();
+				$("#addNewPanel").show();
 	   	   	return ; 
 	   	}
 	   	
 	   	$("#welcommess").hide();
+			$("#addNewPanel").hide();
 	   	
 	   	this.candidates = new Array();
 	   	

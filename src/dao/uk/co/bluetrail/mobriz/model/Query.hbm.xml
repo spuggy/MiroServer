@@ -60,6 +60,7 @@
   ON u.response_id = r.id
   WHERE u.project_id = :project_id AND u.deleted = false
   ORDER BY u.id desc
+  LIMIT :limit
                        ]]>
 
   </sql-query>

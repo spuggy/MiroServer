@@ -14,7 +14,7 @@
     <script type="text/javascript" src="<c:url value='/dwr/interface/ajaxMiroProjectManager.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
-    <script type="text/javascript" src="<c:url value='/miro2/js/miroProjectFormController06.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/miro11style/js/miroProjectFormController06.js'/>"></script>
 
 
     <script type="text/javascript">
@@ -63,24 +63,19 @@
     </div>
 </div>
 
+
 <div class="row">
-    <div id="miro-content" class="col-sm-6">
+    <div class="col-sm-8">
 
-        <div class="message" id="welcommess" style="display: none;"><p>This is you project control panel. Here you can
-            add and save candidates to the project. You can send out email invitations individually or all together by
-            ticking the check boxes and clicking on "send email". You can send as many invitations as you like but once
-            someone has completed their assessment you will not be able to send another to that candidate.</p>
 
-            <p>&nbsp;</p>
-
+        <div class="message" id="welcommess" style="display: none;">
+            <p>This is you project control panel. Here you can
+                add and save candidates to the project. You can send out email invitations individually or all together by
+                ticking the check boxes and clicking on "send email". You can send as many invitations as you like but once
+                someone has completed their assessment you will not be able to send another to that candidate.</p>
             <p>When a candidate has completed their assessment a report will appear next to their name. Click on the
                 report to buy it. Once you have bought the report you can download it as many times as you like. </p>
         </div>
-
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-8">
 
         <div id="projlist">
 

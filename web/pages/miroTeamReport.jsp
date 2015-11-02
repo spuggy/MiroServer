@@ -3,8 +3,8 @@
 <title><fmt:message key="miroTeamMap.title"/>
 </title>
 <head>
-    <script type="text/javascript" src="/mirotest/miro2/js/selectbox.js"></script>
-    <script type="text/javascript" src="/mirotest/miro2/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="/mirotest/miro11style/js/selectbox.js"></script>
+    <script type="text/javascript" src="/mirotest/miro11style/js/bootbox.min.js"></script>
 </head>
 <body onLoad="initPage()">
 
@@ -40,7 +40,7 @@
 
                 <p>A report has been generated for this team. Click the link below to download.</p><br/>
 
-                <a href="miroTeamReportShow.html?id=<c:out value="${miroTeam.id}" />"/><img src="miro2/miro/img/document_pdf.png"/></a>
+                <a href="miroTeamReportShow.html?id=<c:out value="${miroTeam.id}" />"/><img src="miro11style/img/document_pdf.png"/></a>
             </div>
         </c:if>
 

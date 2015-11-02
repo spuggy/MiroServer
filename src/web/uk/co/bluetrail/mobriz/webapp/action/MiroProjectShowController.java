@@ -44,17 +44,22 @@ public class MiroProjectShowController extends BaseController {
 
         MiroProject miroProject = null;
 
-        if (!StringUtils.isEmpty(id)) {
-            miroProject = miroProjectManager.getMiroProject(id, getCurrentUser());
-        } else {
-        	//TODO redirect somewhere sensible
+        if (StringUtils.isEmpty(id)) {
+            return new ModelAndView("redirect:miroProjects.html");
         }
-        
+
+        miroProject = miroProjectManager.getMiroProject(id, getCurrentUser());
         User pracUser = userManager.getUser(miroProject.getCreatedBy_id().toString());
+
+
 
         HashMap model = new HashMap() ;
         model.put("miroProject",miroProject);
-        model.put("pracUser",pracUser);
+        if(pracUser!=null) {
+            model.put("pracUser",pracUser);
+        }
+
+
         
         
         return new ModelAndView("miroProjectShow", model);

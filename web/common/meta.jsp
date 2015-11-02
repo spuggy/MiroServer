@@ -7,5 +7,4 @@
         
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
         <c:set var="ctxPath" value="${pageContext.request.contextPath}" scope="request"/>
-        <meta name="author" content="mobriz@bluetrail.co.uk)"/>
-        <link rel="icon" href="<c:url value="/images/favicon.ico"/>"/>
+        <link rel="icon" href="<c:url value="/miro11style/icons/favicon.ico"/>"/>

@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%@ include file="/common/meta.jsp" %>
     <title><decorator:title/> | MiRo</title>
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/miro2/${appConfig["csstheme"]}/css/bootstrap.css'/>"/>
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/miro2/${appConfig["csstheme"]}/css/main.css'/>"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/miro11style/css/bootstrap.css'/>"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/miro11style/css/main.css'/>"/>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,7 +38,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img height="66px" width="152px" src="<c:url value='/miro2/${appConfig["csstheme"]}/img/miro-logo.png'/>" alt="MiRo Psychometrics"/></a>
+            <a class="navbar-brand" href="#"><img height="66px" width="152px" src="<c:url value='/miro11style/img/miro-logo.png'/>" alt="MiRo Psychometrics"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse miro-navbar">
             <ul class="nav navbar-nav">
@@ -56,6 +56,7 @@
     <!--/.container-fluid -->
 </nav>
 
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12 page-header miro-page-header miro-subheader-padding">
@@ -64,39 +65,20 @@
     </div>
     <div class="row">
         <div class="col-sm-12 miro-subheader-padding">
-            <div id="warning-alert" class="alert alert-warning alert-dismissible hidemeh" role="alert">
-                <button type="button" class="close" onclick="closeAlert()"><span aria-hidden="true">&times;</span></button>
-                <strong>Warning!</strong> <span id="warning-alert-mess"></span>
-            </div>
+            <%@ include file="/common/messages.jsp" %>
             <decorator:body/>
         </div>
    </div>
 </div>
 
-<div class="modal fade" id="confirmAlert">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 id="confirmAlertTitle" class="modal-title">Confirm?</h4>
-            </div>
-            <div class="modal-body">
-                <p id="confirmAlertBody"></p>
-            </div>
-            <div class="modal-footer">
-                <button id="confirmAlertCloseButton" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="confirmAlertOkButton" type="button" class="btn btn-primary">Ok</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/mirotest/miro2/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
-<script src="/mirotest/miro2/js/bootstrap.min.js"></script>
-<script src="/mirotest/miro2/js/plugins.js"></script>
-<script src="/mirotest/miro2/js/main.js"></script>
+<script>window.jQuery || document.write('<script src="/mirotest/miro11style/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+<script src="/mirotest/miro11style/js/bootstrap.min.js"></script>
+<script src="/mirotest/miro11style/js/plugins.js"></script>
+<script src="/mirotest/miro11style/js/main.js"></script>
 
 </body>
 </html>

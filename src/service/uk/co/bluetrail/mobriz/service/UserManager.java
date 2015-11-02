@@ -20,8 +20,10 @@ import java.util.List;
  *  Modified by <a href="mailto:dan@getrolling.com">Dan Kibler </a> 
  */
 public interface UserManager {
-    
-	public List getUsers(final User user, int status) ;
+
+    public static int GET_CANDIDATES_LIMIT = 300;
+
+    public List getUsers(final User user, int status) ;
 	
 	 public List getUserQBE(User user) ;
 	    
@@ -81,6 +83,8 @@ public interface UserManager {
 	public List getUsers(String[] userIds);
 
 	public void saveAsPurchased(Long id, Long srid) throws UserExistsException;
+
+    public List getCandidates(String project_id,int limit);
 
     public List getCandidates(String project_id);
 }
