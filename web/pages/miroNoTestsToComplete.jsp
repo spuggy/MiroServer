@@ -16,7 +16,7 @@
 <content tag="heading"><fmt:message key="miroSurvey.heading"/></content>
 <div id="intro">
 
-<p>There ae no tests to complete</p>
+<p>There are no tests to complete</p>
 </div>
 
 </li>

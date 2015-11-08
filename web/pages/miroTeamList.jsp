@@ -5,7 +5,7 @@
     <content tag="heading">
         <fmt:message key="miroTeamReport.heading"/>
     </content>
-
+    <meta name="menu" content="MiroProjectMenu"/>
     <script type="text/javascript" src="/mirotest/miro11style/js/selectbox.js"></script>
 
 </head>

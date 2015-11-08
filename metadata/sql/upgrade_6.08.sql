@@ -14,7 +14,7 @@ drop view vwprojects;
 
 
 create view vwpracs as
-SELECT u.id, u.username, u.version, u.pinnumber, u.userid, u.password, u.first_name, u.last_name, u.department,u.address, u.city, u.province, u.country, u.postal_code, u.email, u.phone_number, u.website, u.password_hint, u.employeeref, u.checkpoint, u.oldfullname, u.account_id, u.account_expired, u.account_locked, u.credentials_expired, u.enabled, u.deleted, u.project_id, u.response_id, u.creditbalance, u.status, u.webaddress, u.company, u.postcode, u.county, u.address1, u.address2, u.created_on, u.oldreport, u.updated_at, u.lastupdatedby_id, u.createdby_id
+SELECT u.id, u.username, u.version, u.pinnumber, u.userid, u.password, u.department,u.first_name, u.last_name, u.department,u.address, u.city, u.province, u.country, u.postal_code, u.email, u.phone_number, u.website, u.password_hint, u.employeeref, u.checkpoint, u.oldfullname, u.account_id, u.account_expired, u.account_locked, u.credentials_expired, u.enabled, u.deleted, u.project_id, u.response_id, u.creditbalance, u.status, u.webaddress, u.company, u.postcode, u.county, u.address1, u.address2, u.created_on, u.oldreport, u.updated_at, u.lastupdatedby_id, u.createdby_id
   FROM app_user u, user_role r
  WHERE r.user_id = u.id AND r.role_id = 1;
 

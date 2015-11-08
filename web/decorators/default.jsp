@@ -1,32 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<%@ include file="/common/doctype.jsp" %>
 <%@ include file="/common/taglibs.jsp" %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%@ include file="/common/meta.jsp" %>
-    <title><decorator:title/> | MiRo</title>
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/miro11style/css/bootstrap.css'/>"/>
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/miro11style/css/main.css'/>"/>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <%@ include file="/common/html_head_common.jsp" %>
     <decorator:head/>
 </head>
 <body onLoad="<decorator:getProperty property="body.onLoad"/>"
         <decorator:getProperty property="body.id" writeEntireProperty="true"/><decorator:getProperty
         property="body.class" writeEntireProperty="true"/>>
 
-<!--[if lt IE 7]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-    your browser</a> to improve your experience.</p>
-<![endif]-->
+<c:set var="currentMenu" scope="request">
+    <decorator:getProperty property="meta.menu" />
+</c:set>
+<c:set var="ctxPath" value="${pageContext.request.contextPath}" scope="request"/>
+
+<%@ include file="/common/browser_warning.jsp" %>
 
 <!-- Static navbar -->
 <nav class="navbar navbar-default navbar-static-top miro-main-padding">
@@ -41,12 +29,27 @@
             <a class="navbar-brand" href="#"><img height="66px" width="152px" src="<c:url value='/miro11style/img/miro-logo.png'/>" alt="MiRo Psychometrics"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse miro-navbar">
-            <ul class="nav navbar-nav">
-                <li><a class="navbar_main_link" href="miroProjects.html">My Projects</a></li>
-                <li><a class="navbar_main_link" href="miroTeamList.html">Team Reports</a></li>
-                <li><a class="navbar_main_link" href="editProfile.html">My Profile</a></li>
-                <li><a class="navbar_main_link" href="webPages.html">Help</a></li>
-            </ul>
+            <c:choose>
+                <c:when test='${currentMenu == "MiroProjectMenu"}'>
+                    <ul class="nav navbar-nav">
+                        <li><a class="navbar_main_link" href="miroProjects.html">My Projects</a></li>
+                        <li><a class="navbar_main_link" href="miroTeamList.html">Team Reports</a></li>
+                        <li><a class="navbar_main_link" href="editProfile.html">My Profile</a></li>
+                        <li><a class="navbar_main_link" href="webPages.html">Help</a></li>
+                    </ul>
+                </c:when>
+                <c:when test='${currentMenu == "admin"}'>
+                    <ul class="nav navbar-nav">
+                        <li><a class="navbar_main_link" href="users.html">Users</a></li>
+                        <li><a class="navbar_main_link" href="settings.html">Settings</a></li>
+                        <li><a class="navbar_main_link" href="webPages.html">Help</a></li>
+                    </ul>
+
+                </c:when>
+
+            </c:choose>
+
+
             <ul class="nav navbar-nav navbar-right">
                 <button onclick="location='logout.jsp'" type="button" class="btn btn-info btn-lg">Logout</button>
             </ul>
@@ -67,6 +70,7 @@
         <div class="col-sm-12 miro-subheader-padding">
             <%@ include file="/common/messages.jsp" %>
             <decorator:body/>
+            <%@ include file="/common/footer.jsp" %>
         </div>
    </div>
 </div>
@@ -74,11 +78,7 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="/mirotest/miro11style/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
-<script src="/mirotest/miro11style/js/bootstrap.min.js"></script>
-<script src="/mirotest/miro11style/js/plugins.js"></script>
-<script src="/mirotest/miro11style/js/main.js"></script>
+<%@include file="/common/site_javascript.jsp" %>
 
 </body>
 </html>
