@@ -2,9 +2,8 @@
 <head>
     <title><fmt:message key="miroProjectDetail.title"/></title>
     <content tag="heading"><fmt:message key="miroProjectDetail.heading"/></content>
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>"/>
     <meta name="menu" content="MiroProjectMenu"/>
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/styles/${appConfig["csstheme"]}/miroSurveyForm.css'/>"/>
+
 
 </head>
 <body onLoad="initPage()">

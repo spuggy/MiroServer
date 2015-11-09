@@ -14,44 +14,29 @@
     </c:if>
 </spring:bind>
 
-<ul>
-<li>
+<div class="row">
+    <div id="miro-content" class="col-sm-6">
 
 <content tag="heading">MiRo Behavioural Mode Assessment
 </content>
 <p>Please confirm your first and last name and then press continue. </p>
-<form:form commandName="user" method="post" action="userConfirm.html" id="userForm">
+<form:form commandName="user" method="post" action="userConfirm.html" id="userForm" >
 
+    <div >
 
-<ul>
-   <li>
-   
-   </li>
-   
-   
-    <li>
-        <div class="left">
+        <div class="form-group">
             <mobriz4server:label styleClass="desc" key="user.firstName"/>
             <form:errors path="firstName" cssClass="fieldError"/>
-            <form:input path="firstName" id="firstName" cssClass="text medium" maxlength="50"/>
+            <form:input cssClass="form-control" path="firstName" id="firstName" maxlength="50"/>
         </div>
-        <div>
+        <div class="form-group">
             <mobriz4server:label styleClass="desc" key="user.lastName"/>
             <form:errors path="lastName" cssClass="fieldError"/>
-            <form:input path="lastName" id="lastName" cssClass="text medium" maxlength="50"/>
+            <form:input path="lastName" id="lastName" cssClass="form-control" maxlength="50"/>
         </div>
-    </li>
-     <li >
-           <%-- So the buttons can be used at the bottom of the form --%>
-        <c:set var="buttons">
-            <input type="submit" class="button" name="save" onclick="bCancel=false" value="Continue"/>
-        </c:set>
-        <br/>
-        <c:out value="${buttons}" escapeXml="false"/>
-    </li>
-</ul>
+        <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" >Continue</button>
 
 </form:form>
 
-</li>
-</ul>
+</div>
+</div>
