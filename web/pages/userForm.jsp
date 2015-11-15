@@ -58,13 +58,20 @@
             <p><fmt:message key="userProfile.message"/></p>
         </c:otherwise> </c:choose> </p>
 
-            <div class="form-group">
-                <mobriz4server:label styleClass="desc" key="user.username"/>
-                <form:errors path="username" cssClass="fieldError"/>
-                <form:input path="username" id="username" cssClass="form-control"/>
 
+            <c:choose> <c:when test="${param.from == 'list' or param.method == 'Add'}">
+                <div class="form-group">
+                    <mobriz4server:label styleClass="desc" key="user.username"/>
+                    <form:errors path="username" cssClass="fieldError"/>
+                    <form:input path="username" id="username" cssClass="form-control"/>
+                </div>
+            </c:when> <c:otherwise>
+                <div class="form-group">
+                    <h3><span class="label label-default"><c:out value="${user.username}"/></span></h3>
+                    <input type="hidden" class="form-control" id="username" name="username" readonly value="<c:out value="${user.username}"/>"/>
+                </div>
+            </c:otherwise> </c:choose>
 
-            </div>
 
             <c:if test="${cookieLogin != 'true'}">
 
@@ -169,8 +176,8 @@
                     <div class="form-group">
                         <mobriz4server:label styleClass="desc" key="user.department"/>
                         <form:errors path="department" cssClass="fieldError"/>
-                        <form:select path="department" cssClass="form-control" id="department"> <form:options items="${departments}"/>
-                        </form:select>
+                        <form:select path="department" cssClass="form-control" id="department">
+                            <form:options items="${departments}"/> </form:select>
 
 
                     </div>
@@ -186,8 +193,8 @@
 
                     <div class="form-group">
                         <fieldset>
-                            <form:checkbox path="enabled" id="enabled" />
-                            <label for="enabled" class="choice">User Enabled</label>
+                            <form:checkbox path="enabled" id="enabled"/> <label for="enabled" class="choice">User
+                            Enabled</label>
 
 
                         </fieldset>
@@ -238,7 +245,7 @@
 <script type="text/javascript">
 
     function initPage() {
-        $('#userForm').find('input[type=text],textarea,select').filter(':visible:first').focus();
+        $('#userForm').find('input[type=text],input[type=password],textarea,select').filter(':visible:first').focus();
     }
 
     function passwordChanged(passwordField) {
