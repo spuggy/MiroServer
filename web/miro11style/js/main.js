@@ -52,3 +52,96 @@ function miroConfirm(mess,callback) {
   return;
 };
 
+
+/* This function is used to get cookies */
+function getCookie(name) {
+  var prefix = name + "="
+  var start = document.cookie.indexOf(prefix)
+
+  if (start==-1) {
+    return null;
+  }
+
+  var end = document.cookie.indexOf(";", start+prefix.length)
+  if (end==-1) {
+    end=document.cookie.length;
+  }
+
+  var value=document.cookie.substring(start+prefix.length, end)
+  return unescape(value);
+}
+
+/* This function is used to delete cookies */
+function deleteCookie(name,path,domain) {
+  if (getCookie(name)) {
+    document.cookie = name + "=" +
+        ((path) ? "; path=" + path : "") +
+        ((domain) ? "; domain=" + domain : "") +
+        "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+  }
+}
+
+// This function is for stripping leading and trailing spaces
+function trim(str) {
+  if (str != null) {
+    var i;
+    for (i=0; i<str.length; i++) {
+      if (str.charAt(i)!=" ") {
+        str=str.substring(i,str.length);
+        break;
+      }
+    }
+
+    for (i=str.length-1; i>=0; i--) {
+      if (str.charAt(i)!=" ") {
+        str=str.substring(0,i+1);
+        break;
+      }
+    }
+
+    if (str.charAt(0)==" ") {
+      return "";
+    } else {
+      return str;
+    }
+  }
+}
+
+// This function is used by the login screen to validate user/pass
+// are entered.
+function validateRequired(form) {
+  var bValid = true;
+  var focusField = null;
+  var i = 0;
+  var fields = new Array();
+  oRequired = new required();
+
+  for (x in oRequired) {
+    if ((form[oRequired[x][0]].type == 'text' || form[oRequired[x][0]].type == 'textarea' || form[oRequired[x][0]].type == 'select-one' || form[oRequired[x][0]].type == 'radio' || form[oRequired[x][0]].type == 'password') && form[oRequired[x][0]].value == '') {
+      if (i == 0)
+        focusField = form[oRequired[x][0]];
+
+      fields[i++] = oRequired[x][1];
+
+      bValid = false;
+    }
+  }
+
+  if (fields.length > 0) {
+    focusField.focus();
+    alert(fields.join('\n'));
+  }
+
+  return bValid;
+}
+
+
+// This function is a generic function to create form elements
+function createFormElement(element, type, name, id, value, parent) {
+  var e = document.createElement(element);
+  e.setAttribute("name", name);
+  e.setAttribute("type", type);
+  e.setAttribute("id", id);
+  e.setAttribute("value", value);
+  parent.appendChild(e);
+}

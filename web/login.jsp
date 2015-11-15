@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <%@ include file="/common/html_head_common.jsp" %>
+
 </head>
 <body>
 
@@ -23,7 +24,7 @@
         </div>
         <div class="form-group">
             <label for="j_password" class="desc">Password</label>
-            <input type="password" id="j_password" name="j_password" class="form-control" placeholder="Password" required>
+            <input type="password" id="j_password" name="j_password" class="form-control" placeholder="Password" tabindex="2" required>
         </div>
         <c:if test="${appConfig['rememberMeEnabled']}">
             <div class="form-group">
@@ -38,9 +39,8 @@
         <p></p><a href="http://www.miro-assessment.com">Home Page</a></p>
     </form>
 
-
-    <%@ include file="/scripts/login.js" %>
-
+    <%@include file="/common/site_javascript.jsp" %>
+    <script src="/mirotest/miro11style/js/login.js"></script>
 
 </div>
 </body>

@@ -10,7 +10,10 @@
         <meta name="menu" content="MiroProjectMenu"/>
     </c:otherwise> </c:choose>
     <script type="text/javascript" src="/mirotest/miro11style/js/selectbox.js"></script>
+
 </head>
+
+<body onLoad="initPage()">
 
 <spring:bind path="user.*"> <c:if test="${not empty status.errorMessages}">
     <div class="row">
@@ -233,8 +236,10 @@
 </div>
 
 <script type="text/javascript">
-    Form.focusFirstElement($('userForm'));
-    highlightFormElements();
+
+    function initPage() {
+        $('#userForm').find('input[type=text],textarea,select').filter(':visible:first').focus();
+    }
 
     function passwordChanged(passwordField) {
         var origPassword = "<c:out value="${user.password}"/>";
@@ -255,4 +260,6 @@
 </script>
 
 <v:javascript formName="user" staticJavascript="false"/>
-<script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
+<script type="text/javascript" src="<c:url value="/common/validator.jsp"/>"></script>
+
+</body>
