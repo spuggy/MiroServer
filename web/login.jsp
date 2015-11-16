@@ -12,7 +12,7 @@
     <form class="form-signin" ethod="post" id="loginForm" action="<c:url value="/j_security_check"/>" onsubmit="saveUsername(this);return validateForm(this)">
         <img height="66px" width="152px" src="<c:url value='/miro11style/img/miro-logo.png'/>" alt="MiRo Psychometrics"/>
 
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">Please Login</h2>
         <c:if test="${param.error != null}">
             <div id="errorMessages" class="alert alert-danger alert-dismissible" role="alert">
                 <fmt:message key="errors.password.mismatch"/>

@@ -67,7 +67,7 @@
                 </div>
             </c:when> <c:otherwise>
                 <div class="form-group">
-                    <h3><span class="label label-default"><c:out value="${user.username}"/></span></h3>
+                    <h2><span class="label label-default"><c:out value="${user.username}"/></span></h2>
                     <input type="hidden" class="form-control" id="username" name="username" readonly value="<c:out value="${user.username}"/>"/>
                 </div>
             </c:otherwise> </c:choose>
