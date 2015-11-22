@@ -9,6 +9,7 @@
 </head>
 <body>
 <content tag="heading"><fmt:message key="miroSurvey.heading"/></content>
+<content tag="shortheading"><fmt:message key="miroSurvey.shortheading"/></content>
 <div class="row">
     <div id="miro-content" class="col-sm-8">
         <div id="intro">

@@ -17,8 +17,9 @@
 <div class="row">
     <div id="miro-content" class="col-sm-6">
 
-<content tag="heading">MiRo Behavioural Mode Assessment
-</content>
+<content tag="heading"><fmt:message key="miroSurvey.heading"/></content>
+<content tag="shortheading"><fmt:message key="miroSurvey.shortheading"/></content>
+
 <p>Please confirm your first and last name and then press continue. </p>
 <form:form commandName="user" method="post" action="userConfirm.html" id="userForm" >
 

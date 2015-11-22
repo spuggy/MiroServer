@@ -12,6 +12,10 @@
 <c:set var="currentMenu" scope="request">
     <decorator:getProperty property="meta.menu" />
 </c:set>
+<c:set var="shortheading" scope="request">
+    <decorator:getProperty property="page.shortheading" />
+</c:set>
+
 <c:set var="ctxPath" value="${pageContext.request.contextPath}" scope="request"/>
 
 <%@ include file="/common/browser_warning.jsp" %>
@@ -26,7 +30,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img height="66px" width="152px" src="<c:url value='/miro11style/img/miro-logo.png'/>" alt="MiRo Psychometrics"/></a>
+            <a class="navbar-brand" href="#">
+                <img class="hidden-xs" src="<c:url value='/miro11style/img/miro-logo.png'/>" alt="MiRo Psychometrics"/>
+                <img class="visible-xs" src="<c:url value='/miro11style/img/miro-logo-small.png'/>" alt="MiRo Psychometrics"/>
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse miro-navbar">
             <c:choose>
@@ -59,20 +66,31 @@
     <!--/.container-fluid -->
 </nav>
 
-
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-12 page-header miro-page-header miro-subheader-padding">
+        <div class="hidden-xs col-sm-12 page-header miro-page-header miro-subheader-padding">
             <h1><decorator:getProperty property="page.heading"/></h1>
         </div>
+        <div class="visible-xs col-sm-12 miro-page-header miro-subheader-padding">
+           <c:choose>
+                <c:when test="${empty shortheading}">
+                    <h3><decorator:getProperty property="page.heading"/></h3>
+                </c:when>
+                <c:otherwise>
+                    <h3 ><decorator:getProperty property="page.shortheading"/></h3>
+                </c:otherwise>
+            </c:choose>
+
+        </div>
+
     </div>
     <div class="row">
         <div class="col-sm-12 miro-subheader-padding">
             <%@ include file="/common/messages.jsp" %>
             <decorator:body/>
-            <%@ include file="/common/footer.jsp" %>
         </div>
    </div>
+   <%@ include file="/common/footer.jsp" %>
 </div>
 
 

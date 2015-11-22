@@ -8,10 +8,8 @@
 
 </head>
 <body >
-<content tag="heading">
-	<fmt:message key="about.title" />
-	</content>
-	
+<content tag="heading"><fmt:message key="about.title" /></content>
+
 
 
 <p><c:import url="/common/footer.jsp"/></p>

@@ -22,6 +22,22 @@ h4, h5, h6 {
     padding-right: 40px;
 }
 
+/* Extra Small Devices, Phones */
+@media only screen and (max-width: 500px) {
+    .miro-main-padding {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .miro-subheader-padding {
+        padding-left: 15px;
+        padding-right: 10px;
+    }
+
+    .navbar-brand {padding: 15px 0px;}
+}
+
+
 #navbar  a {
     font-size: 20px;
     padding-bottom: 0.1em;
