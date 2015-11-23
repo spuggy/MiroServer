@@ -9,6 +9,7 @@
 
 
 </head>
+<body onLoad="defaultInitPage()">
 
  <c:set var="buttons"> <button class="btn btn-primary" onclick="location.href='<c:url value="/editMiroProject.html"/>'"><fmt:message key="button.addProject"/></button></c:set>
 
@@ -47,5 +48,9 @@
 
     </div>
 </div>
+
+
+</body>
+
 
 

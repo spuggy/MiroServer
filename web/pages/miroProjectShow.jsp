@@ -23,7 +23,7 @@
         //global variable to surveycontrolelr object
         var mpfc;
         function initPage() {
-
+            defaultInitPage();
             mpfc = new MiroProjectFormController(<c:out value="${miroProject.id}"/>);
             mpfc.loadCandidates();
             // mpfc.getShoppingCartItems();

@@ -245,6 +245,7 @@
 <script type="text/javascript">
 
     function initPage() {
+        defaultInitPage();
         $('#userForm').find('input[type=text],input[type=password],textarea,select').filter(':visible:first').focus();
     }
 

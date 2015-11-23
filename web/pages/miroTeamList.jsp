@@ -9,6 +9,8 @@
 </head>
 
 
+<body onLoad="defaultInitPage()">
+
 <!-- Modal -->
 <div class="modal fade" id="teamselector" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
@@ -85,4 +87,6 @@
     </div>
 </div>
 
+
+</body>
 
