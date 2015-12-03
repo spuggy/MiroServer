@@ -26,7 +26,6 @@
             defaultInitPage();
             mpfc = new MiroProjectFormController(<c:out value="${miroProject.id}"/>);
             mpfc.loadCandidates();
-            // mpfc.getShoppingCartItems();
         }
 
 
