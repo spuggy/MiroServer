@@ -1,0 +1,12 @@
+update mr.questions set qtxt = 'Spending a day or two alone makes you feel like yourself again' where id = 166;
+update mr.questions set qtxt = 'Often conversations have apparently gone on around you and you haven''t heard a word of them' where id = 169;
+update mr.questions set qtxt = 'You''d rather meet with one or two people than with a group' where id = 179;
+update mr.questions set qtxt = 'You''re better when your working day has no interruptions' where id = 180;
+update mr.questions set qtxt = 'You''re happy to let other people do the talking' where id = 172;
+update mr.questions set qtxt = 'Other people often seem to be over-excitable to you' where id = 182;
+update mr.questions set qtxt = 'You are usually the first to respond to an unexpected question' where id = 181;
+update mr.questions set qtxt = 'You prefer to curl up with a good book than go to a party' where id = 174;
+update mr.questions set qtxt = 'You feel quite at home in a large group of people' where id = 177;
+update mr.questions set qtxt = 'Socialising, attending a party, playing sport or shopping with friends makes you feel like yourself again' where id = 168;
+update mr.questions set qtxt = 'You are more comfortable at the back or at the side of a room than at the front or centre' where id = 178;
+update mr.questions set qtxt = 'It''s usually you doing the talking' where id = 175;
