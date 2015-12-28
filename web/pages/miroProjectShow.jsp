@@ -194,12 +194,12 @@
             <div class="panel-body bg-info">
 
                 <p>Sometimes companies employ email filters that can mistakenly mark your invite as spam. If your invite
-                    is trapped the candidate will not recieve their login!</p>
+                    is trapped the candidate will not receive their login!</p>
 
                 <p>If your MiRo emails are being caught by spam filters make sure you have the <strong>Copy email invites</strong> checkbox set in the project form (click edit project details).  This will
                     bcc you copies of your email invites to your inbox.  This means you will have a copy of the user credentials and be able to resend them from your
                     email account.</p>
-                <p>Alternatively click "edit" next to candidates name and change the email to your address and send the credentials to your email account</p>
+                <p>Alternatively, click "edit" next to the candidate's name and change the email to your address and send the credentials to your email account.</p>
 
             </div>
         </div>

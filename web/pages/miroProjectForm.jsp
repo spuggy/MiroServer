@@ -102,14 +102,14 @@
                     via email.</p>
 
                 <p>Sometimes companies employ email filters that can mistakenly mark your invite as spam. If your invite
-                    is trapped the candidate will not recieve their login!</p>
+                    is trapped the candidate will not receive their login!</p>
 
                 <h5>TIPS FOR AVOIDING SPAM</h5>
 
                 <p>When you fill in the email subject and invite text consider avoiding:</p>
 
                 <ul>
-                    <li>Excessive use of exclamation points!!!!!!!!!</li>
+                    <li>Excessive use of exclamation marks!!!!!!!!!</li>
                     <li>USING ALL CAPS, WHICH IS LIKE SCREAMING AT THE TOP OF YOUR LUNGS VIA EMAIL (especially in the
                         subject line).</li>
                     <li>Sending invites to multiple recipients within the same company. That company's email filter
@@ -118,8 +118,8 @@
                     <li>Using phrases like "Click here!" or "Once in a lifetime opportunity!"</li>
                     <li>Using the word "test" in the subject line.</li>
                     <li>Talking about lots of money</li>
-                    <li>Describe some sort of breakthrough</li>
-                    <li>Contains urgent matter, or Money back guarantee</li>
+                    <li>Describing some sort of breakthrough</li>
+                    <li>Containing urgent matter or Money back guarantee</li>
 
                 </ul>
 
