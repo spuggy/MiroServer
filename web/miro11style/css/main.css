@@ -106,5 +106,5 @@ table.pickList td select {
     padding-left:50px;
     display:block;
     height:160px;
-    overflow:scroll;
+    overflow:hidden;
 }

@@ -44,8 +44,6 @@ function closeAlert(id)  {
 }
 
 function setPlaceHolder(fieldId,placeHolderValue) {
-  console.log(fieldId);
-  console.log(placeHolderValue);
   $("#"+fieldId).attr("placeholder", placeHolderValue);
   return;
 }

@@ -4,9 +4,20 @@
     <content tag="heading"><fmt:message key="miroProjectDetail.heading"/></content>
     <meta name="menu" content="MiroProjectMenu"/>
 
+    <script type="text/javascript">
+
+        function initPage() {
+            $('form:not(.filter) :input:visible:enabled:first').focus();
+            setPlaceHolder("costcode", "A reference for your accounts");
+            setPlaceHolder("projectTitle", "A short reference name for the project");
+            setPlaceHolder("projectDescription", "Notes on your project so you can remember what it was for");
+            setPlaceHolder("emailInviteSubject", "The subject line for your invite emails");
+            setPlaceHolder("emailInviteText", "The body of the invite email. Give the candidates more information about the project");
+        }
+    </script>
 
 </head>
-<body onLoad="initPage()">
+<body onLoad="initPage();">
 
 <spring:bind path="miroProject.*"> <c:if test="${not empty status.errorMessages}">
     <div class="row">
@@ -76,10 +87,6 @@
 
         </form:form>
 
-        <script type="text/javascript">
-            Form.focusFirstElement($('miroProjectForm'));
-        </script>
-
         <v:javascript formName="miroProject" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
         <script type="text/javascript" src="<c:url value="/scripts/validator.jsp"/>"></script>
     </div>
@@ -126,17 +133,6 @@
         </div>
 
     </div>
-
-    <script type="application/javascript">
-
-        function initPage() {
-            setPlaceHolder("costcode", "A reference for your accounts");
-            setPlaceHolder("projectTitle", "A short reference name for the project");
-            setPlaceHolder("projectDescription", "Notes on your project so you can remember what it was for");
-            setPlaceHolder("emailInviteSubject", "The subject line for your invite emails");
-            setPlaceHolder("emailInviteText", "The body of the invite email. Give the candidates more information about the project");
-        }
-    </script>
 
 
 </div>
