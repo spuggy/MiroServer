@@ -68,7 +68,7 @@
 
 
         <div class="message" id="welcommess" style="display: none;">
-            <p>This is you project control panel. Here you can
+            <p>This is your project control panel. Here you can
                 add and save candidates to the project. You can send out email invitations individually or all together by
                 ticking the check boxes and clicking on "send email". You can send as many invitations as you like but once
                 someone has completed their assessment you will not be able to send another to that candidate.</p>
