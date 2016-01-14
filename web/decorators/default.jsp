@@ -42,7 +42,7 @@
                         <li><a class="navbar_main_link" href="miroProjects.html">My Projects</a></li>
                         <li><a class="navbar_main_link" href="miroTeamList.html">Team Reports</a></li>
                         <li><a class="navbar_main_link" href="editProfile.html">My Profile</a></li>
-                        <li><a class="navbar_main_link" href="webPages.html">Help</a></li>
+                        <li><a class="navbar_main_link" href="webPages.html?name=help">Help</a></li>
                     </ul>
                 </c:when>
                 <c:when test='${currentMenu == "admin"}'>
