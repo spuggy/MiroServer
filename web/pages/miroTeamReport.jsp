@@ -4,7 +4,6 @@
 </title>
 <head>
     <script type="text/javascript" src="/mirotest/miro11style/js/selectbox.js"></script>
-    <script type="text/javascript" src="/mirotest/miro11style/js/bootbox.min.js"></script>
 </head>
 <body onLoad="initPage()">
 
