@@ -2,6 +2,7 @@
 <%@ include file="/common/taglibs.jsp" %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+    <title><decorator:title/> | MiRo</title>
     <%@ include file="/common/html_head_common.jsp" %>
     <decorator:head/>
 </head>

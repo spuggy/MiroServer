@@ -2,6 +2,7 @@
 <%@ include file="/common/taglibs.jsp" %>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
+<title>Login | MiRo</title>
     <%@ include file="/common/html_head_common.jsp" %>
 
 </head>
@@ -17,6 +18,15 @@
             <div id="errorMessages" class="alert alert-danger alert-dismissible" role="alert">
                 <fmt:message key="errors.password.mismatch"/>
             </div>
+        </c:if>
+        <c:if test="${not empty successMessages}">
+            <div id="successMessages" class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" onclick="closeAlert('#successMessages')"><span aria-hidden="true">&times;</span></button>
+                <c:forEach var="msg" items="${successMessages}">
+                    <c:out value="${msg}" escapeXml="false"/><br />
+                </c:forEach>
+            </div>
+            <c:remove var="successMessages" scope="session"/>
         </c:if>
         <div class="form-group">
             <label for="j_username" class="desc">Username</label>
@@ -40,6 +50,11 @@
     </form>
 
     <%@include file="/common/site_javascript.jsp" %>
+
+
+    <script>
+      var passwordHintUrl = '<c:url value="/passwordHint.html"/>';
+    </script>
     <script src="/mirotest/miro11style/js/login.js"></script>
 
 </div>

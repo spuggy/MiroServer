@@ -28,14 +28,14 @@ if (!Function.prototype.bind) {
 }
 
 
-window.alert = function(mess) {
-  $("#warning-alert-mess").text(mess);
-  $("#warning-alert").alert();
-  $("#warning-alert").fadeTo(2000, 500).slideUp(500, function(){
-    $("#warning-alert").alert('close');
-  })
-  return;
-};
+//window.alert = function(mess) {
+//  $("#warning-alert-mess").text(mess);
+//  $("#warning-alert").alert();
+//  $("#warning-alert").fadeTo(2000, 500).slideUp(500, function(){
+//    $("#warning-alert").alert('close');
+//  })
+//  return;
+//};
 
 function closeAlert(id)  {
   $(id).fadeTo(2000, 500).slideUp(500, function(){

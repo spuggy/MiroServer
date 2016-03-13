@@ -34,6 +34,7 @@ public class PasswordHintController implements Controller {
     private transient final Log log = LogFactory.getLog(PasswordHintController.class);
     private UserManager mgr = null;
     private MessageSource messageSource = null;
+    protected final String MESSAGES_KEY = "successMessages";
     protected MailEngine mailEngine = null;
     protected SimpleMailMessage message = null;
     
@@ -90,15 +91,13 @@ public class PasswordHintController implements Controller {
             msg.append("\n\nLogin at: " + RequestUtil.getAppURL(request));
 
             message.setTo(user.getEmail());
-            String subject = '[' + text.getMessage("webapp.name") + "] " + 
-                             text.getMessage("user.passwordHint");
+            String subject = "[MiRo] " + text.getMessage("user.passwordHint");
             message.setSubject(subject);
             message.setText(msg.toString());
             mailEngine.send(message);
 
-            saveMessage(request,
-                        text.getMessage("login.passwordHint.sent",
-                                        new Object[] { username, user.getEmail() }));
+            saveMessage(request, text.getMessage("login.passwordHint.sent", new Object[] { username, user.getEmail() }));
+            log.debug(" .. Password Hint sent to ..." + user.getEmail());
         } catch (Exception e) {
             saveError(request,
                       text.getMessage("login.passwordHint.error",
@@ -119,11 +118,13 @@ public class PasswordHintController implements Controller {
 
     // this method is also in BaseForm Controller
     public void saveMessage(HttpServletRequest request, String msg) {
-        List messages = (List) request.getSession().getAttribute("messages");
+        List messages = (List) request.getSession().getAttribute(MESSAGES_KEY);
+
         if (messages == null) {
             messages = new ArrayList();
         }
+
         messages.add(msg);
-        request.getSession().setAttribute("messages", messages);
+        request.getSession().setAttribute(MESSAGES_KEY, messages);
     }
 }

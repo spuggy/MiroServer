@@ -8,7 +8,6 @@
 <!-- Prevents caching at the Proxy Server -->
 <meta http-equiv="Expires" content="0"/>
 <link rel="icon" href="<c:url value="/miro11style/icons/favicon.ico"/>"/>
-<title><decorator:title/> | MiRo</title>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/miro11style/css/bootstrap.css'/>"/>
 <link rel="stylesheet" type="text/css" media="all" href="<c:url value='/miro11style/css/main.css'/>"/>
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
