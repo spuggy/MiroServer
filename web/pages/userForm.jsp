@@ -28,7 +28,7 @@
 <div class="row">
     <div class="col-sm-6">
 
-        <form:form commandName="user" method="post" action="editUser.html" onsubmit="return onFormSubmit(this)" id="userForm">
+        <form:form commandName="user" method="post" action="editUser.html" onsubmit="return onUserFormSubmit(this)" id="userForm">
             <form:hidden path="id"/> <form:hidden path="version"/> <form:hidden path="pinNumber"/>
             <input type="hidden" name="from" value="<c:out value="${param.from}"/>"/>
 
@@ -259,7 +259,7 @@
     }
 
     <!-- This is here so we can exclude the selectAll call when roles is hidden -->
-    function onFormSubmit(theForm) {
+    function onUserFormSubmit(theForm) {
         <c:if test="${param.from == 'list'}">
         selectAll('userRoles');
         </c:if>
