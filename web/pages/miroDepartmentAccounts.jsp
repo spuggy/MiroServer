@@ -8,7 +8,7 @@
 
 <div class="row">
     <div id="miro-content" class="col-sm-8">
-
+        <p>
         <form class="form-inline" action="departmentAccounts.html" method="GET">
             <div class="form-group">
                 <label for="year_selected">Year</label>
@@ -44,10 +44,11 @@
                     </select>
 
             </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
         </form>
 
-
+        </p>
 
             <display:table name="reportLines" cellspacing="0" cellpadding="0" requestURI=""
                            id="reportLines" pagesize="200" class="table table-condensed table-hover" export="true" decorator="org.displaytag.decorator.TotalTableDecorator">
@@ -62,11 +63,6 @@
                 <display:column  property="indnumber" titleKey="departmentadmin.individual_reports"  total="true" format="{0,number,#.##}"/>
                 <display:column  property="teamnumber" titleKey="departmentadmin.team_reports"  total="true" format="{0,number,#.##}" />
 
-
-
-
-                <display:setProperty name="paging.banner.item_name" value="Practitioner"/>
-                <display:setProperty name="paging.banner.items_name" value="Practitioners"/>
             </display:table>
 
 
