@@ -1,5 +1,7 @@
 package uk.co.bluetrail.mobriz.model;
 
+import java.util.Date;
+
 /**
  * stores a simple web page. 
  *
@@ -10,14 +12,64 @@ package uk.co.bluetrail.mobriz.model;
  */
 public class WebPage extends BaseObject {
 
+	public static int PUBLISHED = 1;
+	public static int DRAFT = 0;
+
+	public static int WEBPAGE = 1;
+	public static int BLOG = 0;
+
+
 	private Long id ;
 	private String pageText;
 	private String pageName ; 
-	private int menuContextId ; 
+	private int menuContextId = 1 ;
 	private String description ;
-	
-	
-	
+	private int pageType  = WEBPAGE;
+	private Date publishedDate = new Date();
+	private int pageStatus = DRAFT;
+
+	/**
+	 * @hibernate.property
+	 */
+	public int getPageType() {
+		return pageType;
+	}
+
+	/**
+	 * @spring.validator type="required"
+	 */
+	public void setPageType(int pageType) {
+		this.pageType = pageType;
+	}
+
+	/**
+	 * @hibernate.property
+	 */
+	public Date getPublishedDate() {
+		return publishedDate;
+	}
+
+	/**
+	 * @spring.validator type="required"
+	 */
+	public void setPublishedDate(Date publishedDate) {
+		this.publishedDate = publishedDate;
+	}
+
+	/**
+	 * @hibernate.property
+	 */
+	public int getPageStatus() {
+		return pageStatus;
+	}
+
+	/**
+	 * @spring.validator type="required"
+	 */
+	public void setPageStatus(int pageStatus) {
+		this.pageStatus = pageStatus;
+	}
+
 	/**
      * @hibernate.property length="255" not-null="true"
      */

@@ -129,7 +129,10 @@
     <!--WebPage-BEAN-START-->
     <bean id="webPageController" class="uk.co.bluetrail.mobriz.webapp.action.WebPageController" autowire="byName"/>
 
-    <bean id="webPageFormController" class="uk.co.bluetrail.mobriz.webapp.action.WebPageFormController" autowire="byName">
+    <bean id="contentPageController" class="uk.co.bluetrail.mobriz.webapp.action.ContentPageController" autowire="byName"/>
+
+
+  <bean id="webPageFormController" class="uk.co.bluetrail.mobriz.webapp.action.WebPageFormController" autowire="byName">
         <property name="validator" ref="beanValidator"/>
         <property name="formView" value="webPageForm"/>
         <property name="successView" value="redirect:webPages.html"/>
@@ -228,7 +231,7 @@
 	<bean id="homePageController" class="uk.co.bluetrail.mobriz.webapp.action.HomePageController" >
 		<property name="homePages">
 			<props>
-                <prop key="admin">redirect:miroProjects.html</prop>
+                <prop key="admin">redirect:content.html?pageType=1&amp;view=blogPageList</prop>
                 <prop key="sysadmin">redirect:admin.html</prop>
                 <prop key="client">redirect:responses.html</prop>
                 <prop key="departmentadmin">redirect:departmentAccounts.html</prop>
@@ -330,7 +333,8 @@
    				<prop key="/lookupDefItemExport.html">lookupDefItemController</prop>
    				<prop key="/deleteLookupItem.html">lookupDefItemController</prop>
    				<prop key="/miroSurvey.html">miroSurveyController</prop>
-   				 <prop key="/webPages.html">webPageController</prop>
+              <prop key="/content.html">contentPageController</prop>
+              <prop key="/webPages.html">webPageController</prop>
                 <prop key="/editWebPage.html">webPageFormController</prop>
    				
    				    <prop key="/mobrizAlerts.html">mobrizAlertController</prop>

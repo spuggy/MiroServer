@@ -26,14 +26,18 @@ public class WebPageController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest request,
                                       HttpServletResponse response)
-    throws Exception {
+            throws Exception {
         if (log.isDebugEnabled()) {
             log.debug("entering 'handleRequest' method...");
         }
-        
+
         String name = request.getParameter("name");
-        
-        if(name==null) {
+        String pageTypeStr = request.getParameter("pageType");
+        String listView = request.getParameter("view");
+
+        if(listView==null) {
+           listView = "webPageList";
+        }
 
         WebPage webPage = new WebPage();
         // populate object with request parameters
@@ -41,17 +45,8 @@ public class WebPageController implements Controller {
 
         List webPages = webPageManager.getWebPages(webPage);
 
-        return new ModelAndView("webPageList", Constants.WEBPAGE_LIST, webPages);
-        } else {
-        	
-        	WebPage webPage = webPageManager.getWebPageByName(name) ;
-        	
-        	return new ModelAndView("webPageShow", "webPage", webPage);
-        	
-        	
-        }
-        
-        
-        
+        return new ModelAndView(listView, Constants.WEBPAGE_LIST, webPages);
+
+
     }
 }

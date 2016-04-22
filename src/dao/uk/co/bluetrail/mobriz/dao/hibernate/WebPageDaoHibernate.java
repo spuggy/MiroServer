@@ -69,34 +69,45 @@ public class WebPageDaoHibernate extends BaseDaoHibernate implements WebPageDao 
     }
 
 	public WebPage getWebPageByName(final String name) {
-		  HibernateCallback callback = new HibernateCallback() {
-		     	public Object doInHibernate(Session session) throws HibernateException, SQLException {
-		         	 
-		             Criteria crit = session.createCriteria(WebPage.class);
-		            
-		             crit.setMaxResults(1);
-		             
-		            
-		            crit.add(Expression.eq("pageName",name));
-		              
-		           
-		             
-		             crit.addOrder(Order.desc("id"));
-		             
-		             
-		             return  crit.list();
-		             
-		         }
-		     };
-			
-		     List webPages=  (List) getHibernateTemplate().execute(callback);
-			
-		     if(webPages != null && webPages.size() > 0 ) {
-					return (WebPage) webPages.get(0) ;
-			}
-			      
-	           log.warn("uh oh, webPage with name'" + name + "' not found...");
-	            throw new ObjectRetrievalFailureException(WebPage.class, name);
+
+      HibernateCallback callback = new HibernateCallback() {
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+
+         Criteria crit = session.createCriteria(WebPage.class);
+             crit.setMaxResults(1);
+             crit.add(Expression.eq("pageName",name));
+             crit.addOrder(Order.desc("id"));
+          return  crit.list();
+
+             }
+         };
+
+         List webPages=  (List) getHibernateTemplate().execute(callback);
+
+         if(webPages != null && webPages.size() > 0 ) {
+                return (WebPage) webPages.get(0) ;
+        } else {
+             return null;
+         }
 
 	}
+
+    public List  getWebPagesTypeByDate(final int pageType, final int limit) {
+        HibernateCallback callback = new HibernateCallback() {
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+         Criteria crit = session.createCriteria(WebPage.class);
+            crit.setMaxResults(limit);
+            crit.add(Expression.eq("pageType",pageType));
+            crit.add(Expression.eq("pageStatus",WebPage.PUBLISHED));
+            crit.addOrder(Order.desc("publishedDate"));
+            return  crit.list();
+
+            }
+        };
+
+        List webPages=  (List) getHibernateTemplate().execute(callback);
+
+        return webPages;
+
+    }
 }

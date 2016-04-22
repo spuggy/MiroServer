@@ -15,53 +15,79 @@
     </c:if>
 </spring:bind>
 
-<form:form commandName="webPage" method="post" action="editWebPage.html" onsubmit="return validateWebPage(this)" id="webPageForm">
-<ul>
+<div class="row">
+    <div class="col-sm-8">
 
-    <li>
-        <mobriz4server:label styleClass="desc" key="webPage.description"/>
-        <form:errors path="description" cssClass="fieldError"/>
-        <form:input path="description" id="description" cssClass="text medium"/>
-    </li>
+        <form:form commandName="webPage" method="post" action="editWebPage.html" onsubmit="return validateWebPage(this)" id="webPageForm">
+           <form:hidden path="id"/>
 
-<form:hidden path="id"/>
+        <button class="btn btn-primary" name="save" onclick="bCancel=false"><fmt:message key="button.save"/></button>
+        <button class="btn btn-default" name="cancel" onclick="bCancel=true"><fmt:message key="button.cancel"/></button>
+        <c:if test="${!empty webPage.id}">
+        <button class="btn btn-default" name="delete" onclick="bCancel=true;return confirmDelete('WebPage')">
+            <fmt:message key="button.delete"/></button>
+        </c:if>
+        <button type="button" class="btn" name="preview" onclick="webPagePreview()">preview</button>
 
-    <li>
-        <mobriz4server:label styleClass="desc" key="webPage.menuContextId"/>
-        <form:errors path="menuContextId" cssClass="fieldError"/>
-        <form:radiobutton path="menuContextId" id="menuContextId" value="1"/>MiroProjectMenu
-        <form:radiobutton path="menuContextId" id="menuContextId" value="2"/>Accounts
-        <form:radiobutton path="menuContextId" id="menuContextId" value="3"/>Admin
-        <form:radiobutton path="menuContextId" id="menuContextId" value="4"/>Help
-        <form:radiobutton path="menuContextId" id="menuContextId" value="5"/>Reports
-        
-        
-    </li>
 
-    <li>
-        <mobriz4server:label styleClass="desc" key="webPage.pageName"/>
-        <form:errors path="pageName" cssClass="fieldError"/>
-        <form:input path="pageName" id="pageName" cssClass="text medium"/>
-    </li>
+        <div class="form-group">
+            <mobriz4server:label styleClass="control-label" key="webPage.description"/>
+            <form:errors path="description" cssClass="fieldError"/>
+            <form:input path="description" id="description" cssClass="form-control"/>
+        </div>
 
-    <li>
-        <mobriz4server:label styleClass="desc" key="webPage.pageText"/>
-        <form:errors path="pageText" cssClass="fieldError"/>
-        <form:textarea  path="pageText" id="pageText" cssClass="editor"/>
-    
-    </li>
+        <div class="form-group">
+            <mobriz4server:label styleClass="control-label" key="webPage.pageType"/>
+            <form:errors path="pageType" cssClass="fieldError"/>
+            <form:radiobutton path="pageType" id="pageType"  value="0"/> Web Page
+            <form:radiobutton path="pageType" id="pageType"  value="1"/> Blog
+        </div>
 
-    <li class="buttonBar bottom">
-        <input type="submit" class="button" name="save"  onclick="bCancel=false" value="<fmt:message key="button.save"/>" />
-        <input type="submit" class="button" name="delete" onclick="bCancel=true;return confirmDelete('WebPage')" value="<fmt:message key="button.delete"/>" />
-        <input type="submit" class="button" name="cancel" onclick="bCancel=true" value="<fmt:message key="button.cancel"/>" />
-    </li>
-</ul>
+        <div class="form-group">
+            <mobriz4server:label styleClass="control-label" key="webPage.menuContextId"/>
+            <form:errors path="menuContextId" cssClass="fieldError"/>
+            <form:radiobutton path="menuContextId" id="menuContextId"  value="1"/> MiroProjectMenu
+            <form:radiobutton path="menuContextId" id="menuContextId"  value="2"/> Accounts
+            <form:radiobutton path="menuContextId" id="menuContextId"  value="3"/> Admin
+            <form:radiobutton path="menuContextId" id="menuContextId"  value="4"/> Help
+        </div>
+
+        <div class="form-group">
+            <mobriz4server:label styleClass="control-label" key="webPage.pageName"/>
+            <form:errors path="pageName" cssClass="fieldError"/>
+            <form:input path="pageName" id="pageName" cssClass="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <mobriz4server:label styleClass="control-label" key="webPage.pageStatus"/>
+            <form:errors path="pageStatus" cssClass="fieldError"/>
+            <form:radiobutton path="pageStatus" id="pageStatus"  value="0"/> DRAFT
+            <form:radiobutton path="pageStatus" id="pageStatus"  value="1"/> PUBLISHED
+        </div>
+
+        <div class="form-group">
+            <mobriz4server:label styleClass="control-label" key="webPage.publishedDate"/>
+            <form:errors path="publishedDate" cssClass="fieldError"/>
+            <form:input path="publishedDate" id="publishedDate" cssClass="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <mobriz4server:label styleClass="control-label" key="webPage.pageText"/>
+            <form:errors path="pageText" cssClass="fieldError"/>
+            <form:textarea  path="pageText" id="pageText" cssClass="form-control" rows="50"/>
+        </div>
+
 </form:form>
-
-<script type="text/javascript">
-    Form.focusFirstElement($('webPageForm'));
-</script>
 
 <v:javascript formName="webPage" cdata="false" dynamicJavascript="true" staticJavascript="false"/>
 <script type="text/javascript"  src="<c:url value="/scripts/validator.jsp"/>"></script>
+<script type="text/javascript">
+  function webPagePreview() {
+      var w = window.open("","preview");
+      w.location='content.html?name='+$("#pageName").val();
+  }
+
+</script>
+
+
+

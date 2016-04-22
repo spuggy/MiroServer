@@ -5,12 +5,7 @@
 <meta name="menu" content="admin"/>
 
 <c:set var="buttons">
-    <input type="button" style="margin-right: 5px"
-        onclick="location.href='<c:url value="/editWebPage.html"/>'"
-        value="<fmt:message key="button.add"/>"/>
-
-    <input type="button" onclick="location.href='<c:url value="/mainMenu.html"/>'"
-        value="<fmt:message key="button.done"/>"/>
+    <button class="btn btn-primary" name="save" onclick="location.href='<c:url value="/editWebPage.html"/>'"><fmt:message key="button.add"/></button>
 </c:set>
 
 <c:out value="${buttons}" escapeXml="false"/>
@@ -18,7 +13,7 @@
 <display:table name="webPageList" cellspacing="0" cellpadding="0" requestURI=""
     id="webPageList" pagesize="25" class="table webPageList" export="true">
     
- 	<display:column property="pageName" escapeXml="true"titleKey="webPage.pageName" url="/editWebPage.html" paramId="id" paramProperty="id" />
+ 	<display:column property="pageName" escapeXml="true" titleKey="webPage.pageName" url="/editWebPage.html" paramId="id" paramProperty="id" />
        
     <display:column property="description" escapeXml="true"  />
         

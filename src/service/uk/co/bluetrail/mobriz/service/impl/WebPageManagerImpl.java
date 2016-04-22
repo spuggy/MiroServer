@@ -11,6 +11,11 @@ import uk.co.bluetrail.mobriz.service.WebPageManager;
 public class WebPageManagerImpl extends BaseManager implements WebPageManager {
     private WebPageDao dao;
 
+    public List getWebPagesByTypeByDate(int type,final int limit) {
+        return dao.getWebPagesTypeByDate(type,limit);
+    }
+
+
     /**
      * Set the Dao for communication with the data layer.
      * @param dao
