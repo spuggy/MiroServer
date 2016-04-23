@@ -112,7 +112,7 @@ public class MiroTeamReportTest extends TestCase {
 
 		StringBuffer sb = new StringBuffer();
 
-		sb.append("<p>My money's in that office</p>");
+		sb.append("<p>My money's in that office & whats more there are & this this</p>");
 
 		this.miroTeam.setCommentary(sb.toString());
 
