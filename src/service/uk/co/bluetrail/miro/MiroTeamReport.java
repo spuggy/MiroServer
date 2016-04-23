@@ -1,6 +1,7 @@
 package uk.co.bluetrail.miro;
 
 import org.apache.commons.collections.map.LinkedMap;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
@@ -150,7 +151,7 @@ public class MiroTeamReport {
 		this.miroTeam = miroTeam;
 		
 		if(miroTeam == null) {
-			log.error("The miroTeamReportis null");
+			log.error("The miroTeamReport is null");
 		}
 		
 		calculateResultsTable();
@@ -172,13 +173,14 @@ public class MiroTeamReport {
 
 	private void generateDynamicContent() throws IOException {
 
+
 		MiroDynamicContentFileGenerator f = new MiroDynamicContentFileGenerator(this.baseDirectory,this.miroTeam.getMiroTeamNameFileName("_dynamic.xhtml"));
 		
 		if(this.miroTeam.getCommentary()==null || this.miroTeam.getCommentary().equals("")) {
 			//dont add blank stuff it freaks the pdf generator out.
 		} else {
 			
-			f.addContent("commentary","<h3>Practitioner Commentary</h3>" + this.miroTeam.getCommentary());
+			f.addContent("commentary","<h3>Practitioner Commentary</h3>" + StringEscapeUtils.escapeHtml(this.miroTeam.getCommentary()));
 		}
 		
 		f.addContent("dummy","dummy");

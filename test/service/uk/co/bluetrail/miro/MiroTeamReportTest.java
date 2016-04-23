@@ -106,6 +106,31 @@ public class MiroTeamReportTest extends TestCase {
 		
 	}
 
+	public void testGenerateWithCommentaryWithNoAsciiChars() {
+		defaultTeam();
+
+
+		StringBuffer sb = new StringBuffer();
+
+		sb.append("<p>My money's in that office</p>");
+
+		this.miroTeam.setCommentary(sb.toString());
+
+		this.miroTeam.setMiroTeamName("something with & in it");
+
+		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroLetters,miroLevels,dynamicTensionDefaults);
+
+		mtr.setResults(this.teamResults);
+
+		try {
+			mtr.generateReport(miroTeam);
+		} catch (Exception e) {
+			Assert.fail("generate threw exception " + e.getMessage());
+		}
+
+
+	}
+
 
     public void testGenerateWithBigCommentary() {
         defaultTeam();
