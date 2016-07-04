@@ -40,7 +40,6 @@
             <c:choose>
                 <c:when test='${currentMenu == "MiroProjectMenu"}'>
                     <ul class="nav navbar-nav">
-                        <li><a class="navbar_main_link" href="content.html?pageType=1&view=blogPageList">News</a></li>
                         <li><a class="navbar_main_link" href="miroProjects.html">My Projects</a></li>
                         <li><a class="navbar_main_link" href="miroTeamList.html">Team Reports</a></li>
                         <li class="hidden-md hidden-xs hidden-sm"><a class="navbar_main_link" href="content.html?name=downloads">Resources</a></li>

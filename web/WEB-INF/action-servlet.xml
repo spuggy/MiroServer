@@ -231,7 +231,7 @@
 	<bean id="homePageController" class="uk.co.bluetrail.mobriz.webapp.action.HomePageController" >
 		<property name="homePages">
 			<props>
-                <prop key="admin">redirect:content.html?pageType=1&amp;view=blogPageList</prop>
+                <prop key="admin">redirect:miroProjects.html</prop>
                 <prop key="sysadmin">redirect:admin.html</prop>
                 <prop key="client">redirect:responses.html</prop>
                 <prop key="departmentadmin">redirect:departmentAccounts.html</prop>
