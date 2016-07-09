@@ -21,10 +21,6 @@
  <meta name="menu" content="help"/>
   </c:when>
 
- <c:when test="${webPage.menuContextId=='5'}">
- <meta name="menu" content="reports"/>
-  </c:when>
-  
  </c:choose>
  
 
@@ -48,15 +44,8 @@ var cal = new CalendarPopup();
 
 </script> 
 
-
-
-
 </head>
-<body> 
-<ul>
-<li>
+<body>
 <%=webPage.getPageText()%>
-</li>
-</ul>
 </body>
 `

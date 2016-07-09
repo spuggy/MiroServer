@@ -32,8 +32,8 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="#">
-                <img class="hidden-xs" src="<c:url value='/miro11style/img/miro-logo.png'/>" alt="MiRo Psychometrics"/>
-                <img class="visible-xs" src="<c:url value='/miro11style/img/miro-logo-small.png'/>" alt="MiRo Psychometrics"/>
+                <img class="hidden-md hidden-xs hidden-sm" src="<c:url value='/miro11style/img/miro-logo.png'/>" alt="MiRo Psychometrics"/>
+                <img class="visible-md visible-xs visible-sm" src="<c:url value='/miro11style/img/miro-logo-small.png'/>" alt="MiRo Psychometrics"/>
             </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse miro-navbar">
@@ -42,15 +42,24 @@
                     <ul class="nav navbar-nav">
                         <li><a class="navbar_main_link" href="miroProjects.html">My Projects</a></li>
                         <li><a class="navbar_main_link" href="miroTeamList.html">Team Reports</a></li>
-                        <li><a class="navbar_main_link" href="editProfile.html">My Profile</a></li>
-                        <li><a class="navbar_main_link" href="webPages.html?name=help">Help</a></li>
+                        <li class="hidden-md hidden-xs hidden-sm"><a class="navbar_main_link" href="content.html?name=downloads">Resources</a></li>
+                        <li></li>
+                        <li class="hidden-md hidden-xs hidden-sm"><a class="navbar_main_link" href="content.html?name=help">Help</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="editProfile.html">Edit My Profile</a></li>
+                                <li class="visible-md visible-xs visible-sm"><a class="navbar_main_link" href="content.html?name=downloads">Resources</a></li>
+                                <li class="visible-md visible-xs visible-sm"><a class="navbar_main_link" href="content.html?name=help">Help</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </c:when>
                 <c:when test='${currentMenu == "admin"}'>
                     <ul class="nav navbar-nav">
                         <li><a class="navbar_main_link" href="users.html">Users</a></li>
                         <li><a class="navbar_main_link" href="settings.html">Settings</a></li>
-                        <li><a class="navbar_main_link" href="webPages.html">Help</a></li>
+                        <li><a class="navbar_main_link" href="webPages.html">Content</a></li>
                     </ul>
 
                 </c:when>

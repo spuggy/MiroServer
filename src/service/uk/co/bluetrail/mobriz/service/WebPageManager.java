@@ -8,8 +8,10 @@ import uk.co.bluetrail.mobriz.model.WebPage;
 import uk.co.bluetrail.mobriz.dao.WebPageDao;
 
 public interface WebPageManager extends Manager {
-   
-	public WebPage getWebPageByName(String name);
+
+    public List getWebPagesByTypeByDate(int type,final int limit);
+
+    public WebPage getWebPageByName(String name);
 	
 	/**
      * Retrieves all of the webPages

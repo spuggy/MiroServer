@@ -44,5 +44,7 @@ public interface WebPageDao extends Dao {
      * @param id the webPage's id
      */
     public void removeWebPage(final Long id);
+
+    public List  getWebPagesTypeByDate(final int pageType,final int limit);
 }
 

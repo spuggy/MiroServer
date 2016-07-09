@@ -82,8 +82,6 @@ public class HomePageController implements Controller {
             return new ModelAndView((String) homePages.get(Constants.DEPARTMENT_ADMIN_ROLE));
         }
 
-
-
         if(isAdmin) {
     		return new ModelAndView((String) homePages.get(Constants.ADMIN_ROLE));
     	} 

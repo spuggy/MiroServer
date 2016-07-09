@@ -84,6 +84,8 @@
                 /miroTeamPie.html*=admin
                 /myaccount.html*=admin
                 /departmentAccounts.html*=departmentadmin
+                /webPages.html=sysadmin
+                /editWebPage.html=sysadmin
                 /**/*.html*=admin,user
             </value>
         </property>

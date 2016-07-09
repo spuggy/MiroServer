@@ -37,6 +37,11 @@ h4, h5, h6 {
     .navbar-brand {padding: 15px 0px;}
 }
 
+#navbar .navbar-nav .open .dropdown-menu>li>a,.navbar-default .navbar-nav .open .dropdown-menu {
+    font-size: 12px;
+    border-bottom: none;
+    text-decoration: none;
+}
 
 #navbar  a {
     font-size: 20px;
@@ -46,12 +51,12 @@ h4, h5, h6 {
     border-bottom: 2px dotted #d63f36;
     white-space: normal;}
 
-#navbar a:hover,
-.active > a {
+#navbar a:hover, .active > a {
     color: #2fa5d1;
     border-color: #44aed6; }
 
-#navbar li { padding-right: 10px
+#navbar li {
+    padding-right: 10px
 }
 
 .page-header {
