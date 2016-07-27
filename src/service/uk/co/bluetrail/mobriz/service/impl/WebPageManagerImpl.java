@@ -32,6 +32,15 @@ public class WebPageManagerImpl extends BaseManager implements WebPageManager {
     }
 
     /**
+     * @see uk.co.bluetrail.mobriz.service.WebPageManager#getWebPages(uk.co.bluetrail.mobriz.model.WebPage)
+     */
+    public List getWebPages() {
+        return dao.getWebPages();
+    }
+
+
+
+    /**
      * @see uk.co.bluetrail.mobriz.service.WebPageManager#getWebPage(String id)
      */
     public WebPage getWebPage(final String id) {

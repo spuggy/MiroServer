@@ -19,9 +19,14 @@ public interface WebPageDao extends Dao {
     public WebPage getWebPageByName(final String name);
 	
     /**
-     * Retrieves all of the webPages
+     * Retrieves all of the webPages with template
      */
     public List getWebPages(WebPage webPage);
+
+    /**
+     * Retrieves all of the webPages
+     */
+    public List getWebPages();
 
     /**
      * Gets webPage's information based on primary key. An

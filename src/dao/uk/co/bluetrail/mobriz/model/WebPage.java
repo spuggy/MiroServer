@@ -16,7 +16,7 @@ public class WebPage extends BaseObject {
 	public static int DRAFT = 0;
 
 	public static int WEBPAGE = 1;
-	public static int BLOG = 0;
+	public static int NEWS = 0;
 
 
 	private Long id ;
@@ -27,6 +27,24 @@ public class WebPage extends BaseObject {
 	private int pageType  = WEBPAGE;
 	private Date publishedDate = new Date();
 	private int pageStatus = DRAFT;
+
+	/**
+	 * @hibernate.property
+	 */
+	public String getPageSummary() {
+		if(pageSummary==null) {
+			return "";
+		} else {
+			return pageSummary;
+		}
+	}
+
+	public void setPageSummary(String pageSummary) {
+		this.pageSummary = pageSummary;
+	}
+
+	private String pageSummary;
+
 
 	/**
 	 * @hibernate.property

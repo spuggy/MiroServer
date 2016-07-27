@@ -9,44 +9,66 @@
 
 
 </head>
-<body onLoad="defaultInitPage()">
+<div onLoad="defaultInitPage()">
 
- <c:set var="buttons"> <button class="btn btn-primary" onclick="location.href='<c:url value="/editMiroProject.html"/>'"><fmt:message key="button.addProject"/></button></c:set>
+    <c:set var="buttons">
+        <button class="btn btn-primary" onclick="location.href='<c:url value="/editMiroProject.html"/>'">
+            <fmt:message key="button.addProject"/></button>
+    </c:set>
 
-<div class="row">
-    <div id="miro-content" class="col-sm-8">
 
     <c:if test="${empty miroProjectList}">
-            <p>Hi <authz:authentication operation="firstName"/></p>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>Hi <authz:authentication operation="firstName"/></p>
 
-            <div class="message" id="welcommess">
-                <p>Welcome to your MiRo practitioner control panel. From here you can set up and manage your projects.
-                    You can also credit your account and change your personal details whenever you need to and if you
-                    have any questions, the information on the <a href="help.html">help page</a> will answer them. </p>
+                <div class="message" id="welcommess">
+                    <p>Welcome to your MiRo practitioner control panel. From here you can set up and manage your
+                        projects. You can also credit your account and change your personal details whenever you need to
+                        and if you have any questions, the information on the <a href="help.html">help page</a> will
+                        answer them. </p>
+                </div>
+
+                <p><c:out value="${buttons}" escapeXml="false"/></p>
+
             </div>
+        </div>
+    </c:if>
 
-        <p><c:out value="${buttons}" escapeXml="false"/></p>
+    <c:if test="${!empty miroProjectList}">
+        <div class="row">
+            <div class="col-sm-12">
+                <p><c:out value="${buttons}" escapeXml="false"/></p>
+            </div>
+        </div>
+        <div class="row">
 
-        </c:if>
-
-        <c:if test="${!empty miroProjectList}">
-
-            <p><c:out value="${buttons}" escapeXml="false"/></p>
-
-            <display:table name="miroProjectList" cellspacing="0" cellpadding="0" requestURI="" id="miroProjectList" pagesize="50" class="table table-condensed table-hover" export="false">
-                <display:column property="projectTitle" escapeXml="true" url="/showProject.html" paramId="id" paramProperty="id" titleKey="miroProject.projectTitle"/>
-                <display:column property="costcode" escapeXml="true" titleKey="miroProject.costcode"/>
-                <display:column property="projectDescription" escapeXml="true" titleKey="miroProject.projectDescription"/>
-                <display:column property="created_on" headerClass="sortable" titleKey="surveyForm.created_on" decorator="uk.co.bluetrail.mobriz.webapp.util.ShortDateDecorator"/>
-                <display:setProperty name="paging.banner.item_name" value="Project"/>
-                <display:setProperty name="paging.banner.items_name" value="Projects"/>
-                <display:setProperty name="paging.banner.placement" value="bottom"/>
-            </display:table>
+            <div class="col-sm-8">
 
 
-        </c:if>
+                <display:table name="miroProjectList" cellspacing="0" cellpadding="0" requestURI="" id="miroProjectList" pagesize="50" class="table table-condensed table-hover" export="false">
+                    <display:column class="col-sm-1" property="created_on" headerClass="sortable" titleKey="surveyForm.created_on" decorator="uk.co.bluetrail.mobriz.webapp.util.ShortDateDecorator"/>
+                    <display:column class="col-sm-7" titleKey="miroProject.projectTitle" maxLength="100">
+                        <div><a href="/showProject.html?id=<c:out value="${miroProjectList.id}"/>"><c:out value="${miroProjectList.projectTitle}"/></a></div>
+                    </display:column>
+                    <display:setProperty name="paging.banner.item_name" value="Project"/>
+                    <display:setProperty name="paging.banner.items_name" value="Projects"/>
+                    <display:setProperty name="paging.banner.placement" value="bottom"/> </display:table>
 
-    </div>
+            </div>
+            <div class="col-sm-4">
+                <ul class="list-group news-bar">
+                    <c:forEach var="webPage" items="${newsPageList}" >
+                        <c:out value="${webPage.pageSummary}" escapeXml="false"/>
+                        <hr/>
+                    </c:forEach>
+                </ul>
+            </div>
+        </div>
+    </c:if>
+
+
+</div>
 </div>
 
 

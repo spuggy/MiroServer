@@ -1,0 +1,1 @@
+ALTER TABLE mr.webpages ADD COLUMN pagesummary text;

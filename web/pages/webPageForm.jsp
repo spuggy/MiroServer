@@ -39,8 +39,8 @@
         <div class="form-group">
             <mobriz4server:label styleClass="control-label" key="webPage.pageType"/>
             <form:errors path="pageType" cssClass="fieldError"/>
-            <form:radiobutton path="pageType" id="pageType"  value="0"/> Web Page
-            <form:radiobutton path="pageType" id="pageType"  value="1"/> Blog
+            <form:radiobutton path="pageType" id="pageType"  value="1"/> Web Page
+            <form:radiobutton path="pageType" id="pageType"  value="0"/> News
         </div>
 
         <div class="form-group">
@@ -69,6 +69,12 @@
             <mobriz4server:label styleClass="control-label" key="webPage.publishedDate"/>
             <form:errors path="publishedDate" cssClass="fieldError"/>
             <form:input path="publishedDate" id="publishedDate" cssClass="form-control"/>
+        </div>
+
+        <div class="form-group">
+            <mobriz4server:label styleClass="control-label" key="webPage.pageSummary"/>
+            <form:errors path="pageSummary" cssClass="fieldError"/>
+            <form:textarea  path="pageSummary" id="pageSummary" cssClass="form-control" rows="10"/>
         </div>
 
         <div class="form-group">

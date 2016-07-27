@@ -19,9 +19,24 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 
 public class WebPageDaoHibernate extends BaseDaoHibernate implements WebPageDao {
 
-    /**
-     * @see uk.co.bluetrail.mobriz.dao.WebPageDao#getWebPages(uk.co.bluetrail.mobriz.model.WebPage)
-     */
+
+    public List getWebPages() {
+
+        HibernateCallback callback = new HibernateCallback() {
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                Criteria crit = session.createCriteria(WebPage.class);
+                crit.addOrder(Order.desc("publishedDate"));
+                return  crit.list();
+            }
+        };
+
+        return (List) getHibernateTemplate().execute(callback);
+
+    }
+
+        /**
+         * @see uk.co.bluetrail.mobriz.dao.WebPageDao#getWebPages(uk.co.bluetrail.mobriz.model.WebPage)
+         */
     public List getWebPages(final WebPage webPage) {
         return getHibernateTemplate().find("from WebPage");
 

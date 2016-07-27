@@ -14,9 +14,14 @@ public interface WebPageManager extends Manager {
     public WebPage getWebPageByName(String name);
 	
 	/**
-     * Retrieves all of the webPages
+     * Retrieves all of the webPages with template
      */
     public List getWebPages(WebPage webPage);
+
+    /**
+     * Retrieves all of the webPages
+     */
+    public List getWebPages();
 
     /**
      * Gets webPage's information based on id.
