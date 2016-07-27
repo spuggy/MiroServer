@@ -6,3 +6,4 @@ web/miro/out/
 velocity.log
 serializer.log
 testweb/node_modules/
+misc/restore-debug/mirotestdb.sql
