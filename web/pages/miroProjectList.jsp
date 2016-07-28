@@ -49,7 +49,7 @@
                 <display:table name="miroProjectList" cellspacing="0" cellpadding="0" requestURI="" id="miroProjectList" pagesize="50" class="table table-condensed table-hover" export="false">
                     <display:column class="col-sm-1" property="created_on" headerClass="sortable" titleKey="surveyForm.created_on" decorator="uk.co.bluetrail.mobriz.webapp.util.ShortDateDecorator"/>
                     <display:column class="col-sm-7" titleKey="miroProject.projectTitle" maxLength="100">
-                        <div><a href="/showProject.html?id=<c:out value="${miroProjectList.id}"/>"><c:out value="${miroProjectList.projectTitle}"/></a></div>
+                        <div><a href="showProject.html?id=<c:out value="${miroProjectList.id}"/>"><c:out value="${miroProjectList.projectTitle}"/></a></div>
                     </display:column>
                     <display:setProperty name="paging.banner.item_name" value="Project"/>
                     <display:setProperty name="paging.banner.items_name" value="Projects"/>
