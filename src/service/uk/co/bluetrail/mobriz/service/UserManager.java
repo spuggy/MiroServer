@@ -72,7 +72,7 @@ public interface UserManager {
 
 	public List getProjectUsers(String projectId);
 
-	public User saveUser(User userDTO, String algorithm, Role userRole) throws UserExistsException;
+	public User saveUser(User userDTO, String username, String algorithm, Role userRole) throws UserExistsException;
 
 	public List getAdminUsers();
 

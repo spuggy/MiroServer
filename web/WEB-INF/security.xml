@@ -65,6 +65,7 @@
         <property name="objectDefinitionSource">
             <value>
                 PATTERN_TYPE_APACHE_ANT
+                /freeAssessmentForm.html=ROLE_ANONYMOUS,admin,user
                 /wshelp.html=ROLE_ANONYMOUS,admin,user
                 /ws.html?=ROLE_ANONYMOUS,admin,user     
                 /batchProcess.html=ROLE_ANONYMOUS,admin,user

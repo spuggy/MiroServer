@@ -838,6 +838,13 @@
       <JAVADOC />
       <SOURCES />
     </library>
+    <library name="flexjson">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/lib/flexjson-1.9.2/flexjson.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="fop">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/lib/fop/fop.jar!/" />

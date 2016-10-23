@@ -24,10 +24,6 @@ import java.util.*;
 
 public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 
-	protected static final int STATUS_OK = 0 ;
-	protected static final int STATUS_DUPE = 1;
-	protected static final int STATUS_OK_BAD_EMAIL = 9 ;
-	
 	protected static final Log log = LogFactory.getLog(AjaxMiroProjectManagerImpl.class);
 	
 	UserManager userManager;
@@ -210,18 +206,19 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 			return "Email to " + user.getFullName() + " - Error: mail not sent, check address";
 		}
 	}
-	
-	
+
 	private boolean sendUserEmail(User user, ArrayList report,MiroProject miroProject) {
+		WebContext ctx = WebContextFactory.get();
+		HttpServletRequest request = ctx.getHttpServletRequest();
+		return sendUserEmail(user, report, miroProject, RequestUtil.getAppURL(request));
+	}
+
+	private boolean sendUserEmail(User user, ArrayList report,MiroProject miroProject, String url) {
 	
 		String newUserEmailSubject  = null;
         String newUserEmailMessage  = null;
         String newUserEmailBCC = null;
-        
-        WebContext ctx = WebContextFactory.get();
-		HttpServletRequest request = ctx.getHttpServletRequest();
-		
-		
+
 		if(user!=null && miroProject==null){
 			miroProject = miroProjectManager.getMiroProject(user.getProject_id().toString());
 			
@@ -246,7 +243,7 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 			  // Send an account information e-mail
 
 			try{
-	        	sendUserMessage(user, newUserEmailSubject,newUserEmailMessage, newUserEmailBCC, RequestUtil.getAppURL(request));
+	        	sendUserMessage(user, newUserEmailSubject,newUserEmailMessage, newUserEmailBCC, url);
 
 	        	if(user.getStatus()==User.INVITE_NOT_SENT) {
 	        		user.setStatus(User.INVITE_SENT);
@@ -264,12 +261,23 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 		}
 		return false;
 	}
-	
-	
-	public MiroCandidateAjaxDTO saveCandidateAndEmail(MiroCandidateAjaxDTO miroCandidateAjaxDTO) throws Exception{
-		
-		
-		this.saveCandidate(miroCandidateAjaxDTO);
+
+	public MiroCandidateAjaxDTO saveCandidateAndEmail(MiroCandidateAjaxDTO miroCandidateAjaxDTO) throws Exception {
+
+		WebContext ctx = WebContextFactory.get();
+		HttpServletRequest request = ctx.getHttpServletRequest();
+		String algorithm = (String)ctx.getServletContext().getAttribute(Constants.ENC_ALGORITHM)   ;
+		String url = RequestUtil.getAppURL(request);
+		String userName = miroCandidateAjaxDTO.getProject_id() + miroCandidateAjaxDTO.getFirstName() + miroCandidateAjaxDTO.getLastName();
+
+		return saveCandidateAndEmail(userName,miroCandidateAjaxDTO, algorithm, url);
+
+	}
+
+
+	public MiroCandidateAjaxDTO saveCandidateAndEmail(String usernName,MiroCandidateAjaxDTO miroCandidateAjaxDTO, String algorithm, String url) throws Exception {
+
+		this.saveCandidate(usernName,miroCandidateAjaxDTO,algorithm);
 		
 		if(miroCandidateAjaxDTO.getStatus()!=AjaxMiroProjectManagerImpl.STATUS_OK) {
 			return miroCandidateAjaxDTO;
@@ -280,7 +288,7 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
         
 		User user = userManager.getUser(miroCandidateAjaxDTO.getId());
 		report = new ArrayList();
-		if(sendUserEmail(user,report,miroProject)){
+		if(sendUserEmail(user,report,miroProject,url)){
 			miroCandidateAjaxDTO.setStatus(AjaxMiroProjectManagerImpl.STATUS_OK);
 			return miroCandidateAjaxDTO;
 		} else {
@@ -291,17 +299,23 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 		
 	}
 
-	
+	public  MiroCandidateAjaxDTO saveCandidate(MiroCandidateAjaxDTO miroCandidateAjaxDTO) throws Exception {
 
-	public MiroCandidateAjaxDTO saveCandidate(MiroCandidateAjaxDTO miroCandidateAjaxDTO) throws Exception{
-		
-		
 		WebContext ctx = WebContextFactory.get();
 		HttpServletRequest request = ctx.getHttpServletRequest();
-		String algorithm = (String)ctx.getServletContext().getAttribute(Constants.ENC_ALGORITHM)   ;     
-	
+		String algorithm = (String)ctx.getServletContext().getAttribute(Constants.ENC_ALGORITHM)   ;
+
+		String userName = miroCandidateAjaxDTO.getProject_id() + miroCandidateAjaxDTO.getFirstName() + miroCandidateAjaxDTO.getLastName();
+
+
+		return saveCandidate(userName,miroCandidateAjaxDTO, algorithm) ;
+
+	}
+
+
+	private  MiroCandidateAjaxDTO saveCandidate(String userName,MiroCandidateAjaxDTO miroCandidateAjaxDTO, String algorithm) throws Exception{
+
         if (algorithm == null) { // should only happen for test case
-              
                 algorithm = "SHA";
         }
 
@@ -321,7 +335,7 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 		userDTO.setProject_id(Long.parseLong(miroCandidateAjaxDTO.getProject_id()));
 	    
 		try {
-			User savedUser = userManager.saveUser(userDTO,algorithm,userRole);
+			User savedUser = userManager.saveUser(userDTO,userName,algorithm,userRole);
 			miroCandidateAjaxDTO.setId(userDTO.getId().toString());
 			miroCandidateAjaxDTO.setStatus(AjaxMiroProjectManagerImpl.STATUS_OK);
 			
@@ -339,14 +353,11 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
            // sendUserMessage(savedUser, newUserEmailMessage, RequestUtil.getAppURL(request));
             
             
-		} catch(UserExistsException uex) {
+		} catch(Exception uex) {
 			miroCandidateAjaxDTO.setStatus(AjaxMiroProjectManagerImpl.STATUS_DUPE);
 			miroCandidateAjaxDTO.setErrorMessage("A user with this name already exists for this project!");
-			
 		}
-		
-	
-				
+
 		return miroCandidateAjaxDTO ;
 		
 	}
@@ -365,7 +376,7 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 		
 	}
 	/**
-	 * @param userManagerl the userManagerl to set
+	 * @param userManager to set
 	 */
 	public void setUserManager(UserManager userManager) {
 		this.userManager = userManager;

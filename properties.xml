@@ -165,8 +165,9 @@
         <pathelement location="${commons-lang.jar}"/>
         <pathelement location="${commons-validator.jar}"/>
     	<pathelement location="${servletapi.jar}"/>
-       
-    	<fileset dir="${javamail.dir}" includes="*.jar"/>
+        <pathelement location="${flexjson.jar}"/>
+
+        <fileset dir="${javamail.dir}" includes="*.jar"/>
         <fileset dir="${spring.dir}" includes="*.jar"/>
         <fileset dir="${jstl.dir}/lib" includes="jstl.jar"/>
     </path>

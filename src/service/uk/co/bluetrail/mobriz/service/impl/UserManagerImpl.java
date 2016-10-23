@@ -113,7 +113,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         return dao.getProjectUsers(new Long(projectId));
     }
 
-    public User saveUser(User userDTO, String algorithm, Role userRole) throws UserExistsException {
+    public User saveUser(User userDTO, String userName, String algorithm, Role userRole) throws UserExistsException {
 
         Long checkPoint = dao.getNextCheckPoint();
         User user = null;
@@ -152,7 +152,6 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         }
 
         try {
-            String userName = user.getProject_id() + user.getFirstName() + user.getLastName();
             user.setUsername(Integer.toHexString(new String(userName).hashCode()));
         } catch (Exception e) {
             // ignore odd exception

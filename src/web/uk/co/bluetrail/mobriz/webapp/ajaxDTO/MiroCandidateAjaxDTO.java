@@ -24,9 +24,6 @@ public class MiroCandidateAjaxDTO {
         this.survey_id = survey_id;
     }
 
-
-	
-	
 	
 	/**
 	 * @hibernate.property 

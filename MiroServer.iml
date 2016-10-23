@@ -231,5 +231,6 @@
     <orderEntry type="library" scope="TEST" name="dumbster-1.5" level="project" />
     <orderEntry type="library" scope="TEST" name="jmock-1.1.0" level="project" />
     <orderEntry type="library" name="itext-4.2.1" level="project" />
+    <orderEntry type="library" name="flexjson" level="project" />
   </component>
 </module>

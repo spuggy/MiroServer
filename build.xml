@@ -428,6 +428,7 @@
             <lib file="${sitemesh.jar}"/>
             <lib dir="${velocity.dir}" includes="*.jar"/>  
             <lib file="${urlrewrite.jar}"/>
+            <lib file="${flexjson.jar}"/>
         </war>
     </target>
 

@@ -286,6 +286,11 @@
     <property name="graphType" value="map"/>
   </bean>
 
+  <bean id="freeAssessmentFormController" class="uk.co.bluetrail.mobriz.webapp.action.FreeAssessmentFormController"
+        autowire="byName">
+    <property name="formView" value="freeAssessmentForm"/>
+  </bean>
+
   <bean id="miroTeamPieImageController" class="uk.co.bluetrail.mobriz.webapp.action.MiroTeamPieImageController"
         autowire="byName"/>
 
@@ -371,6 +376,7 @@
         <prop key="/teamImage/teamMapImageLeading.jpg">miroTeamMapImageController</prop>
 
         <prop key="/departmentAccounts.html">miroDepartmentAccountsController</prop>
+        <prop key="/freeAssessmentForm.html">freeAssessmentFormController</prop>
 
 
         <prop key="/news.html">newsPageController</prop>
@@ -410,6 +416,8 @@
   <bean id="surveyResponseExportView" class="uk.co.bluetrail.mobriz.webapp.view.SurveyResponseExportView"
         autowire="byName"/>
 
+  <bean name="jsonView" class="uk.co.bluetrail.mobriz.webapp.view.JsonView" autowire="byName"/>
+
 
   <bean id="surveyDefExportView" class="uk.co.bluetrail.mobriz.webapp.view.SurveyDefExportView" autowire="byName"/>
   <bean id="lookupDefExportView" class="uk.co.bluetrail.mobriz.webapp.view.LookupDefExportView" autowire="byName"/>
@@ -424,6 +432,11 @@
   </bean>
 
 
+  <bean id="beanNameViewResolver"
+        class="org.springframework.web.servlet.view.BeanNameViewResolver">
+    <property name="order" value="0" />
+  </bean>
+
   <!-- View Resolver for JSPs -->
   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
     <property name="requestContextAttribute" value="rc"/>
@@ -433,5 +446,4 @@
   </bean>
 
 
-  <bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
 </beans>
