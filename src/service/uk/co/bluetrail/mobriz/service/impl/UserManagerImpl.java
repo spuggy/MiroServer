@@ -139,6 +139,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         user.setEnabled(true);
         user.setPinNumber("N/A");
         user.setProject_id(userDTO.getProject_id());
+        user.setUserType(userDTO.getUserType());
 
         if (user.getPassword() == null || user.getPassword().equals("")) {
             String password = RandomString.randomstring();

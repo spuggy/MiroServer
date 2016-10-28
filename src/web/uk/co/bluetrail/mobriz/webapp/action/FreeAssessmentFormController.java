@@ -39,6 +39,7 @@ public class FreeAssessmentFormController extends BaseFormController {
 		MiroCandidateAjaxDTO miroCandidateAjaxDTO = (MiroCandidateAjaxDTO) command;
 		miroCandidateAjaxDTO.setProject_id("1401");
 		miroCandidateAjaxDTO.setId("new");
+		miroCandidateAjaxDTO.setIsFreeCandidate(true);
 
 		if (log.isDebugEnabled()) {
 			log.debug("entering 'onSubmit' method...");

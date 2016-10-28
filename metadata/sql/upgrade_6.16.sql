@@ -1,0 +1,1 @@
+ALTER TABLE app_user ADD COLUMN user_type character varying(15);

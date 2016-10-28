@@ -333,6 +333,13 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 		userDTO.setLastName(miroCandidateAjaxDTO.getLastName());
 		userDTO.setEmail(miroCandidateAjaxDTO.getEmailAddress());
 		userDTO.setProject_id(Long.parseLong(miroCandidateAjaxDTO.getProject_id()));
+
+		if(miroCandidateAjaxDTO.isFreeCandidate()) {
+			userDTO.setUserType(User.USER_TYPE_FREE);
+		} else {
+			userDTO.setUserType(User.USER_TYPE_DEFAULT);
+		}
+
 	    
 		try {
 			User savedUser = userManager.saveUser(userDTO,userName,algorithm,userRole);

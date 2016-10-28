@@ -13,10 +13,17 @@ public class MiroCandidateAjaxDTO {
 	private boolean testComplete;
 	private String creditBalance;
     private String survey_id ;
+	private boolean isFreeCandidate = false ;
 
+	public boolean isFreeCandidate() {
+		return isFreeCandidate;
+	}
 
+	public void setIsFreeCandidate(boolean isFreeCandidate) {
+		this.isFreeCandidate = isFreeCandidate;
+	}
 
-    public String getSurvey_id() {
+	public String getSurvey_id() {
         return survey_id;
     }
 

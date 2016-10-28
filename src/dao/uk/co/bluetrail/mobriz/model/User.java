@@ -85,6 +85,24 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
 	private int status = User.INVITE_NOT_SENT ;
 	private Long miroTeam_id ;
     private Date miroTeamAdded_on ;
+    public static final String USER_TYPE_DEFAULT = "DEFAULT";
+    public static final String USER_TYPE_FREE = "FREE";
+    private String userType ;
+
+    /**
+     * @hibernate.property column="user_type" length="50"
+     */
+    public String getUserType() {
+        if(this.userType==null) {
+            return User.USER_TYPE_DEFAULT;
+        } else {
+            return this.userType;
+        }
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 
     /**
      * @hibernate.property
