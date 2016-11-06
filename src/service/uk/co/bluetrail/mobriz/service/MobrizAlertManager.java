@@ -11,7 +11,7 @@ import uk.co.bluetrail.mobriz.dao.MobrizAlertDao;
 public interface MobrizAlertManager extends Manager {
     /**
      * Retrieves all of the mobrizAlerts
-     * @param currentUser TODO
+     * @param currentUser
      */
     public List getMobrizAlerts(User currentUser);
 
@@ -25,14 +25,14 @@ public interface MobrizAlertManager extends Manager {
     /**
      * Saves a mobrizAlert's information
      * @param mobrizAlert the object to be saved
-     * @param currentUser TODO
+     * @param currentUser
      */
     public void saveMobrizAlert(MobrizAlert mobrizAlert, User currentUser);
 
     /**
      * Removes a mobrizAlert from the database by id
      * @param id the mobrizAlert's id
-     * @param currentUser TODO
+     * @param currentUser
      */
     public void removeMobrizAlert(final String id, User currentUser);
 }

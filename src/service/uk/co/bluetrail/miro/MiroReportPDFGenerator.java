@@ -35,6 +35,7 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
 
     private static MiroReportPDFGenerator miroReportPDFGenerator = null;
     private int pagenumber;
+    private boolean isFreeReport = false;
     private Context context;
     private PageFooter pageFooter = new PageFooter();
     private PageHeader pageHeader = new PageHeader();
@@ -46,43 +47,44 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
 
 
 
-    public static void generatePDF(File baseDir, MiroResponse mr, Long miroVersion) {
+    public static void generatePDF(File baseDir, MiroResponse mr, Long miroVersion, boolean isFreeReport) {
 
         if (MiroReportPDFGenerator.miroReportPDFGenerator == null) {
             MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
         }
 
 
-        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, mr.getMiroReportName(), mr.getMiroReportName(miroVersion));
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, mr.getMiroReportName(), mr.getMiroReportName(miroVersion),isFreeReport);
 
     }
 
-    public static void generatePDF(File baseDir, String miroReportName) throws Exception {
+    public static void generatePDF(File baseDir, String miroReportName,boolean isFreeReport) throws Exception {
 
         if (MiroReportPDFGenerator.miroReportPDFGenerator == null) {
             MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
         }
 
-        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, null);
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, null,isFreeReport);
 
 
     }
 
-    public static void PDFCreator(File baseDir, String miroReportName, String xslFileName, String miroReportNameVersion) {
+    public static void PDFCreator(File baseDir, String miroReportName, String xslFileName, String miroReportNameVersion,boolean isFreeReport) {
 
         if (MiroReportPDFGenerator.miroReportPDFGenerator == null) {
             MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
         }
 
-        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, miroReportNameVersion);
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, miroReportNameVersion,isFreeReport);
 
     }
 
 
-    private void privateGeneratePDF(File baseDir, String miroReportName, String miroReportNameVersion) {
+    private void privateGeneratePDF(File baseDir, String miroReportName, String miroReportNameVersion, boolean isFreeReport) {
 
 
         this.pagenumber = 0;
+        this.isFreeReport = isFreeReport;
 
         try {
 
@@ -243,17 +245,42 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
         pagenumber++;
     }
 
+    private void writeWaterMark(PdfWriter writer, com.lowagie.text.Document pdfDocument) {
+        try {
+            PdfGState gState = new PdfGState();
+            gState.setFillOpacity(0.1f);
+            gState.setStrokeOpacity(0.1f);
+            PdfContentByte contentUnder = writer.getDirectContentUnder();
+            contentUnder.saveState();
+            contentUnder.setGState(gState);
+            contentUnder.setFontAndSize(BaseFont.createFont(), 96);
+            contentUnder.beginText();
+            contentUnder.showTextAligned(Element.ALIGN_CENTER,"SAMPLE",pdfDocument.getPageSize().getWidth()/2,pdfDocument.getPageSize().getHeight()/2,45);
+            contentUnder.endText();
+            contentUnder.restoreState();
+        }catch (Exception e) {
+            System.out.println("exception creating watermak " + e.getMessage());
+        }
+    }
+
 
     public void onEndPage(PdfWriter writer, com.lowagie.text.Document pdfDocument) {
-        Rectangle rect = writer.getBoxSize("art");
+
         switch (pagenumber) {
             case 0:
             case 1:
                 // no header
+                if(this.isFreeReport) {
+                    writeWaterMark(writer,pdfDocument);
+                }
                 break;
             default:
+                if(this.isFreeReport) {
+                    writeWaterMark(writer,pdfDocument);
+                }
                 pageHeader.draw(context, writer, pdfDocument);
                 pageFooter.draw(context, writer, pdfDocument, pagenumber);
+
                 break;
         }
 

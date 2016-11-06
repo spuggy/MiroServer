@@ -23,7 +23,6 @@ public class ImageWriter {
 		try {
 			ImageWriter.writeString("/Users/Richard/documents/workspace copy/ImageWrite/22221.jpg", "Helooo");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

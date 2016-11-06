@@ -221,7 +221,7 @@ public class SurveyWebServiceView extends AbstractView {
 		String[] sid = wsForm.getSid();
 		String[] qids = wsForm.getQid();
 		String[] answers = wsForm.getA();
-		String surveyVersion = wsForm.getVer(); //TODO add save version to server side
+		String surveyVersion = wsForm.getVer();
 		String pid = wsForm.getPid() ;
 		String ext = wsForm.getExt() ;
 		
@@ -325,7 +325,7 @@ public class SurveyWebServiceView extends AbstractView {
 		String[] sid = wsForm.getSid();
 		String[] qids = wsForm.getQid();
 		String[] answers = wsForm.getA();
-		String surveyVersion = wsForm.getVer(); //TODO add save version to server side
+		String surveyVersion = wsForm.getVer();
 				
 		
 		StringBuffer questionTrail = new StringBuffer();
@@ -576,13 +576,13 @@ public class SurveyWebServiceView extends AbstractView {
 		pw.print(SEP);
 		pw.print(survey.getCheckPoint());
 		pw.print(SEP);
-		pw.print("1"); // TODO create the version stuff ;
+		pw.print("1");
 		pw.print(SEP);
 		pw.print(survey.getQuestionCount());
 		pw.print(SEP);
 		pw.print(survey.getFirstQuestion_id());
 		pw.print(SEP);
-		pw.print(survey.getTitle());// TODO might want to make this safe
+		pw.print(survey.getTitle());
 		pw.print(END_RECORD);
 
 	}
@@ -764,9 +764,9 @@ public class SurveyWebServiceView extends AbstractView {
 		pw.print(SEP);
 		pw.print(attrs.getAttr());
 		pw.print(SEP);
-		pw.print(0); // TODO set the option sid stuff
+		pw.print(0);
 		pw.print(SEP);
-		pw.print(0); // TODO set the option sid stuff
+		pw.print(0);
 		pw.print(SEP);
 		pw.print(question.getOptionCount());
 		pw.print(SEP);

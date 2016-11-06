@@ -279,7 +279,6 @@ public class QuestionManagerImpl extends BaseManager implements QuestionManager 
 	 * @see uk.co.bluetrail.mobriz.service.QuestionManager#removeQuestion(java.lang.Long)
 	 */
 	public void removeQuestion(final String id) {
-		// TODO Auto-generated method stub
 		
 	}
 

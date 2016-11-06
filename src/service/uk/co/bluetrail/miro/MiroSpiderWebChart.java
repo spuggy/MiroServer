@@ -69,7 +69,6 @@ public class MiroSpiderWebChart {
         try {
 			ChartUtilities.saveChartAsPNG(chartFile, chart, 600, 400);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	

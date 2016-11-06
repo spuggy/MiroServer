@@ -528,7 +528,7 @@ public class AjaxSurveyEditManagerImpl implements AjaxSurveyEditManager{
 		questionManager.saveNewQuestion(new QuestionServiceDTO(newQuestion,questionDTO.getTargetId(), optionList,constraintList,getUser(request.getSession())));
 		
 		
-		//reload it again to get the options loaded TODO
+		//reload it again to get the options loaded
 		newQuestion = questionManager.getQuestion(newQuestion.getId().toString());
 		
 		//grab the latest survey and send it back- there is proabbaly soem crafy hibernate mapping thing
@@ -640,9 +640,9 @@ public class AjaxSurveyEditManagerImpl implements AjaxSurveyEditManager{
 		questionManager.updateQuestion(new QuestionServiceDTO(question,questionDTO.getTargetId(), optionList,constraintList,getUser(request.getSession())));
 		
 		
-		//reload it again to get the options loaded TODO
+		//reload it again to get the options loaded
 		//also in the next line we probably don't have to reload the survey 
-		//as we have it here in the question .. TODO
+		//as we have it here in the question ..
 		question = questionManager.getQuestion(question.getId().toString());
 	
 		
@@ -722,7 +722,7 @@ public class AjaxSurveyEditManagerImpl implements AjaxSurveyEditManager{
 		//do the save
 		questionManager.saveInsertQuestion(questionServiceDTO);
 
-		//reload it again to get the options loaded TODO
+		//reload it again to get the options loaded
 		//probably don't have to load the survey after this load 
 		// as we have it in the question
 		newQuestion = questionManager.getQuestion(newQuestion.getId().toString());

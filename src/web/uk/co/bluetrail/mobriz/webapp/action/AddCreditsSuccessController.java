@@ -152,15 +152,15 @@ public class AddCreditsSuccessController extends BaseController {
 			return new ModelAndView("addCreditsFailure",params);
 		}
 		
-		//TODO add the two views and error view
+		// add the two views and error view
 	
-		//TODO add error emails
-		//TODO add logging etc
-		//TODO add new fields to trans.
-		//TODO add admin interface userid=x and check for sysadmin on save.
-		//TODO add log earings on error
-		//TODO add failure page.
-		//TODO do we need security on the submit pages?
+		// add error emails
+		// add logging etc
+		// add new fields to trans.
+		// add admin interface userid=x and check for sysadmin on save.
+		// add log earings on error
+		// add failure page.
+		// do we need security on the submit pages?
 		
 		
 	}

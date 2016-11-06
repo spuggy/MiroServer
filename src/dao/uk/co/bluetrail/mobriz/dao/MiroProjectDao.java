@@ -11,7 +11,7 @@ public interface MiroProjectDao extends Dao {
 
     /**
      * Retrieves all of the miroProjects
-     * @param user TODO
+     * @param user
      */
     public List getMiroProjects(MiroProject miroProject, User user);  
 

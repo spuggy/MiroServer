@@ -603,7 +603,6 @@ public class Survey extends BaseObject implements SurveyElement {
 	}
 
 	public boolean isDeleted() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

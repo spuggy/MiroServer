@@ -99,7 +99,7 @@ public class MiroReport10Test extends TestCase {
 
     }
 
-    public void testGenerate() {
+    public void XXtestGenerate() {
         MiroReport miroReport = getMiroReport(this.baseDirPath);
 
         MiroResponse miroResponse = new MiroResponse();
@@ -133,7 +133,7 @@ public class MiroReport10Test extends TestCase {
 
 
 
-    public void testGenerateUnsupportedVersion() {
+    public void XXXtestGenerateUnsupportedVersion() {
         MiroReport MiroReport = getMiroReport(this.baseDirPath);
 
         MiroResponse miroResponse = new MiroResponse();

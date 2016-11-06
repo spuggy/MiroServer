@@ -658,7 +658,6 @@ public class LookupDef  extends BaseObject implements SurveyElement{
 	}
 
 	public boolean isValid() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -144,8 +144,6 @@ public class SurveyManagerImpl extends BaseManager implements SurveyManager {
 					break;
 				case Option.OPTION_TYPE:
 
-					// TODO check this is a valid option question
-
 					option = new Option();
 					option.init(surveyLine.split(SEP));
 

@@ -16,7 +16,7 @@ public interface SettingManager extends Manager {
     /**
      * Gets setting's information based on id.
      * @param id the setting's id
-     * @param user TODO
+     * @param user
      * @return setting populated setting object
      */
     public Setting getSetting(final String id);

@@ -14,14 +14,14 @@ public interface MiroProjectManager extends Manager {
 	
 	/**
      * Retrieves all of the miroProjects
-     * @param user TODO
+     * @param user
      */
     public List getMiroProjects(MiroProject miroProject, User user);
 
     /**
      * Gets miroProject's information based on id.
      * @param id the miroProject's id
-     * @param user TODO
+     * @param user
      * @return miroProject populated miroProject object
      */
     public MiroProject getMiroProject(final String id, User user);
@@ -29,14 +29,14 @@ public interface MiroProjectManager extends Manager {
     /**
      * Saves a miroProject's information
      * @param miroProject the object to be saved
-     * @param currentUser TODO
+     * @param currentUser
      */
     public void saveMiroProject(MiroProject miroProject, User currentUser);
 
     /**
      * Removes a miroProject from the database by id
      * @param id the miroProject's id
-     * @param user TODO
+     * @param user
      */
     public void removeMiroProject(final String id, User user);
 }

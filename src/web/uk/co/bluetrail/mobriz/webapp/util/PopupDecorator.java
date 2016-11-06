@@ -15,8 +15,7 @@ import org.apache.commons.lang.time.FastDateFormat;
  * 
  * Used in the decorator tag libs to create a popu based on the value for the SMS field
  * 
- * TODO make this more generic!
- * 
+ *
  * <p><a href="ShortDateDecorator.java.html"><i>View Source</i></a></p>
  * 
  * @author <a href="mailto:rspence@bluetrail.co.uk">Richard Spence</a>

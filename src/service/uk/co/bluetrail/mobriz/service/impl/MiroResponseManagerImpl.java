@@ -158,8 +158,9 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
     public String getRawResults(SurveyResponse sr, MiroResponse mr, String baseDirectory) throws Exception {
 
+        User candidate = sr.getUser();
 
-        MiroReport miroReport = getMiroReport(baseDirectory);
+        MiroReport miroReport = getMiroReport(baseDirectory,candidate);
 
         this.setup();
 
@@ -167,8 +168,6 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
 
         mr.init(survey, sr, this.miroLetters, this.testOffset);
-
-        User candidate = sr.getUser();
 
         MiroProject miroProject = miroProjectManager.getMiroProject(candidate.getProject_id().toString());
 
@@ -239,6 +238,10 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
     }
 
     private MiroReport getMiroReport(String baseDirectory) {
+        return getMiroReport(baseDirectory,null);
+    }
+
+    private MiroReport getMiroReport(String baseDirectory,User candidate) {
 
 
         MiroReport miroReport = new MiroReport(new File(baseDirectory), this.engagedScore, this.excessScore, this.latentScore);
@@ -296,6 +299,10 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         miroReport.setLabels2(new String[]{"Leading", "Supporting", "Supplementary", "Dormant"});
         miroReport.setSubTitles(subTitles);
 
+        if(candidate!=null && candidate.getUserType()==User.USER_TYPE_FREE) {
+            miroReport.setIsFreeReport(true);
+        }
+
 
         return miroReport;
 
@@ -314,7 +321,9 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
     public boolean createPDF(SurveyResponse sr, MiroResponse mr, String baseDirectory) throws Exception {
 
-        MiroReport miroReport = getMiroReport(baseDirectory);
+        User candidate = sr.getUser();
+
+        MiroReport miroReport = getMiroReport(baseDirectory,candidate);
 
         this.setup();
 
@@ -323,7 +332,6 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         mr.init(survey, sr, this.miroLetters, this.testOffset);
 
 
-        User candidate = sr.getUser();
 
         MiroProject miroProject = miroProjectManager.getMiroProject(candidate.getProject_id().toString());
 
@@ -342,7 +350,13 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
         sr.setAlertsProcessed(true);
 
-        userManager.saveAsPurchased(candidate.getId(), sr.getId());
+        //push on to purchased if a free jobby
+        if(candidate.getUserType()==User.USER_TYPE_FREE) {
+           userManager.buyReport(candidate.getId(), sr.getId());
+        } else {
+           userManager.saveAsPurchased(candidate.getId(), sr.getId());
+        }
+
         this.surveyResponseDAO.saveSurveyResponse(sr);
 
 
@@ -486,7 +500,6 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         MiroReport miroReport = getMiroReport(baseDirectory);
 
         this.setup();
-
 
         Iterator itr = users.iterator();
 

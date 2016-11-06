@@ -37,7 +37,7 @@ public class Ul extends Handler {
             list.setAutoindent(true);
 
 
-            //TODO this is a bit nesty ... but hey for now
+            //this is a bit nesty ... but hey for now
             // could merge it in with P
             NodeList childList = node.getChildNodes();
             if (childList != null && childList.getLength() > 0) {

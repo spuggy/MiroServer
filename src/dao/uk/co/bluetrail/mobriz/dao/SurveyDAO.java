@@ -31,7 +31,7 @@ public interface SurveyDAO extends Dao {
     /**
      * Saves a survey's information
      * @param survey the object to be saved
-     * @param updateCheckPoint TODO
+     * @param updateCheckPoint
      */	
     public void saveSurvey(Survey survey, boolean updateCheckPoint);
 

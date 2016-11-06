@@ -25,7 +25,7 @@ public interface MiroTeamManager extends Manager{
     /**
      * Saves a miroTeam's information
      * @param miroTeam the object to be saved
-     * @param user TODO
+     * @param user
      */
     public void saveMiroTeam(MiroTeam miroTeam, User user);
 

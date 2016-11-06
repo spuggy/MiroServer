@@ -70,9 +70,11 @@ public class MiroSurveyController extends BaseController {
       	model.put("candidate" , candidate) ;
       	model.put("practitioner" , practitioner) ;
         model.put("isVersion11",(survey.getId().longValue() == Constants.Survey_id_Mirov11) ? true:false );
-          	
 
-        
+//        TODO Add free assessment shizzle here
+//
+//        miroReportShow.html?version=v11&id="  (id = userid)
+
         if(surveyResponses == null || surveyResponses.size() ==0 ) {
         	return new ModelAndView("miroSurveyForm", model);
         } else {

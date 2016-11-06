@@ -181,7 +181,6 @@ public class MiroTeamBarChart {
             try {
 				ChartUtilities.saveChartAsPNG(chartFile, chart, 550, 320);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
       

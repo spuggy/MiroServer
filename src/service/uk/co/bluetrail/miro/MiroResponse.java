@@ -32,8 +32,8 @@ public class MiroResponse  {
 	 private MiroProject miroProject;
 	 private String miroReportName ;
 
-	 
-	 /**
+
+	/**
 	 * 
 	 */
 	private boolean resultsAttached[] = null ;
@@ -283,9 +283,6 @@ public class MiroResponse  {
 
                 String[] rawAnswers = rawAnswer.split("#");
                 String answer = rawAnswers[1];
-
-                //TODO split these into two values
-                //extroValue and intraValue
 
                 if (answer.equalsIgnoreCase("plus")) {
                     this.extroValue++ ;
@@ -571,7 +568,7 @@ public class MiroResponse  {
 	}
 
 	public MiroResponse() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 
@@ -635,19 +632,24 @@ public class MiroResponse  {
 	
 	
 
-	public List<MiroPage> getReportPageList(long reportVersion) {
+	public List<MiroPage> getReportPageList(long reportVersion,boolean isFreeReport) {
 	
 		MiroPageElement[]pageItems = null;
 		
 		List<MiroPage> pages = new ArrayList<MiroPage>();
-		
+
+
 		//page0 
         pages.add(MiroPage.create("homepage"));
 
         pages.add(MiroPage.create("TOC"));
 
 
+
         //page1
+		if(isFreeReport) {
+			pages.add(MiroPage.create("FREE"));
+		}
 		pages.add(MiroPage.create("U2"));
         pages.add(MiroPage.create("U2a"));
 //		page2
@@ -844,7 +846,7 @@ public class MiroResponse  {
 	
 
 	public void setCompany(String company) {
-		this.company = company;// TODO Auto-generated method stub
+		this.company = company;//
 		
 	}
 

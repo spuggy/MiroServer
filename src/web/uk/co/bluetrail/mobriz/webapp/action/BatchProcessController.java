@@ -199,12 +199,12 @@ public class BatchProcessController implements Controller {
     	
     	while(itr.hasNext()){
     		sr = (SurveyResponse) itr.next();
-    		
     		mr = new MiroResponse();
     	try {
     		
     		if(miroResponseManager.createPDF(sr,mr,filePath)){  
     			sendMiroEmails(mr);
+				//sendFreeMiroAssessmentEmails(mr);
     		} 
     		batchProcessResults.add("Individual Report created for " + sr.getUser().getFullName() + "id=" + sr.getUser().getId());
 			
@@ -224,8 +224,8 @@ public class BatchProcessController implements Controller {
 		log.debug("sending miro emails");
 		
 			try{
-			log.debug("sending email to " + mr.getPractitionerEmail() + " for surveyResponse " + mr.getTestId());
-			sendAlertEmail(mr);
+				log.debug("sending email to " + mr.getPractitionerEmail() + " for surveyResponse " + mr.getTestId());
+				sendAlertEmail(mr);
 				log.debug("sending alert emails");
 			} catch(Exception e) {
 				log.error("Error sending email to " +  mr.getPractitionerEmail() + " for surveyResponse " + mr.getTestId() + " - "+ e.toString());
@@ -278,6 +278,7 @@ public class BatchProcessController implements Controller {
        
        
     }
+
     
     /**
      * Convenience message to send messages to users, includes app URL as footer.l

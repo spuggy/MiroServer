@@ -13,7 +13,7 @@ public interface MiroTeamDao extends Dao {
 
     /**
      * Retrieves all of the miroTeams
-     * @param user TODO
+     * @param user
      */
     public List getMiroTeams(MiroTeam miroTeam, User user);  
 

@@ -420,7 +420,7 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
         }
 
         if(msg!=null) {
-            // TODO: once you figure out how to get the global resource bundle in
+            // once you figure out how to get the global resource bundle in
             // WebWork, then figure it out here too.  In the meantime, the Username
             // and Password labels are hard-coded into the template.
             // model.put("bundle", getTexts());

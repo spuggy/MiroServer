@@ -10,7 +10,7 @@ public interface LookupDefItemDao extends Dao {
 
 	/**
      * Retrieves all of the lookupDefItems that match an example lookupDefItem
-	 * @param limit TODO
+	 * @param limit
      */
 	public List getLookupDefItemsQBE(final LookupDefItem lookupDefItem, int limit);
 	

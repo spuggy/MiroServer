@@ -1,6 +1,5 @@
 package uk.co.bluetrail.mobriz.webapp.action;
 
-//TODO make surveys add account ids
 
 import java.util.HashMap;
 import java.util.List;

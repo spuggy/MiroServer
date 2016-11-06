@@ -76,7 +76,7 @@ public class MiroReport11Test extends MiroReport10Test  {
 
     }
 
-    public void testGenerate() {
+    public void XXXGenerate() {
         MiroReport miroReport = getMiroReport(this.baseDirPath);
 
         MiroResponse miroResponse = new MiroResponse();
@@ -115,6 +115,55 @@ public class MiroReport11Test extends MiroReport10Test  {
             numOfPages = pdfReader.getNumberOfPages();
 
             assertEquals(17,numOfPages);
+
+
+        } catch (Exception e) {
+            fail("failed with " + e.getMessage());
+        }
+
+    }
+
+
+    public void testGenerateFreeReport() {
+        MiroReport miroReport = getMiroReport(this.baseDirPath);
+        miroReport.setIsFreeReport(true);
+
+        MiroResponse miroResponse = new MiroResponse();
+
+        initTestData(miroResponse);
+
+        try {
+
+            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov10);
+
+            String fileName = this.baseDirPath + "/out/Roger_Test_1.pdf";
+
+            File f = new File(fileName);
+
+            if(!f.exists()) {
+                fail("pdf not created for " + fileName);
+            }
+
+            PdfReader pdfReader = new PdfReader(fileName);
+            int numOfPages = pdfReader.getNumberOfPages();
+
+            assertEquals(15,numOfPages);
+
+
+            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov11);
+
+            fileName = this.baseDirPath + "/out/Roger_Test_1_v11.pdf";
+
+            f = new File(fileName);
+
+            if(!f.exists()) {
+                fail("pdf not created for " + fileName);
+            }
+
+            pdfReader = new PdfReader(fileName);
+            numOfPages = pdfReader.getNumberOfPages();
+
+            assertEquals(18,numOfPages);
 
 
         } catch (Exception e) {

@@ -52,7 +52,15 @@ public class MiroReport {
 
     private double miroGraphAdjustment;
     private HashMap<String, String> subTitles;
+    private boolean isFreeReport = false;
 
+    public boolean isFreeReport() {
+        return isFreeReport;
+    }
+
+    public void setIsFreeReport(boolean isFreeReport) {
+        this.isFreeReport = isFreeReport;
+    }
 
     public void setSubTitles(HashMap subTitles) {
         this.subTitles = subTitles;
@@ -165,7 +173,7 @@ public class MiroReport {
         this.generateChart(Constants.Survey_id_Mirov11);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile(Constants.Survey_id_Mirov11);
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov11);
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov11,this.isFreeReport);
 
         return true;
 
@@ -188,7 +196,7 @@ public class MiroReport {
         this.generateChart(Constants.Survey_id_Mirov10);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile(Constants.Survey_id_Mirov10);
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov10);
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov10,this.isFreeReport);
 
         return true;
 
@@ -283,7 +291,7 @@ public class MiroReport {
 
         log.info("Generating " + mr.getFullName() + "_" + mr.getTestId());
 
-        List<MiroPage> pages = mr.getReportPageList(reportVersion);
+        List<MiroPage> pages = mr.getReportPageList(reportVersion,this.isFreeReport);
 
         //Image Map
         Map<String, String> variables = new HashMap<String, String>();

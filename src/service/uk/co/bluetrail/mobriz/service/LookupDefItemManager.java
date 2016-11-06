@@ -31,7 +31,7 @@ public interface LookupDefItemManager extends Manager {
     /**
      * Saves a lookupDefItem's information
      * @param lookupDefItem the object to be saved
-     * @param user TODO
+     * @param user
      */
     public void saveLookupDefItem(LookupDefItem lookupDefItem, User user);
 
