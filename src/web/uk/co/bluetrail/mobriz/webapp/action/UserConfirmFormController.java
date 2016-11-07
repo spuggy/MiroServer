@@ -58,7 +58,7 @@ public class UserConfirmFormController extends BaseFormController {
         User user = (User) command;
        
         if(user.getFirstName().equals("") || user.getLastName().equals("")){
-            saveMessage(request, "Fiest name and last name are required fields");
+            saveMessage(request, "First name and last name are required fields");
             return showForm(request, response, errors);
 
         }

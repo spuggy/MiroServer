@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.MiroProject;
 import uk.co.bluetrail.mobriz.model.Survey;
+import uk.co.bluetrail.mobriz.model.SurveyResponse;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.MiroProjectManager;
 import uk.co.bluetrail.mobriz.service.SurveyManager;
@@ -69,16 +70,19 @@ public class MiroSurveyController extends BaseController {
       	model.put("survey" , survey) ;
       	model.put("candidate" , candidate) ;
       	model.put("practitioner" , practitioner) ;
+        model.put("showDownload" , false) ;
         model.put("isVersion11",(survey.getId().longValue() == Constants.Survey_id_Mirov11) ? true:false );
-
-//        TODO Add free assessment shizzle here
-//
-//        miroReportShow.html?version=v11&id="  (id = userid)
 
         if(surveyResponses == null || surveyResponses.size() ==0 ) {
         	return new ModelAndView("miroSurveyForm", model);
         } else {
-        	return new ModelAndView("miroTestComplete", model);
+
+            if(candidate.getUserType()!=null &&
+               candidate.getUserType().equals(User.USER_TYPE_FREE) &&
+               candidate.getStatus() == User.DOWNLOAD_REPORT) {
+                model.put("showDownload" , true) ;
+            }
+            return new ModelAndView("miroTestComplete", model);
         }
     }
 

@@ -12,17 +12,32 @@
 <content tag="shortheading"><fmt:message key="miroSurvey.shortheading"/></content>
 <div class="row">
     <div id="miro-content" class="col-sm-8">
-        <div id="intro">
+        <c:choose>
+            <c:when test="${showDownload}">
+                <div id="intro">
 
-            <p>You have already completed your MiRo Behavioural Mode Assessment. If you wish to complete a second
-                assessment then please contact your manager to request a reset. </p>
+                    <p>Thanks for completing your MiRo Behavioural Mode Assessment!</p>
 
-            <p><b>Please Note:</b> We do not recommend taking the MiRo Behavioural Mode Assessment more than once within
-                a three month period. This is due to the fact that you may unconsciously skew your answers based on your
-                recent results.</p>
+                    <p>Please click the icon to download your personalised report</p>
+
+                    <a href="miroReportShow.html?version=v11&id=<c:out value="${candidate.id}"/>">Download</a>
+
+                </div>
+           </c:when>
+            <c:otherwise>
+                <div id="intro">
+
+                    <p>You have already completed your MiRo Behavioural Mode Assessment. If you wish to complete a second
+                        assessment then please contact your manager to request a reset. </p>
+
+                    <p><b>Please Note:</b> We do not recommend taking the MiRo Behavioural Mode Assessment more than once within
+                        a three month period. This is due to the fact that you may unconsciously skew your answers based on your
+                        recent results.</p>
 
 
-        </div>
+                </div>
+            </c:otherwise>
+            </c:choose>
     </div>
 </div>
 

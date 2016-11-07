@@ -89,9 +89,17 @@ public class HomePageController implements Controller {
     	if(isClient) {
     		return new ModelAndView((String) homePages.get(Constants.CLIENT_ROLE));
     	}
-        
-        
-        return new ModelAndView((String) homePages.get(Constants.USER_ROLE));
+
+		//this is a candidate logging in
+		//if they have not done a survey send them to confirm name else send them the the
+		//complete or download page
+		if(getCurrentUser()!=null && getCurrentUser().getStatus() < User.ASSESSMENT_COMPLETE)  {
+			return new ModelAndView((String) homePages.get(Constants.USER_ROLE));
+		} else {
+			return new ModelAndView("redirect:miroSurvey.html");
+		}
+
+
         
     }
     
