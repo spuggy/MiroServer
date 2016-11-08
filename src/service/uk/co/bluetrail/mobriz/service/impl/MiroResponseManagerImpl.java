@@ -351,7 +351,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         sr.setAlertsProcessed(true);
 
         //push on to purchased if a free jobby
-        if(candidate.getUserType()==User.USER_TYPE_FREE) {
+        if(candidate.getUserType().equals(User.USER_TYPE_FREE)) {
            userManager.buyReport(candidate.getId(), sr.getId());
         } else {
            userManager.saveAsPurchased(candidate.getId(), sr.getId());

@@ -204,7 +204,7 @@ public class BatchProcessController implements Controller {
     		
     		if(miroResponseManager.createPDF(sr,mr,filePath)){  
     			sendMiroEmails(mr);
-				//sendFreeMiroAssessmentEmails(mr);
+				//TODO sendFreeMiroAssessmentEmails(mr);
     		} 
     		batchProcessResults.add("Individual Report created for " + sr.getUser().getFullName() + "id=" + sr.getUser().getId());
 			
