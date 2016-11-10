@@ -20,7 +20,7 @@
 
                     <p>Please click the icon to download your personalised report</p>
 
-                    <a href="miroReportShow.html?version=v11&id=<c:out value="${candidate.id}"/>">Download</a>
+                    <a href="miroReportShow.html?version=v11&id=<c:out value="${candidate.id}"/>"><img src="images/pdf_large.png" width="70px" height="64"/></a>
 
                 </div>
            </c:when>

@@ -299,7 +299,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         miroReport.setLabels2(new String[]{"Leading", "Supporting", "Supplementary", "Dormant"});
         miroReport.setSubTitles(subTitles);
 
-        if(candidate!=null && candidate.getUserType()==User.USER_TYPE_FREE) {
+        if(candidate!=null && candidate.getUserType().equals(User.USER_TYPE_FREE)) {
             miroReport.setIsFreeReport(true);
         }
 
@@ -352,7 +352,7 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
         //push on to purchased if a free jobby
         if(candidate.getUserType().equals(User.USER_TYPE_FREE)) {
-           userManager.buyReport(candidate.getId(), sr.getId());
+           userManager.buyReport(candidate.getId(), sr.getCreatedBy_id());
         } else {
            userManager.saveAsPurchased(candidate.getId(), sr.getId());
         }

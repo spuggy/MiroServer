@@ -7,6 +7,7 @@ import org.springframework.web.servlet.mvc.Controller;
 import uk.co.bluetrail.miro.MiroResponse;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
 import uk.co.bluetrail.mobriz.model.SurveyResponse;
+import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.*;
 import uk.co.bluetrail.mobriz.webapp.util.RequestUtil;
 
@@ -204,7 +205,7 @@ public class BatchProcessController implements Controller {
     		
     		if(miroResponseManager.createPDF(sr,mr,filePath)){  
     			sendMiroEmails(mr);
-				//TODO sendFreeMiroAssessmentEmails(mr);
+				sendFreeMiroAssessmentEmails(mr,sr);
     		} 
     		batchProcessResults.add("Individual Report created for " + sr.getUser().getFullName() + "id=" + sr.getUser().getId());
 			
@@ -261,7 +262,6 @@ public class BatchProcessController implements Controller {
     
 	/**
      * Convenience message to send messages to users, includes app URL as footer.
-	s
 	 * @throws MessagingException 
 	 * @throws MessagingException 
      */
@@ -279,8 +279,42 @@ public class BatchProcessController implements Controller {
        
     }
 
-    
-    /**
+	/**
+	 * Convenience message to send messages to users, includes app URL as footer.
+	 * @throws MessagingException
+	 * @throws MessagingException
+	 */
+	protected void sendFreeMiroAssessmentEmails(MiroResponse mr, SurveyResponse sr) throws MessagingException  {
+
+		if(sr.getUser()!=null && sr.getUser().getUserType().equals(User.USER_TYPE_FREE)) {
+
+			log.debug("sending emails for for response id="+sr.getId());
+
+			String emailBody = "Your Miro Assessment Report is available!!" +
+					"\n\nLogin to download your PDF report:  + " +
+					"\n\n" + RequestUtil.getAppURL(request) +
+			        "\nusername=" + sr.getUser().getUsername() +
+					"\npassword=" + sr.getUser().getPasswordHint();
+			String emailSubject = "Your MiRo Assessment report is available" ;
+
+			ArrayList attachmentFiles = new ArrayList();
+
+
+			mailEngine.sendMessage(fromEmail, mr.getPractitionerEmail(),emailBody, emailSubject, attachmentFiles);
+		} else {
+			log.debug("ignoring response as not a free assessment for id="+sr.getId());
+		}
+
+
+
+
+
+	}
+
+
+
+
+	/**
      * Convenience message to send messages to users, includes app URL as footer.l
 	 * @throws MessagingException 
 	 * @throws MessagingException 

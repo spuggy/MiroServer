@@ -1,1 +1,2 @@
 ALTER TABLE app_user ADD COLUMN user_type character varying(15);
+INSERT INTO mr.setting (id, account_id, settingdescription, settingname, settingvalue) VALUES (11, 1, 'SETTING_FREE_ASSESSMENT_PROJECT_ID', 'SETTING_FREE_ASSESSMENT_PROJECT_ID', '1401');
