@@ -15,11 +15,13 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Random;
 
 
 public class FreeAssessmentFormController extends BaseFormController {
 
 	private SettingManager settingManager = null;
+	private String[] capatchaAnswers = {"10","13","9"};
 
 	public void setSettingManager(SettingManager settingManager) {
 		this.settingManager = settingManager;
@@ -40,7 +42,30 @@ public class FreeAssessmentFormController extends BaseFormController {
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
 
-		return new MiroCandidateAjaxDTO();
+		MiroCandidateAjaxDTO miroCandidateAjaxDTO = new MiroCandidateAjaxDTO();
+		
+		int capatchaValue = getCaptachaIndex();
+
+		miroCandidateAjaxDTO.setCaptchaIdx(capatchaValue);
+
+		return miroCandidateAjaxDTO;
+	}
+
+	private int randInt(int min, int max) {
+
+
+		Random rand = new Random();
+
+		// nextInt is normally exclusive of the top value,
+		// so add 1 to make it inclusive
+		int randomNum = rand.nextInt((max - min) + 1) + min;
+
+		return randomNum;
+	}
+
+
+	private int getCaptachaIndex() {
+		return randInt(0,2);
 	}
 
 	public boolean isValidEmailAddress(String email) {
@@ -86,8 +111,20 @@ public class FreeAssessmentFormController extends BaseFormController {
 			return new ModelAndView("jsonView", "dto", miroFreeAssessmentReturnDto);
 		}
 
+		if(isBlank(miroCandidateAjaxDTO.getPhoneNumber())) {
+			miroFreeAssessmentReturnDto.addError("BAD_PHONE");
+			miroFreeAssessmentReturnDto.setStatus(MiroFreeAssessmentReturnDto.FAIL);
+			return new ModelAndView("jsonView", "dto", miroFreeAssessmentReturnDto);
+		}
+
 		if(!isValidEmailAddress(miroCandidateAjaxDTO.getEmailAddress())) {
 			miroFreeAssessmentReturnDto.addError("BAD_EMAIL");
+			miroFreeAssessmentReturnDto.setStatus(MiroFreeAssessmentReturnDto.FAIL);
+			return new ModelAndView("jsonView", "dto", miroFreeAssessmentReturnDto);
+		}
+
+		if(!isValidCapatcha(miroCandidateAjaxDTO.getCaptchaIdx(),miroCandidateAjaxDTO.getCaptchaAnswer())) {
+			miroFreeAssessmentReturnDto.addError("BAD_CAPATCHA");
 			miroFreeAssessmentReturnDto.setStatus(MiroFreeAssessmentReturnDto.FAIL);
 			return new ModelAndView("jsonView", "dto", miroFreeAssessmentReturnDto);
 		}
@@ -135,6 +172,14 @@ public class FreeAssessmentFormController extends BaseFormController {
 
 		return new ModelAndView("jsonView", "dto", miroFreeAssessmentReturnDto);
 
+	}
+
+	private boolean isValidCapatcha(int capatcha,String captchaAnswer) {
+		if(captchaAnswer!=null & captchaAnswer.trim().equals(capatchaAnswers[capatcha])) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	private boolean isBlank(String val) {

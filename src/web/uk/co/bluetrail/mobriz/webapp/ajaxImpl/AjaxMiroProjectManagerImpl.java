@@ -277,6 +277,10 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 
 	public MiroCandidateAjaxDTO saveCandidateAndEmail(String usernName,MiroCandidateAjaxDTO miroCandidateAjaxDTO, String algorithm, String url) throws Exception {
 
+		if (algorithm == null) {
+			algorithm = "SHA";
+		}
+
 		this.saveCandidate(usernName,miroCandidateAjaxDTO,algorithm);
 		
 		if(miroCandidateAjaxDTO.getStatus()!=AjaxMiroProjectManagerImpl.STATUS_OK) {

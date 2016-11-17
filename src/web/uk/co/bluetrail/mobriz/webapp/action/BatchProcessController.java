@@ -299,8 +299,7 @@ public class BatchProcessController implements Controller {
 
 			ArrayList attachmentFiles = new ArrayList();
 
-
-			mailEngine.sendMessage(fromEmail, mr.getPractitionerEmail(),emailBody, emailSubject, attachmentFiles);
+			mailEngine.sendMessage(fromEmail, sr.getUser().getEmail(),emailBody, emailSubject, attachmentFiles);
 		} else {
 			log.debug("ignoring response as not a free assessment for id="+sr.getId());
 		}

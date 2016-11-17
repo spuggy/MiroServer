@@ -2,6 +2,7 @@ package uk.co.bluetrail.mobriz.webapp.ajaxDTO;
 
 public class MiroCandidateAjaxDTO {
 
+
 	private String id;
 	private String firstName ;
 	private String lastName ;
@@ -14,6 +15,33 @@ public class MiroCandidateAjaxDTO {
 	private String creditBalance;
     private String survey_id ;
 	private boolean isFreeCandidate = false ;
+	private int captchaIdx = 0;
+	private String captchaAnswer ;
+	private String phoneNumber ;
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public int getCaptchaIdx() {
+		return captchaIdx;
+	}
+
+	public void setCaptchaIdx(int captchaIdx) {
+		this.captchaIdx = captchaIdx;
+	}
+
+	public String getCaptchaAnswer() {
+		return captchaAnswer;
+	}
+
+	public void setCaptchaAnswer(String captchaAnswer) {
+		this.captchaAnswer = captchaAnswer;
+	}
 
 	public boolean isFreeCandidate() {
 		return isFreeCandidate;

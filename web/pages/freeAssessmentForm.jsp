@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="/common/taglibs.jsp"%>
 
 <head>
@@ -40,11 +41,31 @@
     <div id="EMAIL_BLANK" class="alert alert-danger error hidemeh" role="alert">email is required</div>
     <div id="BAD_EMAIL" class="alert alert-danger error hidemeh" role="alert">the email is invalid</div>
     <div id="DUPE" class="alert alert-danger error hidemeh" role="alert">a report has already been requested with this email</div>
+    <div id="BAD_PHONE" class="alert alert-danger error hidemeh" role="alert">phone number is required</div>
+    <div id="BAD_CAPATCHA" class="alert alert-danger error hidemeh" role="alert">woooahh .. are you sure you are human?</div>
+
 
     <form:form commandName="miroCandidateAjaxDTO" method="post" action="freeAssessmentForm.html" id="freeAssessmentForm">
-        <p>first name<form:input path="firstName" id="firstName" cssClass="form-control"/></p>
-        <p>last name<form:input path="lastName" id="lastName" cssClass="form-control"/></p>
-        <p>email<form:input path="emailAddress" id="emailAddress" cssClass="form-control"/></p>
+        <form:hidden path="captchaIdx" id="captchaIdx"/>
+        <p>first name<br/><form:input path="firstName" id="firstName" cssClass="form-control"/></p>
+        <p>last name<br/><form:input path="lastName" id="lastName" cssClass="form-control"/></p>
+        <p>phone number<br/><form:input path="phoneNumber" id="phoneNumber" cssClass="form-control"/></p>
+        <p>email<br/><form:input path="emailAddress" id="emailAddress" cssClass="form-control"/></p>
+        <p>prove you're human:
+
+            <c:choose>
+                <c:when test="${miroCandidateAjaxDTO.captchaIdx=='0'}">
+                    what is 6 + 4?
+                </c:when>
+                <c:when test="${miroCandidateAjaxDTO.captchaIdx=='1'}">
+                    what is 10 + 3?
+                </c:when>
+                <c:when test="${miroCandidateAjaxDTO.captchaIdx=='2'}">
+                    what is 6 + 3?
+                </c:when>
+            </c:choose>
+
+            <br/><form:input path="captchaAnswer" id="captchaAnswer" cssClass="form-control"/></p>
 
         <input type="submit" class="button" name="save" /> <br/>
 
