@@ -214,12 +214,15 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 	}
 
 	private boolean sendUserEmail(User user, ArrayList report,MiroProject miroProject, String url) {
-	
+
+		log.debug("sendUserEmail");
+
 		String newUserEmailSubject  = null;
         String newUserEmailMessage  = null;
         String newUserEmailBCC = null;
 
 		if(user!=null && miroProject==null){
+			log.debug("getting project");
 			miroProject = miroProjectManager.getMiroProject(user.getProject_id().toString());
 			
 			if(miroProject.getEmailInviteSubject()==null || miroProject.getEmailInviteSubject().equals("") ){
@@ -264,29 +267,34 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 
 	public MiroCandidateAjaxDTO saveCandidateAndEmail(MiroCandidateAjaxDTO miroCandidateAjaxDTO) throws Exception {
 
+		log.debug("saveCandidateAndEmail from ajax");
+
 		WebContext ctx = WebContextFactory.get();
 		HttpServletRequest request = ctx.getHttpServletRequest();
 		String algorithm = (String)ctx.getServletContext().getAttribute(Constants.ENC_ALGORITHM)   ;
 		String url = RequestUtil.getAppURL(request);
 		String userName = miroCandidateAjaxDTO.getProject_id() + miroCandidateAjaxDTO.getFirstName() + miroCandidateAjaxDTO.getLastName();
 
-		return saveCandidateAndEmail(userName,miroCandidateAjaxDTO, algorithm, url);
+		return saveNonAjaxCandidateAndEmail(userName,miroCandidateAjaxDTO, algorithm, url);
 
 	}
 
 
-	public MiroCandidateAjaxDTO saveCandidateAndEmail(String usernName,MiroCandidateAjaxDTO miroCandidateAjaxDTO, String algorithm, String url) throws Exception {
+	public MiroCandidateAjaxDTO saveNonAjaxCandidateAndEmail(String usernName,MiroCandidateAjaxDTO miroCandidateAjaxDTO, String algorithm, String url) throws Exception {
 
 		if (algorithm == null) {
 			algorithm = "SHA";
 		}
 
+		log.debug("saveCandidateAndEmail");
 		this.saveCandidate(usernName,miroCandidateAjaxDTO,algorithm);
 		
 		if(miroCandidateAjaxDTO.getStatus()!=AjaxMiroProjectManagerImpl.STATUS_OK) {
 			return miroCandidateAjaxDTO;
 		}
-		
+
+
+		log.debug("sending email 1");
 		MiroProject miroProject = null;
 		ArrayList report = null;
         
@@ -305,6 +313,8 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 
 	public  MiroCandidateAjaxDTO saveCandidate(MiroCandidateAjaxDTO miroCandidateAjaxDTO) throws Exception {
 
+		log.debug("saveCandidate from ajax");
+
 		WebContext ctx = WebContextFactory.get();
 		HttpServletRequest request = ctx.getHttpServletRequest();
 		String algorithm = (String)ctx.getServletContext().getAttribute(Constants.ENC_ALGORITHM)   ;
@@ -319,7 +329,9 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 
 	private  MiroCandidateAjaxDTO saveCandidate(String userName,MiroCandidateAjaxDTO miroCandidateAjaxDTO, String algorithm) throws Exception{
 
-        if (algorithm == null) { // should only happen for test case
+		log.debug("saveCandidate .. ");
+
+		if (algorithm == null) { // should only happen for test case
                 algorithm = "SHA";
         }
 

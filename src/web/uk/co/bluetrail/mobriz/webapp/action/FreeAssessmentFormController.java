@@ -147,7 +147,7 @@ public class FreeAssessmentFormController extends BaseFormController {
 			String userName = miroCandidateAjaxDTO.getProject_id() + miroCandidateAjaxDTO.getEmailAddress();
 
 			if (ajaxMiroProjectManager != null && algorithm !=null && url !=null) {
-				MiroCandidateAjaxDTO newMiroCandidateAjaxDTO = ajaxMiroProjectManager.saveCandidateAndEmail(userName,miroCandidateAjaxDTO,algorithm,url);
+				MiroCandidateAjaxDTO newMiroCandidateAjaxDTO = ajaxMiroProjectManager.saveNonAjaxCandidateAndEmail(userName,miroCandidateAjaxDTO,algorithm,url);
 
 				if(newMiroCandidateAjaxDTO.getStatus()== AjaxMiroProjectManager.STATUS_OK) {
 					miroFreeAssessmentReturnDto.setStatus(MiroFreeAssessmentReturnDto.OK);

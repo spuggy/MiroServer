@@ -14,7 +14,7 @@ public interface AjaxMiroProjectManager {
 	public MiroCandidateAjaxDTO[] getCandidates(String projectId) throws Exception ;
 	public MiroCandidateAjaxDTO saveCandidate(MiroCandidateAjaxDTO miroCandidateAjaxDTO) throws Exception ;
 	public MiroCandidateAjaxDTO saveCandidateAndEmail(MiroCandidateAjaxDTO miroCandidateAjaxDTO) throws Exception;
-	public MiroCandidateAjaxDTO saveCandidateAndEmail(String userName,MiroCandidateAjaxDTO miroCandidateAjaxDTO,String algorithm, String url) throws Exception;
+	public MiroCandidateAjaxDTO saveNonAjaxCandidateAndEmail(String userName,MiroCandidateAjaxDTO miroCandidateAjaxDTO,String algorithm, String url) throws Exception;
 	public MiroCandidateAjaxDTO deleteCandidate(String candidateId) throws Exception;
 	public Object[] sendInviteEmails(String[]  ids);
 	public MiroCandidateAjaxDTO buyReport(String id);
