@@ -5,7 +5,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 import uk.co.bluetrail.miro.MiroResponse;
+import uk.co.bluetrail.mobriz.Constants;
 import uk.co.bluetrail.mobriz.model.MiroTeam;
+import uk.co.bluetrail.mobriz.model.Setting;
 import uk.co.bluetrail.mobriz.model.SurveyResponse;
 import uk.co.bluetrail.mobriz.model.User;
 import uk.co.bluetrail.mobriz.service.*;
@@ -46,10 +48,14 @@ public class BatchProcessController implements Controller {
 	}
 
 	private HttpServletRequest request ;
-     private HttpServletResponse response ; 
+	private HttpServletResponse response ;
 
-     
-	
+
+	private SettingManager settingManager = null;
+
+	public void setSettingManager(SettingManager settingManager) {
+		this.settingManager = settingManager;
+	}
 
 	/**
 	 * @return the miroTeamManager
@@ -196,14 +202,14 @@ public class BatchProcessController implements Controller {
     	}
     	
     	MiroResponse mr = null;
-    	
+		User candidate = null;
     	
     	while(itr.hasNext()){
     		sr = (SurveyResponse) itr.next();
     		mr = new MiroResponse();
     	try {
-    		
-    		if(miroResponseManager.createPDF(sr,mr,filePath)){  
+
+    		if(miroResponseManager.createPDF(sr,mr,filePath)){
     			sendMiroEmails(mr);
 				sendFreeMiroAssessmentEmails(mr,sr);
     		} 
@@ -290,8 +296,15 @@ public class BatchProcessController implements Controller {
 
 			log.debug("sending emails for for response id="+sr.getId());
 
-			String emailBody = "Your Miro Assessment Report is available!!" +
-					"\n\nLogin to download your PDF report:  + " +
+			Setting emailTestSetting = settingManager.getSettingByName(Constants.FREE_ASSESSMENT_EMAIL);
+
+			if(emailTestSetting == null) {
+				log.error("Could no find FREE_ASSESSMENT_EMAIL");
+				return;
+			}
+
+			String emailBody = emailTestSetting.getSettingValue() +
+					"\n\nLogin to download your PDF report: " +
 					"\n\n" + RequestUtil.getAppURL(request) +
 			        "\nusername=" + sr.getUser().getUsername() +
 					"\npassword=" + sr.getUser().getPasswordHint();

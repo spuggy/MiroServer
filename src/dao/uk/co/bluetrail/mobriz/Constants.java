@@ -140,6 +140,9 @@ public class Constants {
 
     public static final String SETTING_FREE_ASSESSMENT_PROJECT_ID = "FREE_ASSESSMENT_PROJECT_ID";
 
+    public static final String FREE_ASSESSMENT_EMAIL = "FREE_ASSESSMENT_EMAIL";
+
+
     public static final String PHOTODIR = "photos";
 
 	public static final String NOTAPPLICABLE = "N/A";

@@ -3,6 +3,7 @@ package uk.co.bluetrail.mobriz.service;
 import uk.co.bluetrail.miro.MiroResponse;
 import uk.co.bluetrail.mobriz.model.Setting;
 import uk.co.bluetrail.mobriz.model.SurveyResponse;
+import uk.co.bluetrail.mobriz.model.User;
 
 import java.awt.image.BufferedImage;
 import java.util.Collection;
