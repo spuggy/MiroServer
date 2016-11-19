@@ -644,12 +644,6 @@ public class MiroResponse  {
 
         pages.add(MiroPage.create("TOC"));
 
-
-
-        //page1
-		if(isFreeReport) {
-			pages.add(MiroPage.create("FREE"));
-		}
 		pages.add(MiroPage.create("U2"));
         pages.add(MiroPage.create("U2a"));
 //		page2
@@ -729,8 +723,11 @@ public class MiroResponse  {
 
 
 		//page11
-		pages.add(MiroPage.create("U7" ));
-		
+		if(isFreeReport) {
+		    pages.add(MiroPage.create("FREEU7"));
+		} else {
+			pages.add(MiroPage.create("U7" ));
+		}
 		
 		return pages;
 		

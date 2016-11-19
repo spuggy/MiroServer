@@ -99,8 +99,6 @@ public class HomePageController implements Controller {
 			return new ModelAndView("redirect:miroSurvey.html");
 		}
 
-
-        
     }
     
     private User getCurrentUser() {

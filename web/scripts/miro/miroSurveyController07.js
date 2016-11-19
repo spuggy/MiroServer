@@ -19,10 +19,11 @@ function errorHandler(errorString, exception) {
 }
 
 
-var MiroSurveyController = function(sid, firstQid) {
+var MiroSurveyController = function(sid, firstQid, isFreeAssessment) {
 
   this.sid = sid;
   this.firstQid = firstQid;
+  this.isFreeAssessment = isFreeAssessment;
 
   DWREngine.setErrorHandler(errorHandler);
 
@@ -84,7 +85,12 @@ MiroSurveyController.prototype = {
     if (rValue == MIRO_OK) {
       $("#loading").hide();
       $("#miroError").hide();
-      $("#miroThanks").show();
+      if(this.isFreeAssessment == true) {
+        $("#miroFreeThanks").show();
+      } else {
+        $("#miroThanks").show();
+      }
+
       testInProgress = false;
       return;
     }

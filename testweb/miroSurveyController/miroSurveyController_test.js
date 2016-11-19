@@ -27,6 +27,13 @@ describe('miroSurveyController', function () {
 
   describe('miro 1.1', function () {
 
+
+    beforeEach(function() {
+      document.getElementById("finish").style.display = 'none'  ;
+      document.getElementById("miroThanks").style.display = 'none' ;
+    });
+
+
     it('should make use enter a value', function () {
 
       msc = new MiroSurveyController(4, 33);
@@ -63,12 +70,7 @@ describe('miroSurveyController', function () {
         msc.nextButton();
       }
 
-      //expect(document.getElementById("miro11Prompt").style.display).equals("");
-
       msc.nextButton();
-
-
-
 
       var x = document.getElementsByName('qOptions');
       x[1].checked = true;
@@ -85,12 +87,51 @@ describe('miroSurveyController', function () {
 
     });
 
+
+    it('run ok free survey', function () {
+
+      msc = new MiroSurveyController(4, 33,true);
+      ajaxSurveyEditManager.questions =  g_miro_questions_1_1;
+      ajaxSurveyEditManager.status =  MIRO_OK;
+
+      msc.startButton();
+
+
+      for (var i = 0; i < 30; i++) {
+        var x = document.getElementsByName('qOptions');
+        x[1].checked = true;
+        msc.nextButton();
+        x = document.getElementsByName('qOptions');
+        expect(x.length).equals(3);
+
+        x[2].checked = true;
+        msc.nextButton();
+      }
+
+      msc.nextButton();
+
+      var x = document.getElementsByName('qOptions');
+      x[1].checked = true;
+      msc.nextButton();
+
+      expect(document.getElementById("finish").style.display).equals("");
+
+      var x = document.getElementsByName('qOptions');
+      x[1].checked = true;
+      msc.finishButton();
+
+      expect(document.getElementById("miroFreeThanks").style.display).equals("");
+      expect(document.getElementById("miroThanks").style.display).equals("none");
+      expect(document.getElementById("miroInvalid").style.display).equals("none");
+
+    });
+
+
+
+
   });
 
   describe('miro 1.0', function () {
-
-
-
 
     it('run ok survey', function () {
 

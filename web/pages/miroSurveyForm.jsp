@@ -10,15 +10,14 @@
     <script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/scripts/jquery-1.11.1.min.js'/>"></script>
-    <script type="text/javascript" src="<c:url value='/scripts/miro/miroSurveyController06.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/scripts/miro/miroSurveyController07.js'/>"></script>
 
     <script type="text/javascript">
         var testInProgress = false;
 
         function startMiroTest() {
 
-            msc = new MiroSurveyController(<c:out value="${survey.id}"/>, <c:out value="${survey.firstQuestion_id}"/>);
-
+            msc = new MiroSurveyController(<c:out value="${survey.id}"/>, <c:out value="${survey.firstQuestion_id}"/>,<c:out value="${isFreeAssessment}"/>);
             msc.startButton();
 
         }
@@ -149,6 +148,13 @@
             <p><b>Tel:</b> <c:out value="${practitioner.phoneNumber}"/><br/> <b>Email:</b>
                 <a href="mailto:<c:out value="${practitioner.email}" />"><c:out value="${practitioner.email}"/></a>
         </div>
+
+        <div id="miroFreeThanks" style="display: none">
+            <p>You have now completed the MiRo Behavioural Mode Assessment. We'll email you in just a moment to notify you that your results are ready.
+                Just follow the log in details once again to see your report.</p>
+        </div>
+
+
     </div>
 </div>
 

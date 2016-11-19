@@ -71,9 +71,14 @@ public class MiroSurveyController extends BaseController {
       	model.put("candidate" , candidate) ;
       	model.put("practitioner" , practitioner) ;
         model.put("showDownload" , false) ;
+        model.put("isFreeAssessment",false);
         model.put("isVersion11",(survey.getId().longValue() == Constants.Survey_id_Mirov11) ? true:false );
 
         if(surveyResponses == null || surveyResponses.size() ==0 ) {
+
+            if(candidate.getUserType()!=null && candidate.getUserType().equals(User.USER_TYPE_FREE)) {
+                model.put("isFreeAssessment",true);
+            }
         	return new ModelAndView("miroSurveyForm", model);
         } else {
 
