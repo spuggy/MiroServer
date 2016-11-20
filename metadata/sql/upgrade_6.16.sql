@@ -1,4 +1,9 @@
 alter table mr.setting alter column settingvalue type text;
 ALTER TABLE app_user ADD COLUMN user_type character varying(15);
 INSERT INTO mr.setting (id, account_id, settingdescription, settingname, settingvalue) VALUES (11, 1, 'FREE_ASSESSMENT_PROJECT_ID', 'FREE_ASSESSMENT_PROJECT_ID', '1401');
-INSERT INTO mr.setting (id, account_id, settingdescription, settingname, settingvalue) VALUES (12,1,'FREE_ASSESSMENT_EMAIL','FREE_ASSESSMENT_EMAIL','Your sample Miro Report now available. We hope you find it interesting and useful. Your Enhanced report is also available should you wish to purchase it. In the mean time however, if there is anything in the report that you would like explained or if you have any questions at all, please do not hesitate to get in touch. Someone here would be pleased to help.\n\nVery best regards,\n\nRob Chappell\nMiRo Practitioner')
+INSERT INTO mr.setting (id, account_id, settingdescription, settingname, settingvalue) VALUES (12,1,E'FREE_ASSESSMENT_EMAIL','FREE_ASSESSMENT_EMAIL','Your sample Miro Report now available. We hope you find it interesting and useful. Your Enhanced report is also available should you wish to purchase it. In the mean time however, if there is anything in the report that you would like explained or if you have any questions at all, please do not hesitate to get in touch. Someone here would be pleased to help.
+
+Very best regards,
+
+Rob Chappell
+MiRo Practitioner');

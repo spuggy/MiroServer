@@ -321,7 +321,9 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
     public boolean createPDF(SurveyResponse sr, MiroResponse mr, String baseDirectory) throws Exception {
 
-        MiroReport miroReport = getMiroReport(baseDirectory);
+        User candidate = sr.getUser();
+
+        MiroReport miroReport = getMiroReport(baseDirectory,candidate);
 
         this.setup();
 
@@ -330,7 +332,6 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
         mr.init(survey, sr, this.miroLetters, this.testOffset);
 
 
-        User candidate = sr.getUser();
 
         MiroProject miroProject = miroProjectManager.getMiroProject(candidate.getProject_id().toString());
 
