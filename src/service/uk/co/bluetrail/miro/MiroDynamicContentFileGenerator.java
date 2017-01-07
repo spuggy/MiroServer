@@ -57,7 +57,7 @@ public class MiroDynamicContentFileGenerator {
 			out = new OutputStreamWriter(fos, "UTF-8");
 		    out.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 		   
-		    out.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.miro-assessment.com/dtds/xhtml1-transitional.dtd\">");
+		    out.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"https://www.miro-assessment.com/dtds/xhtml1-transitional.dtd\">");
 		    out.append("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
 		    out.append("<head></head>");
 		    out.append("<body>");
