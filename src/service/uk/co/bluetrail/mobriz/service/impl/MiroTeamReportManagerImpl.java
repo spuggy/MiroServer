@@ -40,6 +40,7 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 	private SurveyManager surveyManager;
 	private MiroTeamManager miroTeamManager =null;
 	private Setting dynamicTensionDefaults;
+	protected Setting miroLetters;
 	
 	
 	
@@ -53,7 +54,6 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 	}
 
 	/**
-	 * @param miroTeamMangaer the miroTeamMangaer to set
 	 */
 	//public void setMiroTeamMangaer(MiroTeamManager miroTeamMangaer) {
 //		this.miroTeamMangaer = miroTeamMangaer;
@@ -92,22 +92,32 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 	}
 	
     protected void setup() {
-		
-	    
-		miroLevels = settingManager.getSettingByName("MIRO_LEVELS");
-			
-		if(miroLevels ==null) {
-			log.error("MIRO_LEVELS not Found!!");
-			throw new RuntimeException("MIRO_LEVELS not Found!!");
-			
-		}
-		
-		this.dynamicTensionDefaults = settingManager.getSettingByName("MIRO_DYNAMICTENSIONDEFAULTS");
-			
-		if(this.dynamicTensionDefaults  ==null) {
-			log.error("MIRO_DYNAMICTENSIONDEFAULTS not Found!!");
-			throw new RuntimeException("MIRO_DYNAMICTENSIONDEFAULTS not Found!!");
-				
+
+		if(settingManager!=null && (miroLevels == null || this.dynamicTensionDefaults == null || miroLetters == null)) {
+
+			miroLetters = settingManager.getSettingByName("MIRO_LETTERS");
+
+			if (miroLetters == null) {
+				log.error("MIRO_LETTERS not Found!!");
+				throw new RuntimeException("MIRO_LETTERS not Found!!");
+
+			}
+
+			miroLevels = settingManager.getSettingByName("MIRO_LEVELS");
+
+			if (miroLevels == null) {
+				log.error("MIRO_LEVELS not Found!!");
+				throw new RuntimeException("MIRO_LEVELS not Found!!");
+
+			}
+
+			this.dynamicTensionDefaults = settingManager.getSettingByName("MIRO_DYNAMICTENSIONDEFAULTS");
+
+			if (this.dynamicTensionDefaults == null) {
+				log.error("MIRO_DYNAMICTENSIONDEFAULTS not Found!!");
+				throw new RuntimeException("MIRO_DYNAMICTENSIONDEFAULTS not Found!!");
+
+			}
 		}
 	       
     }
@@ -148,10 +158,8 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 	 */
 	public boolean createPDF(MiroTeam mt, String filePath) throws Exception {
 		
-		if(this.miroLevels==null) {
-			this.setup();
-		}
-		
+		this.setup();
+
 		User prac = userManager.getUser(mt.getCreatedBy_id().toString());
 		
 		if(prac == null) {
@@ -162,7 +170,7 @@ public class MiroTeamReportManagerImpl extends BaseManager implements MiroTeamRe
 		
 		File baseDir = new File(filePath);
 		
-		MiroTeamReport mtr = new MiroTeamReport(baseDir,miroResponseManager.getMiroLetters(),this.miroLevels,this.dynamicTensionDefaults );
+		MiroTeamReport mtr = new MiroTeamReport(baseDir,this.miroLetters,this.miroLevels,this.dynamicTensionDefaults );
 		
 			List teamMapData = this.miroResponseManager.getTeamMap(filePath, mt.getMembers());
 		
