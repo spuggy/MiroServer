@@ -208,7 +208,7 @@ public class MiroReport10Test extends TestCase {
         miroReport.setExcessText("Excess");
         miroReport.setMiroGraphAdjustment(miroGraphAdjustment);
         miroReport.setLabels2(new String[] { "Leading", "Supporting", "Supplementary","Dormant" });
-        miroReport.setSubTitles(subTitles);
+        miroReport.setSubPieAddtionalText(subTitles);
 
 
         return miroReport;

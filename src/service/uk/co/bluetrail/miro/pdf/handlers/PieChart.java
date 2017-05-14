@@ -69,7 +69,7 @@ public class PieChart extends Handler {
 
             PdfPTable legTable = new PdfPTable(2);
             legTable.setWidths(new int[]{1, 3});
-            for(int i = 1 ; i < 5;i++) {
+            for(int i = 1 ; i < 9;i++) {
                 Node legImgNode = legendMap.get("miropie_img_leg"+i);
                 Node legTextNode = legendMap.get("miropie_txt_leg"+i);
                 Node legSubTextNode = legendMap.get("miropie_subtxt_leg"+i);

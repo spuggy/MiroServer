@@ -51,8 +51,11 @@ public class MiroReport {
     private String excessText;
 
     private double miroGraphAdjustment;
-    private HashMap<String, String> subTitles;
+    private HashMap<String, String> subPieAddtionalText;
     private boolean isFreeReport = false;
+    private HashMap<String, String> subPieSubTxtLeg;
+    private HashMap<String, String[]> subPieOrdering;
+    private String[] subPieTxtLeg  ;
 
     public boolean isFreeReport() {
         return isFreeReport;
@@ -62,8 +65,8 @@ public class MiroReport {
         this.isFreeReport = isFreeReport;
     }
 
-    public void setSubTitles(HashMap subTitles) {
-        this.subTitles = subTitles;
+    public void setSubPieAddtionalText(HashMap subPieAddtionalText) {
+        this.subPieAddtionalText = subPieAddtionalText;
     }
 
     /**
@@ -294,7 +297,7 @@ public class MiroReport {
         List<MiroPage> pages = mr.getReportPageList(reportVersion,this.isFreeReport);
 
         //Image Map
-        Map<String, String> variables = new HashMap<String, String>();
+        HashMap<String, String> variables = new HashMap<String, String>();
         variables.put("id", mr.getTestId().toString());
         variables.put("firstname", mr.getFirstName());
         variables.put("lastname", mr.getLastName());
@@ -308,9 +311,6 @@ public class MiroReport {
         variables.put("toc3", mr.getVariable("toc3",reportVersion));
         variables.put("toc4", mr.getVariable("toc4",reportVersion));
         variables.put("toc5", mr.getVariable("toc5",reportVersion));
-
-
-
 
 
         StringBuffer sb = new StringBuffer();
@@ -349,13 +349,16 @@ public class MiroReport {
 
 
         // Image Map
-        Map<String, String> imgNames = new HashMap<String, String>();
+        HashMap<String, String> imgNames = new HashMap<String, String>();
         imgNames.put("graph", this.baseDirectory.getAbsolutePath() + "/out/" + this.getChartName());
         imgNames.put("imgU1", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U1.png");
         imgNames.put("imgU3", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U3.png");
         imgNames.put("imgU2", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U2.png");
         imgNames.put("imgU6", this.baseDirectory.getAbsolutePath() + "/miro2/images/" + "U6.png");
 
+
+        String mbtiValue = this.getMBTIValue();
+        variables.put("mbti", mbtiValue);
 
         //add pie images
         String[] resultLetters = mr.getResultLetters();
@@ -376,14 +379,10 @@ public class MiroReport {
 
             id = "miropie_subtxt_leg" + (l + 1);
             String miropieSubTxt = this.getMiroPieChartLegendValue(resultLetter + "subText");
-            if (miropieTxt != null) {
+            if (miropieSubTxt != null) {
                 variables.put(id, miropieSubTxt);
             }
-
-
         }
-
-        variables.put("mbti", this.getMBTIValue());
 
         //add miro population chart value
         if(reportVersion == Constants.Survey_id_Mirov11) {
@@ -391,18 +390,10 @@ public class MiroReport {
             variables.put("report_type", "YOUR MIRO ENHANCED REPORT");
             variables.put("report_type_colour", "MIRORED");
 
-            //lexmex
 
-            if (this.subTitles != null) {
-                String subTitleKey = mr.getExtraIntroMappingKey();
-                if(subTitleKey!=null) {
-                    String subTitle = subTitles.get(subTitleKey);
-                    if (subTitle != null) {
-                        variables.put("lexmexpiesubtitle", subTitle);
-                    }
-                }
+            addSubPieValues(mbtiValue,imgNames,variables);
 
-            }
+
 
         } else {
             variables.put("report_type", "YOUR MIRO REPORT");
@@ -415,6 +406,46 @@ public class MiroReport {
         }
         miroReportFileGenerator.generate(pages, variables, imgNames);
 
+
+    }
+
+    private void addSubPieValues(String mbtiValue, HashMap<String, String> imgNames, HashMap<String, String> variables) {
+
+        String[] subPieOrder = this.subPieOrdering.get(mbtiValue);
+        //add sub pie values
+        for (int l = 0; l < subPieOrder.length ; l++) {
+            String subPieKey = subPieOrder[l];
+            String id = "miropie_img_leg" + (l + 4);
+
+            String legImageName = subPieKey + ".png";
+            if (legImageName != null) {
+                imgNames.put(id, this.baseDirectory.getAbsolutePath() + "/miro2/images/" + legImageName);
+            }
+
+            id = "miropie_txt_leg" + (l + 4);
+            String miropieTxt = this.subPieTxtLeg[l];
+            if (miropieTxt != null) {
+                variables.put(id, miropieTxt);
+            }
+
+            id = "miropie_subtxt_leg" + (l + 4);
+            String miropieSubTxt = this.subPieSubTxtLeg.get(mbtiValue);
+            if(miropieSubTxt !=null) {
+
+                if(l == 0) {
+                    String subPieAddtionalTextKey = mr.getExtraIntroMappingKey();
+                    if(subPieAddtionalTextKey!=null) {
+                        String subPieAddtionalTextValue = subPieAddtionalText.get(subPieAddtionalTextKey);
+                        if (subPieAddtionalTextValue != null) {
+                            miropieSubTxt = miropieSubTxt + " (" + subPieAddtionalTextValue + " expressed)";
+                        }
+                    }
+                }
+                if (miropieTxt != null) {
+                    variables.put(id, miropieSubTxt);
+                }
+            }
+        }
 
     }
 
@@ -821,5 +852,18 @@ public class MiroReport {
 
         return this.baseDirectory.getAbsolutePath() + "/out/" + miroResponse.getMiroReportName(version) + ".pdf";
 
+    }
+
+    public void setSubPieSubTxtLeg(HashMap<String, String> subPieSubTxtLeg) {
+
+        this.subPieSubTxtLeg = subPieSubTxtLeg;
+    }
+
+    public void setSubPieOrdering(HashMap<String, String[]> subPieOrdering) {
+        this.subPieOrdering = subPieOrdering;
+    }
+
+    public void setSubPieTxtLeg(String[] subPieTxtLeg) {
+        this.subPieTxtLeg = subPieTxtLeg;
     }
 }
