@@ -279,7 +279,7 @@ public class MiroTeamReportTest extends TestCase {
 			
 			pe = plist.get(3);
 			
-			Assert.assertEquals("Page 4 has two elements", 7,pe.getLength());
+			Assert.assertEquals("Page 4 has two elements", 1,pe.getLength());
 			
 			
 		} catch(Exception e) {
