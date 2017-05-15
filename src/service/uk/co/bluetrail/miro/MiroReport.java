@@ -131,12 +131,108 @@ public class MiroReport {
     public void setModes(HashMap modes) {
         this.modes = modes;
     }
+    
+    private void init() {
+
+        HashMap modes = new HashMap();
+        modes.put("E", "Energising Mode");
+        modes.put("D", "Driving Mode");
+        modes.put("A", "Analysing Mode");
+        modes.put("O", "Organising Mode");
+
+        String[] subPieTxtLeg  = new String[] {"Pivot Point (Dominant Function)", "Auxiliary Function",
+                "Tertiary Function","Inferior Function"};
+
+        HashMap<String, String> subPieSubTxtLeg =  new HashMap<String, String>();
+        subPieSubTxtLeg.put("Ni","Introverted iNtuition");
+        subPieSubTxtLeg.put("Ne","Extroverted iNtuition");
+        subPieSubTxtLeg.put("Si","Introverted Sensing");
+        subPieSubTxtLeg.put("Se","Extroverted Sensing");
+        subPieSubTxtLeg.put("Ti","Introverted Thinking");
+        subPieSubTxtLeg.put("Te","Extroverted Thinking");
+        subPieSubTxtLeg.put("Fi","Introverted Feeling");
+        subPieSubTxtLeg.put("Fe","Extroverted Feeling");
+
+
+        HashMap<String, String[]> subPieOrdering = new HashMap<String, String[]>();
+        subPieOrdering.put("ENTJ", new String[]{"Te", "Ni", "Se", "Fe"});
+        subPieOrdering.put("ENTP", new String[]{"Ne", "Ti", "Fi", "Se"});
+        subPieOrdering.put("INTJ", new String[]{"Ni", "Te",	"Fe", "Se"});
+        subPieOrdering.put("INTP", new String[]{"Ti", "Ne", "Se", "Fi"});
+        subPieOrdering.put("ENFJ", new String[]{"Fe", "Ni", "Se", "Te"});
+        subPieOrdering.put("ENFP", new String[]{"Ne", "Fi", "Ti", "Se"});
+        subPieOrdering.put("INFJ", new String[]{"Ni", "Fe", "Te", "Si"});
+        subPieOrdering.put("INFP", new String[]{"Fi", "Ne", "Se", "Ti"});
+        subPieOrdering.put("ESFJ", new String[]{"Fe", "Se", "Ni", "Te"});
+        subPieOrdering.put("ESFP", new String[]{"Se", "Fi", "Ti", "Ni"});
+        subPieOrdering.put("ISFJ", new String[]{"Se", "Fe", "Te", "Ne"});
+        subPieOrdering.put("ISFP", new String[]{"Fi", "Se", "Ne", "Ti"});
+        subPieOrdering.put("ESTJ", new String[]{"Te", "Si", "Ni", "Fi"});
+        subPieOrdering.put("ESTP", new String[]{"Se", "Ti", "Fi", "Ne"});
+        subPieOrdering.put("ISTJ", new String[]{"Si", "Te", "Fe", "Ni"});
+        subPieOrdering.put("ISTP", new String[]{"Ti", "Se", "Ne", "Fe"});
+
+
+        HashMap<String, String> subPieAddtionalText = new HashMap<String, String>();
+
+        subPieAddtionalText.put("SLEX", "Slightly");
+        subPieAddtionalText.put("NLEX", "Slightly");
+        subPieAddtionalText.put("TLEX", "Slightly");
+        subPieAddtionalText.put("FLEX", "Slightly");
+        subPieAddtionalText.put("SMEX", "Moderately");
+        subPieAddtionalText.put("NMEX", "Moderately");
+        subPieAddtionalText.put("TMEX", "Moderately");
+        subPieAddtionalText.put("FMEX", "Moderately");
+        subPieAddtionalText.put("SHEX", "Strongly");
+        subPieAddtionalText.put("NHEX", "Strongly");
+        subPieAddtionalText.put("THEX", "Strongly");
+        subPieAddtionalText.put("FHEX", "Strongly");
+        subPieAddtionalText.put("SLIN", "Slightly");
+        subPieAddtionalText.put("NLIN", "Slightly");
+        subPieAddtionalText.put("TLIN", "Slightly");
+        subPieAddtionalText.put("FLIN", "Slightly");
+        subPieAddtionalText.put("SMIN", "Moderately");
+        subPieAddtionalText.put("NMIN", "Moderately");
+        subPieAddtionalText.put("TMIN", "Moderately");
+        subPieAddtionalText.put("FMIN", "Moderately");
+        subPieAddtionalText.put("SHIN", "Strongly");
+        subPieAddtionalText.put("NHIN", "Strongly");
+        subPieAddtionalText.put("THIN", "Strongly");
+        subPieAddtionalText.put("FHIN", "Strongly");
+
+
+        MiroConstants constants = MiroConstants.getInstance();
+
+        HashMap colors = new HashMap();
+        colors.put("E", constants.miroYellow);
+        colors.put("D", constants.miroRed);
+        colors.put("A", constants.miroBlue);
+        colors.put("O", constants.miroGreen);
+
+        this.setSubPieOrdering(subPieOrdering);
+        this.setSubPieSubTxtLeg(subPieSubTxtLeg);
+        this.setSubPieAddtionalText(subPieAddtionalText);
+        this.setSubPieTxtLeg(subPieTxtLeg);
+        this.setModes(modes);
+        this.setColors(colors);
+        this.setEngagedText("Engaged");
+        this.setDisEngagedText("Disengaged");
+        this.setLatentText("Latent");
+        this.setExcessText("Excess");
+        this.setMiroGraphAdjustment(miroGraphAdjustment);
+        this.setLabels2(new String[]{"Leading", "Supporting", "Supplementary", "Dormant"});
+        this.setSubPieAddtionalText(subPieAddtionalText);
+
+    }
 
     public MiroReport(File baseDirectory, int engagedScore, int excessScore, int latentScore) {
         this.baseDirectory = baseDirectory;
         this.engagedScore = engagedScore;
         this.excessScore = excessScore;
         this.latentScore = latentScore;
+        
+        init();
+        
     }
 
     public boolean generateReport(MiroResponse mr, Long reportVersion) throws Exception {
@@ -411,25 +507,35 @@ public class MiroReport {
 
     private void addSubPieValues(String mbtiValue, HashMap<String, String> imgNames, HashMap<String, String> variables) {
 
+        if( mbtiValue == null || imgNames == null || variables == null) {
+            throw new MiroException("mbtiValue or imgNames or variables subPieOrdering is null!!");
+        }
+
         String[] subPieOrder = this.subPieOrdering.get(mbtiValue);
+
+        if(subPieOrder == null) {
+            throw new MiroException("could not find subPieOrdering for " + mbtiValue);
+        }
+
         //add sub pie values
         for (int l = 0; l < subPieOrder.length ; l++) {
             String subPieKey = subPieOrder[l];
-            String id = "miropie_img_leg" + (l + 4);
+            int idx = (l + 5);
+            String id = "miropie_img_leg" + idx ;
 
             String legImageName = subPieKey + ".png";
             if (legImageName != null) {
                 imgNames.put(id, this.baseDirectory.getAbsolutePath() + "/miro2/images/" + legImageName);
             }
 
-            id = "miropie_txt_leg" + (l + 4);
+            id = "miropie_txt_leg" + idx;
             String miropieTxt = this.subPieTxtLeg[l];
             if (miropieTxt != null) {
                 variables.put(id, miropieTxt);
             }
 
-            id = "miropie_subtxt_leg" + (l + 4);
-            String miropieSubTxt = this.subPieSubTxtLeg.get(mbtiValue);
+            id = "miropie_subtxt_leg" + idx;
+            String miropieSubTxt = this.subPieSubTxtLeg.get(subPieKey);
             if(miropieSubTxt !=null) {
 
                 if(l == 0) {

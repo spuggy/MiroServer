@@ -29,6 +29,10 @@ abstract public class Handler {
         }
     }
 
+    protected boolean isValid() {
+        return true ;
+    }
+
 
     public String toString() {
         if(node !=null) {

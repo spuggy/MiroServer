@@ -233,7 +233,6 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
      */
     public void setSurveyReponseDAO(SurveyResponseDAO surveyResponseDAO) {
 
-
         this.surveyResponseDAO = surveyResponseDAO;
     }
 
@@ -246,101 +245,12 @@ public class MiroResponseManagerImpl extends BaseManager implements MiroResponse
 
         MiroReport miroReport = new MiroReport(new File(baseDirectory), this.engagedScore, this.excessScore, this.latentScore);
 
-        HashMap modes = new HashMap();
-        modes.put("E", "Energising Mode");
-        modes.put("D", "Driving Mode");
-        modes.put("A", "Analysing Mode");
-        modes.put("O", "Organising Mode");
-
-        String[] subPieTxtLeg  = new String[] {"Pivot Point (Dominant Function)", "Auxiliary Function",
-        "Tertiary Function","Inferior Function"};
-
-        HashMap<String, String> subPieSubTxtLeg =  new HashMap<String, String>();
-        subPieSubTxtLeg.put("Ni",	"Introverted iNtuition");
-        subPieSubTxtLeg.put("Ne",	"Extroverted iNtuition");
-        subPieSubTxtLeg.put("Si",	"Introverted Sensing");
-        subPieSubTxtLeg.put("Se",	"Extroverted Sensing");
-        subPieSubTxtLeg.put("Ti",	"Introverted Thinking");
-        subPieSubTxtLeg.put("Te",	"Extroverted Thinking");
-        subPieSubTxtLeg.put("Fi",	"Introverted Feeling");
-        subPieSubTxtLeg.put("Fe",	"Extroverted Feeling");
-
-
-        HashMap<String, String[]> subPieOrdering = new HashMap<String, String[]>();
-        subPieOrdering.put("ENTJ", new String[]{"Te", "Ni", "Si", "Fe"});
-        subPieOrdering.put("ENTP", new String[]{"Ne", "Ti", "Fi", "Se"});
-        subPieOrdering.put("INTJ", new String[]{"Ni", "Te	Fe	Si"});
-        subPieOrdering.put("INTP", new String[]{"Ti", "Ne", "Se", "Fi"});
-        subPieOrdering.put("ENFJ", new String[]{"Fe", "Ni", "Si", "Te"});
-        subPieOrdering.put("ENFP", new String[]{"Ne", "Fi", "Ti", "Se"});
-        subPieOrdering.put("INFJ", new String[]{"Ni", "Fe", "Te", "Si"});
-        subPieOrdering.put("INFP", new String[]{"Fi", "Ne", "Se", "Ti"});
-        subPieOrdering.put("ESFJ", new String[]{"Fe", "Si", "Ni", "Te"});
-        subPieOrdering.put("ESFP", new String[]{"Se", "Fi", "Ti", "Ni"});
-        subPieOrdering.put("ISFJ", new String[]{"Si", "Fe", "Te", "Ne"});
-        subPieOrdering.put("ISFP", new String[]{"Fi", "Se", "Ne", "Ti"});
-        subPieOrdering.put("ESTJ", new String[]{"Te", "Si", "Ni", "Fi"});
-        subPieOrdering.put("ESTP", new String[]{"Se", "Ti", "Fi", "Ne"});
-        subPieOrdering.put("ISTJ", new String[]{"Si", "Te", "Fe", "Ni"});
-        subPieOrdering.put("ISTP", new String[]{"Ti", "Se", "Ne", "Fe"});
-
-        HashMap<String, String> subPieAddtionalText = new HashMap<String, String>();
-
-        subPieAddtionalText.put("SLEX", "Slightly");
-        subPieAddtionalText.put("NLEX", "Slightly");
-        subPieAddtionalText.put("TLEX", "Slightly");
-        subPieAddtionalText.put("FLEX", "Slightly");
-        subPieAddtionalText.put("SMEX", "Moderately");
-        subPieAddtionalText.put("NMEX", "Moderately");
-        subPieAddtionalText.put("TMEX", "Moderately");
-        subPieAddtionalText.put("FMEX", "Moderately");
-        subPieAddtionalText.put("SHEX", "Strongly");
-        subPieAddtionalText.put("NHEX", "Strongly");
-        subPieAddtionalText.put("THEX", "Strongly");
-        subPieAddtionalText.put("FHEX", "Strongly");
-        subPieAddtionalText.put("SLIN", "Slightly");
-        subPieAddtionalText.put("NLIN", "Slightly");
-        subPieAddtionalText.put("TLIN", "Slightly");
-        subPieAddtionalText.put("FLIN", "Slightly");
-        subPieAddtionalText.put("SMIN", "Moderately");
-        subPieAddtionalText.put("NMIN", "Moderately");
-        subPieAddtionalText.put("TMIN", "Moderately");
-        subPieAddtionalText.put("FMIN", "Moderately");
-        subPieAddtionalText.put("SHIN", "Strongly");
-        subPieAddtionalText.put("NHIN", "Strongly");
-        subPieAddtionalText.put("THIN", "Strongly");
-        subPieAddtionalText.put("FHIN", "Strongly");
-
-
-        MiroConstants constants = MiroConstants.getInstance();
-
-        HashMap colors = new HashMap();
-        colors.put("E", constants.miroYellow);
-        colors.put("D", constants.miroRed);
-        colors.put("A", constants.miroBlue);
-        colors.put("O", constants.miroGreen);
-
-        miroReport.setSubPieOrdering(subPieOrdering);
-        miroReport.setSubPieSubTxtLeg(subPieSubTxtLeg);
-        miroReport.setSubPieAddtionalText(subPieAddtionalText);
-        miroReport.setSubPieTxtLeg(subPieTxtLeg);
-        miroReport.setModes(modes);
-        miroReport.setColors(colors);
-        miroReport.setEngagedText("Engaged");
-        miroReport.setDisEngagedText("Disengaged");
-        miroReport.setLatentText("Latent");
-        miroReport.setExcessText("Excess");
-        miroReport.setMiroGraphAdjustment(miroGraphAdjustment);
-        miroReport.setLabels2(new String[]{"Leading", "Supporting", "Supplementary", "Dormant"});
-        miroReport.setSubPieAddtionalText(subPieAddtionalText);
-
         if(candidate!=null && candidate.getUserType().equals(User.USER_TYPE_FREE)) {
             miroReport.setIsFreeReport(true);
         }
 
 
         return miroReport;
-
 
     }
 

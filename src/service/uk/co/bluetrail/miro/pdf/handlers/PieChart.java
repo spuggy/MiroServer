@@ -48,8 +48,6 @@ public class PieChart extends Handler {
             }
 
 
-
-
             //build the table
             table.setWidths(new int[]{3, 1});
 
@@ -58,7 +56,7 @@ public class PieChart extends Handler {
                 Img chartImgHandler = new Img(chartNode);
                 Image chartImage = (Image) chartImgHandler .getContent(context) ;
                 PdfPCell cell = new PdfPCell(chartImage);
-                cell.setBorder(2);
+                cell.setBorder(0);
                 cell.setVerticalAlignment(Cell.ALIGN_TOP);
                 table.addCell(cell);
             }
@@ -75,21 +73,23 @@ public class PieChart extends Handler {
                 Node legSubTextNode = legendMap.get("miropie_subtxt_leg"+i);
                 if(legImgNode!=null) {
                     Img legImg = new Img(legImgNode);
-                    PdfPCell cell = new PdfPCell((Image) legImg.getContent(context));
-                    cell.setPadding(4f);
-                    cell.setRowspan(2);
-                    cell.setBorder(0);
-                    legTable.addCell(cell);
+                    if(legImg.isValid()) {
+                        PdfPCell cell = new PdfPCell((Image) legImg.getContent(context));
+                        cell.setPadding(4f);
+                        cell.setRowspan(2);
+                        cell.setBorder(0);
+                        legTable.addCell(cell);
+                    }
                 }
 
-                if(legTextNode!=null) {
+                if(legTextNode!=null && !legTextNode.getTextContent().trim().equals("")) {
                     PdfPCell cell = new PdfPCell(new Phrase(legTextNode.getTextContent(),legTextFont));
                     cell.setPaddingTop(4f);
                     cell.setBorder(0);
                     legTable.addCell(cell);
                 }
 
-                if(legSubTextNode!=null) {
+                if(legSubTextNode!=null  && !legSubTextNode.getTextContent().trim().equals("")) {
                     PdfPCell cell = new PdfPCell(new Phrase(legSubTextNode.getTextContent(),legSubTextFont));
                     cell.setBorder(0);
                     legTable.addCell(cell);
@@ -103,6 +103,7 @@ public class PieChart extends Handler {
 
 
         } catch (Exception e) {
+            System.out.print(e.toString());
             return new Paragraph("");
         }
         return table;

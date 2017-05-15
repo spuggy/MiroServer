@@ -154,65 +154,9 @@ public class MiroReport10Test extends TestCase {
 
     protected MiroReport getMiroReport(String baseDirectory){
 
-
         MiroReport miroReport = new MiroReport(new File(baseDirectory),this.engagedScore,this.excessScore,this.latentScore);
 
-        HashMap modes = new HashMap();
-        modes.put("E", "Energising Mode");
-        modes.put("D", "Driving Mode");
-        modes.put("A", "Analysing Mode");
-        modes.put("O", "Organising Mode");
-
-        MiroConstants constants = MiroConstants.getInstance();
-
-        HashMap colors = new HashMap();
-        colors.put("E", constants.miroYellow);
-        colors.put("D", constants.miroRed);
-        colors.put("A", constants.miroBlue);
-        colors.put("O", constants.miroGreen);
-
-        HashMap<String, String> subTitles = new HashMap<String, String>();
-
-        subTitles.put("SLEX", "Pivoting on Extroverted Sensing (Slightly expressed)");
-        subTitles.put("NLEX", "Pivoting on Extroverted iNtuition (Slightly expressed)");
-        subTitles.put("TLEX", "Pivoting on Extroverted Thinking (Slightly expressed)");
-        subTitles.put("FLEX", "Pivoting on Extroverted Feeling (Slightly expressed)");
-        subTitles.put("SMEX", "Pivoting on Extroverted Sensing (Moderately expressed)");
-        subTitles.put("NMEX", "Pivoting on Extroverted iNtuition (Moderately expressed)");
-        subTitles.put("TMEX", "Pivoting on Extroverted Thinking (Moderately expressed)");
-        subTitles.put("FMEX", "Pivoting on Extroverted Feeling (Moderately expressed)");
-        subTitles.put("SHEX", "Pivoting on Extroverted Sensing (Strongly expressed)");
-        subTitles.put("NHEX", "Pivoting on Extroverted iNtuition (Strongly expressed)");
-        subTitles.put("THEX", "Pivoting on Extroverted Thinking (Strongly expressed)");
-        subTitles.put("FHEX", "Pivoting on Extroverted Feeling (Strongly expressed)");
-        subTitles.put("SLIN", "Pivoting on Introverted Sensing (Slightly expressed)");
-        subTitles.put("NLIN", "Pivoting on Introverted iNtuition (Slightly expressed)");
-        subTitles.put("TLIN", "Pivoting on Introverted Thinking (Slightly expressed)");
-        subTitles.put("FLIN", "Pivoting on Introverted Feeling (Slightly expressed)");
-        subTitles.put("SMIN", "Pivoting on Introverted Sensing (Moderately expressed)");
-        subTitles.put("NMIN", "Pivoting on Introverted iNtuition (Moderately expressed)");
-        subTitles.put("TMIN", "Pivoting on Introverted Thinking (Moderately expressed)");
-        subTitles.put("FMIN", "Pivoting on Introverted Feeling (Moderately expressed)");
-        subTitles.put("SHIN", "Pivoting on Introverted Sensing (Strongly expressed)");
-        subTitles.put("NHIN", "Pivoting on Introverted iNtuition (Strongly expressed)");
-        subTitles.put("THIN", "Pivoting on Introverted Thinking (Strongly expressed)");
-        subTitles.put("FHIN", "Pivoting on Introverted Feeling (Strongly expressed)");
-
-
-
-        miroReport.setModes(modes) ;
-        miroReport.setColors(colors);
-        miroReport.setEngagedText("Engaged");
-        miroReport.setDisEngagedText("Disengaged");
-        miroReport.setLatentText("Latent");
-        miroReport.setExcessText("Excess");
-        miroReport.setMiroGraphAdjustment(miroGraphAdjustment);
-        miroReport.setLabels2(new String[] { "Leading", "Supporting", "Supplementary","Dormant" });
-        miroReport.setSubPieAddtionalText(subTitles);
-
-
         return miroReport;
-
 
     }
 

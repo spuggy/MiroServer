@@ -20,6 +20,33 @@ public class Img extends Handler {
     }
 
     @Override
+    public boolean isValid() {
+        if(node == null) {
+            return false;
+        }
+
+        NamedNodeMap attr = node.getAttributes();
+
+        if(attr == null) {
+            return false;
+        }
+
+        Node src = attr.getNamedItem("src");
+
+        if(src == null) {
+            return false;
+        }
+
+        String val = src.getNodeValue().toLowerCase();
+
+        if(val == null  || val.trim().equals("")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
     public Element getContent(Context context) {
 
         try {
@@ -33,7 +60,7 @@ public class Img extends Handler {
                     Node vspace = attr.getNamedItem("vspace");
 
                     if (src != null && height !=null && width !=null) {
-                        String val = src.getNodeValue();
+                        String val = src.getNodeValue().toLowerCase();
                         if (val != null) {
                             Image img1 = Image.getInstance(val);
                             img1.setAlignment(Element.ALIGN_CENTER);

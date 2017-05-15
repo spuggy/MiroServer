@@ -137,8 +137,8 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             Font frontCompanyFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL);
             Font footerFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 8, Font.NORMAL);
             Font tocCompanyFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL);
-            Font legTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
-            Font legSubTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 8, Font.NORMAL);
+            Font legTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 9, Font.NORMAL);
+            Font legSubTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 7, Font.NORMAL);
             Font barTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
 
             try {

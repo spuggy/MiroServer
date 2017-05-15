@@ -77,6 +77,7 @@ public class MiroReport11Test extends MiroReport10Test  {
     }
 
     public void testGenerate() {
+
         MiroReport miroReport = getMiroReport(this.baseDirPath);
 
         MiroResponse miroResponse = new MiroResponse();
