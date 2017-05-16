@@ -37,7 +37,7 @@ public class Img extends Handler {
             return false;
         }
 
-        String val = src.getNodeValue().toLowerCase();
+        String val = src.getNodeValue();
 
         if(val == null  || val.trim().equals("")) {
             return false;
@@ -60,7 +60,7 @@ public class Img extends Handler {
                     Node vspace = attr.getNamedItem("vspace");
 
                     if (src != null && height !=null && width !=null) {
-                        String val = src.getNodeValue().toLowerCase();
+                        String val = src.getNodeValue();
                         if (val != null) {
                             Image img1 = Image.getInstance(val);
                             img1.setAlignment(Element.ALIGN_CENTER);
