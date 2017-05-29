@@ -155,22 +155,22 @@ public class MiroReport {
 
 
         HashMap<String, String[]> subPieOrdering = new HashMap<String, String[]>();
-        subPieOrdering.put("ENTJ", new String[]{"Te", "Ni", "Se", "Fe"});
+        subPieOrdering.put("ENTJ", new String[]{"Te", "Ni", "Si", "Fe"});
         subPieOrdering.put("ENTP", new String[]{"Ne", "Ti", "Fi", "Se"});
-        subPieOrdering.put("INTJ", new String[]{"Ni", "Te",	"Fe", "Se"});
+        subPieOrdering.put("INTJ", new String[]{"Ni", "Te", "Fe", "Si"});
         subPieOrdering.put("INTP", new String[]{"Ti", "Ne", "Se", "Fi"});
-        subPieOrdering.put("ENFJ", new String[]{"Fe", "Ni", "Se", "Te"});
+        subPieOrdering.put("ENFJ", new String[]{"Fe", "Ni", "Si", "Te"});
         subPieOrdering.put("ENFP", new String[]{"Ne", "Fi", "Ti", "Se"});
         subPieOrdering.put("INFJ", new String[]{"Ni", "Fe", "Te", "Si"});
         subPieOrdering.put("INFP", new String[]{"Fi", "Ne", "Se", "Ti"});
-        subPieOrdering.put("ESFJ", new String[]{"Fe", "Se", "Ni", "Te"});
-        subPieOrdering.put("ESFP", new String[]{"Se", "Fi", "Ti", "Ni"});
-        subPieOrdering.put("ISFJ", new String[]{"Se", "Fe", "Te", "Ne"});
+        subPieOrdering.put("ESFJ", new String[]{"Fe", "Si", "Ni", "Te"});
+        subPieOrdering.put("ESFP", new String[]{"Se", "Fi", "Ti", "Ne"});
+        subPieOrdering.put("ISFJ", new String[]{"Si", "Fe", "Te", "Ni"});
         subPieOrdering.put("ISFP", new String[]{"Fi", "Se", "Ne", "Ti"});
-        subPieOrdering.put("ESTJ", new String[]{"Te", "Si", "Ni", "Fi"});
+        subPieOrdering.put("ESTJ", new String[]{"Te", "Si", "Ni", "Fe"});
         subPieOrdering.put("ESTP", new String[]{"Se", "Ti", "Fi", "Ne"});
         subPieOrdering.put("ISTJ", new String[]{"Si", "Te", "Fe", "Ni"});
-        subPieOrdering.put("ISTP", new String[]{"Ti", "Se", "Ne", "Fe"});
+        subPieOrdering.put("ISTP", new String[]{"Ti", "Se", "Ne", "Fi"});
 
 
         HashMap<String, String> subPieAddtionalText = new HashMap<String, String>();
@@ -519,7 +519,7 @@ public class MiroReport {
 
         //add sub pie values
         for (int l = 0; l < subPieOrder.length ; l++) {
-            String subPieKey = subPieOrder[l];
+            String subPieKey = subPieOrder[l].trim();
             int idx = (l + 5);
             String id = "miropie_img_leg" + idx ;
 
