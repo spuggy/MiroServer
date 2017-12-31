@@ -14,7 +14,7 @@
     <script type="text/javascript" src="<c:url value='/dwr/interface/ajaxMiroProjectManager.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/dwr/engine.js'/>"></script>
     <script type="text/javascript" src="<c:url value='/dwr/util.js'/>"></script>
-    <script type="text/javascript" src="<c:url value='/miro11style/js/miroProjectFormController06.js'/>"></script>
+    <script type="text/javascript" src="<c:url value='/miro11style/js/miroProjectFormController07.js'/>"></script>
 
 
     <script type="text/javascript">
@@ -55,6 +55,9 @@
                     </li>
                     <li>
                         <p><a id="miro10download" href="#"><b>MiRo Stage 1</b> (Standard report)</a></p>
+                    </li>
+                    <li>
+                        <p><a id="mirolshipdownload" href="#"><b>MiRo Leadership Report</b></a></p>
                     </li>
                 </ul>
             </div>

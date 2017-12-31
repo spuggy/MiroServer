@@ -18,10 +18,8 @@ import java.util.*;
 public class MiroResponse  {
 
 
-
-
-
-    private final Log log = LogFactory.getLog(MiroResponse.class);
+	public static final String LSHIP = "lship" ;
+	private final Log log = LogFactory.getLog(MiroResponse.class);
 	 private Long testId = null;
 	 private int[] results = null;
 	 private String[] resultLetters = null;
@@ -824,7 +822,6 @@ public class MiroResponse  {
 	}
 
     public String getMiroReportName() {
-
         return miroReportName;
     }
 
@@ -832,14 +829,22 @@ public class MiroResponse  {
 	public String getMiroReportName(long reportVersion) {
 
         if (reportVersion == Constants.Survey_id_Mirov11) {
-
-            return miroReportName + "_v11";
+             return miroReportName + "_v11";
             } else  {
              return miroReportName;
-
-            }
+        }
 	}
 
+	public String getMiroReportName(long reportVersion, String subName) {
+
+		if (reportVersion == Constants.Survey_id_Mirov11 && subName.equals(LSHIP)) {
+			return miroReportName + "_lship";
+		} else if (reportVersion == Constants.Survey_id_Mirov11) {
+			return miroReportName + "_v11";
+		} else  {
+			return miroReportName;
+		}
+	}
 	
 
 	public void setCompany(String company) {

@@ -43,44 +43,42 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
 
 
     private final static Log log = LogFactory.getLog(MiroReportPDFGenerator.class);
+    
 
-
-
-
-    public static void generatePDF(File baseDir, MiroResponse mr, Long miroVersion, boolean isFreeReport) {
+    public static void generatePDF(File baseDir, MiroResponse mr, Long miroVersion, boolean isFreeReport, boolean hasTableOfContents) {
 
         if (MiroReportPDFGenerator.miroReportPDFGenerator == null) {
             MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
         }
 
 
-        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, mr.getMiroReportName(), mr.getMiroReportName(miroVersion),isFreeReport);
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, mr.getMiroReportName(), mr.getMiroReportName(miroVersion),isFreeReport, hasTableOfContents);
 
     }
 
-    public static void generatePDF(File baseDir, String miroReportName,boolean isFreeReport) throws Exception {
+    public static void generatePDF(File baseDir, String miroReportName,boolean isFreeReport,boolean hasTableOfContents) throws Exception {
 
         if (MiroReportPDFGenerator.miroReportPDFGenerator == null) {
             MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
         }
 
-        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, null,isFreeReport);
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, null,isFreeReport, hasTableOfContents);
 
 
     }
 
-    public static void PDFCreator(File baseDir, String miroReportName, String xslFileName, String miroReportNameVersion,boolean isFreeReport) {
+    public static void PDFCreator(File baseDir, String miroReportName, String xslFileName, String miroReportNameVersion,boolean isFreeReport, boolean hasTableOfContents) {
 
         if (MiroReportPDFGenerator.miroReportPDFGenerator == null) {
             MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
         }
 
-        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, miroReportNameVersion,isFreeReport);
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, miroReportNameVersion,isFreeReport, hasTableOfContents);
 
     }
 
 
-    private void privateGeneratePDF(File baseDir, String miroReportName, String miroReportNameVersion, boolean isFreeReport) {
+    private void privateGeneratePDF(File baseDir, String miroReportName, String miroReportNameVersion, boolean isFreeReport, boolean hasTableOfContents) {
 
 
         this.pagenumber = 0;
@@ -140,6 +138,10 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             Font legTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 9, Font.NORMAL);
             Font legSubTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 7, Font.NORMAL);
             Font barTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
+            Font legTextFontSmall = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 7, Font.NORMAL);
+            Font legSubTextFontSmall = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 5, Font.NORMAL);
+
+
 
             try {
 
@@ -164,6 +166,9 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
                 context.addFont("FIRSTPAGEFONTBOLD", firstPageFontBold);
                 context.addFont("LEGTEXTFONT", legTextFont);
                 context.addFont("LEGSUBTEXTFONT", legSubTextFont);
+                context.addFont("LEGTEXTFONTSMALL", legTextFontSmall);
+                context.addFont("LEGSUBTEXTFONTSMALL", legSubTextFontSmall);
+
 
 
             } catch (Exception e) {
@@ -184,7 +189,7 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
                     //0
                     if(id.getNodeValue().equals("0")) {
                         TitlePage.draw(context, writer, pdfDocument, node);
-                    }  else if(id.getNodeValue().equals("1")) {
+                    }  else if(id.getNodeValue().equals("1") && hasTableOfContents) {
 
                         this.toc = new TOC(node,context);
                         pdfDocument.add(this.toc.getHeader());

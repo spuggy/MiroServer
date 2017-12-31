@@ -107,7 +107,6 @@
     <lastColor>-15856248</lastColor>
   </component>
   <component name="CompilerConfiguration">
-    <option name="DEFAULT_COMPILER" value="Javac" />
     <excludeFromCompile>
       <file url="file://$PROJECT_DIR$/src/web/uk/co/bluetrail/mobriz/webapp/taglib/LabelTag.java" />
       <directory url="file://$PROJECT_DIR$/../HelloMaven/target/generated-sources/annotations" includeSubdirectories="true" />
@@ -129,14 +128,10 @@
       <entry name="?*.jpg" />
     </wildcardResourcePatterns>
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
-        <processorPath useClasspath="true" />
-      </profile>
-      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+      <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
         <module name="HelloMaven" />
       </profile>
     </annotationProcessing>
@@ -340,9 +335,6 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/webdriver" charset="UTF-8" />
   </component>
-  <component name="EntryPointsManager">
-    <entry_points version="2.0" />
-  </component>
   <component name="ExportToHTMLSettings">
     <option name="PRINT_LINE_NUMBERS" value="false" />
     <option name="OPEN_IN_BROWSER" value="true" />
@@ -360,8 +352,6 @@
       <inspection_tool class="SqlDialectInspection" enabled="false" level="WARNING" enabled_by_default="false" />
       <inspection_tool class="SqlNoDataSourceInspection" enabled="false" level="WARNING" enabled_by_default="false" />
     </profile>
-    <option name="PROJECT_PROFILE" value="Project Default" />
-    <option name="USE_PROJECT_PROFILE" value="true" />
     <version value="1.0" />
   </component>
   <component name="JUnitProjectSettings">
@@ -578,7 +568,7 @@
   <component name="ProjectResources">
     <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" project-jdk-name="1.7" project-jdk-type="JavaSDK" />
   <component name="Regex">
     <option name="pos1" value="218" />
     <option name="pos2" value="218" />
@@ -1499,20 +1489,6 @@
     <library name="wmf2svg-0.9.0">
       <CLASSES>
         <root url="jar://$PROJECT_DIR$/lib/docx4j/wmf2svg-0.9.0.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="xalan-2.7.0">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/fop/xalan-2.7.0.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="xercesImpl-2.7.1">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/lib/fop/xercesImpl-2.7.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

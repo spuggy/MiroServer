@@ -60,6 +60,8 @@ public class HandlerFactory {
             return new Practitioner(node);
         } else if (name.equals("p") && className.equals("miropie")) {
             return new PieChart(node);
+        } else if (name.equals("p") && className.equals("miropieflexi")) {
+            return new PieChartFlexiBullet(node);
         } else if (name.equals("p")) {
             return new P(node);
         } else if (name.equals("h1")) {
@@ -72,11 +74,9 @@ public class HandlerFactory {
             return new H(node, 2);
         } else if (name.equals("table") && className.equals("pie_and_bullets")) {
             return new PieAndBullets(node);
-        } else {
+        }  else {
             return new DefaultHandler(node);
         }
-
-
 
     }
 

@@ -107,7 +107,7 @@ public class MiroReport10Test extends TestCase {
         initV10TestData(miroResponse);
 
         try {
-            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov10);
+            miroReport.generateReportV10(miroResponse);
 
             String fileName = this.baseDirPath + "/out/Roger_Test_1.pdf";
 
@@ -141,7 +141,7 @@ public class MiroReport10Test extends TestCase {
         initV10TestData(miroResponse);
 
         try {
-            MiroReport.generateReport(miroResponse,Constants.Survey_id_Mirov11);
+            MiroReport.generateReportV11(miroResponse);
             fail("should not get here this version is not supported");
         } catch (Exception e) {
             assertTrue(true);

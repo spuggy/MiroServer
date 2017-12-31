@@ -38,7 +38,7 @@ public class MiroReportFileGenerator {
 	private Element htmlElement = null;
 	private Element bodyElement = null;
 	private File baseDirectory = null;
-	private String srcFilename = "mirosource11.xhtml";
+	protected String srcFilename = "mirosource11.xhtml";
 	private String srcFolder = "miro2/xhtml";
 	private String outputFolder = "out";
 

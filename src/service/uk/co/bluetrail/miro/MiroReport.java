@@ -235,28 +235,77 @@ public class MiroReport {
         
     }
 
-    public boolean generateReport(MiroResponse mr, Long reportVersion) throws Exception {
+
+
+    public boolean generateReportLeadership01(MiroResponse mr) throws Exception {
 
         if (mr == null) {
             log.error("The Miro response is null");
-            return false;
         }
 
+        setupMr(mr);
 
-        if (reportVersion == Constants.Survey_id_Mirov10) {
-            return this.generateReportV10(mr);
+        if (!mr.supportsVersion(Constants.Survey_id_Mirov11)) {
+            throw new MiroException(mr.getMiroReportName() + "does not support version v11");
         }
 
-        if (reportVersion == Constants.Survey_id_Mirov11) {
-            return this.generateReportV11(mr);
-        }
+        log.debug("Before Chart " + mr.toString());
+        this.generateChart(Constants.Survey_id_Mirov11);
+        log.debug("Before XMLReportFile " + mr.toString());
 
-        throw new MiroException("Cannot produces a report for version " + reportVersion);
+
+        String mbtiValue = this.getMBTIValue();
+
+        List<MiroPage> pages = new ArrayList<MiroPage>();
+
+        pages.add(MiroPage.create("homepage"));
+
+        MiroPage page = new MiroPage();
+        page.add(mbtiValue + "_1") ;
+        pages.add(page);
+
+        page = new MiroPage();
+        page.add(mbtiValue + "_2") ;
+        pages.add(page);
+
+
+        
+        String leadershipReportFileName =  mr.getMiroReportName(Constants.Survey_id_Mirov11,MiroResponse.LSHIP);
+
+
+        //Image Map
+        HashMap<String, String> variables = new HashMap<String, String>();
+        variables.put("id", mr.getTestId().toString());
+        variables.put("firstname", mr.getFirstName());
+        variables.put("lastname", mr.getLastName());
+        variables.put("name", mr.getFullName() + " (" + mbtiValue + ")");
+        variables.put("name2", mr.getFullName());
+        variables.put("v1", mr.getPractitionerName());
+        variables.put("reportFileName", leadershipReportFileName);
+
+        // Image Map
+        HashMap<String, String> imgNames = new HashMap<String, String>();
+        imgNames.put("graph", this.baseDirectory.getAbsolutePath() + "/out/" + this.getChartName());
+
+        //add pie images
+        generateXMLReportFileAddPieVarialbles(variables,imgNames);
+
+        if (miroReportFileGenerator == null) {
+            //TODO name of source file
+            miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miro_leadership01.xhtml");
+        }
+        miroReportFileGenerator.generate(pages, variables, imgNames);
+
+        //TODO name of file name here ... hmmm maye need to look at other  generatePDF functions call
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, leadershipReportFileName,false, false);
+
+        return true;
 
     }
 
 
-    private boolean generateReportV11(MiroResponse mr) throws Exception {
+
+    public boolean generateReportV11(MiroResponse mr) throws Exception {
 
         if (mr == null) {
             log.error("The Miro response is null");
@@ -272,13 +321,13 @@ public class MiroReport {
         this.generateChart(Constants.Survey_id_Mirov11);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile(Constants.Survey_id_Mirov11);
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov11,this.isFreeReport);
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov11,this.isFreeReport, true);
 
         return true;
 
     }
 
-    private boolean generateReportV10(MiroResponse mr) throws Exception {
+    public boolean generateReportV10(MiroResponse mr) throws Exception {
 
         if (mr == null) {
             log.error("The Miro response is null");
@@ -295,7 +344,7 @@ public class MiroReport {
         this.generateChart(Constants.Survey_id_Mirov10);
         log.debug("Before XMLReportFile " + mr.toString());
         this.generateXMLReportFile(Constants.Survey_id_Mirov10);
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov10,this.isFreeReport);
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, mr, Constants.Survey_id_Mirov10,this.isFreeReport, true);
 
         return true;
 
@@ -379,6 +428,33 @@ public class MiroReport {
 
     }
 
+    private void generateXMLReportFileAddPieVarialbles(HashMap<String, String> variables,  HashMap<String, String> imgNames) {
+
+        String[] resultLetters = mr.getResultLetters();
+        for (int l = 0; l < resultLetters.length; l++) {
+            String resultLetter = resultLetters[l];
+            String id = "miropie_img_leg" + (l + 1);
+
+            String legImageName = this.getMiroPieChartLegendValue(resultLetter + "img");
+            if (legImageName != null) {
+                imgNames.put(id, this.baseDirectory.getAbsolutePath() + "/miro2/images/" + legImageName);
+            }
+
+            id = "miropie_txt_leg" + (l + 1);
+            String miropieTxt = this.getMiroPieChartLegendValue(resultLetter + "text");
+            if (miropieTxt != null) {
+                variables.put(id, miropieTxt);
+            }
+
+            id = "miropie_subtxt_leg" + (l + 1);
+            String miropieSubTxt = this.getMiroPieChartLegendValue(resultLetter + "subText");
+            if (miropieSubTxt != null) {
+                variables.put(id, miropieSubTxt);
+            }
+        }
+
+    }
+    
     /**
      * @throws TransformerException
      * @throws TransformerFactoryConfigurationError
@@ -457,40 +533,14 @@ public class MiroReport {
         variables.put("mbti", mbtiValue);
 
         //add pie images
-        String[] resultLetters = mr.getResultLetters();
-        for (int l = 0; l < resultLetters.length; l++) {
-            String resultLetter = resultLetters[l];
-            String id = "miropie_img_leg" + (l + 1);
-
-            String legImageName = this.getMiroPieChartLegendValue(resultLetter + "img");
-            if (legImageName != null) {
-                imgNames.put(id, this.baseDirectory.getAbsolutePath() + "/miro2/images/" + legImageName);
-            }
-
-            id = "miropie_txt_leg" + (l + 1);
-            String miropieTxt = this.getMiroPieChartLegendValue(resultLetter + "text");
-            if (miropieTxt != null) {
-                variables.put(id, miropieTxt);
-            }
-
-            id = "miropie_subtxt_leg" + (l + 1);
-            String miropieSubTxt = this.getMiroPieChartLegendValue(resultLetter + "subText");
-            if (miropieSubTxt != null) {
-                variables.put(id, miropieSubTxt);
-            }
-        }
+        generateXMLReportFileAddPieVarialbles(variables,imgNames);
 
         //add miro population chart value
         if(reportVersion == Constants.Survey_id_Mirov11) {
             addMiroPopulationChartValues(variables);
             variables.put("report_type", "YOUR MIRO ENHANCED REPORT");
             variables.put("report_type_colour", "MIRORED");
-
-
             addSubPieValues(mbtiValue,imgNames,variables);
-
-
-
         } else {
             variables.put("report_type", "YOUR MIRO REPORT");
             variables.put("report_type_colour", "MIROBLUE");

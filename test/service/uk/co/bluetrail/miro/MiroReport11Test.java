@@ -86,7 +86,7 @@ public class MiroReport11Test extends MiroReport10Test  {
 
         try {
 
-            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov10);
+           miroReport.generateReportV10(miroResponse);
 
            String fileName = this.baseDirPath + "/out/Roger_Test_1.pdf";
 
@@ -102,7 +102,7 @@ public class MiroReport11Test extends MiroReport10Test  {
             assertEquals(14,numOfPages);
 
 
-            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov11);
+            miroReport.generateReportV11(miroResponse);
 
             fileName = this.baseDirPath + "/out/Roger_Test_1_v11.pdf";
 
@@ -119,6 +119,7 @@ public class MiroReport11Test extends MiroReport10Test  {
 
 
         } catch (Exception e) {
+            e.printStackTrace();
             fail("failed with " + e.getMessage());
         }
 
@@ -135,7 +136,7 @@ public class MiroReport11Test extends MiroReport10Test  {
 
         try {
 
-            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov10);
+            miroReport.generateReportV10(miroResponse);
 
             String fileName = this.baseDirPath + "/out/Roger_Test_1.pdf";
 
@@ -151,7 +152,7 @@ public class MiroReport11Test extends MiroReport10Test  {
             assertEquals(14,numOfPages);
 
 
-            miroReport.generateReport(miroResponse,Constants.Survey_id_Mirov11);
+            miroReport.generateReportV11(miroResponse);
 
             fileName = this.baseDirPath + "/out/Roger_Test_1_v11.pdf";
 

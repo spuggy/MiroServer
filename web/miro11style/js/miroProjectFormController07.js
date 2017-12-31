@@ -128,6 +128,8 @@ MiroProjectFormController.prototype = {
     var url = "miroReportShow.html"
     var v10url = url+"?version=v10&id="
     var v11url = url+"?version=v11&id="
+    var vlshipurl = url+"?version=vlship&id="
+
 
     //this is a v10 response so you can only load the v10 survey so go do it and don't show dialog
     if(survey_id == MIROV10) {
@@ -143,6 +145,11 @@ MiroProjectFormController.prototype = {
     $( "#miro10download" ).click(function() {
       window.location = v10url + id;
 			$('#downloadreport').modal('hide');
+    });
+
+    $( "#mirolshipdownload" ).click(function() {
+      window.location = vlshipurl + id;
+      $('#downloadreport').modal('hide');
     });
 
 		$('#downloadreport').modal('show');

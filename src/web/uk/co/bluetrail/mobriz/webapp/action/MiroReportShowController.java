@@ -104,7 +104,14 @@ public class MiroReportShowController extends BaseController {
             fileVersion = "_v11";
             log.debug("downloading v11 from " + filename);
 
-        } else {
+        } else if (surveyResponse.getSurvey_id().longValue()== Constants.Survey_id_Mirov11 && version.equals("vlship")) {
+
+            fileVersion = "_lship";
+            filename = reportLocation + "/out/" + mr.getMiroReportName(Constants.Survey_id_Mirov11, MiroResponse.LSHIP)+ ".pdf";
+            log.debug("downloading LSHIP from " + filename);
+
+
+        }  else {
             filename = reportLocation + "/out/" + mr.getMiroReportName(Constants.Survey_id_Mirov10)+ ".pdf";
             fileVersion = "";     //leave blank as old version had none on it.
             log.debug("downloading v10 from " + filename);
