@@ -51,8 +51,7 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
         }
 
-
-        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, mr.getMiroReportName(), mr.getMiroReportName(miroVersion),isFreeReport, hasTableOfContents);
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, mr.getMiroReportName(), mr.getMiroReportName(miroVersion),isFreeReport, hasTableOfContents, MiroReportPDFGeneratorContext.defaultContext());
 
     }
 
@@ -62,8 +61,17 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
         }
 
-        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, null,isFreeReport, hasTableOfContents);
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, null,isFreeReport, hasTableOfContents, MiroReportPDFGeneratorContext.defaultContext());
 
+    }
+
+    public static void generatePDF(File baseDir, String miroReportName,boolean isFreeReport,boolean hasTableOfContents, Context context) throws Exception {
+
+        if (MiroReportPDFGenerator.miroReportPDFGenerator == null) {
+            MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
+        }
+
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, null,isFreeReport, hasTableOfContents, context);
 
     }
 
@@ -73,16 +81,17 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             MiroReportPDFGenerator.miroReportPDFGenerator = new MiroReportPDFGenerator();
         }
 
-        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, miroReportNameVersion,isFreeReport, hasTableOfContents);
+        MiroReportPDFGenerator.miroReportPDFGenerator.privateGeneratePDF(baseDir, miroReportName, miroReportNameVersion,isFreeReport, hasTableOfContents, MiroReportPDFGeneratorContext.defaultContext());
 
     }
 
 
-    private void privateGeneratePDF(File baseDir, String miroReportName, String miroReportNameVersion, boolean isFreeReport, boolean hasTableOfContents) {
+    private void privateGeneratePDF(File baseDir, String miroReportName, String miroReportNameVersion, boolean isFreeReport, boolean hasTableOfContents, Context context) {
 
 
         this.pagenumber = 0;
         this.isFreeReport = isFreeReport;
+        this.context = context;
 
         try {
 
@@ -104,7 +113,6 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
             log.debug("Transforming...");
 
 
-            context = new Context("/miro-reports");
 
 
             DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -120,61 +128,7 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
 
             pdfDocument.open();
 
-
-            Font h1Font = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 44, Font.NORMAL);
-            Font h3Font = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL);
-            Font h4Font = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 13, Font.NORMAL);
-            Font h2Font = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 12, Font.NORMAL);
-            Font firstPageFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 14, Font.NORMAL);
-            Font firstPageFontBold = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 14, Font.BOLD);
-            Font pFontBold = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 75 Bold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
-            Font pFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
-            Font pFontSmall = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 8, Font.NORMAL);
-            Font frontBannerFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL, Color.white);
-            Font frontNameFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 34, Font.NORMAL, Color.black);
-            Font frontCompanyFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL);
-            Font footerFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 8, Font.NORMAL);
-            Font tocCompanyFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 16, Font.NORMAL);
-            Font legTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 9, Font.NORMAL);
-            Font legSubTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 7, Font.NORMAL);
-            Font barTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
-            Font legTextFontSmall = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 7, Font.NORMAL);
-            Font legSubTextFontSmall = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 5, Font.NORMAL);
-
-
-
-            try {
-
-                context.addFont("H1", h1Font);
-                context.addFont("H3", h3Font);
-                context.addFont("H4", h4Font);
-                context.addFont("H2", h2Font);
-                context.addFont("P", pFont);
-                context.addFont("PSMALL", pFont);
-                context.addFont("PBOLD", pFontBold);
-                context.addFont("FRONTBANNER", frontBannerFont);
-                context.addColor("MIROBLUE", MiroConstants.getInstance().miroBlue);
-                context.addColor("MIRORED", MiroConstants.getInstance().miroRed);
-                context.addColor("MIROGREEN", MiroConstants.getInstance().miroGreen);
-                context.addColor("MIROYELLOW", MiroConstants.getInstance().miroYellow);
-                context.addFont("FRONTNAMEFONT", frontNameFont);
-                context.addFont("FRONTCOMPANYFONT", frontCompanyFont);
-                context.addFont("FOOTERFONT", footerFont);
-                context.addFont("BARTEXTFONT", barTextFont);
-                context.addFont("TOCCOMPANYFONT", tocCompanyFont);
-                context.addFont("FIRSTPAGEFONT", firstPageFont);
-                context.addFont("FIRSTPAGEFONTBOLD", firstPageFontBold);
-                context.addFont("LEGTEXTFONT", legTextFont);
-                context.addFont("LEGSUBTEXTFONT", legSubTextFont);
-                context.addFont("LEGTEXTFONTSMALL", legTextFontSmall);
-                context.addFont("LEGSUBTEXTFONTSMALL", legSubTextFontSmall);
-
-
-
-            } catch (Exception e) {
-                throw new uk.co.bluetrail.miro.pdf.util.MiroException(e.getMessage());
-            }
-
+            
            final Map<String, PdfTemplate> tocPlaceHolders = new HashMap<String, PdfTemplate>();
 
 
@@ -228,6 +182,7 @@ public class MiroReportPDFGenerator extends PdfPageEventHelper {
 
             pdfDocument.close();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new uk.co.bluetrail.miro.pdf.util.MiroException(e.toString());
         }
     }

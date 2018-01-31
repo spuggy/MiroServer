@@ -24,22 +24,28 @@ public class B extends Handler {
 
     @Override
     public Element getContent(Context context) {
-        Font f = context.getFont(fontName);
 
-        if(f==null) {
-            context.getFont(P.DEFAULT_BOLDFONT) ;
-        }
+        try {
 
+            Font f = context.getFont(fontName.toUpperCase());
 
-        if (node != null) {
-
-            String text = node.getTextContent();
-
-            if(text != null) {
-                Phrase p =new Phrase(strip(text),f) ;
-                return p;
+            if (f == null) {
+                context.getFont(P.DEFAULT_BOLDFONT);
             }
 
+
+            if (node != null) {
+
+                String text = node.getTextContent();
+
+                if (text != null) {
+                    Phrase p = new Phrase(strip(text), f);
+                    return p;
+                }
+
+            }
+        } catch(Exception e) {
+            //ignore
         }
         return new Phrase("");
     }

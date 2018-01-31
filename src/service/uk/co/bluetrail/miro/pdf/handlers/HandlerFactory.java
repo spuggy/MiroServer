@@ -48,6 +48,8 @@ public class HandlerFactory {
             return new Ul(node);
         } else if (name.equals("b") && className.equals("firstpage")) {
             return new B(node, "FIRSTPAGEFONTBOLD");
+        } else if (name.equals("b") && !className.equals("")) {
+            return new B(node,className);
         } else if (name.equals("b")) {
             return new B(node);
         } else if (name.equals("img")) {
@@ -62,6 +64,12 @@ public class HandlerFactory {
             return new PieChart(node);
         } else if (name.equals("p") && className.equals("miropieflexi")) {
             return new PieChartFlexiBullet(node);
+        } else if (name.equals("p") && className.equals("small_italics")) {
+            return new P(node,"SMALLITALICS");
+        } else if (name.equals("p") && className.equals("italics")) {
+            return new P(node,"ITALICS");
+        } else if (name.equals("p") && !className.equals("")) {
+            return new P(node,className);
         } else if (name.equals("p")) {
             return new P(node);
         } else if (name.equals("h1")) {

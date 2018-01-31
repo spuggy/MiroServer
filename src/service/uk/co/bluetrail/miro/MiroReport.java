@@ -268,6 +268,18 @@ public class MiroReport {
         page.add(mbtiValue + "_2") ;
         pages.add(page);
 
+        page = new MiroPage();
+        page.add(mbtiValue + "_3") ;
+        pages.add(page);
+
+        page = new MiroPage();
+        page.add(mbtiValue + "_4") ;
+        pages.add(page);
+
+        page = new MiroPage();
+        page.add(mbtiValue + "_5") ;
+        pages.add(page);
+
 
         
         String leadershipReportFileName =  mr.getMiroReportName(Constants.Survey_id_Mirov11,MiroResponse.LSHIP);
@@ -278,10 +290,11 @@ public class MiroReport {
         variables.put("id", mr.getTestId().toString());
         variables.put("firstname", mr.getFirstName());
         variables.put("lastname", mr.getLastName());
-        variables.put("name", mr.getFullName() + " (" + mbtiValue + ")");
+        variables.put("name", mr.getFullName());
         variables.put("name2", mr.getFullName());
         variables.put("v1", mr.getPractitionerName());
         variables.put("reportFileName", leadershipReportFileName);
+        variables.put("report_type_colour", "MIROGREEN");
 
         // Image Map
         HashMap<String, String> imgNames = new HashMap<String, String>();
@@ -290,14 +303,17 @@ public class MiroReport {
         //add pie images
         generateXMLReportFileAddPieVarialbles(variables,imgNames);
 
+        addMiroPopulationChartValues(variables);
+        addSubPieValues(mbtiValue,imgNames,variables);
+
         if (miroReportFileGenerator == null) {
             //TODO name of source file
             miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miro_leadership01.xhtml");
         }
         miroReportFileGenerator.generate(pages, variables, imgNames);
 
-        //TODO name of file name here ... hmmm maye need to look at other  generatePDF functions call
-        MiroReportPDFGenerator.generatePDF(this.baseDirectory, leadershipReportFileName,false, false);
+        //TODO name of file name here ... hmmm maybe need to look at other  generatePDF functions call
+        MiroReportPDFGenerator.generatePDF(this.baseDirectory, leadershipReportFileName,false, false, MiroReportPDFGeneratorContext.leaderShipContext());
 
         return true;
 
@@ -539,11 +555,15 @@ public class MiroReport {
         if(reportVersion == Constants.Survey_id_Mirov11) {
             addMiroPopulationChartValues(variables);
             variables.put("report_type", "YOUR MIRO ENHANCED REPORT");
+            variables.put("sub_report_type", "Miro Enhanced Individual Report");
             variables.put("report_type_colour", "MIRORED");
+            variables.put("report_img","miro_individual_enhanced_report_icon.png");
             addSubPieValues(mbtiValue,imgNames,variables);
         } else {
             variables.put("report_type", "YOUR MIRO REPORT");
-            variables.put("report_type_colour", "MIROBLUE");
+            variables.put("sub_report_type", "Miro Individual Report");
+            variables.put("report_type_colour", "MIROYELLOW");
+            variables.put("report_img","miro_individual_report_icon.png");
         }
 
 
@@ -673,7 +693,7 @@ public class MiroReport {
 
     }
 
-    private String getMBTIValue() {
+    protected String getMBTIValue() {
 
         if(this.mbtimap ==null) {
             this.mbtimap = new HashMap<String,String>();

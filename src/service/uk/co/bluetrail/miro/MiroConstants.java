@@ -13,6 +13,7 @@ public class MiroConstants {
     public Color miroGreen;
     public Color miroBlue;
     public Color miroRed;
+    public Color titleBgGrey;
 
     private MiroConstants() {
 
@@ -21,6 +22,7 @@ public class MiroConstants {
         this.miroGreen = Color.decode("#42b449");
         this.miroBlue = Color.decode("#43add5");
         this.miroRed = Color.decode("#d53f35");
+        this.titleBgGrey = Color.decode("#f2f2f2");
 
     }
 

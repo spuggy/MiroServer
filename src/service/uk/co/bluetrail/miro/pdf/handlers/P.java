@@ -36,7 +36,7 @@ public class P extends Handler {
 
         try {
 
-            Font f = context.getFont(fontName);
+            Font f = context.getFont(fontName.toUpperCase());
 
             if(f==null) {
                 context.getFont(P.DEFAULT_FONT) ;
