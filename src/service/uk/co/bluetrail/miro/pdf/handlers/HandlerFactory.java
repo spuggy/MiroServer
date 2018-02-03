@@ -3,6 +3,7 @@ package uk.co.bluetrail.miro.pdf.handlers;
 import com.lowagie.text.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import uk.co.bluetrail.miro.pdf.util.Style;
 
 /**
  * Created by richard on 20/03/15.
@@ -35,43 +36,47 @@ public class HandlerFactory {
         NamedNodeMap attr = node.getAttributes();
 
         String className = "";
+        Style style = null;
         if (attr != null) {
             Node clazz = attr.getNamedItem("class");
             if(clazz !=null) {
                 className = clazz.getNodeValue();
             }
+            Node styleAttr = attr.getNamedItem("style");
+            if(styleAttr != null) {
+                style = new Style(styleAttr.getNodeValue());
+            }
+
 
         }
         if (name.equals("ul") && className.equals("population_bar_chart")) {
-            return new PopulationBarChart(node);
+            return new PopulationBarChart(node,style);
         } else if (name.equals("ul")) {
             return new Ul(node);
         } else if (name.equals("b") && className.equals("firstpage")) {
-            return new B(node, "FIRSTPAGEFONTBOLD");
-        } else if (name.equals("b") && !className.equals("")) {
-            return new B(node,className);
+            //so as not to fuck with this just now
+            Style localStyle = new Style("font-family:firstpagefontbold");
+            return new B(node, localStyle);
+        } else if (name.equals("b")) {
+            return new B(node,style);
         } else if (name.equals("b")) {
             return new B(node);
         } else if (name.equals("img")) {
             return new Img(node);
         } else if (name.equals("p") && className.equals("firstpage")) {
-            return new P(node, "FIRSTPAGEFONT");
+            //so as not to fuck with this just now
+            Style localStyle = new Style("font-family:firstpagefont");
+            return new P(node, localStyle);
         }  else if (name.equals("p") && className.equals("fouricons")) {
             return new FourIcons(node);
         } else if (name.equals("p") && className.equals("practitioner")) {
             return new Practitioner(node);
         } else if (name.equals("p") && className.equals("miropie")) {
-            return new PieChart(node);
+            return new PieChart(node,style);
         } else if (name.equals("p") && className.equals("miropieflexi")) {
             return new PieChartFlexiBullet(node);
-        } else if (name.equals("p") && className.equals("small_italics")) {
-            return new P(node,"SMALLITALICS");
-        } else if (name.equals("p") && className.equals("italics")) {
-            return new P(node,"ITALICS");
-        } else if (name.equals("p") && !className.equals("")) {
-            return new P(node,className);
         } else if (name.equals("p")) {
-            return new P(node);
+            return new P(node,style);
         } else if (name.equals("h1")) {
             return new H(node, 1);
         } else if (name.equals("h3")) {

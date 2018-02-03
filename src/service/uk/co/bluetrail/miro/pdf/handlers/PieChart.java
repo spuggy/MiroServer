@@ -7,6 +7,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import uk.co.bluetrail.miro.pdf.util.Context;
+import uk.co.bluetrail.miro.pdf.util.Style;
 
 import java.util.HashMap;
 
@@ -15,6 +16,12 @@ import java.util.HashMap;
  */
 public class PieChart extends Handler {
 
+    private Style style = null;
+
+    public PieChart(Node node, Style style) {
+        super(node);
+        this.style = style;
+    }
     
     public PieChart(Node node) {
         super(node);
@@ -27,6 +34,16 @@ public class PieChart extends Handler {
 
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
+
+        if(style != null && style.getIntegerValue("margin-top") !=null) {
+            int margin = style.getIntegerValue("margin-top").intValue();
+            table.setSpacingBefore(margin);
+        }
+
+        if(style != null && style.getIntegerValue("margin-bottom") !=null) {
+            int margin = style.getIntegerValue("margin-bottom").intValue();
+            table.setSpacingAfter(margin);
+        }
 
         try {
 

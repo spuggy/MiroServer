@@ -9,6 +9,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import uk.co.bluetrail.miro.pdf.util.Context;
+import uk.co.bluetrail.miro.pdf.util.Style;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -19,8 +20,11 @@ import java.util.HashMap;
 public class PopulationBarChart extends Handler {
 
 
-    public PopulationBarChart(Node node) {
+    private Style style;
+
+    public PopulationBarChart(Node node, Style style) {
         super(node);
+        this.style = style;
     }
 
     @Override
@@ -28,10 +32,22 @@ public class PopulationBarChart extends Handler {
 
         Font f = context.getFont("P");
 
-
         Paragraph p = new Paragraph();
-        p.setSpacingAfter(context.spacingAfter*4);
-        p.setSpacingBefore(context.spacingAfter);
+
+        if(style !=null && style.getIntegerValue("margin-top") !=null) {
+            int margin = style.getIntegerValue("margin-top").intValue();
+            p.setSpacingBefore(margin);
+        }   else {
+            p.setSpacingBefore(context.spacingAfter);
+        }
+
+        if(style !=null && style.getIntegerValue("margin-bottom") !=null) {
+            int margin = style.getIntegerValue("margin-bottom").intValue();
+            p.setSpacingAfter(margin);
+        }   else {
+            p.setSpacingAfter(context.spacingAfter*4);
+        }
+        
 
         try {
 

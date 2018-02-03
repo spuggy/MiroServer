@@ -5,21 +5,22 @@ import com.lowagie.text.Font;
 import com.lowagie.text.Phrase;
 import org.w3c.dom.Node;
 import uk.co.bluetrail.miro.pdf.util.Context;
+import uk.co.bluetrail.miro.pdf.util.Style;
 
 /**
  * Created by richard on 20/03/15.
  */
 public class B extends Handler {
-
-    private String fontName = P.DEFAULT_BOLDFONT;
+    
+    private Style style = null;
 
     public B(Node node) {
         super(node);
     }
 
-    public B(Node node, String fontName) {
+    public B(Node node, Style style) {
         super(node);
-        this.fontName = fontName;
+        this.style = style;
     }
 
     @Override
@@ -27,10 +28,15 @@ public class B extends Handler {
 
         try {
 
-            Font f = context.getFont(fontName.toUpperCase());
+            Font f  = null;
 
-            if (f == null) {
-                context.getFont(P.DEFAULT_BOLDFONT);
+            if(style!=null && style.getStringValue("font-family") !=null) {
+                String fontName = style.getStringValue("font-family").toUpperCase();
+                f = context.getFont(fontName);
+            }
+
+            if(f==null) {
+                f = context.getFont(P.DEFAULT_BOLDFONT) ;
             }
 
 

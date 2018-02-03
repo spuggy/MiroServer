@@ -7,6 +7,7 @@ import com.lowagie.text.Phrase;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import uk.co.bluetrail.miro.pdf.util.Context;
+import uk.co.bluetrail.miro.pdf.util.Style;
 
 /**
  * Created by richard on 20/03/15.
@@ -16,11 +17,12 @@ public class P extends Handler {
     public static String DEFAULT_FONT = "P" ;
     public static String DEFAULT_BOLDFONT = "PBOLD";
 
-    private String fontName = P.DEFAULT_FONT;
 
-    public P(Node node,String fontName) {
+    private Style style = null;
+
+    public P(Node node,Style style) {
         super(node);
-        this.fontName = fontName;
+        this.style = style;
     }
 
     public P(Node node) {
@@ -36,10 +38,16 @@ public class P extends Handler {
 
         try {
 
-            Font f = context.getFont(fontName.toUpperCase());
 
+            Font f  = null;
+
+            if(style!=null && style.getStringValue("font-family") !=null) {
+                String fontName = style.getStringValue("font-family").toUpperCase();
+                f = context.getFont(fontName);
+            }
+            
             if(f==null) {
-                context.getFont(P.DEFAULT_FONT) ;
+                f = context.getFont(P.DEFAULT_FONT) ;
             }
 
             if (node != null) {
@@ -69,7 +77,7 @@ public class P extends Handler {
                 }
             }
         } catch(Exception e) {
-            //ignore
+            e.printStackTrace();
         }
         return p;
     }

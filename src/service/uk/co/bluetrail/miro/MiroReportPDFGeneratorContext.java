@@ -40,6 +40,10 @@ public class MiroReportPDFGeneratorContext {
         Font h2Font = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINBold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 12, Font.NORMAL);
         Font firstPageFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 14, Font.NORMAL);
         Font firstPageFontBold = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 14, Font.BOLD);
+
+        Font bigTextFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 14, Font.NORMAL);
+        Font bigTextFontBold = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "DINRegular.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 14, Font.BOLD);
+        
         Font pFontBold = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 75 Bold.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
         Font pFont = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 10, Font.NORMAL);
         Font pFontSmall = FontFactory.getFont(context.filePath + "/miro2/fonts/" + "Linotype - Helvetica LT 55 Roman.ttf", BaseFont.CP1252, BaseFont.EMBEDDED, 8, Font.NORMAL);
@@ -88,9 +92,9 @@ public class MiroReportPDFGeneratorContext {
             context.addFont("LEGSUBTEXTFONTSMALL", legSubTextFontSmall);
             context.addFont("SMALLITALICS", pFontSmallItalics);
             context.addFont("ITALICS", pFontItalics);
-
-
-
+            context.addFont("BIGTEXTFONT", bigTextFont);
+            context.addFont("BIGTEXTFONTBOLD", bigTextFontBold);
+            
         } catch (Exception e) {
             throw new uk.co.bluetrail.miro.pdf.util.MiroException(e.getMessage());
         }
