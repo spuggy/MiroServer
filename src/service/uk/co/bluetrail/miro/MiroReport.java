@@ -39,6 +39,7 @@ public class MiroReport {
     String disEngagedText = null;
     HashMap colors = null;
     MiroReportFileGenerator miroReportFileGenerator;
+    MiroReportFileGenerator miroLeadershipReportFileGenerator;
     HashMap<String, String> legendMap;
     HashMap<String, int[]> jpValueMap;
     HashMap<String, String> mbtimap ;
@@ -306,11 +307,11 @@ public class MiroReport {
         addMiroPopulationChartValues(variables);
         addSubPieValues(mbtiValue,imgNames,variables);
 
-        if (miroReportFileGenerator == null) {
+        if (miroLeadershipReportFileGenerator == null) {
             //TODO name of source file
-            miroReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miro_leadership01.xhtml");
+            miroLeadershipReportFileGenerator = new MiroReportFileGenerator(this.baseDirectory,"miro_leadership01.xhtml");
         }
-        miroReportFileGenerator.generate(pages, variables, imgNames);
+        miroLeadershipReportFileGenerator.generate(pages, variables, imgNames);
 
         //TODO name of file name here ... hmmm maybe need to look at other  generatePDF functions call
         MiroReportPDFGenerator.generatePDF(this.baseDirectory, leadershipReportFileName,false, false, MiroReportPDFGeneratorContext.leaderShipContext());

@@ -194,6 +194,12 @@
 
   </bean>
 
+  <bean id="batchProcessorMonitorController" class="uk.co.bluetrail.mobriz.webapp.action.BatchProcessorMonitorController"
+        autowire="byName">
+    <property name="miroDocLimit" value="10"/>
+    <property name="tardyLimitInMs" value="1800000"/>
+  </bean>
+
 
   <bean id="miroSurveyController" class="uk.co.bluetrail.mobriz.webapp.action.MiroSurveyController" autowire="byName"/>
 
@@ -342,6 +348,8 @@
         <prop key="/sms.html">smsFormController</prop>
         <prop key="/surveyPhotos.html">responsesPhotoController</prop>
         <prop key="/batchProcess.html">batchProcessController</prop>
+        <prop key="/batchProcessorMonitor.html">batchProcessorMonitorController</prop>
+
         <prop key="/lookupDefs.html">lookupDefController</prop>
         <prop key="/editLookupDef.html">lookupDefFormController</prop>
         <prop key="/lookupItemsUpload.html">lookupItemsUploadFormController</prop>

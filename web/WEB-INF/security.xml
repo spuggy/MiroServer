@@ -69,6 +69,7 @@
                 /wshelp.html=ROLE_ANONYMOUS,admin,user
                 /ws.html?=ROLE_ANONYMOUS,admin,user     
                 /batchProcess.html=ROLE_ANONYMOUS,admin,user
+                /batchProcessorMonitor.html=ROLE_ANONYMOUS,admin,user
                 /ws.html=ROLE_ANONYMOUS,admin,user     
                 /**/ws.html=ROLE_ANONYMOUS,admin,user  
                 /clickstreams.jsp*=admin

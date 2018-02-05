@@ -56,14 +56,6 @@
                     <display:setProperty name="paging.banner.placement" value="bottom"/> </display:table>
 
             </div>
-            <div class="col-sm-4">
-                <ul class="list-group news-bar">
-                    <c:forEach var="webPage" items="${newsPageList}" >
-                        <c:out value="${webPage.pageSummary}" escapeXml="false"/>
-                        <hr/>
-                    </c:forEach>
-                </ul>
-            </div>
         </div>
     </c:if>
 
