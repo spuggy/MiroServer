@@ -57,7 +57,7 @@
                         <p><a id="miro10download" href="#"><b>MiRo Stage 1</b> (Standard report)</a></p>
                     </li>
                     <li>
-                        <p><a id="mirolshipdownload" href="#"><b>MiRo Leadership Report</b></a></p>
+                        <p><a id="mirolshipdownload" href="#"><b>MiRo Leadership Report</b></a><img src="/mirotest/miro11style/img/new-48.png" alt="MiRo Psychometrics"></p>
                     </li>
                 </ul>
             </div>
