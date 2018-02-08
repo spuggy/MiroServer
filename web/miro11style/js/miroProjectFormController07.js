@@ -138,16 +138,19 @@ MiroProjectFormController.prototype = {
     }
 
     $( "#miro11download" ).click(function() {
+      ga('send', 'event', 'download', 'reports', 'miro11download');
       window.location = v11url + id;
 			$('#downloadreport').modal('hide');
     });
 
     $( "#miro10download" ).click(function() {
+      ga('send', 'event', 'download', 'reports', 'miro10download');
       window.location = v10url + id;
 			$('#downloadreport').modal('hide');
     });
 
     $( "#mirolshipdownload" ).click(function() {
+      ga('send', 'event', 'download', 'reports', 'mirolshipdownload');
       window.location = vlshipurl + id;
       $('#downloadreport').modal('hide');
     });
