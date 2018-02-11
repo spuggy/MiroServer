@@ -293,7 +293,6 @@ public class MiroReport {
         variables.put("lastname", mr.getLastName());
         variables.put("name", mr.getFullName());
         variables.put("name2", mr.getFullName());
-        variables.put("v1", mr.getPractitionerName());
         variables.put("reportFileName", leadershipReportFileName);
         variables.put("report_type_colour", "MIROGREEN");
 
@@ -306,6 +305,8 @@ public class MiroReport {
 
         addMiroPopulationChartValues(variables);
         addSubPieValues(mbtiValue,imgNames,variables);
+
+        addPractitionerVariables(variables);
 
         if (miroLeadershipReportFileGenerator == null) {
             //TODO name of source file
@@ -492,7 +493,6 @@ public class MiroReport {
         variables.put("lastname", mr.getLastName());
         variables.put("name", mr.getFullName());
         variables.put("name2", mr.getFullName());
-        variables.put("v1", mr.getPractitionerName());
         variables.put("reportFileName", mr.getMiroReportName());
         variables.put("toc1", mr.getVariable("toc1",reportVersion));
         variables.put("toc1", mr.getVariable("toc1",reportVersion));
@@ -502,39 +502,7 @@ public class MiroReport {
         variables.put("toc5", mr.getVariable("toc5",reportVersion));
 
 
-        StringBuffer sb = new StringBuffer();
-
-        int vName = 2;
-
-        if (!mr.getCompany().trim().equals("")) {
-            variables.put("v" + vName++, mr.getCompany());
-        }
-
-        String[] alines = mr.getPractitionerAddress();
-
-
-        for (int i = 0; i < alines.length; i++) {
-            if (alines[i] != null && !alines[i].trim().equals("")) {
-                variables.put("v" + vName++, alines[i]);
-            }
-            variables.put("v" + vName++, " ");
-
-        }
-
-
-        if (!mr.getPractitionerTelNo().trim().equals("")) {
-            variables.put("v" + vName++, "Tel: " + mr.getPractitionerTelNo());
-        }
-
-        if (!mr.getPractitionerEmail().trim().equals("")) {
-
-            variables.put("v" + vName++, "Email: " + mr.getPractitionerEmail());
-
-        }
-
-        if (!mr.getWebaddress().trim().equals("")) {
-            variables.put("v" + vName++, "Web: " + mr.getWebaddress());
-        }
+        addPractitionerVariables(variables);
 
 
         // Image Map
@@ -573,6 +541,44 @@ public class MiroReport {
         }
         miroReportFileGenerator.generate(pages, variables, imgNames);
 
+
+    }
+
+    private void addPractitionerVariables(HashMap<String, String> variables) {
+
+        variables.put("v1", mr.getPractitionerName());
+
+        int vName = 2;
+
+        if (!mr.getCompany().trim().equals("")) {
+            variables.put("v" + vName++, mr.getCompany());
+        }
+
+        String[] alines = mr.getPractitionerAddress();
+
+
+        for (int i = 0; i < alines.length; i++) {
+            if (alines[i] != null && !alines[i].trim().equals("")) {
+                variables.put("v" + vName++, alines[i]);
+            }
+            variables.put("v" + vName++, " ");
+
+        }
+
+
+        if (!mr.getPractitionerTelNo().trim().equals("")) {
+            variables.put("v" + vName++, "Tel: " + mr.getPractitionerTelNo());
+        }
+
+        if (!mr.getPractitionerEmail().trim().equals("")) {
+
+            variables.put("v" + vName++, "Email: " + mr.getPractitionerEmail());
+
+        }
+
+        if (!mr.getWebaddress().trim().equals("")) {
+            variables.put("v" + vName++, "Web: " + mr.getWebaddress());
+        }
 
     }
 
