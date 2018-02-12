@@ -385,9 +385,7 @@
 
         <prop key="/departmentAccounts.html">miroDepartmentAccountsController</prop>
         <prop key="/freeAssessmentForm.html">freeAssessmentFormController</prop>
-
-
-        <prop key="/news.html">newsPageController</prop>
+        
       </props>
     </property>
   </bean>

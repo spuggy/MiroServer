@@ -42,7 +42,7 @@
                     <ul class="nav navbar-nav">
                         <li><a class="navbar_main_link" href="miroProjects.html">My Projects</a></li>
                         <li><a class="navbar_main_link" href="miroTeamList.html">Team Reports</a></li>
-                        <li class="hidden-md hidden-xs hidden-sm"><a class="navbar_main_link" href="news.html">News</a></li>
+                        <li class="hidden-md hidden-xs hidden-sm"><a class="navbar_main_link" target="_miro_news" href="https://miro-assessment.com/miro-news.html">News</a></li>
                         <li class="hidden-md hidden-xs hidden-sm"><a class="navbar_main_link" href="content.html?name=downloads">Resources</a></li>
                         <li class="hidden-md hidden-xs hidden-sm"><a class="navbar_main_link" href="content.html?name=help">Help</a></li>
                         <li class="dropdown">
