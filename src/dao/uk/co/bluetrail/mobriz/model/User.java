@@ -48,6 +48,7 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
     boolean deleted ;
     protected Long response_id = new Long(0);
     protected int creditBalance = 0 ;
+    protected boolean gdpr = false;
 
 
 
@@ -475,6 +476,18 @@ public class User extends BaseObject implements SurveyElement, Serializable, Use
      */
     public boolean isEnabled() {
         return enabled;
+    }
+
+
+    /**
+     * @hibernate.property column="gdpr" type="yes_no"
+     */
+    public boolean isGdpr() {
+        return gdpr;
+    }
+
+    public void setGdpr(boolean gdpr) {
+        this.gdpr = gdpr;
     }
     
     /**

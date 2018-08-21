@@ -1,0 +1,1 @@
+ALTER TABLE app_user ADD COLUMN gdpr character(1);

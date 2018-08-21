@@ -20,7 +20,7 @@
 <content tag="heading"><fmt:message key="miroSurvey.heading"/></content>
 <content tag="shortheading"><fmt:message key="miroSurvey.shortheading"/></content>
 
-<p>Please confirm your first and last name and then press continue. </p>
+<p>Have we got your name right? You can edit it here</p>
 <form:form commandName="user" method="post" action="userConfirm.html" id="userForm" >
 
     <div >
@@ -35,9 +35,18 @@
             <form:errors path="lastName" cssClass="fieldError"/>
             <form:input path="lastName" id="lastName" cssClass="form-control" maxlength="50"/>
         </div>
+
+        <p>Your privacy and data security is important to us. Before you continue to the assessment, please tick
+            the box to say that you agree to the use of your personal data in line with our <a href="javascript:void(0);" onclick="window.open('https://miro-assessment.com/privacy.html', '_blank', 'width=640,height=480');">privacy statement</a></p>
+
+        <div class="form-group">
+            <fieldset>
+                <form:checkbox path="gdpr" id="gdpr"/><label for="gdpr" class="choice"> I agree to use of my personal data in line with MiRo's privacy statement.</label>
+            </fieldset>
+        </div>
+
         <button type="submit" class="btn btn-primary" name="save" onclick="bCancel=false" >Continue</button>
 
-</form:form>
+    </div>
 
-</div>
-</div>
+</form:form>

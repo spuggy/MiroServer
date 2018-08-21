@@ -62,11 +62,18 @@ public class UserConfirmFormController extends BaseFormController {
             return showForm(request, response, errors);
 
         }
+
+        if(user.isGdpr() == false) {
+            saveMessage(request, "To proceed you must confirm you agree to the use of your personal data in line with our privacy statement.");
+            return showForm(request, response, errors);
+        }
+
         
         User user2Update = getUserManager().getUser(user.getId().toString());
         
         user2Update.setFirstName(user.getFirstName());
         user2Update.setLastName(user.getLastName());
+        user2Update.setGdpr(true);
         
         getUserManager().saveUser(user2Update);
         

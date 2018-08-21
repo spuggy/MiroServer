@@ -32,10 +32,20 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
 	protected MailEngine mailEngine = null;
 	protected SimpleMailMessage message = null;
 	protected String templateName = null;
+	protected String privacyUrl = null;
 	private SurveyResponseManager surveyResponseManager;
 
-	
-	
+
+	public String getPrivacyUrl() {
+		return privacyUrl;
+	}
+
+	public void setPrivacyUrl(String privacyUrl) {
+		this.privacyUrl = privacyUrl;
+	}
+
+
+
 	/**
 	 * @param sureyResponseManager the sureyResponseManager to set
 	 */
@@ -442,6 +452,10 @@ public class AjaxMiroProjectManagerImpl implements AjaxMiroProjectManager  {
             // model.put("bundle", getTexts());
             model.put("message", msg);
         }
+
+        if(privacyUrl != null) {
+			model.put("privacyUrl", privacyUrl);
+		}
 
         mailEngine.sendMessageWithExceptions(message, templateName, model);
     }

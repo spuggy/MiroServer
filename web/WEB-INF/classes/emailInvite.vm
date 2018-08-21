@@ -9,3 +9,7 @@ Password: ${user.PasswordHint}
 
 
 Login at: ${applicationURL}
+
+
+Your privacy and data security is important to us. You can find out how we store and use your
+personal data at https://miro-assessment.com/privacy.html

@@ -157,9 +157,10 @@
                
     </bean>
      <bean id="ajaxMiroProjectManager" class="uk.co.bluetrail.mobriz.webapp.ajaxImpl.AjaxMiroProjectManagerImpl" autowire="byName">
-     <property name="mailEngine" ref="mailEngine"/>
+        <property name="mailEngine" ref="mailEngine"/>
         <property name="message" ref="mailMessage"/>
         <property name="templateName" value="emailInvite.vm"/>
+        <property name="privacyUrl" value="https://miro-assessment.com/content/resources/items/MiRoPrivacyNotice.pdf"/>
      </bean>
     
     
