@@ -7,3 +7,7 @@ velocity.log
 serializer.log
 testweb/node_modules/
 misc/restore-debug/mirotestdb.sql
+out/
+.gradle/
+web/.idea/
+mobriz4server.iws
