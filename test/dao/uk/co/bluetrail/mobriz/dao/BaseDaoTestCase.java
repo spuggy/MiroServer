@@ -24,7 +24,7 @@ public abstract class BaseDaoTestCase extends AbstractTransactionalDataSourceSpr
         return new String [] {"classpath*:/**/dao/applicationContext-*.xml",
                               "classpath*:META-INF/applicationContext-*.xml"};
     }
-    
+
     public BaseDaoTestCase() {
         // Since a ResourceBundle is not required for each class, just
         // do a simple check to see if one exists

@@ -31,7 +31,6 @@ import org.springframework.orm.hibernate3.HibernateCallback;
  *   Extended to implement Acegi UserDetailsService interface by David Carter david@carter.net
 */
 public class UserDaoHibernate extends BaseDaoHibernate implements UserDao, UserDetailsService {
-    
 	
 	 
 	

@@ -26,7 +26,6 @@ import org.springframework.web.servlet.mvc.Controller;
 public class HomePageController implements Controller {
     private final Log log = LogFactory.getLog(HomePageController.class);
     
-    
     Properties homePages = null;
       
     
@@ -36,7 +35,6 @@ public class HomePageController implements Controller {
         if (log.isDebugEnabled()) {
             log.debug("entering 'handleRequest' method...");
         }
-
         List roles = getCurrentUser().getRoleList() ;
         
         Iterator itr = roles.iterator() ;

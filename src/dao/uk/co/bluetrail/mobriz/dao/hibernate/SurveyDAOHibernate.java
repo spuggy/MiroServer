@@ -1,7 +1,6 @@
 
 package uk.co.bluetrail.mobriz.dao.hibernate;
 
-import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +25,6 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 
 public class SurveyDAOHibernate extends BaseDaoHibernate implements SurveyDAO {
-
 	
 	
 
@@ -173,10 +171,6 @@ public class SurveyDAOHibernate extends BaseDaoHibernate implements SurveyDAO {
 	}
 
     public List getSurveyNamedQuery(String queryName,String[] fieldNames, Object[] objects) {
-
-
-
-
         List  namedQueryResults = getHibernateTemplate().findByNamedQueryAndNamedParam(queryName,  fieldNames, objects);
 
         return namedQueryResults;

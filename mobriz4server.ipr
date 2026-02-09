@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AntConfiguration">
-    <buildFile url="file://$PROJECT_DIR$/build.xml">
-      <additionalClassPath>
-        <entry path="file://$PROJECT_DIR$/lib/junit3.8.1/junit.jar" />
-      </additionalClassPath>
-    </buildFile>
-  </component>
+  <component name="AntConfiguration" />
   <component name="ArtifactManager">
     <artifact type="exploded-war" name="mobriz4server:mobriz4server exploded">
       <output-path>$PROJECT_DIR$/build/mobriz4server</output-path>
@@ -340,6 +334,7 @@
     <option name="OPEN_IN_BROWSER" value="true" />
     <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="IdProvider" IDEtalkID="582155E7011F877EF1653A854B705B89" />
   <component name="InspectionProjectProfileManager">
     <profile version="1.0">
@@ -552,11 +547,6 @@
   </component>
   <component name="ProjectCodeStyleConfiguration">
     <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default (1)" />
-    <code_scheme name="Project" version="173">
-      <XML>
-        <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
-      </XML>
-    </code_scheme>
   </component>
   <component name="ProjectCodeStyleSettingsManager">
     <option name="PER_PROJECT_SETTINGS">
@@ -595,6 +585,20 @@
     <option enabled="false" />
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
+  <component name="accountSettings">
+    <option name="activeProfile" value="profile:default" />
+    <option name="activeRegion" value="eu-west-2" />
+    <option name="recentlyUsedProfiles">
+      <list>
+        <option value="profile:default" />
+      </list>
+    </option>
+    <option name="recentlyUsedRegions">
+      <list>
+        <option value="eu-west-2" />
+      </list>
+    </option>
+  </component>
   <component name="com.intellij.jsf.UserDefinedFacesConfigs">
     <option name="USER_DEFINED_CONFIGS">
       <value>
