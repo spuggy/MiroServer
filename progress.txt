@@ -10,3 +10,20 @@ Validation:
   npx prettier --write src/app/(protected)/projects/page.js
 - Build/type validation passed:
   npm run build (in mironext)
+
+Completed: US-002 - Save a new candidate via a popup dialog
+Date: 2026-02-12
+
+Changes made:
+- Improved candidate popup dialog reliability with client-side trimming/required-field validation and network error handling.
+- Prevented closing the popup mid-save and reset dialog state cleanly on close.
+- Normalized candidate input values server-side and added explicit Prisma unique-constraint handling to return a clear duplicate-email error.
+- Files changed:
+  - mironext/src/components/projects/AddCandidateDialog.jsx
+  - mironext/src/app/api/projects/[id]/candidates/route.js
+
+Validation:
+- Ran Prettier on edited files:
+  npx prettier --write src/components/projects/AddCandidateDialog.jsx src/app/api/projects/[id]/candidates/route.js
+- Build/type validation passed:
+  npm run build (in mironext)

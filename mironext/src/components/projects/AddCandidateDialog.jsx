@@ -22,19 +22,46 @@ export default function AddCandidateDialog({ projectId }) {
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
 
+  function closeDialog() {
+    if (saving) {
+      return;
+    }
+    setOpen(false);
+    setError("");
+    setForm(EMPTY);
+  }
+
   async function submit() {
+    const payload = {
+      firstName: form.firstName.trim(),
+      lastName: form.lastName.trim(),
+      email: form.email.trim(),
+    };
+
+    if (!payload.firstName || !payload.lastName || !payload.email) {
+      setError("First name, last name and email are required.");
+      return;
+    }
+
     setSaving(true);
     setError("");
 
-    const response = await fetch(`/api/projects/${projectId}/candidates`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    let response;
+    try {
+      response = await fetch(`/api/projects/${projectId}/candidates`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch {
+      setError("Network error while saving candidate.");
+      setSaving(false);
+      return;
+    }
 
     if (!response.ok) {
-      const payload = await response.json().catch(() => ({}));
-      setError(payload.error || "Failed to add candidate.");
+      const errorPayload = await response.json().catch(() => ({}));
+      setError(errorPayload.error || "Failed to add candidate.");
       setSaving(false);
       return;
     }
@@ -50,7 +77,7 @@ export default function AddCandidateDialog({ projectId }) {
       <Button variant="contained" onClick={() => setOpen(true)}>
         Add a New Candidate
       </Button>
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
+      <Dialog open={open} onClose={closeDialog} fullWidth maxWidth="sm">
         <DialogTitle>Add Candidate</DialogTitle>
         <DialogContent>
           <Stack spacing={2} sx={{ mt: 1 }}>
@@ -77,7 +104,9 @@ export default function AddCandidateDialog({ projectId }) {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={closeDialog} disabled={saving}>
+            Cancel
+          </Button>
           <Button onClick={submit} variant="contained" disabled={saving}>
             {saving ? "Saving..." : "Save"}
           </Button>

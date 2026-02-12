@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { createLegacyPassword, sha1 } from "@/lib/password";
 import { getNextHibernateId } from "@/lib/ids";
+import { Prisma } from "@prisma/client";
 
 const CANDIDATE_SCHEMA = z.object({
   firstName: z.string().min(1).max(50),
@@ -42,6 +43,9 @@ export async function POST(request, { params }) {
   const userId = BigInt(session.user.id);
   const accountId = BigInt(session.user.accountId);
   const projectId = BigInt(parsedProjectId);
+  const firstName = parsed.data.firstName.trim();
+  const lastName = parsed.data.lastName.trim();
+  const email = parsed.data.email.trim().toLowerCase();
 
   const project = await prisma.miroProject.findFirst({
     where: {
@@ -60,11 +64,11 @@ export async function POST(request, { params }) {
       projectId,
       deleted: { not: true },
       OR: [
-        { email: { equals: parsed.data.email, mode: "insensitive" } },
+        { email: { equals: email, mode: "insensitive" } },
         {
           AND: [
-            { firstName: { equals: parsed.data.firstName, mode: "insensitive" } },
-            { lastName: { equals: parsed.data.lastName, mode: "insensitive" } },
+            { firstName: { equals: firstName, mode: "insensitive" } },
+            { lastName: { equals: lastName, mode: "insensitive" } },
           ],
         },
       ],
@@ -81,7 +85,7 @@ export async function POST(request, { params }) {
 
   const now = new Date();
   const plainPassword = createLegacyPassword();
-  const username = createUsername(projectId.toString(), parsed.data.firstName, parsed.data.lastName);
+  const username = createUsername(projectId.toString(), firstName, lastName);
 
   try {
     const candidate = await prisma.$transaction(async (tx) => {
@@ -105,9 +109,9 @@ export async function POST(request, { params }) {
           username,
           password: sha1(plainPassword),
           passwordHint: plainPassword,
-          firstName: parsed.data.firstName,
-          lastName: parsed.data.lastName,
-          email: parsed.data.email.toLowerCase(),
+          firstName,
+          lastName,
+          email,
           enabled: "1",
           gdpr: "0",
           accountExpired: "0",
@@ -124,6 +128,12 @@ export async function POST(request, { params }) {
 
     return NextResponse.json({ id: candidate.id.toString() });
   } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
+      return NextResponse.json(
+        { error: "A candidate with this email already exists." },
+        { status: 409 },
+      );
+    }
     return NextResponse.json({ error: "Unable to save candidate." }, { status: 500 });
   }
 }
