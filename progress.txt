@@ -27,3 +27,39 @@ Validation:
   npx prettier --write src/components/projects/AddCandidateDialog.jsx src/app/api/projects/[id]/candidates/route.js
 - Build/type validation passed:
   npm run build (in mironext)
+Completed: US-003 - add candidate menu for each candidate on a project
+Date: 2026-02-12
+
+Changes made:
+- Added an Actions menu to each candidate row on the project page with links to:
+  - View candidate details
+  - Edit candidate details
+  - Delete candidate
+- Added candidate routes/pages:
+  - /projects/[id]/candidates/[candidateId]
+  - /projects/[id]/candidates/[candidateId]/edit
+  - /projects/[id]/candidates/[candidateId]/delete
+- Added project-scoped candidate API route with auth + ownership checks:
+  - GET/PATCH/DELETE /api/projects/[id]/candidates/[candidateId]
+- Implemented edit and delete client forms and wired them to API operations.
+
+Files changed:
+- mironext/src/app/(protected)/projects/[id]/page.js
+- mironext/src/components/projects/CandidateActionsMenu.jsx
+- mironext/src/app/(protected)/projects/[id]/candidates/[candidateId]/page.js
+- mironext/src/app/(protected)/projects/[id]/candidates/[candidateId]/edit/page.js
+- mironext/src/app/(protected)/projects/[id]/candidates/[candidateId]/delete/page.js
+- mironext/src/components/projects/EditCandidateForm.jsx
+- mironext/src/components/projects/DeleteCandidateForm.jsx
+- mironext/src/app/api/projects/[id]/candidates/[candidateId]/route.js
+- PRD.json
+
+Validation:
+- Formatted edited files:
+  npx prettier --write src/app/(protected)/projects/[id]/page.js src/components/projects/CandidateActionsMenu.jsx src/app/api/projects/[id]/candidates/[candidateId]/route.js src/app/(protected)/projects/[id]/candidates/[candidateId]/page.js src/app/(protected)/projects/[id]/candidates/[candidateId]/edit/page.js src/app/(protected)/projects/[id]/candidates/[candidateId]/delete/page.js src/components/projects/EditCandidateForm.jsx src/components/projects/DeleteCandidateForm.jsx
+- Unit tests passed:
+  npx vitest run src/lib/__tests__
+- Build/type checks passed:
+  npm run build
+- Note: `npm test` currently fails because Playwright e2e/ct specs are being picked up by Vitest and call Playwright's `test()` outside a Playwright runner.
+

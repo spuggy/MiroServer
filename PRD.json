@@ -1,0 +1,42 @@
+{
+  "project": "miro-next",
+  "branchName": "miro-next-first-fixes",
+  "description": "miro-next first fixes for new app",
+  "userStories": [
+    {
+      "id": "US-003",
+      "title": "add candiate menu for each candidate on a project.",
+      "description": "As a user, I want to be able to see a menu for each candidate on a project so I can view the candidate's details and edit and deleet them  this would work like in the old parent project on https://miro-assessment.com/mirotest/showProject.html?id=2772",
+      "acceptanceCriteria": [
+        "add a menu for each candidate on a project",
+        "add a link to view the candidate's details",
+        "add a link to edit the candidate's details",
+        "add a link to delete the candidate",
+        "Typecheck passes",
+        "run prettier to format the code",
+        "run the tests to make sure the new code works"
+      ],
+      "priority": 1,
+      "passes": true,
+      "notes": "Completed 2026-02-12. Added per-candidate actions menu on project page (view details, edit candidate, delete candidate), implemented candidate detail/edit/delete pages, and added project-scoped candidate API route with GET/PATCH/DELETE ownership checks and validation."
+    },
+    {
+      "id": "US-004",
+      "title": "Create a team report page",
+      "description": "As a user, I want to be able to create a team report page so I can view the team report for a slection of projects.  This would work like in the old parent project on https://miro-assessment.com/mirotest/miroTeamReport.html",
+      "acceptanceCriteria": [
+        "create a team report page",
+        "add a form to select the projects to include in the team report",
+        "add a button to create the team report",
+        "add a button to download the team report",
+        "add a button to delete the team report",
+        "Typecheck passes",
+        "run prettier to format the code",
+        "run the tests to make sure the new code works"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}

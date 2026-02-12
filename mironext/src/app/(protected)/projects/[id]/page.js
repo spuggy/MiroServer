@@ -18,6 +18,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { toCandidateStatusLabel } from "@/lib/status";
 import AddCandidateDialog from "@/components/projects/AddCandidateDialog";
+import CandidateActionsMenu from "@/components/projects/CandidateActionsMenu";
 
 export default async function ProjectPage({ params, searchParams }) {
   const session = await auth();
@@ -122,6 +123,7 @@ export default async function ProjectPage({ params, searchParams }) {
                 <TableCell>Email</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Survey</TableCell>
+                <TableCell align="right">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -131,11 +133,17 @@ export default async function ProjectPage({ params, searchParams }) {
                   <TableCell>{candidate.email}</TableCell>
                   <TableCell>{toCandidateStatusLabel(candidate.status)}</TableCell>
                   <TableCell>{candidate.response?.surveyId?.toString() || "-"}</TableCell>
+                  <TableCell align="right">
+                    <CandidateActionsMenu
+                      projectId={project.id.toString()}
+                      candidateId={candidate.id.toString()}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
               {candidates.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4}>No candidates found.</TableCell>
+                  <TableCell colSpan={5}>No candidates found.</TableCell>
                 </TableRow>
               ) : null}
             </TableBody>
