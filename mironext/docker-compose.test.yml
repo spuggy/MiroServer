@@ -1,0 +1,21 @@
+services:
+  postgres-test:
+    image: postgres:16
+    container_name: mironext-postgres-test
+    ports:
+      - "55432:5432"
+    environment:
+      POSTGRES_USER: miro_test
+      POSTGRES_PASSWORD: miro_test
+      POSTGRES_DB: miro_next_test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U miro_test -d miro_next_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - ./db/seed:/seed:ro
+      - mironext-postgres-test-data:/var/lib/postgresql/data
+
+volumes:
+  mironext-postgres-test-data:

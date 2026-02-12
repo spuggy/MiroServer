@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import {
   Box,
@@ -21,6 +21,9 @@ import AddCandidateDialog from "@/components/projects/AddCandidateDialog";
 
 export default async function ProjectPage({ params, searchParams }) {
   const session = await auth();
+  if (!session?.user?.id) {
+    redirect("/login");
+  }
   const userId = BigInt(session.user.id);
   const routeParams = await params;
 

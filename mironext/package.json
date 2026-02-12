@@ -4,20 +4,31 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:test": "dotenv -e .env.test -- next dev",
     "build": "next build",
     "start": "next start",
     "format": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "playwright test --config=playwright.config.ts",
+    "test:e2e:headed": "playwright test --config=playwright.config.ts --headed",
+    "test:ct": "playwright test --config=playwright-ct.config.ts",
+    "test:all": "npm run testdb:reset && npm run test:e2e && npm run test:ct",
+    "testdb:up": "docker compose -f docker-compose.test.yml up -d postgres-test",
+    "testdb:down": "docker compose -f docker-compose.test.yml down -v",
+    "testdb:seed": "./scripts/test-db-seed.sh",
+    "testdb:reset": "npm run testdb:down && npm run testdb:up && npm run testdb:seed",
+    "playwright:install": "playwright install chromium",
+    "ci:test": "npm run playwright:install && npm run test:all",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.3.0",
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "@mui/material-nextjs": "latest",
+    "@prisma/adapter-pg": "^7.3.0",
     "@prisma/client": "latest",
     "next": "16.1.6",
     "next-auth": "latest",
@@ -27,8 +38,12 @@
     "zod": "latest"
   },
   "devDependencies": {
+    "@playwright/experimental-ct-react": "^1.58.2",
+    "@playwright/test": "^1.58.2",
+    "dotenv-cli": "^11.0.0",
     "prettier": "latest",
     "prisma": "latest",
+    "start-server-and-test": "^2.1.3",
     "vitest": "latest"
   }
 }

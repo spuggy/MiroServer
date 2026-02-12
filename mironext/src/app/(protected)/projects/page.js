@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import {
   Box,
   Card,
@@ -18,6 +19,9 @@ import NewProjectDialog from "@/components/projects/NewProjectDialog";
 
 export default async function ProjectsPage({ searchParams }) {
   const session = await auth();
+  if (!session?.user?.id) {
+    redirect("/login");
+  }
   const userId = BigInt(session.user.id);
   const resolvedSearchParams = await searchParams;
   const { page, pageSize, skip, take } = getPagination(resolvedSearchParams, {

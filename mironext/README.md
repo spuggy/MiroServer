@@ -32,6 +32,43 @@ npm run dev
 npm run test
 ```
 
+### Playwright (E2E + Component)
+
+1. Copy the test env template and adjust values if needed.
+2. Start and seed the isolated Docker Postgres test database.
+3. Run E2E and component tests.
+
+```bash
+cp .env.test.template .env.test
+npm run testdb:reset
+npm run test:e2e
+npm run test:ct
+```
+
+Or run both suites together:
+
+```bash
+npm run test:all
+```
+
+Useful helper commands:
+
+```bash
+npm run testdb:up
+npm run testdb:seed
+npm run testdb:down
+npm run playwright:install
+```
+
+### Test Results
+
+- E2E machine-readable results: `test-results/e2e/results.json`
+- E2E JUnit: `test-results/e2e/junit.xml`
+- E2E HTML report: `playwright-report/e2e/index.html`
+- CT machine-readable results: `test-results/ct/results.json`
+- CT JUnit: `test-results/ct/junit.xml`
+- CT HTML report: `playwright-report/ct/index.html`
+
 ## Formatting
 
 ```bash
