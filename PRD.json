@@ -35,8 +35,8 @@
         "run the tests to make sure the new code works"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Completed 2026-02-12. Implemented /team-reports with project selection, create/download/delete report actions, added POST /api/team-reports with auth + ownership checks, and generated report rows with candidate counts plus CSV export."
     }
   ]
 }

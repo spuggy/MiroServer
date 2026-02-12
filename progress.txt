@@ -63,3 +63,34 @@ Validation:
   npm run build
 - Note: `npm test` currently fails because Playwright e2e/ct specs are being picked up by Vitest and call Playwright's `test()` outside a Playwright runner.
 
+
+Completed: US-004 - Create a team report page
+Date: 2026-02-12
+
+Changes made:
+- Replaced the `/team-reports` placeholder with a working team report builder page.
+- Added project selection UI (multi-select checkboxes + select all) and report actions:
+  - Create team report
+  - Download team report (CSV)
+  - Delete team report (clear generated report state)
+- Added a new authenticated API route:
+  - POST /api/team-reports
+  - Validates selected project IDs, enforces project ownership, and returns per-project candidate counts.
+- Added reusable team-report helpers for ID parsing, report shaping, and CSV generation.
+- Added unit tests for team-report helper behavior.
+
+Files changed:
+- mironext/src/app/(protected)/team-reports/page.js
+- mironext/src/components/team-reports/TeamReportBuilder.jsx
+- mironext/src/app/api/team-reports/route.js
+- mironext/src/lib/team-reports.js
+- mironext/src/lib/__tests__/team-reports.test.js
+- PRD.json
+
+Validation:
+- Formatted edited files:
+  npx prettier --write src/app/(protected)/team-reports/page.js src/app/api/team-reports/route.js src/components/team-reports/TeamReportBuilder.jsx src/lib/team-reports.js src/lib/__tests__/team-reports.test.js
+- Unit tests passed:
+  npx vitest run src/lib/__tests__
+- Build/type checks passed:
+  npm run build
