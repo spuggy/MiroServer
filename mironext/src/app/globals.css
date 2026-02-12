@@ -1,0 +1,44 @@
+:root {
+  --miro11-link: #292929;
+  --miro11-link-hover: #2fa5d1;
+  --miro11-accent-red: #d63f36;
+  --miro11-accent-blue: #44aed6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: #ffffff;
+  color: #292929;
+}
+
+a {
+  color: var(--miro11-link);
+  border-bottom: 2px dotted var(--miro11-accent-red);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--miro11-link-hover);
+  border-bottom-color: var(--miro11-accent-blue);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #6b6b6b;
+  letter-spacing: 1px;
+  font-weight: 400;
+}

@@ -1,0 +1,130 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["public", "mr"]
+}
+
+model Account {
+  id          BigInt    @id
+  companyName String    @map("companyname") @db.VarChar(50)
+  users       AppUser[]
+
+  @@map("account")
+  @@schema("mr")
+}
+
+model AppUser {
+  id                 BigInt      @id
+  version            Int
+  userType           String?     @map("user_type") @db.VarChar(50)
+  defaultSurveyId    String?     @map("default_survey_id")
+  miroTeamAddedOn    DateTime?   @map("miroteamadded_on")
+  department         String?
+  miroTeamId         BigInt?     @map("miroteam_id")
+  lastUpdatedById    BigInt?     @map("lastupdatedby_id")
+  checkPoint         BigInt?     @map("checkpoint")
+  updatedAt          DateTime?   @map("updated_at")
+  createdById        BigInt?     @map("createdby_id")
+  status             Int?
+  creditBalance      Int?        @map("creditbalance")
+  responseId         BigInt?     @map("response_id")
+  projectId          BigInt?     @map("project_id")
+  deleted            Boolean?
+  employeeRef        String?     @map("employeeref")
+  pinNumber          String?     @map("pinnumber")
+  accountId          BigInt      @map("account_id")
+  username           String      @unique @db.VarChar(50)
+  password           String      @db.VarChar(255)
+  firstName          String      @map("first_name") @db.VarChar(50)
+  lastName           String      @map("last_name") @db.VarChar(50)
+  email              String      @unique @db.VarChar(255)
+  passwordHint       String?     @map("password_hint") @db.VarChar(255)
+  enabled            String?     @db.Char(1)
+  gdpr               String?     @db.Char(1)
+  accountExpired     String      @map("account_expired") @db.Char(1)
+  accountLocked      String      @map("account_locked") @db.Char(1)
+  credentialsExpired String      @map("credentials_expired") @db.Char(1)
+  phoneNumber        String?     @map("phone_number") @db.VarChar(255)
+  address1           String?     @db.VarChar(255)
+  address2           String?     @db.VarChar(255)
+  city               String?     @db.VarChar(255)
+  company            String?     @db.VarChar(255)
+  county             String?     @db.VarChar(255)
+  postcode           String?     @db.VarChar(255)
+  webaddress         String?     @db.VarChar(255)
+  createdOn          DateTime?   @map("created_on")
+  oldreport          Boolean?
+  account            Account     @relation(fields: [accountId], references: [id])
+  response           Response?   @relation(fields: [responseId], references: [id])
+  createdProjects    MiroProject[] @relation("ProjectCreator")
+  roles              UserRole[]
+
+  @@map("app_user")
+  @@schema("public")
+}
+
+model MiroProject {
+  id               BigInt    @id
+  bccPractitioner  String?   @map("bcc_practitioner") @db.Char(1)
+  costcode         String    @db.VarChar(50)
+  emailInviteSubject String  @map("emailinvitesubject") @db.VarChar(50)
+  emailInviteText  String    @map("emailinvitetext") @db.VarChar(100)
+  projectDescription String  @map("projectdescription") @db.VarChar(254)
+  projectStatus    Int?      @map("projectstatus")
+  projectTitle     String    @map("projecttitle") @db.VarChar(100)
+  checkPoint       BigInt?   @map("checkpoint")
+  createdById      BigInt?   @map("createdby_id")
+  createdOn        DateTime? @map("created_on")
+  lastUpdatedById  BigInt?   @map("lastupdatedby_id")
+  updatedAt        DateTime? @map("updated_at")
+  version          Int?
+  createdBy        AppUser?  @relation("ProjectCreator", fields: [createdById], references: [id])
+
+  @@map("miroprojects")
+  @@schema("mr")
+}
+
+model Response {
+  id              BigInt    @id
+  version         Int
+  answerTrail     String?   @map("answer_trail") @db.VarChar(255)
+  questionTrail   String?   @map("question_trail") @db.VarChar(255)
+  deleted         Boolean?
+  checkPoint      BigInt?   @map("checkpoint")
+  createdById     BigInt?   @map("createdby_id")
+  lastUpdatedById BigInt?   @map("lastupdatedby_id")
+  updatedAt       DateTime? @map("updated_at")
+  surveyId        BigInt?   @map("survey_id")
+  total           Int?
+  createdOn       DateTime? @map("created_on")
+  photosStamped   Boolean?  @map("photosstamped")
+  alertsProcessed Boolean?  @map("alertsprocessed")
+  users           AppUser[]
+
+  @@map("responses")
+  @@schema("mr")
+}
+
+model Role {
+  id          BigInt     @id
+  name        String?    @db.VarChar(20)
+  description String?    @db.VarChar(64)
+  users       UserRole[]
+
+  @@map("role")
+  @@schema("public")
+}
+
+model UserRole {
+  userId BigInt @map("user_id")
+  roleId BigInt @map("role_id")
+  user   AppUser @relation(fields: [userId], references: [id])
+  role   Role    @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+  @@map("user_role")
+  @@schema("public")
+}
