@@ -19,7 +19,8 @@ import NewProjectDialog from "@/components/projects/NewProjectDialog";
 export default async function ProjectsPage({ searchParams }) {
   const session = await auth();
   const userId = BigInt(session.user.id);
-  const { page, pageSize, skip, take } = getPagination(searchParams, {
+  const resolvedSearchParams = await searchParams;
+  const { page, pageSize, skip, take } = getPagination(resolvedSearchParams, {
     defaultPage: 1,
     pageSize: 10,
     maxPageSize: 25,
@@ -74,9 +75,7 @@ export default async function ProjectsPage({ searchParams }) {
               {projects.map((project) => (
                 <TableRow key={project.id.toString()} hover>
                   <TableCell>
-                    <Link href={`/projects/${project.id.toString()}`}>
-                      {project.projectTitle}
-                    </Link>
+                    <Link href={`/projects/${project.id.toString()}`}>{project.projectTitle}</Link>
                   </TableCell>
                   <TableCell>{project.projectDescription}</TableCell>
                   <TableCell align="right">

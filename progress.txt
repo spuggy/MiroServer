@@ -1,0 +1,12 @@
+Completed: US-001 - make pagination on projects screen work
+Date: 2026-02-12
+
+Changes made:
+- Fixed projects page pagination by awaiting async `searchParams` in Next.js 16 before calling `getPagination`.
+- File changed: mironext/src/app/(protected)/projects/page.js
+
+Validation:
+- Ran Prettier on edited file:
+  npx prettier --write src/app/(protected)/projects/page.js
+- Build/type validation passed:
+  npm run build (in mironext)
