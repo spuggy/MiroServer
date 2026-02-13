@@ -102,6 +102,8 @@ export async function POST(request, { params }) {
           status: 0,
           creditBalance: 0,
           projectId,
+          // Legacy schema requires response_id NOT NULL; 0 means no response yet.
+          responseId: 0n,
           deleted: false,
           employeeRef: "N/A",
           pinNumber: "N/A",
