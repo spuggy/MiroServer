@@ -115,3 +115,22 @@ Validation:
   npx vitest run src/lib/__tests__
 - Build/type checks passed:
   npm run build
+
+Completed: US-006 - cnage delete candidate use a confirmation dialog
+Date: 2026-02-13
+
+Changes made:
+- Replaced the candidate actions menu "Delete candidate" link with an in-page confirmation dialog.
+- Wired delete confirmation to call DELETE `/api/projects/[id]/candidates/[candidateId]` directly from the dialog.
+- Added delete loading/error handling and prevented closing the dialog while a delete is in progress.
+- Files changed:
+  - mironext/src/components/projects/CandidateActionsMenu.jsx
+  - PRD.json
+
+Validation:
+- Formatted edited files:
+  npx prettier --write src/components/projects/CandidateActionsMenu.jsx
+- Unit tests passed:
+  npx vitest run src/lib/__tests__
+- Build/type checks passed:
+  npm run build

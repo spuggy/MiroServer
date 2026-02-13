@@ -27,8 +27,8 @@
         "run prettier to format the code"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Replaced route-based delete action with an in-page confirmation dialog in candidate actions, wired to DELETE /api/projects/[id]/candidates/[candidateId], with loading and error handling."
     }
   ]
 }
