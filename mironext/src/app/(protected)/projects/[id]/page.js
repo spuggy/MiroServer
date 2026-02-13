@@ -79,6 +79,8 @@ export default async function ProjectPage({ params, searchParams }) {
       lastName: true,
       email: true,
       status: true,
+      createdOn: true,
+      updatedAt: true,
       response: {
         select: {
           surveyId: true,
@@ -137,6 +139,13 @@ export default async function ProjectPage({ params, searchParams }) {
                     <CandidateActionsMenu
                       projectId={project.id.toString()}
                       candidateId={candidate.id.toString()}
+                      firstName={candidate.firstName}
+                      lastName={candidate.lastName}
+                      email={candidate.email}
+                      status={candidate.status}
+                      surveyId={candidate.response?.surveyId?.toString() || null}
+                      createdOn={candidate.createdOn?.toISOString() || null}
+                      updatedAt={candidate.updatedAt?.toISOString() || null}
                     />
                   </TableCell>
                 </TableRow>

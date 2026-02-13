@@ -4,39 +4,31 @@
   "description": "miro-next first fixes for new app",
   "userStories": [
     {
-      "id": "US-003",
-      "title": "add candiate menu for each candidate on a project.",
-      "description": "As a user, I want to be able to see a menu for each candidate on a project so I can view the candidate's details and edit and deleet them  this would work like in the old parent project on https://miro-assessment.com/mirotest/showProject.html?id=2772",
+      "id": "US-005",
+      "title": "make edit candidate and view candidtae use a dialog",
+      "description": "As a user, I want to be able to edit and view a candidate via a dialog like create candidate",
       "acceptanceCriteria": [
-        "add a menu for each candidate on a project",
-        "add a link to view the candidate's details",
-        "add a link to edit the candidate's details",
-        "add a link to delete the candidate",
+        "change view candidate to display a dialog like create candidate",
+        "change edit candidate to display a dialog like create candidate",
         "Typecheck passes",
-        "run prettier to format the code",
-        "run the tests to make sure the new code works"
+        "run prettier to format the code"
       ],
       "priority": 1,
       "passes": true,
-      "notes": "Completed 2026-02-12. Added per-candidate actions menu on project page (view details, edit candidate, delete candidate), implemented candidate detail/edit/delete pages, and added project-scoped candidate API route with GET/PATCH/DELETE ownership checks and validation."
+      "notes": "Implemented view and edit candidate actions as dialogs from the project candidate actions menu, keeping delete as a separate route-based action."
     },
     {
-      "id": "US-004",
-      "title": "Create a team report page",
-      "description": "As a user, I want to be able to create a team report page so I can view the team report for a slection of projects.  This would work like in the old parent project on https://miro-assessment.com/mirotest/miroTeamReport.html",
+      "id": "US-006",
+      "title": "cnage delete candidate use a confirmation dialog",
+      "description": "As a user, I want to be able to delate a candidate via a confirmation dialog",
       "acceptanceCriteria": [
-        "create a team report page",
-        "add a form to select the projects to include in the team report",
-        "add a button to create the team report",
-        "add a button to download the team report",
-        "add a button to delete the team report",
+        "change delete candidate to display a confirmation dialog like create candidate",
         "Typecheck passes",
-        "run prettier to format the code",
-        "run the tests to make sure the new code works"
+        "run prettier to format the code"
       ],
       "priority": 2,
-      "passes": true,
-      "notes": "Completed 2026-02-12. Implemented /team-reports with project selection, create/download/delete report actions, added POST /api/team-reports with auth + ownership checks, and generated report rows with candidate counts plus CSV export."
+      "passes": false,
+      "notes": ""
     }
   ]
 }

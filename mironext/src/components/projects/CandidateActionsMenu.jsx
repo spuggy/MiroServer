@@ -3,16 +3,126 @@
 import { useState } from "react";
 import Link from "next/link";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { IconButton, Menu, MenuItem } from "@mui/material";
+import { useRouter } from "next/navigation";
+import {
+  Alert,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { toCandidateStatusLabel } from "@/lib/status";
 
-export default function CandidateActionsMenu({ projectId, candidateId }) {
+function toDisplayDate(value) {
+  if (!value) {
+    return "-";
+  }
+
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return "-";
+  }
+
+  return date.toLocaleString();
+}
+
+export default function CandidateActionsMenu({
+  projectId,
+  candidateId,
+  firstName,
+  lastName,
+  email,
+  status,
+  surveyId,
+  createdOn,
+  updatedAt,
+}) {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [viewOpen, setViewOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
+  const [form, setForm] = useState({ firstName, lastName, email });
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
   const open = Boolean(anchorEl);
 
   const baseHref = `/projects/${projectId}/candidates/${candidateId}`;
+  const candidateName = `${firstName} ${lastName}`;
 
   function closeMenu() {
     setAnchorEl(null);
+  }
+
+  function closeViewDialog() {
+    setViewOpen(false);
+  }
+
+  function openViewDialog() {
+    closeMenu();
+    setViewOpen(true);
+  }
+
+  function closeEditDialog() {
+    if (saving) {
+      return;
+    }
+    setEditOpen(false);
+    setError("");
+    setForm({ firstName, lastName, email });
+  }
+
+  function openEditDialog() {
+    closeMenu();
+    setError("");
+    setForm({ firstName, lastName, email });
+    setEditOpen(true);
+  }
+
+  async function submitEdit() {
+    const payload = {
+      firstName: form.firstName.trim(),
+      lastName: form.lastName.trim(),
+      email: form.email.trim(),
+    };
+
+    if (!payload.firstName || !payload.lastName || !payload.email) {
+      setError("First name, last name and email are required.");
+      return;
+    }
+
+    setSaving(true);
+    setError("");
+
+    let response;
+    try {
+      response = await fetch(`/api/projects/${projectId}/candidates/${candidateId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch {
+      setError("Network error while updating candidate.");
+      setSaving(false);
+      return;
+    }
+
+    if (!response.ok) {
+      const payloadError = await response.json().catch(() => ({}));
+      setError(payloadError.error || "Failed to update candidate.");
+      setSaving(false);
+      return;
+    }
+
+    setSaving(false);
+    setEditOpen(false);
+    router.refresh();
   }
 
   return (
@@ -25,16 +135,77 @@ export default function CandidateActionsMenu({ projectId, candidateId }) {
         <MoreVertIcon fontSize="small" />
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={closeMenu}>
-        <MenuItem component={Link} href={baseHref} onClick={closeMenu}>
-          View details
-        </MenuItem>
-        <MenuItem component={Link} href={`${baseHref}/edit`} onClick={closeMenu}>
-          Edit candidate
-        </MenuItem>
+        <MenuItem onClick={openViewDialog}>View details</MenuItem>
+        <MenuItem onClick={openEditDialog}>Edit candidate</MenuItem>
         <MenuItem component={Link} href={`${baseHref}/delete`} onClick={closeMenu}>
           Delete candidate
         </MenuItem>
       </Menu>
+
+      <Dialog open={viewOpen} onClose={closeViewDialog} fullWidth maxWidth="sm">
+        <DialogTitle>Candidate Details</DialogTitle>
+        <DialogContent>
+          <Stack spacing={1.5} sx={{ mt: 1 }}>
+            <Typography>
+              <strong>Name:</strong> {candidateName}
+            </Typography>
+            <Typography>
+              <strong>Email:</strong> {email}
+            </Typography>
+            <Typography>
+              <strong>Status:</strong> {toCandidateStatusLabel(status)}
+            </Typography>
+            <Typography>
+              <strong>Survey:</strong> {surveyId || "-"}
+            </Typography>
+            <Typography>
+              <strong>Created:</strong> {toDisplayDate(createdOn)}
+            </Typography>
+            <Typography>
+              <strong>Last Updated:</strong> {toDisplayDate(updatedAt)}
+            </Typography>
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeViewDialog}>Close</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={editOpen} onClose={closeEditDialog} fullWidth maxWidth="sm">
+        <DialogTitle>Edit Candidate</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <TextField
+              required
+              label="First Name"
+              value={form.firstName}
+              onChange={(event) => setForm({ ...form, firstName: event.target.value })}
+            />
+            <TextField
+              required
+              label="Last Name"
+              value={form.lastName}
+              onChange={(event) => setForm({ ...form, lastName: event.target.value })}
+            />
+            <TextField
+              required
+              label="Email"
+              type="email"
+              value={form.email}
+              onChange={(event) => setForm({ ...form, email: event.target.value })}
+            />
+            {error ? <Alert severity="error">{error}</Alert> : null}
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closeEditDialog} disabled={saving}>
+            Cancel
+          </Button>
+          <Button onClick={submitEdit} variant="contained" disabled={saving}>
+            {saving ? "Saving..." : "Save"}
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

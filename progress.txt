@@ -94,3 +94,24 @@ Validation:
   npx vitest run src/lib/__tests__
 - Build/type checks passed:
   npm run build
+
+Completed: US-005 - make edit candidate and view candidtae use a dialog
+Date: 2026-02-13
+
+Changes made:
+- Converted candidate "View details" action to open an in-page dialog from the project candidate actions menu.
+- Converted candidate "Edit candidate" action to open an in-page dialog with validation/error handling and PATCH submit behavior matching existing create dialog patterns.
+- Passed candidate status/survey/timestamp data from the project page to the actions menu so view/edit dialogs render without leaving the page.
+- Kept delete action unchanged (still routed to delete page) to stay within single-task scope.
+- Files changed:
+  - mironext/src/components/projects/CandidateActionsMenu.jsx
+  - mironext/src/app/(protected)/projects/[id]/page.js
+  - PRD.json
+
+Validation:
+- Formatted edited files:
+  npx prettier --write src/components/projects/CandidateActionsMenu.jsx src/app/(protected)/projects/[id]/page.js
+- Unit tests passed:
+  npx vitest run src/lib/__tests__
+- Build/type checks passed:
+  npm run build
