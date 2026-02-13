@@ -26,6 +26,16 @@ npm run prisma:generate
 npm run dev
 ```
 
+### Local Docker Postgres (dev)
+
+`docker-compose.dev.yml` runs a local Postgres container named `mironextdb` and maps host `5433` to container `5432`, matching the default `DATABASE_URL` in `.env`.
+
+```bash
+npm run devdb:up
+npm run devdb:psql
+npm run devdb:down
+```
+
 ## Testing
 
 ```bash

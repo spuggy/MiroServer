@@ -1,0 +1,20 @@
+services:
+  mironextdb:
+    image: postgres:16
+    container_name: mironextdb
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: mobriz
+      POSTGRES_PASSWORD: standard
+      POSTGRES_DB: mirotestdb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mobriz -d mirotestdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    volumes:
+      - mironext-postgres-dev-data:/var/lib/postgresql/data
+
+volumes:
+  mironext-postgres-dev-data:

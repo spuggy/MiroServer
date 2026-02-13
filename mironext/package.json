@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3005",
     "dev:test": "dotenv -e .env.test -- next dev",
     "build": "next build",
     "start": "next start",
@@ -14,6 +14,9 @@
     "test:e2e:headed": "playwright test --config=playwright.config.ts --headed",
     "test:ct": "playwright test --config=playwright-ct.config.ts",
     "test:all": "npm run testdb:reset && npm run test:e2e && npm run test:ct",
+    "devdb:up": "docker compose -f docker-compose.dev.yml up -d mironextdb",
+    "devdb:down": "docker compose -f docker-compose.dev.yml down -v",
+    "devdb:psql": "docker exec -it mironextdb psql -U mobriz -d mirotestdb",
     "testdb:up": "docker compose -f docker-compose.test.yml up -d postgres-test",
     "testdb:down": "docker compose -f docker-compose.test.yml down -v",
     "testdb:seed": "./scripts/test-db-seed.sh",
