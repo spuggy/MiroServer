@@ -27,6 +27,7 @@ export default async function ProjectPage({ params, searchParams }) {
   }
   const userId = BigInt(session.user.id);
   const routeParams = await params;
+  const queryParams = await searchParams;
 
   let projectId;
   try {
@@ -54,7 +55,7 @@ export default async function ProjectPage({ params, searchParams }) {
     notFound();
   }
 
-  const qRaw = Array.isArray(searchParams?.q) ? searchParams.q[0] : searchParams?.q;
+  const qRaw = Array.isArray(queryParams?.q) ? queryParams.q[0] : queryParams?.q;
   const q = qRaw?.trim() || "";
 
   const candidates = await prisma.appUser.findMany({
@@ -103,11 +104,22 @@ export default async function ProjectPage({ params, searchParams }) {
 
       <Stack direction="row" justifyContent="space-between" alignItems="center" gap={2}>
         <Link href="/projects">Back to Projects</Link>
-        <Box component="form" method="get" sx={{ display: "flex", gap: 1 }}>
-          <TextField name="q" defaultValue={q} size="small" label="Filter by name" />
-          <Button type="submit" variant="outlined">
-            Filter
-          </Button>
+        <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          <Box component="form" method="get" sx={{ display: "flex", gap: 1 }}>
+            <TextField name="q" defaultValue={q} size="small" label="Filter by name" />
+            <Button type="submit" variant="outlined">
+              Filter
+            </Button>
+          </Box>
+          {q ? (
+            <Link
+              href={`/projects/${project.id.toString()}`}
+              aria-label="Clear filter"
+              title="Clear filter"
+            >
+              ×
+            </Link>
+          ) : null}
         </Box>
       </Stack>
 
