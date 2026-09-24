@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { getNextHibernateId } from "@/lib/ids";
+import { allocateLegacyId } from "@/lib/server/ids";
 
 const PROJECT_SCHEMA = z.object({
   projectTitle: z.string().min(1).max(100),
@@ -30,7 +30,7 @@ export async function POST(request) {
   const now = new Date();
 
   const project = await prisma.$transaction(async (tx) => {
-    const id = await getNextHibernateId(tx);
+    const id = await allocateLegacyId(tx, "mr.miroprojects");
 
     return tx.miroProject.create({
       data: {

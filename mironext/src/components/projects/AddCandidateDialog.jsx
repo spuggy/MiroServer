@@ -21,6 +21,7 @@ export default function AddCandidateDialog({ projectId }) {
   const [form, setForm] = useState(EMPTY);
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
+  const [devInviteUrl, setDevInviteUrl] = useState("");
 
   function closeDialog() {
     if (saving) {
@@ -28,14 +29,16 @@ export default function AddCandidateDialog({ projectId }) {
     }
     setOpen(false);
     setError("");
+    setDevInviteUrl("");
     setForm(EMPTY);
   }
 
-  async function submit() {
+  async function submit(sendInvite = false) {
     const payload = {
       firstName: form.firstName.trim(),
       lastName: form.lastName.trim(),
       email: form.email.trim(),
+      sendInvite,
     };
 
     if (!payload.firstName || !payload.lastName || !payload.email) {
@@ -66,10 +69,19 @@ export default function AddCandidateDialog({ projectId }) {
       return;
     }
 
-    setOpen(false);
+    const result = await response.json().catch(() => ({}));
     setSaving(false);
-    setForm(EMPTY);
     router.refresh();
+    if (result.inviteError) {
+      setError(result.inviteError);
+      return;
+    }
+    if (result.devInviteUrl) {
+      setDevInviteUrl(result.devInviteUrl);
+      return;
+    }
+    setOpen(false);
+    setForm(EMPTY);
   }
 
   return (
@@ -101,15 +113,35 @@ export default function AddCandidateDialog({ projectId }) {
               onChange={(event) => setForm({ ...form, email: event.target.value })}
             />
             {error ? <Alert severity="error">{error}</Alert> : null}
+            {devInviteUrl ? (
+              <Alert severity="info" sx={{ wordBreak: "break-all" }}>
+                Candidate saved. Email isn&apos;t configured, so the invite was only logged. Test
+                link:{" "}
+                <a href={devInviteUrl} target="_blank" rel="noreferrer">
+                  {devInviteUrl}
+                </a>
+              </Alert>
+            ) : null}
           </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={closeDialog} disabled={saving}>
             Cancel
           </Button>
-          <Button onClick={submit} variant="contained" disabled={saving}>
-            {saving ? "Saving..." : "Save"}
-          </Button>
+          {devInviteUrl ? (
+            <Button onClick={closeDialog} variant="contained">
+              Done
+            </Button>
+          ) : (
+            <>
+              <Button onClick={() => submit(false)} variant="outlined" disabled={saving}>
+                Save
+              </Button>
+              <Button onClick={() => submit(true)} variant="contained" disabled={saving}>
+                {saving ? "Saving..." : "Save & send invite"}
+              </Button>
+            </>
+          )}
         </DialogActions>
       </Dialog>
     </>

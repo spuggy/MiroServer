@@ -19,6 +19,7 @@ import { prisma } from "@/lib/prisma";
 import { toCandidateStatusLabel } from "@/lib/status";
 import AddCandidateDialog from "@/components/projects/AddCandidateDialog";
 import CandidateActionsMenu from "@/components/projects/CandidateActionsMenu";
+import CandidateReportActions from "@/components/projects/CandidateReportActions";
 
 export default async function ProjectPage({ params, searchParams }) {
   const session = await auth();
@@ -148,17 +149,30 @@ export default async function ProjectPage({ params, searchParams }) {
                   <TableCell>{toCandidateStatusLabel(candidate.status)}</TableCell>
                   <TableCell>{candidate.response?.surveyId?.toString() || "-"}</TableCell>
                   <TableCell align="right">
-                    <CandidateActionsMenu
-                      projectId={project.id.toString()}
-                      candidateId={candidate.id.toString()}
-                      firstName={candidate.firstName}
-                      lastName={candidate.lastName}
-                      email={candidate.email}
-                      status={candidate.status}
-                      surveyId={candidate.response?.surveyId?.toString() || null}
-                      createdOn={candidate.createdOn?.toISOString() || null}
-                      updatedAt={candidate.updatedAt?.toISOString() || null}
-                    />
+                    <Stack
+                      direction="row"
+                      spacing={1}
+                      justifyContent="flex-end"
+                      alignItems="center"
+                    >
+                      <CandidateReportActions
+                        projectId={project.id.toString()}
+                        candidateId={candidate.id.toString()}
+                        candidateName={`${candidate.firstName} ${candidate.lastName}`}
+                        status={candidate.status}
+                      />
+                      <CandidateActionsMenu
+                        projectId={project.id.toString()}
+                        candidateId={candidate.id.toString()}
+                        firstName={candidate.firstName}
+                        lastName={candidate.lastName}
+                        email={candidate.email}
+                        status={candidate.status}
+                        surveyId={candidate.response?.surveyId?.toString() || null}
+                        createdOn={candidate.createdOn?.toISOString() || null}
+                        updatedAt={candidate.updatedAt?.toISOString() || null}
+                      />
+                    </Stack>
                   </TableCell>
                 </TableRow>
               ))}

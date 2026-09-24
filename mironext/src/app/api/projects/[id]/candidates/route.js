@@ -3,13 +3,16 @@ import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { createLegacyPassword, sha1 } from "@/lib/password";
-import { getNextHibernateId } from "@/lib/ids";
+import { allocateLegacyId } from "@/lib/server/ids";
+import { sendAssessmentInvite } from "@/lib/assessment/service";
+import { appOrigin } from "@/lib/server/route-helpers";
 import { Prisma } from "@prisma/client";
 
 const CANDIDATE_SCHEMA = z.object({
   firstName: z.string().min(1).max(50),
   lastName: z.string().min(1).max(50),
   email: z.string().email().max(255),
+  sendInvite: z.boolean().optional(),
 });
 
 function createUsername(projectId, firstName, lastName) {
@@ -84,12 +87,14 @@ export async function POST(request, { params }) {
   }
 
   const now = new Date();
-  const plainPassword = createLegacyPassword();
+  // Candidates sign in with their emailed assessment link, so the password is
+  // random and never shown (the legacy app stored it in password_hint).
+  const unusablePassword = createLegacyPassword() + createLegacyPassword();
   const username = createUsername(projectId.toString(), firstName, lastName);
 
   try {
     const candidate = await prisma.$transaction(async (tx) => {
-      const id = await getNextHibernateId(tx);
+      const id = await allocateLegacyId(tx, "public.app_user");
 
       return tx.appUser.create({
         data: {
@@ -109,8 +114,8 @@ export async function POST(request, { params }) {
           pinNumber: "N/A",
           accountId,
           username,
-          password: sha1(plainPassword),
-          passwordHint: plainPassword,
+          password: sha1(unusablePassword),
+          passwordHint: null,
           firstName,
           lastName,
           email,
@@ -128,7 +133,28 @@ export async function POST(request, { params }) {
       });
     });
 
-    return NextResponse.json({ id: candidate.id.toString() });
+    if (!parsed.data.sendInvite) {
+      return NextResponse.json({ id: candidate.id.toString() });
+    }
+    try {
+      const invite = await sendAssessmentInvite({
+        projectId,
+        candidateId: candidate.id,
+        practitionerId: userId,
+        origin: appOrigin(request),
+      });
+      return NextResponse.json({
+        id: candidate.id.toString(),
+        inviteSent: invite.email.delivered,
+        devInviteUrl: invite.devInviteUrl,
+      });
+    } catch (inviteError) {
+      console.error("invite after create failed", inviteError);
+      return NextResponse.json({
+        id: candidate.id.toString(),
+        inviteError: "Candidate saved, but the invite could not be sent.",
+      });
+    }
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
       return NextResponse.json(

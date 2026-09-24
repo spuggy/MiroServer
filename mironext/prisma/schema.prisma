@@ -61,6 +61,7 @@ model AppUser {
   response           Response?   @relation(fields: [responseId], references: [id])
   createdProjects    MiroProject[] @relation("ProjectCreator")
   roles              UserRole[]
+  assessmentInvites  AssessmentInvite[]
 
   @@map("app_user")
   @@schema("public")
@@ -90,8 +91,8 @@ model MiroProject {
 model Response {
   id              BigInt    @id
   version         Int
-  answerTrail     String?   @map("answer_trail") @db.VarChar(255)
-  questionTrail   String?   @map("question_trail") @db.VarChar(255)
+  answerTrail     String?   @map("answer_trail")
+  questionTrail   String?   @map("question_trail")
   deleted         Boolean?
   checkPoint      BigInt?   @map("checkpoint")
   createdById     BigInt?   @map("createdby_id")
@@ -126,5 +127,101 @@ model UserRole {
 
   @@id([userId, roleId])
   @@map("user_role")
+  @@schema("public")
+}
+
+model Survey {
+  id              BigInt     @id
+  title           String?
+  firstQuestionId BigInt?    @map("firstquestion_id")
+  accountId       BigInt     @map("account_id")
+  questions       Question[]
+
+  @@map("surveys")
+  @@schema("mr")
+}
+
+model Question {
+  id          BigInt   @id
+  version     Int
+  shortname   String?
+  qMeta       String?  @map("qmeta")
+  qTxt        String?  @map("qtxt")
+  qType       Int?     @map("qtype")
+  jQuestionId BigInt?  @map("jquestion_id")
+  surveyId    BigInt?  @map("survey_id")
+  deleted     Boolean?
+  survey      Survey?  @relation(fields: [surveyId], references: [id])
+  options     QuestionOption[]
+
+  @@map("questions")
+  @@schema("mr")
+}
+
+model QuestionOption {
+  id         BigInt    @id
+  version    Int
+  deleted    Boolean?
+  oText      String?   @map("otext")
+  oType      String?   @map("otype")
+  questionId BigInt?   @map("question_id")
+  question   Question? @relation(fields: [questionId], references: [id])
+
+  @@map("options")
+  @@schema("mr")
+}
+
+model Setting {
+  id                 BigInt @id
+  accountId          BigInt @map("account_id")
+  settingName        String @map("settingname") @db.VarChar(30)
+  settingValue       String @map("settingvalue") @db.VarChar(255)
+  settingDescription String @map("settingdescription") @db.VarChar(255)
+
+  @@map("setting")
+  @@schema("mr")
+}
+
+model MiroTransaction {
+  id                  BigInt   @id
+  version             Int
+  userId              BigInt   @map("user_id")
+  status              Int
+  errorCode           Int      @map("errorcode")
+  paymentMethod       Int      @map("paymentmethod")
+  credits             Int
+  checkPoint          BigInt   @map("checkpoint")
+  createdOn           DateTime @map("created_on")
+  updatedAt           DateTime @map("updated_at")
+  deleted             Boolean
+  createdById         BigInt   @map("createdby_id")
+  lastUpdatedById     BigInt   @map("lastupdatedby_id")
+  transValue          Float?   @map("transvalue")
+  paymentStatus       String?  @map("paymentstatus")
+  paymentStatusDetail String?  @map("paymentstatusdetail")
+  paymentTransId      String?  @map("paymenttransid")
+
+  @@map("mirotransactions")
+  @@schema("mr")
+}
+
+/// New table (not in the legacy app): one row per emailed assessment link.
+/// Only a SHA-256 hash of the token is stored.
+model AssessmentInvite {
+  id          BigInt    @id @default(autoincrement())
+  tokenHash   String    @unique @map("token_hash") @db.Char(64)
+  candidateId BigInt    @map("candidate_id")
+  surveyId    BigInt    @map("survey_id")
+  /// In-progress answers keyed by question id, so the link can resume.
+  progress    Json      @default("{}")
+  createdOn   DateTime  @default(now()) @map("created_on") @db.Timestamptz(6)
+  expiresAt   DateTime  @map("expires_at") @db.Timestamptz(6)
+  lastUsedAt  DateTime? @map("last_used_at") @db.Timestamptz(6)
+  revokedAt   DateTime? @map("revoked_at") @db.Timestamptz(6)
+  completedAt DateTime? @map("completed_at") @db.Timestamptz(6)
+  candidate   AppUser   @relation(fields: [candidateId], references: [id])
+
+  @@index([candidateId])
+  @@map("assessment_invite")
   @@schema("public")
 }

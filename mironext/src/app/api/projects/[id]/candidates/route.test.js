@@ -16,8 +16,12 @@ vi.mock("@/lib/prisma", () => ({
   },
 }));
 
-vi.mock("@/lib/ids", () => ({
-  getNextHibernateId: vi.fn(),
+vi.mock("@/lib/server/ids", () => ({
+  allocateLegacyId: vi.fn(),
+}));
+
+vi.mock("@/lib/assessment/service", () => ({
+  sendAssessmentInvite: vi.fn(),
 }));
 
 vi.mock("@/lib/password", () => ({
@@ -28,7 +32,7 @@ vi.mock("@/lib/password", () => ({
 import { POST } from "./route";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { getNextHibernateId } from "@/lib/ids";
+import { allocateLegacyId } from "@/lib/server/ids";
 import { createLegacyPassword, sha1 } from "@/lib/password";
 
 describe("POST /api/projects/[id]/candidates", () => {
@@ -46,7 +50,7 @@ describe("POST /api/projects/[id]/candidates", () => {
 
     prisma.miroProject.findFirst.mockResolvedValue({ id: 2837n });
     prisma.appUser.findFirst.mockResolvedValue(null);
-    getNextHibernateId.mockResolvedValue(999n);
+    allocateLegacyId.mockResolvedValue(999n);
     createLegacyPassword.mockReturnValue("temp-pass");
     sha1.mockReturnValue("sha1-temp-pass");
 
@@ -82,6 +86,7 @@ describe("POST /api/projects/[id]/candidates", () => {
           responseId: 0n,
           projectId: 2837n,
           email: "ada@example.com",
+          passwordHint: null,
         }),
       }),
     );
@@ -117,7 +122,7 @@ describe("POST /api/projects/[id]/candidates", () => {
       error: "A candidate with this name or email already exists for this project.",
     });
     expect(prisma.$transaction).not.toHaveBeenCalled();
-    expect(getNextHibernateId).not.toHaveBeenCalled();
+    expect(allocateLegacyId).not.toHaveBeenCalled();
     expect(createLegacyPassword).not.toHaveBeenCalled();
     expect(sha1).not.toHaveBeenCalled();
   });

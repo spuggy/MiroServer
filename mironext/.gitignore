@@ -23,6 +23,10 @@
 # production
 /build
 
+# python report module
+/report/.venv/
+/report/out/
+
 # misc
 .DS_Store
 *.pem

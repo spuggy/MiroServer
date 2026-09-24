@@ -42,6 +42,22 @@ npm run devdb:down
 npm run test
 ```
 
+### Python report tests
+
+The V11 ReportLab rewrite scaffold lives in `report/`.
+
+```bash
+python3 -m venv report/.venv
+report/.venv/bin/pip install -r report/requirements.txt
+npm run test:report
+```
+
+To generate the sample report manually:
+
+```bash
+npm run report:generate:sample
+```
+
 ### Playwright (E2E + Component)
 
 1. Copy the test env template and adjust values if needed.
@@ -78,6 +94,29 @@ npm run playwright:install
 - CT machine-readable results: `test-results/ct/results.json`
 - CT JUnit: `test-results/ct/junit.xml`
 - CT HTML report: `playwright-report/ct/index.html`
+
+## Individual report PDF (TypeScript port)
+
+`src/lib/report/` is a TypeScript port of the Java `MiroReport.generateReportV10`
+pipeline: scoring (`MiroResponse`), page selection, the XHTML template
+(`report-assets/xhtml/mirosource11.xhtml`), and PDF output. Instead of iText, the
+report is rendered as HTML/CSS and printed by headless Chromium (Playwright),
+with Paged.js handling pagination, the running header/footer and TOC page numbers.
+
+```js
+import { calculateScores, generateReportV10 } from "@/lib/report";
+
+const scores = calculateScores(survey, response, { testOffset: 32 });
+const { pdf, pageCount } = await generateReportV10({
+  testId, surveyId, candidate, practitioner, scores,
+  thresholds: { engagedScore: 31, excessScore: 55, latentScore: 8 },
+});
+```
+
+`npm run test:report:ts` runs the port of `MiroReport10Test` (plus the V10 part of
+`MiroReport11Test#testGenerateFreeReport`) and writes the PDFs/HTML to
+`test-results/report/`. The generated `.html` opens in a browser for design work.
+V11 is not ported yet.
 
 ## Formatting
 
