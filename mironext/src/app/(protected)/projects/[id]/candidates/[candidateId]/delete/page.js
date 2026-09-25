@@ -3,6 +3,12 @@ import { notFound, redirect } from "next/navigation";
 import { Box, Card, CardContent, Stack, Typography } from "@mui/material";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import {
+  decodeCandidateId,
+  decodeProjectId,
+  encodeCandidateId,
+  encodeProjectId,
+} from "@/lib/public-ids";
 import DeleteCandidateForm from "@/components/projects/DeleteCandidateForm";
 
 function parseBigIntParam(value) {
@@ -25,8 +31,8 @@ export default async function DeleteCandidatePage({ params }) {
 
   const routeParams = await params;
   const userId = parseBigIntParam(session.user.id);
-  const projectId = parseBigIntParam(routeParams.id);
-  const candidateId = parseBigIntParam(routeParams.candidateId);
+  const projectId = decodeProjectId(routeParams.id);
+  const candidateId = decodeCandidateId(routeParams.candidateId);
 
   if (!userId || !projectId || !candidateId) {
     notFound();
@@ -66,8 +72,10 @@ export default async function DeleteCandidatePage({ params }) {
     notFound();
   }
 
-  const projectPath = `/projects/${project.id.toString()}`;
-  const candidatePath = `${projectPath}/candidates/${candidate.id.toString()}`;
+  const publicProjectId = encodeProjectId(project.id);
+  const publicCandidateId = encodeCandidateId(candidate.id);
+  const projectPath = `/projects/${publicProjectId}`;
+  const candidatePath = `${projectPath}/candidates/${publicCandidateId}`;
   const candidateName = `${candidate.firstName} ${candidate.lastName}`;
 
   return (
@@ -93,8 +101,8 @@ export default async function DeleteCandidatePage({ params }) {
             </Typography>
           </Stack>
           <DeleteCandidateForm
-            projectId={project.id.toString()}
-            candidateId={candidate.id.toString()}
+            projectId={publicProjectId}
+            candidateId={publicCandidateId}
             candidateName={candidateName}
           />
         </CardContent>

@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Alert, Box, Button, Paper, Stack, TextField, Typography } from "@mui/material";
+import Image from "next/image";
+import NextLink from "next/link";
+import { Alert, Box, Button, Link, Paper, Stack, TextField, Typography } from "@mui/material";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -30,26 +32,35 @@ export default function LoginForm() {
       return;
     }
 
-    router.push("/projects");
+    router.push("/");
     router.refresh();
   }
 
   return (
-    <Paper elevation={0} sx={{ width: "100%", maxWidth: 330, border: "1px solid #e5e5e5", p: 2 }}>
-      <Box sx={{ pb: 1 }}>
-        <Typography variant="h5" component="h1" sx={{ color: "#6b6b6b" }}>
-          Sign In
+    <Stack spacing={3} alignItems="center" sx={{ width: "100%", maxWidth: 400 }}>
+      <Image
+        src="/miro-logo-small.png"
+        alt="MiRo — understanding people"
+        width={114}
+        height={49}
+        priority
+      />
+      <Paper
+        sx={{ width: "100%", p: { xs: 3, sm: 4 }, border: "1px solid", borderColor: "divider" }}
+        elevation={0}
+      >
+        <Typography variant="h5" component="h1" sx={{ fontWeight: 700 }}>
+          Sign in
         </Typography>
-      </Box>
-      <Box>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          Use your existing `app_user` credentials.
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5, mb: 3 }}>
+          Practitioner account
         </Typography>
         <Box component="form" onSubmit={onSubmit}>
           <Stack spacing={2}>
             <TextField
               required
               label="Username"
+              autoComplete="username"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
@@ -57,16 +68,22 @@ export default function LoginForm() {
               required
               type="password"
               label="Password"
+              autoComplete="current-password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
             {error ? <Alert severity="error">{error}</Alert> : null}
-            <Button type="submit" variant="contained" disabled={loading}>
-              {loading ? "Signing in..." : "Sign In"}
+            <Button type="submit" variant="contained" size="large" disabled={loading}>
+              {loading ? "Signing in…" : "Sign in"}
             </Button>
+            <Typography variant="body2" textAlign="center">
+              <Link component={NextLink} href="/forgot-password">
+                Forgot password?
+              </Link>
+            </Typography>
           </Stack>
         </Box>
-      </Box>
-    </Paper>
+      </Paper>
+    </Stack>
   );
 }

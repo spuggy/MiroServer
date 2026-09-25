@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { buyReport, ReportAccessError } from "@/lib/candidates/reports";
-import { currentPractitionerId, jsonError, parseId } from "@/lib/server/route-helpers";
+import { currentPractitionerId, jsonError } from "@/lib/server/route-helpers";
+import { decodeCandidateId, decodeProjectId } from "@/lib/public-ids";
 
 type Params = { params: Promise<{ id: string; candidateId: string }> };
 
@@ -8,8 +9,8 @@ export async function POST(_request: Request, { params }: Params) {
   const practitionerId = await currentPractitionerId();
   if (!practitionerId) return jsonError("Unauthorized", 401);
   const { id, candidateId } = await params;
-  const projectId = parseId(id);
-  const candidate = parseId(candidateId);
+  const projectId = decodeProjectId(id);
+  const candidate = decodeCandidateId(candidateId);
   if (!projectId || !candidate) return jsonError("Invalid id", 400);
 
   try {

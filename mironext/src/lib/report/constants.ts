@@ -135,3 +135,140 @@ export const MBTI_MAP: Record<string, string> = {
 };
 
 export const FOOTER_TEXT = "© MiRo Psychometrics Ltd ";
+
+// ---------------------------------------------------------------------------
+// V11 / leadership (MiroReport.init, getJPValues, ExtroIntraMapping)
+
+/** Jungian function stack per MBTI type, pivot first (subPieOrdering). */
+export const JUNGIAN_FUNCTION_ORDER: Record<string, [string, string, string, string]> = {
+  ENTJ: ["Te", "Ni", "Si", "Fe"],
+  ENTP: ["Ne", "Ti", "Fi", "Se"],
+  INTJ: ["Ni", "Te", "Fe", "Si"],
+  INTP: ["Ti", "Ne", "Se", "Fi"],
+  ENFJ: ["Fe", "Ni", "Si", "Te"],
+  ENFP: ["Ne", "Fi", "Ti", "Se"],
+  INFJ: ["Ni", "Fe", "Te", "Si"],
+  INFP: ["Fi", "Ne", "Se", "Ti"],
+  ESFJ: ["Fe", "Si", "Ni", "Te"],
+  ESFP: ["Se", "Fi", "Ti", "Ne"],
+  ISFJ: ["Si", "Fe", "Te", "Ni"],
+  ISFP: ["Fi", "Se", "Ne", "Ti"],
+  ESTJ: ["Te", "Si", "Ni", "Fe"],
+  ESTP: ["Se", "Ti", "Fi", "Ne"],
+  ISTJ: ["Si", "Te", "Fe", "Ni"],
+  ISTP: ["Ti", "Se", "Ne", "Fi"],
+};
+
+export const MBTI_TYPES = Object.keys(JUNGIAN_FUNCTION_ORDER);
+
+export const JUNGIAN_FUNCTION_NAMES: Record<string, string> = {
+  Ni: "Introverted iNtuition",
+  Ne: "Extroverted iNtuition",
+  Si: "Introverted Sensing",
+  Se: "Extroverted Sensing",
+  Ti: "Introverted Thinking",
+  Te: "Extroverted Thinking",
+  Fi: "Introverted Feeling",
+  Fe: "Extroverted Feeling",
+};
+
+export const JUNGIAN_POSITION_LABELS = [
+  "Pivot Point (Dominant Function)",
+  "Auxiliary Function",
+  "Tertiary Function",
+  "Inferior Function",
+] as const;
+
+/** Strength letter of the extro/intro strata (e.g. the "M" of "MIN"). */
+export const STRATA_STRENGTH: Record<string, string> = {
+  L: "Slightly",
+  M: "Moderately",
+  H: "Strongly",
+};
+
+/**
+ * ExtroIntraMapping: the first three result letters pick the pivot function
+ * (iNtuition, Thinking, Feeling, Sensing); the V11 section id is that letter
+ * plus the extro/intro strata, e.g. "DEA" + "MIN" → "NMIN".
+ */
+export const PIVOT_FUNCTION_BY_LETTERS: Record<string, "N" | "T" | "F" | "S"> = {
+  DEA: "N",
+  DEO: "N",
+  DOA: "T",
+  DOE: "N",
+  DAO: "T",
+  DAE: "T",
+  EDO: "N",
+  EDA: "N",
+  EOD: "F",
+  EOA: "F",
+  EAD: "N",
+  EAO: "F",
+  ODE: "F",
+  ODA: "S",
+  OED: "F",
+  OEA: "F",
+  OAD: "S",
+  OAE: "S",
+  ADE: "T",
+  ADO: "T",
+  AED: "T",
+  AEO: "S",
+  AOD: "S",
+  AOE: "S",
+};
+
+/**
+ * getJPValues: 1-based result positions averaged for the Judging (left, first
+ * pair) and Perceiving (right, second pair) project-management bar.
+ */
+export const JP_POSITIONS: Record<string, [number, number, number, number]> = {
+  DEAOEX: [3, 4, 1, 2],
+  DEAOIN: [1, 3, 2, 4],
+  DEOAEX: [3, 4, 1, 2],
+  DEOAIN: [1, 3, 2, 4],
+  DOAEEX: [1, 3, 2, 4],
+  DOAEIN: [2, 4, 1, 3],
+  DOEAEX: [2, 4, 1, 3],
+  DOEAIN: [1, 3, 2, 4],
+  DAOEEX: [1, 2, 3, 4],
+  DAOEIN: [2, 4, 1, 3],
+  DAEOEX: [1, 2, 3, 4],
+  DAEOIN: [2, 4, 1, 3],
+  EDOAEX: [3, 4, 1, 2],
+  EDOAIN: [1, 3, 2, 4],
+  EDAOEX: [3, 4, 1, 2],
+  EDAOIN: [1, 3, 2, 4],
+  EODAEX: [1, 2, 3, 4],
+  EODAIN: [2, 4, 1, 3],
+  EOADEX: [1, 2, 3, 4],
+  EOADIN: [2, 4, 1, 3],
+  EADOEX: [2, 4, 1, 3],
+  EADOIN: [1, 3, 2, 4],
+  EAODEX: [1, 3, 2, 4],
+  EAODIN: [2, 4, 1, 3],
+  ODEAEX: [1, 3, 2, 4],
+  ODEAIN: [2, 4, 1, 3],
+  ODAEEX: [2, 4, 1, 3],
+  ODAEIN: [1, 3, 2, 4],
+  OEDAEX: [1, 2, 3, 4],
+  OEDAIN: [2, 4, 1, 3],
+  OEADEX: [1, 3, 2, 4],
+  OEADIN: [2, 4, 1, 3],
+  OADEEX: [3, 4, 1, 2],
+  OADEIN: [1, 3, 2, 4],
+  OAEDEX: [3, 4, 1, 2],
+  OAEDIN: [1, 3, 2, 4],
+  ADEOEX: [1, 2, 3, 4],
+  ADEOIN: [2, 4, 1, 3],
+  ADOEEX: [1, 2, 3, 4],
+  ADOEIN: [2, 4, 1, 3],
+  AEDOEX: [1, 3, 2, 4],
+  AEDOIN: [2, 4, 1, 3],
+  AEODEX: [2, 4, 1, 3],
+  AEODIN: [1, 3, 2, 4],
+  AODEEX: [3, 4, 1, 2],
+  AODEIN: [1, 3, 2, 4],
+  AOEDEX: [3, 4, 1, 2],
+  AOEDIN: [1, 2, 3, 4],
+};

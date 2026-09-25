@@ -4,6 +4,9 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   test: {
     environment: "node",
+    env: {
+      NEXTAUTH_SECRET: "vitest-secret",
+    },
   },
   resolve: {
     alias: {

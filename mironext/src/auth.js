@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
-import { verifyLegacyPassword } from "@/lib/password";
+import { verifyPassword } from "@/lib/password";
 import { isEnabledFlag } from "@/lib/auth-utils";
 
 export const authOptions = {
@@ -47,7 +47,7 @@ export const authOptions = {
           return null;
         }
 
-        if (!verifyLegacyPassword(password, user.password)) {
+        if (!(await verifyPassword(password, user.password))) {
           return null;
         }
 

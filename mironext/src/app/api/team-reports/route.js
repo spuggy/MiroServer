@@ -2,13 +2,12 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { buildTeamReport, parseProjectId } from "@/lib/team-reports";
+import { buildTeamReport } from "@/lib/team-reports";
+import { loadTeamMapMembers } from "@/lib/team-map-data";
+import { decodeProjectId, encodeProjectId } from "@/lib/public-ids";
 
 const TEAM_REPORT_SCHEMA = z.object({
-  projectIds: z
-    .array(z.union([z.string(), z.number(), z.bigint()]))
-    .min(1)
-    .max(100),
+  projectIds: z.array(z.string()).min(1).max(100),
 });
 
 function toUniqueProjectIds(values) {
@@ -16,7 +15,7 @@ function toUniqueProjectIds(values) {
   const ids = [];
 
   for (const rawValue of values) {
-    const parsed = parseProjectId(rawValue);
+    const parsed = decodeProjectId(rawValue);
     if (!parsed) {
       return null;
     }
@@ -94,5 +93,11 @@ export async function POST(request) {
     createdAt: new Date(),
   });
 
-  return NextResponse.json(report);
+  const teamMap = await loadTeamMapMembers(projectIds);
+
+  return NextResponse.json({
+    ...report,
+    teamMap,
+    rows: report.rows.map((row) => ({ ...row, projectId: encodeProjectId(row.projectId) })),
+  });
 }

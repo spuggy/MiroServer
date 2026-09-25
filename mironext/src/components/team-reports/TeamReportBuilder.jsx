@@ -19,6 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import { toTeamReportCsv } from "@/lib/team-reports";
+import TeamMap from "./TeamMap";
 
 function formatDate(value) {
   if (!value) {
@@ -239,6 +240,17 @@ export default function TeamReportBuilder({ projects }) {
                   ) : null}
                 </TableBody>
               </Table>
+            </Stack>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {report ? (
+        <Card>
+          <CardContent>
+            <Stack spacing={1.5}>
+              <Typography variant="h6">Team Map</Typography>
+              <TeamMap members={Array.isArray(report.teamMap) ? report.teamMap : []} />
             </Stack>
           </CardContent>
         </Card>

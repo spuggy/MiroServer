@@ -1,16 +1,9 @@
 import { NextResponse } from "next/server";
-import { z } from "zod";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { allocateLegacyId } from "@/lib/server/ids";
-
-const PROJECT_SCHEMA = z.object({
-  projectTitle: z.string().min(1).max(100),
-  projectDescription: z.string().min(1).max(254),
-  costcode: z.string().min(1).max(50),
-  emailInviteSubject: z.string().min(1).max(50),
-  emailInviteText: z.string().min(1).max(100),
-});
+import { encodeProjectId } from "@/lib/public-ids";
+import { PROJECT_SCHEMA, toProjectData } from "@/lib/projects/schema";
 
 export async function POST(request) {
   const session = await auth();
@@ -37,13 +30,12 @@ export async function POST(request) {
         id,
         version: 0,
         projectStatus: 0,
-        bccPractitioner: "0",
         checkPoint: 0n,
         createdById: userId,
         createdOn: now,
         lastUpdatedById: userId,
         updatedAt: now,
-        ...parsed.data,
+        ...toProjectData(parsed.data),
       },
       select: {
         id: true,
@@ -51,5 +43,5 @@ export async function POST(request) {
     });
   });
 
-  return NextResponse.json({ id: project.id.toString() });
+  return NextResponse.json({ id: encodeProjectId(project.id) });
 }

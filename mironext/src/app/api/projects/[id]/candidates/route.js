@@ -6,6 +6,7 @@ import { createLegacyPassword, sha1 } from "@/lib/password";
 import { allocateLegacyId } from "@/lib/server/ids";
 import { sendAssessmentInvite } from "@/lib/assessment/service";
 import { appOrigin } from "@/lib/server/route-helpers";
+import { decodeProjectId, encodeCandidateId } from "@/lib/public-ids";
 import { Prisma } from "@prisma/client";
 
 const CANDIDATE_SCHEMA = z.object({
@@ -31,8 +32,8 @@ export async function POST(request, { params }) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const parsedProjectId = Number.parseInt(routeParams.id, 10);
-  if (!Number.isFinite(parsedProjectId)) {
+  const projectId = decodeProjectId(routeParams.id);
+  if (!projectId) {
     return NextResponse.json({ error: "Invalid project id" }, { status: 400 });
   }
 
@@ -45,7 +46,6 @@ export async function POST(request, { params }) {
 
   const userId = BigInt(session.user.id);
   const accountId = BigInt(session.user.accountId);
-  const projectId = BigInt(parsedProjectId);
   const firstName = parsed.data.firstName.trim();
   const lastName = parsed.data.lastName.trim();
   const email = parsed.data.email.trim().toLowerCase();
@@ -134,7 +134,7 @@ export async function POST(request, { params }) {
     });
 
     if (!parsed.data.sendInvite) {
-      return NextResponse.json({ id: candidate.id.toString() });
+      return NextResponse.json({ id: encodeCandidateId(candidate.id) });
     }
     try {
       const invite = await sendAssessmentInvite({
@@ -144,14 +144,14 @@ export async function POST(request, { params }) {
         origin: appOrigin(request),
       });
       return NextResponse.json({
-        id: candidate.id.toString(),
+        id: encodeCandidateId(candidate.id),
         inviteSent: invite.email.delivered,
         devInviteUrl: invite.devInviteUrl,
       });
     } catch (inviteError) {
       console.error("invite after create failed", inviteError);
       return NextResponse.json({
-        id: candidate.id.toString(),
+        id: encodeCandidateId(candidate.id),
         inviteError: "Candidate saved, but the invite could not be sent.",
       });
     }

@@ -7,7 +7,8 @@ export default async function LoginPage() {
   const session = await auth();
 
   if (session?.user) {
-    redirect("/projects");
+    // "/" sends each role to its own landing page.
+    redirect("/");
   }
 
   return (
@@ -18,6 +19,7 @@ export default async function LoginPage() {
         alignItems: "center",
         justifyContent: "center",
         px: 2,
+        bgcolor: "background.default",
       }}
     >
       <LoginForm />

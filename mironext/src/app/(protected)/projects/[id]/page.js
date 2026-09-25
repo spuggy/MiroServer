@@ -2,9 +2,8 @@ import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import {
   Box,
-  Button,
   Card,
-  CardContent,
+  InputAdornment,
   Stack,
   Table,
   TableBody,
@@ -16,10 +15,14 @@ import {
 } from "@mui/material";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { toCandidateStatusLabel } from "@/lib/status";
+import { isEnabledFlagValue } from "@/lib/candidates/status";
+import { decodeProjectId, encodeCandidateId, encodeProjectId } from "@/lib/public-ids";
+import ProjectDialog from "@/components/projects/ProjectDialog";
 import AddCandidateDialog from "@/components/projects/AddCandidateDialog";
 import CandidateActionsMenu from "@/components/projects/CandidateActionsMenu";
 import CandidateReportActions from "@/components/projects/CandidateReportActions";
+import CandidateStatusChip from "@/components/projects/CandidateStatusChip";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default async function ProjectPage({ params, searchParams }) {
   const session = await auth();
@@ -30,10 +33,8 @@ export default async function ProjectPage({ params, searchParams }) {
   const routeParams = await params;
   const queryParams = await searchParams;
 
-  let projectId;
-  try {
-    projectId = BigInt(routeParams.id);
-  } catch {
+  const projectId = decodeProjectId(routeParams.id);
+  if (!projectId) {
     notFound();
   }
 
@@ -49,6 +50,9 @@ export default async function ProjectPage({ params, searchParams }) {
       projectDescription: true,
       emailInviteSubject: true,
       emailInviteText: true,
+      costcode: true,
+      bccPractitioner: true,
+      createdOn: true,
     },
   });
 
@@ -91,99 +95,158 @@ export default async function ProjectPage({ params, searchParams }) {
     },
   });
 
-  return (
-    <Stack spacing={2}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center" gap={2}>
-        <Box>
-          <Typography variant="h4">{project.projectTitle}</Typography>
-          <Typography variant="body2" color="text.secondary">
-            {project.projectDescription}
-          </Typography>
-        </Box>
-        <AddCandidateDialog projectId={project.id.toString()} />
-      </Stack>
+  const publicProjectId = encodeProjectId(project.id);
+  const candidateCount = candidates.length;
+  const created = project.createdOn
+    ? project.createdOn.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : null;
 
-      <Stack direction="row" justifyContent="space-between" alignItems="center" gap={2}>
-        <Link href="/projects">Back to Projects</Link>
-        <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-          <Box component="form" method="get" sx={{ display: "flex", gap: 1 }}>
-            <TextField name="q" defaultValue={q} size="small" label="Filter by name" />
-            <Button type="submit" variant="outlined">
-              Filter
-            </Button>
+  return (
+    <Stack spacing={3}>
+      <Stack spacing={0.75}>
+        <Link href="/projects" style={{ fontSize: 14, fontWeight: 500 }}>
+          ← All projects
+        </Link>
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          justifyContent="space-between"
+          alignItems={{ xs: "flex-start", sm: "flex-end" }}
+          gap={2}
+        >
+          <Box>
+            <Typography variant="h1">{project.projectTitle}</Typography>
+            <Typography sx={{ mt: 0.75, color: "text.secondary" }}>
+              {[
+                project.projectDescription,
+                q
+                  ? `${candidateCount} matching`
+                  : `${candidateCount} ${candidateCount === 1 ? "candidate" : "candidates"}`,
+                created ? `created ${created}` : null,
+              ]
+                .filter(Boolean)
+                .join(" · ")}
+            </Typography>
           </Box>
-          {q ? (
-            <Link
-              href={`/projects/${project.id.toString()}`}
-              aria-label="Clear filter"
-              title="Clear filter"
-            >
-              ×
-            </Link>
-          ) : null}
-        </Box>
+          <Stack direction="row" gap={1.5}>
+            <ProjectDialog
+              projectId={publicProjectId}
+              practitionerEmail={session.user.email}
+              initialValues={{
+                projectTitle: project.projectTitle,
+                projectDescription: project.projectDescription,
+                costcode: project.costcode,
+                emailInviteSubject: project.emailInviteSubject,
+                emailInviteText: project.emailInviteText,
+                bccPractitioner: isEnabledFlagValue(project.bccPractitioner),
+              }}
+            />
+            <AddCandidateDialog projectId={publicProjectId} />
+          </Stack>
+        </Stack>
       </Stack>
 
       <Card>
-        <Box sx={{ px: 2, py: 1, borderBottom: "1px solid #e5e5e5", backgroundColor: "#fafafa" }}>
-          <Typography variant="h6" sx={{ color: "#6b6b6b" }}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          gap={2}
+          sx={{ px: 2.5, py: 2, borderBottom: "1px solid", borderColor: "divider" }}
+        >
+          <Typography variant="h6" component="h2">
             Candidates
           </Typography>
-        </Box>
-        <CardContent>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Survey</TableCell>
-                <TableCell align="right">Actions</TableCell>
+          <Box
+            component="form"
+            method="get"
+            role="search"
+            sx={{ display: "flex", alignItems: "center", gap: 1 }}
+          >
+            <TextField
+              name="q"
+              defaultValue={q}
+              placeholder="Filter by name"
+              inputProps={{ "aria-label": "Filter candidates by name" }}
+              sx={{ width: { xs: 180, sm: 300 } }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon fontSize="small" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            {q ? (
+              <Link href={`/projects/${publicProjectId}`} style={{ fontSize: 14, fontWeight: 500 }}>
+                Clear
+              </Link>
+            ) : null}
+          </Box>
+        </Stack>
+
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ pl: 2.5 }}>Name</TableCell>
+              <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>Email</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell align="right">Action</TableCell>
+              <TableCell sx={{ width: 56 }} />
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {candidates.map((candidate) => (
+              <TableRow key={encodeCandidateId(candidate.id)} hover>
+                <TableCell sx={{ pl: 2.5, fontWeight: 600 }}>
+                  {`${candidate.firstName} ${candidate.lastName}`}
+                </TableCell>
+                <TableCell
+                  sx={{ color: "text.secondary", display: { xs: "none", md: "table-cell" } }}
+                >
+                  {candidate.email}
+                </TableCell>
+                <TableCell>
+                  <CandidateStatusChip status={candidate.status} />
+                </TableCell>
+                <TableCell align="right">
+                  <CandidateReportActions
+                    projectId={publicProjectId}
+                    candidateId={encodeCandidateId(candidate.id)}
+                    candidateName={`${candidate.firstName} ${candidate.lastName}`}
+                    status={candidate.status}
+                    surveyId={candidate.response?.surveyId?.toString() || null}
+                  />
+                </TableCell>
+                <TableCell align="right" sx={{ pr: 1.5 }}>
+                  <CandidateActionsMenu
+                    projectId={publicProjectId}
+                    candidateId={encodeCandidateId(candidate.id)}
+                    firstName={candidate.firstName}
+                    lastName={candidate.lastName}
+                    email={candidate.email}
+                    status={candidate.status}
+                    surveyId={candidate.response?.surveyId?.toString() || null}
+                    createdOn={candidate.createdOn?.toISOString() || null}
+                    updatedAt={candidate.updatedAt?.toISOString() || null}
+                  />
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {candidates.map((candidate) => (
-                <TableRow key={candidate.id.toString()} hover>
-                  <TableCell>{`${candidate.firstName} ${candidate.lastName}`}</TableCell>
-                  <TableCell>{candidate.email}</TableCell>
-                  <TableCell>{toCandidateStatusLabel(candidate.status)}</TableCell>
-                  <TableCell>{candidate.response?.surveyId?.toString() || "-"}</TableCell>
-                  <TableCell align="right">
-                    <Stack
-                      direction="row"
-                      spacing={1}
-                      justifyContent="flex-end"
-                      alignItems="center"
-                    >
-                      <CandidateReportActions
-                        projectId={project.id.toString()}
-                        candidateId={candidate.id.toString()}
-                        candidateName={`${candidate.firstName} ${candidate.lastName}`}
-                        status={candidate.status}
-                      />
-                      <CandidateActionsMenu
-                        projectId={project.id.toString()}
-                        candidateId={candidate.id.toString()}
-                        firstName={candidate.firstName}
-                        lastName={candidate.lastName}
-                        email={candidate.email}
-                        status={candidate.status}
-                        surveyId={candidate.response?.surveyId?.toString() || null}
-                        createdOn={candidate.createdOn?.toISOString() || null}
-                        updatedAt={candidate.updatedAt?.toISOString() || null}
-                      />
-                    </Stack>
-                  </TableCell>
-                </TableRow>
-              ))}
-              {candidates.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={5}>No candidates found.</TableCell>
-                </TableRow>
-              ) : null}
-            </TableBody>
-          </Table>
-        </CardContent>
+            ))}
+            {candidates.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} sx={{ py: 6, textAlign: "center", color: "text.secondary" }}>
+                  {q
+                    ? `No candidates match “${q}”.`
+                    : "No candidates yet. Add one to send them their assessment link."}
+                </TableCell>
+              </TableRow>
+            ) : null}
+          </TableBody>
+        </Table>
       </Card>
     </Stack>
   );

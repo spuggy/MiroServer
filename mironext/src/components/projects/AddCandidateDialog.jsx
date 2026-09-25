@@ -12,6 +12,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
+import AddIcon from "@mui/icons-material/Add";
 
 const EMPTY = { firstName: "", lastName: "", email: "" };
 
@@ -86,11 +87,16 @@ export default function AddCandidateDialog({ projectId }) {
 
   return (
     <>
-      <Button variant="contained" onClick={() => setOpen(true)}>
-        Add a New Candidate
+      <Button
+        variant="contained"
+        size="large"
+        startIcon={<AddIcon />}
+        onClick={() => setOpen(true)}
+      >
+        Add candidate
       </Button>
       <Dialog open={open} onClose={closeDialog} fullWidth maxWidth="sm">
-        <DialogTitle>Add Candidate</DialogTitle>
+        <DialogTitle>Add candidate</DialogTitle>
         <DialogContent>
           <Stack spacing={2} sx={{ mt: 1 }}>
             <TextField

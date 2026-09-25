@@ -2,20 +2,24 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import {
   Box,
+  Button,
   Card,
-  CardContent,
+  InputAdornment,
   Stack,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { encodeProjectId } from "@/lib/public-ids";
 import { getPagination } from "@/lib/pagination";
-import NewProjectDialog from "@/components/projects/NewProjectDialog";
+import ProjectDialog from "@/components/projects/ProjectDialog";
 
 export default async function ProjectsPage({ searchParams }) {
   const session = await auth();
@@ -30,9 +34,27 @@ export default async function ProjectsPage({ searchParams }) {
     maxPageSize: 25,
   });
 
+  const qRaw = Array.isArray(resolvedSearchParams?.q)
+    ? resolvedSearchParams.q[0]
+    : resolvedSearchParams?.q;
+  const q = qRaw?.trim().slice(0, 100) || "";
+
   const where = {
     createdById: userId,
-    OR: [{ projectStatus: null }, { projectStatus: { not: 3 } }],
+    AND: [
+      { OR: [{ projectStatus: null }, { projectStatus: { not: 3 } }] },
+      ...(q
+        ? [
+            {
+              OR: [
+                { projectTitle: { contains: q, mode: "insensitive" } },
+                { projectDescription: { contains: q, mode: "insensitive" } },
+                { costcode: { contains: q, mode: "insensitive" } },
+              ],
+            },
+          ]
+        : []),
+    ],
   };
 
   const [total, projects] = await Promise.all([
@@ -52,66 +74,134 @@ export default async function ProjectsPage({ searchParams }) {
   ]);
 
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const pageHref = (n) =>
+    `/projects?${new URLSearchParams({ ...(q ? { q } : {}), page: String(n) })}`;
 
   return (
-    <Stack spacing={2}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="h4">My Projects</Typography>
-        <NewProjectDialog />
+    <Stack spacing={3}>
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        justifyContent="space-between"
+        alignItems={{ xs: "flex-start", sm: "flex-end" }}
+        gap={2}
+      >
+        <Box>
+          <Typography variant="h1">My Projects</Typography>
+          <Typography sx={{ mt: 0.75, color: "text.secondary" }}>
+            {q
+              ? `${total} ${total === 1 ? "project matches" : "projects match"} “${q}”`
+              : `${total} ${total === 1 ? "project" : "projects"}`}
+          </Typography>
+        </Box>
+        <ProjectDialog practitionerEmail={session.user.email} />
       </Stack>
 
       <Card>
-        <Box sx={{ px: 2, py: 1, borderBottom: "1px solid #e5e5e5", backgroundColor: "#fafafa" }}>
-          <Typography variant="h6" sx={{ color: "#6b6b6b" }}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          gap={2}
+          sx={{ px: 2.5, py: 2, borderBottom: "1px solid", borderColor: "divider" }}
+        >
+          <Typography variant="h6" component="h2">
             Projects
           </Typography>
-        </Box>
-        <CardContent>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>Project</TableCell>
-                <TableCell>Description</TableCell>
-                <TableCell align="right">Last Updated</TableCell>
+          <Box
+            component="form"
+            method="get"
+            role="search"
+            sx={{ display: "flex", alignItems: "center", gap: 1 }}
+          >
+            <TextField
+              name="q"
+              defaultValue={q}
+              placeholder="Search projects"
+              inputProps={{ "aria-label": "Search projects by title, description or cost code" }}
+              sx={{ width: { xs: 180, sm: 300 } }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon fontSize="small" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            {q ? (
+              <Link href="/projects" style={{ fontSize: 14, fontWeight: 500 }}>
+                Clear
+              </Link>
+            ) : null}
+          </Box>
+        </Stack>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{ pl: 2.5 }}>Project</TableCell>
+              <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>Description</TableCell>
+              <TableCell align="right" sx={{ pr: 2.5 }}>
+                Last updated
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {projects.map((project) => (
+              <TableRow key={encodeProjectId(project.id)} hover>
+                <TableCell sx={{ pl: 2.5 }}>
+                  <Link
+                    href={`/projects/${encodeProjectId(project.id)}`}
+                    style={{ fontWeight: 600, color: "inherit" }}
+                  >
+                    {project.projectTitle}
+                  </Link>
+                </TableCell>
+                <TableCell
+                  sx={{ color: "text.secondary", display: { xs: "none", md: "table-cell" } }}
+                >
+                  {project.projectDescription}
+                </TableCell>
+                <TableCell
+                  align="right"
+                  sx={{ pr: 2.5, color: "text.secondary", whiteSpace: "nowrap" }}
+                >
+                  {project.updatedAt?.toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  }) || "—"}
+                </TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {projects.map((project) => (
-                <TableRow key={project.id.toString()} hover>
-                  <TableCell>
-                    <Link href={`/projects/${project.id.toString()}`}>{project.projectTitle}</Link>
-                  </TableCell>
-                  <TableCell>{project.projectDescription}</TableCell>
-                  <TableCell align="right">
-                    {project.updatedAt?.toLocaleDateString() || "-"}
-                  </TableCell>
-                </TableRow>
-              ))}
-              {projects.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={3}>No projects found.</TableCell>
-                </TableRow>
-              ) : null}
-            </TableBody>
-          </Table>
-        </CardContent>
+            ))}
+            {projects.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={3} sx={{ py: 6, textAlign: "center", color: "text.secondary" }}>
+                  {q
+                    ? `No projects match “${q}”.`
+                    : "No projects yet. Create one to start inviting candidates."}
+                </TableCell>
+              </TableRow>
+            ) : null}
+          </TableBody>
+        </Table>
       </Card>
 
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        {page <= 1 ? (
-          <span style={{ color: "#999" }}>Previous</span>
-        ) : (
-          <Link href={`/projects?page=${Math.max(1, page - 1)}`}>Previous</Link>
-        )}
-        <Typography variant="body2" sx={{ alignSelf: "center" }}>
-          Page {page} of {totalPages}
-        </Typography>
-        {page >= totalPages ? (
-          <span style={{ color: "#999" }}>Next</span>
-        ) : (
-          <Link href={`/projects?page=${Math.min(totalPages, page + 1)}`}>Next</Link>
-        )}
-      </Box>
+      {totalPages > 1 ? (
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Button href={pageHref(Math.max(1, page - 1))} variant="outlined" disabled={page <= 1}>
+            Previous
+          </Button>
+          <Typography variant="body2" color="text.secondary">
+            Page {page} of {totalPages}
+          </Typography>
+          <Button
+            href={pageHref(Math.min(totalPages, page + 1))}
+            variant="outlined"
+            disabled={page >= totalPages}
+          >
+            Next
+          </Button>
+        </Stack>
+      ) : null}
     </Stack>
   );
 }

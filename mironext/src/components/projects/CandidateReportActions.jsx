@@ -11,14 +11,37 @@ import {
   DialogContent,
   DialogTitle,
   Link as MuiLink,
+  ListItemText,
+  Menu,
+  MenuItem,
   Stack,
   Typography,
 } from "@mui/material";
+import DownloadIcon from "@mui/icons-material/FileDownloadOutlined";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const INVITE_SENT = 10;
 const ASSESSMENT_COMPLETE = 20;
 const PURCHASE_REPORT = 30;
 const DOWNLOAD_REPORT = 40;
+
+// V11 assessments (survey 5) unlock the enhanced and leadership reports.
+const SURVEY_ID_MIRO_V11 = 5;
+const REPORTS = [
+  { type: "v10", label: "MiRo Report", description: "Standard individual report", suffix: "" },
+  {
+    type: "v11",
+    label: "MiRo Enhanced Report",
+    description: "Adds Jungian functions and working styles",
+    suffix: "_v11",
+  },
+  {
+    type: "leadership",
+    label: "MiRo Leadership Report",
+    description: "Leadership style and disposition",
+    suffix: "_lship",
+  },
+];
 
 async function readError(response, fallback) {
   const body = await response.json().catch(() => ({}));
@@ -42,16 +65,24 @@ async function downloadReport(url, fallbackName) {
   setTimeout(() => URL.revokeObjectURL(href), 10_000);
 }
 
-export default function CandidateReportActions({ projectId, candidateId, candidateName, status }) {
+export default function CandidateReportActions({
+  projectId,
+  candidateId,
+  candidateName,
+  status,
+  surveyId,
+}) {
   const router = useRouter();
   const [busy, setBusy] = useState(null); // "invite" | "buy" | "download"
   const [error, setError] = useState("");
   const [confirmBuy, setConfirmBuy] = useState(false);
   const [inviteResult, setInviteResult] = useState(null);
+  const [menuAnchor, setMenuAnchor] = useState(null);
 
   const base = `/api/projects/${projectId}/candidates/${candidateId}`;
-  const fileName = `${candidateName.replace(/\W+/g, "_")}.pdf`;
   const current = status ?? 0;
+  const hasV11Reports = Number(surveyId) >= SURVEY_ID_MIRO_V11;
+  const fileName = (report) => `${candidateName.replace(/\W+/g, "_")}${report.suffix}.pdf`;
 
   async function sendInvite() {
     setBusy("invite");
@@ -77,7 +108,7 @@ export default function CandidateReportActions({ projectId, candidateId, candida
       if (!response.ok) throw new Error(await readError(response, "Unable to buy the report."));
       const { downloadUrl } = await response.json();
       setBusy("download");
-      await downloadReport(downloadUrl, fileName);
+      await downloadReport(downloadUrl, fileName(REPORTS[0]));
       router.refresh();
     } catch (e) {
       setError(e.message);
@@ -87,11 +118,12 @@ export default function CandidateReportActions({ projectId, candidateId, candida
     }
   }
 
-  async function download() {
+  async function download(report) {
+    setMenuAnchor(null);
     setBusy("download");
     setError("");
     try {
-      await downloadReport(`${base}/report`, fileName);
+      await downloadReport(`${base}/report?type=${report.type}`, fileName(report));
     } catch (e) {
       setError(e.message);
     } finally {
@@ -117,11 +149,49 @@ export default function CandidateReportActions({ projectId, candidateId, candida
         Buy report
       </Button>
     );
+  } else if (current === DOWNLOAD_REPORT && !hasV11Reports) {
+    action = (
+      <Button
+        size="small"
+        variant="outlined"
+        color="primary"
+        onClick={() => download(REPORTS[0])}
+        disabled={Boolean(busy)}
+        startIcon={<DownloadIcon fontSize="small" />}
+      >
+        Download PDF
+      </Button>
+    );
   } else if (current === DOWNLOAD_REPORT) {
     action = (
-      <Button size="small" variant="contained" onClick={download} disabled={Boolean(busy)}>
-        Download
-      </Button>
+      <>
+        <Button
+          size="small"
+          variant="outlined"
+          color="primary"
+          onClick={(e) => setMenuAnchor(e.currentTarget)}
+          disabled={Boolean(busy)}
+          startIcon={<DownloadIcon fontSize="small" />}
+          endIcon={<ArrowDropDownIcon fontSize="small" />}
+          aria-haspopup="menu"
+          aria-expanded={Boolean(menuAnchor)}
+        >
+          Download PDF
+        </Button>
+        <Menu
+          anchorEl={menuAnchor}
+          open={Boolean(menuAnchor)}
+          onClose={() => setMenuAnchor(null)}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          {REPORTS.map((report) => (
+            <MenuItem key={report.type} onClick={() => download(report)}>
+              <ListItemText primary={report.label} secondary={report.description} />
+            </MenuItem>
+          ))}
+        </Menu>
+      </>
     );
   }
 
@@ -151,6 +221,9 @@ export default function CandidateReportActions({ projectId, candidateId, candida
           <Typography>
             Buy the MiRo report for <strong>{candidateName}</strong>? This uses 1 credit. The PDF
             will download straight away.
+            {hasV11Reports
+              ? " The enhanced and leadership reports are included and can be downloaded afterwards."
+              : ""}
           </Typography>
         </DialogContent>
         <DialogActions>

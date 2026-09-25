@@ -3,6 +3,7 @@ import { z } from "zod";
 import { Prisma } from "@prisma/client";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { decodeCandidateId, decodeProjectId, encodeCandidateId } from "@/lib/public-ids";
 
 const UPDATE_CANDIDATE_SCHEMA = z.object({
   firstName: z.string().min(1).max(50),
@@ -68,8 +69,8 @@ async function getRouteContext(params) {
   }
 
   const userId = parseBigIntParam(session.user.id);
-  const projectId = parseBigIntParam(routeParams.id);
-  const candidateId = parseBigIntParam(routeParams.candidateId);
+  const projectId = decodeProjectId(routeParams.id);
+  const candidateId = decodeCandidateId(routeParams.candidateId);
 
   if (!userId || !projectId || !candidateId) {
     return { error: NextResponse.json({ error: "Invalid route params" }, { status: 400 }) };
@@ -95,7 +96,7 @@ export async function GET(_request, { params }) {
   }
 
   return NextResponse.json({
-    id: candidate.id.toString(),
+    id: encodeCandidateId(candidate.id),
     firstName: candidate.firstName,
     lastName: candidate.lastName,
     email: candidate.email,

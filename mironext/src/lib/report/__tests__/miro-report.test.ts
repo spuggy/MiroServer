@@ -1,4 +1,4 @@
-// TypeScript port of MiroReport10Test (and MiroReport11Test#testGenerateFreeReport).
+// TypeScript port of MiroReport10Test, MiroReport11Test and MiroReportLeadership01Test.
 //
 // The PDF tests launch headless Chromium via Playwright. They write the output
 // to test-results/report/ so it can be inspected by eye.
@@ -11,14 +11,22 @@ import {
   calculateScores,
   closePdfRenderer,
   DEFAULT_THRESHOLDS,
+  availableReportTypes,
+  generateReport,
+  generateReportLeadership,
   generateReportV10,
   generateReportV11,
+  getExtroIntroSectionId,
+  getJungianLegend,
   getMbtiType,
+  getPopulationChartValues,
+  MBTI_TYPES,
   getReportPageList,
   getPractitionerLines,
   getReportFileName,
   MiroReportError,
   SURVEY_ID_MIRO_V10,
+  SURVEY_ID_MIRO_V11,
   type ReportInput,
 } from "../index";
 import { renderPieSvg, computePieAngles } from "../pie-chart";
@@ -207,4 +215,107 @@ describe("MiroReport11Test#testGenerateFreeReport (V10 part)", () => {
     expect(report.html).toContain(">ISFP<");
     expect(report.html).toContain("Thanks for trying MiRo");
   }, 120_000);
+});
+
+describe("V11 page selection and extras", () => {
+  const scores = () => v11Input().scores; // O E D A, introvert
+
+  it("adds the pivot-function page and the working-styles pages", () => {
+    expect(getExtroIntroSectionId(scores())).toMatch(/^F[LMH]IN$/);
+    const pages = getReportPageList(scores(), thresholds, SURVEY_ID_MIRO_V11, false);
+    expect(pages).toHaveLength(17);
+    expect(pages[7]).toEqual([getExtroIntroSectionId(scores())]);
+    expect(pages.slice(-5)).toEqual([["U5"], ["barChartPage1"], ["barChartPage2"], ["U6"], ["U7"]]);
+  });
+
+  it("lists the ISFP Jungian function stack, pivot annotated with its strength", () => {
+    const legend = getJungianLegend("ISFP", scores());
+    expect(legend.map((l) => l.image)).toEqual(["Fi.png", "Se.png", "Ne.png", "Ti.png"]);
+    expect(legend[0].text).toBe("Pivot Point (Dominant Function)");
+    expect(legend[0].subText).toMatch(
+      /^Introverted Feeling \((Slightly|Moderately|Strongly) expressed\)$/,
+    );
+    expect(legend[1].subText).toBe("Extroverted Sensing");
+  });
+
+  it("computes the working-style bar values like addMiroPopulationChartValues", () => {
+    const s = scores();
+    const vars = getPopulationChartValues(s);
+    const letter = (l: string) => Math.trunc(s.results[s.resultLetters.indexOf(l as never)] * 1.15);
+    const pct = (v: number) => Math.trunc((v / 66) * 100);
+    expect(vars.leadershipBar_1lv).toBe(String(pct(letter("D"))));
+    expect(vars.leadershipBar_1rv).toBe(String(pct(letter("O"))));
+    expect(vars.leadershipBar_3lv).toBe(String(Math.trunc((s.intraValue / 20) * 100)));
+    expect(vars.manChangeBar_3lv).toBe(vars.leadershipBar_3rv);
+    expect(Object.keys(vars)).toHaveLength(24);
+  });
+
+  it("offers the enhanced and leadership reports only for V11 responses", () => {
+    expect(availableReportTypes(SURVEY_ID_MIRO_V10)).toEqual(["v10"]);
+    expect(availableReportTypes(SURVEY_ID_MIRO_V11)).toEqual(["v10", "v11", "leadership"]);
+  });
+});
+
+describe("MiroReport11Test", () => {
+  it("testGenerate: V10 is 14 pages and V11 is 17 pages", async () => {
+    const v10 = await generateReportV10(v11Input(), { year: 2026 });
+    expect(v10.pageCount).toBe(14);
+
+    const report = await generateReportV11(v11Input(), { year: 2026 });
+    expect(report.fileName).toBe("Roger_Test_1_v11");
+    save(`${report.fileName}.pdf`, report.pdf!);
+    save(`${report.fileName}.html`, report.html);
+
+    expect(report.pageCount).toBe(17);
+    expect(await countPdfPages(report.pdf!)).toBe(17);
+    expect(report.html).toContain("YOUR MIRO ENHANCED REPORT");
+    expect(report.html).toContain("Working Styles");
+    expect(report.html).toContain("Jungian functions");
+    expect(report.html).toContain('class="bar-chart"');
+  }, 120_000);
+
+  it("testGenerateFreeReport: the free V11 report is also 17 pages", async () => {
+    const report = await generateReportV11(v11Input(true), { year: 2026 });
+    save(`${report.fileName}_free.pdf`, report.pdf!);
+    expect(report.pageCount).toBe(17);
+    expect(report.html).toContain("Thanks for trying MiRo");
+  }, 120_000);
+});
+
+describe("MiroReportLeadership01Test", () => {
+  it("testGenerateLeadership01: produces a 6 page PDF", async () => {
+    const report = await generateReport("leadership", v11Input(), { year: 2026 });
+    expect(report.fileName).toBe("Roger_Test_1_lship");
+    save(`${report.fileName}.pdf`, report.pdf!);
+    save(`${report.fileName}.html`, report.html);
+
+    expect(report.pages).toEqual([
+      ["homepage"],
+      ["ISFP_1"],
+      ["ISFP_2"],
+      ["ISFP_3"],
+      ["ISFP_4"],
+      ["ISFP_5"],
+    ]);
+    expect(report.pageCount).toBe(6);
+    expect(await countPdfPages(report.pdf!)).toBe(6);
+    expect(report.html).toContain("LEADERSHIP STYLE REPORT");
+    expect(report.html).not.toContain(`<ol class="toc-list">`);
+  }, 120_000);
+
+  it("testGenerateAllPermsLeadership: every MBTI variant is 6 pages", async () => {
+    const counts: Record<string, number> = {};
+    for (const mbtiType of MBTI_TYPES) {
+      const report = await generateReportLeadership(v11Input(), { year: 2026, mbtiType });
+      save(`Roger_${mbtiType}_Test_1_lship.pdf`, report.pdf!);
+      counts[mbtiType] = report.pageCount!;
+    }
+    expect(counts).toEqual(Object.fromEntries(MBTI_TYPES.map((t) => [t, 6])));
+  }, 300_000);
+
+  it("rejects V10 responses", async () => {
+    await expect(generateReportLeadership(v10Input())).rejects.toThrow(
+      /does not support version v11/,
+    );
+  });
 });

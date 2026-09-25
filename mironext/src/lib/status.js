@@ -1,5 +1,5 @@
 const CANDIDATE_STATUS_MAP = {
-  0: "Invite not sent",
+  0: "Not invited",
   10: "Invite sent",
   20: "Assessment complete",
   30: "Ready to buy",

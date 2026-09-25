@@ -6,7 +6,13 @@ import { prisma } from "@/lib/prisma";
 import { allocateLegacyId } from "@/lib/server/ids";
 import { loadSurvey } from "@/lib/assessment/service";
 import { toSurveyDefinition } from "@/lib/assessment/survey";
-import { calculateScores, DEFAULT_THRESHOLDS, generateReportV10 } from "@/lib/report";
+import {
+  availableReportTypes,
+  calculateScores,
+  DEFAULT_THRESHOLDS,
+  generateReport,
+  type ReportType,
+} from "@/lib/report";
 import { CANDIDATE_STATUS, TRANSACTION_OK_BUY_REPORT } from "./status";
 
 export class ReportAccessError extends Error {
@@ -93,9 +99,14 @@ export async function buyReport(ref: CandidateRef): Promise<{ creditBalance: num
   });
 }
 
-/** Generates the purchased report PDF on demand. */
+/**
+ * Generates a purchased report PDF on demand. One purchase covers every report
+ * the response supports: the standard report, plus the enhanced and leadership
+ * reports for V11 assessments (the legacy cron generated all of them).
+ */
 export async function buildCandidateReport(
   ref: CandidateRef,
+  type: ReportType = "v10",
 ): Promise<{ pdf: Buffer; fileName: string }> {
   const candidate = await loadOwnedCandidate(ref);
   if (candidate.status !== CANDIDATE_STATUS.DOWNLOAD_REPORT || !candidate.responseId) {
@@ -104,7 +115,14 @@ export async function buildCandidateReport(
 
   const response = await prisma.response.findUnique({
     where: { id: candidate.responseId },
-    select: { id: true, surveyId: true, answerTrail: true, questionTrail: true },
+    select: {
+      id: true,
+      surveyId: true,
+      answerTrail: true,
+      questionTrail: true,
+      createdOn: true,
+      updatedAt: true,
+    },
   });
   if (!response?.surveyId || !response.answerTrail || !response.questionTrail) {
     throw new ReportAccessError("The assessment response is missing", 404);
@@ -128,16 +146,19 @@ export async function buildCandidateReport(
   });
   if (!practitioner) throw new ReportAccessError("Practitioner not found", 404);
 
-  const survey = await loadSurvey(response.surveyId);
   const surveyId = Number(response.surveyId);
+  if (!availableReportTypes(surveyId).includes(type)) {
+    throw new ReportAccessError("This report needs the enhanced (V11) assessment", 409);
+  }
+
+  const survey = await loadSurvey(response.surveyId);
   const scores = calculateScores(
     toSurveyDefinition(survey),
     { surveyId, answerTrail: response.answerTrail, questionTrail: response.questionTrail },
     { testOffset: DEFAULT_THRESHOLDS.testOffset },
   );
 
-  // The legacy cron produced the V10 report for every response (V11 extras aside).
-  const report = await generateReportV10({
+  const report = await generateReport(type, {
     testId: Number(response.id),
     surveyId,
     candidate: { firstName: candidate.firstName, lastName: candidate.lastName },
@@ -158,6 +179,7 @@ export async function buildCandidateReport(
     scores,
     thresholds: DEFAULT_THRESHOLDS,
     isFreeReport: candidate.userType === "FREE",
+    completedOn: response.updatedAt ?? response.createdOn,
   });
 
   return { pdf: report.pdf!, fileName: `${report.fileName}.pdf` };

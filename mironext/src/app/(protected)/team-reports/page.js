@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { Stack, Typography } from "@mui/material";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { encodeProjectId } from "@/lib/public-ids";
 import TeamReportBuilder from "@/components/team-reports/TeamReportBuilder";
 
 export default async function TeamReportsPage() {
@@ -26,7 +27,7 @@ export default async function TeamReportsPage() {
   });
 
   const serializedProjects = projects.map((project) => ({
-    id: project.id.toString(),
+    id: encodeProjectId(project.id),
     projectTitle: project.projectTitle,
     projectDescription: project.projectDescription,
     updatedAt: project.updatedAt?.toISOString() || null,
