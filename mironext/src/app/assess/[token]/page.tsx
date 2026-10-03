@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { Box, Container, Paper, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import AssessmentRunner from "@/components/assessment/AssessmentRunner";
-import { getPractitionerForProject, loadSurvey, resolveInvite } from "@/lib/assessment/service";
+import {
+  getPractitionerForProject,
+  hasGivenConsent,
+  loadSurvey,
+  resolveInvite,
+} from "@/lib/assessment/service";
 import { toPublicQuestions, type Progress } from "@/lib/assessment/survey";
 
 export const dynamic = "force-dynamic";
@@ -98,6 +103,8 @@ export default async function AssessPage({ params }: Params) {
       <AssessmentRunner
         token={token}
         firstName={resolved.invite.candidate.firstName}
+        lastName={resolved.invite.candidate.lastName}
+        consentGiven={hasGivenConsent(resolved.invite.candidate)}
         questions={toPublicQuestions(survey)}
         initialProgress={(resolved.invite.progress as Progress) ?? {}}
         practitioner={
