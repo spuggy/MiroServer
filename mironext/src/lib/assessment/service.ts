@@ -24,6 +24,9 @@ import {
 const DEFAULT_SURVEY_ID = 5; // MiRo Survey 1.1 (V11)
 const INVITE_TTL_DAYS = Number(process.env.INVITE_TTL_DAYS || 30);
 
+export const CONSENT_REQUIRED =
+  "To proceed you must confirm you agree to the use of your personal data in line with our privacy statement.";
+
 const surveyCache = new Map<string, Promise<LoadedSurvey>>();
 
 export function loadSurvey(surveyId: bigint | number): Promise<LoadedSurvey> {
@@ -206,6 +209,7 @@ export async function resolveInvite(token: string) {
           status: true,
           userType: true,
           deleted: true,
+          gdpr: true,
         },
       },
     },
@@ -233,12 +237,39 @@ export async function getPractitionerForProject(projectId: bigint | null) {
   return project?.createdBy ?? null;
 }
 
+/** Has the candidate confirmed their name and agreed to the privacy statement? */
+export function hasGivenConsent(candidate: { gdpr: string | null }): boolean {
+  return isEnabledFlagValue(candidate.gdpr);
+}
+
+/**
+ * Legacy userConfirm step: before starting, the candidate checks their name and
+ * agrees to the use of their personal data in line with the privacy statement.
+ */
+export async function confirmCandidate(
+  token: string,
+  details: { firstName: string; lastName: string },
+): Promise<void> {
+  const invite = await requireOpenInvite(token);
+  await prisma.appUser.update({
+    where: { id: invite.candidate.id },
+    // "Y" matches the legacy Hibernate yes_no mapping of app_user.gdpr.
+    data: {
+      firstName: details.firstName,
+      lastName: details.lastName,
+      gdpr: "Y",
+      updatedAt: new Date(),
+    },
+  });
+}
+
 export async function saveAnswer(
   token: string,
   questionId: string,
   answer: unknown,
 ): Promise<{ answered: number }> {
   const invite = await requireOpenInvite(token);
+  if (!hasGivenConsent(invite.candidate)) throw new AssessmentError(CONSENT_REQUIRED);
   const survey = await loadSurvey(invite.surveyId);
   const question = survey.questions.find((q) => q.id === questionId);
   if (!question) throw new AssessmentError("Unknown question");
@@ -267,6 +298,7 @@ export type CompleteResult = { status: "completed" } | { status: "uninterpretabl
 
 export async function completeAssessment(token: string): Promise<CompleteResult> {
   const invite = await requireOpenInvite(token);
+  if (!hasGivenConsent(invite.candidate)) throw new AssessmentError(CONSENT_REQUIRED);
   const survey = await loadSurvey(invite.surveyId);
   const progress = (invite.progress as Progress) ?? {};
   if (!isComplete(survey, progress)) {

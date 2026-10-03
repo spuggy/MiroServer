@@ -6,10 +6,14 @@ import {
   Box,
   Button,
   ButtonBase,
+  Checkbox,
   CircularProgress,
+  FormControlLabel,
   LinearProgress,
+  Link,
   Paper,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -24,6 +28,9 @@ import type {
 interface Props {
   token: string;
   firstName: string;
+  lastName: string;
+  /** Name confirmed and privacy statement agreed (app_user.gdpr). */
+  consentGiven: boolean;
   questions: PublicQuestion[];
   initialProgress: Progress;
   practitioner: { name: string; email: string; phone: string | null } | null;
@@ -31,6 +38,8 @@ interface Props {
 
 type Stage = "intro" | "questions" | "submitting" | "done" | "retake";
 type SaveState = "idle" | "saving" | "saved" | "error";
+
+const PRIVACY_URL = "https://miro-assessment.com/privacy.html";
 
 const MIRO_GRADIENT =
   "linear-gradient(90deg,#d53f35 0 25%,#fbc726 25% 50%,#43add5 50% 75%,#42b449 75% 100%)";
@@ -49,11 +58,18 @@ function isAnswered(q: PublicQuestion, progress: Progress) {
 
 export default function AssessmentRunner({
   token,
-  firstName,
+  firstName: initialFirstName,
+  lastName: initialLastName,
+  consentGiven: initialConsent,
   questions,
   initialProgress,
   practitioner,
 }: Props) {
+  const [firstName, setFirstName] = useState(initialFirstName);
+  const [lastName, setLastName] = useState(initialLastName);
+  const [gdpr, setGdpr] = useState(false);
+  const [consentGiven, setConsentGiven] = useState(initialConsent);
+  const [confirming, setConfirming] = useState(false);
   const [progress, setProgress] = useState<Progress>(initialProgress);
   const [stage, setStage] = useState<Stage>("intro");
   const [index, setIndex] = useState(() => {
@@ -123,6 +139,36 @@ export default function AssessmentRunner({
     );
   }
 
+  // Legacy userConfirm step: check the name and agree to the privacy statement
+  // before the first question.
+  async function confirmAndStart() {
+    if (consentGiven) {
+      setStage("questions");
+      return;
+    }
+    setConfirming(true);
+    setError("");
+    try {
+      const response = await fetch(`/api/assess/${token}/confirm`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName: firstName.trim(), lastName: lastName.trim(), gdpr }),
+      });
+      if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error(body.error || "We couldn't save your details.");
+      }
+      setFirstName(firstName.trim());
+      setLastName(lastName.trim());
+      setConsentGiven(true);
+      setStage("questions");
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setConfirming(false);
+    }
+  }
+
   async function postComplete() {
     const response = await fetch(`/api/assess/${token}/complete`, { method: "POST" });
     const body = await response.json().catch(() => ({}));
@@ -189,7 +235,7 @@ export default function AssessmentRunner({
             </Alert>
           ) : null}
           <Typography variant="h4" component="h1" sx={{ color: "text.primary", letterSpacing: 0 }}>
-            {stage === "retake" ? "Let's try that again" : `Hello ${firstName}`}
+            {stage === "retake" ? "Let's try that again" : `Hello ${initialFirstName}`}
           </Typography>
           <Typography>
             You&apos;re about to complete the MiRo Behavioural Mode Assessment. There are{" "}
@@ -216,8 +262,55 @@ export default function AssessmentRunner({
               you.
             </Typography>
           ) : null}
+          {consentGiven ? null : (
+            <Stack spacing={2} sx={{ pt: 1 }}>
+              <Typography sx={{ fontWeight: 600 }}>
+                Have we got your name right? You can edit it here.
+              </Typography>
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                <TextField
+                  label="First name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  slotProps={{ htmlInput: { maxLength: 50 } }}
+                  required
+                  fullWidth
+                />
+                <TextField
+                  label="Last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  slotProps={{ htmlInput: { maxLength: 50 } }}
+                  required
+                  fullWidth
+                />
+              </Stack>
+              <Typography>
+                Your privacy and data security is important to us. Before you continue to the
+                assessment, please tick the box to say that you agree to the use of your personal
+                data in line with our{" "}
+                <Link href={PRIVACY_URL} target="_blank" rel="noopener noreferrer">
+                  privacy statement
+                </Link>
+                .
+              </Typography>
+              <FormControlLabel
+                control={<Checkbox checked={gdpr} onChange={(e) => setGdpr(e.target.checked)} />}
+                label="I agree to use of my personal data in line with MiRo's privacy statement."
+              />
+            </Stack>
+          )}
+          {error ? <Alert severity="error">{error}</Alert> : null}
           <Box>
-            <Button size="large" variant="contained" onClick={() => setStage("questions")}>
+            <Button
+              size="large"
+              variant="contained"
+              onClick={confirmAndStart}
+              disabled={
+                confirming || (!consentGiven && (!gdpr || !firstName.trim() || !lastName.trim()))
+              }
+              startIcon={confirming ? <CircularProgress size={16} color="inherit" /> : undefined}
+            >
               {started && stage === "intro"
                 ? `Continue (${answeredCount} of ${answerable.length} done)`
                 : "Start my assessment"}
